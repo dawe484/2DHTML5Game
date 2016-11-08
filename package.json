@@ -1,0 +1,22 @@
+{
+  "name": "mygame_v0.002",
+  "version": "0.0.2",
+  "private": true,
+  "description": "",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dawe484/mygame_v002.git"
+  },
+  "author": "David Krénar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dawe484/mygame_v002/issues"
+  },
+  "homepage": "https://github.com/dawe484/mygame_v002#readme"
+}
