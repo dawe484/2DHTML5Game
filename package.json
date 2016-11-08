@@ -1,5 +1,5 @@
 {
-  "name": "mygame_v0.002",
+  "name": "2DHTML5Game",
   "version": "0.0.2",
   "private": true,
   "description": "",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dawe484/mygame_v002.git"
+    "url": "git+https://github.com/dawe484/2DHTML5Game.git"
   },
   "author": "David Krénar",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dawe484/mygame_v002/issues"
+    "url": "https://github.com/dawe484/2DHTML5Game/issues"
   },
-  "homepage": "https://github.com/dawe484/mygame_v002#readme"
+  "homepage": "https://github.com/dawe484/2DHTML5Game#readme"
 }
