@@ -1,23 +1,42 @@
-Hello World
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Viewport meta tag is critical to have mobile browsers
+    actually report correct screen dimensions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Game</title>
+    <link rel="stylesheet" type="text/css" href="/client/css/style.css">
+  </head>
+  <body>
 
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-<script>
-  var socket = io();
+    <canvas id="ctx" width="300" height="300" style="border: 1px solid #000000;"></canvas>
 
-  var random = Math.random();
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+      var ctx = document.getElementById("ctx").getContext("2d");
+      ctx.font = '30px Arial';
+      var socket = io();
 
-  var happy = function() {
-    socket.emit('happy', {
-      reason: 'its my birthday' + random
-    });
-  }
+      // var random = Math.random();
 
-  socket.on('serverMsg', function(data){
-    console.log(data.msg);
-  });
+      // var happy = function() {
+      //   socket.emit('happy', {
+      //     reason: 'its my birthday' + random
+      //   });
+      /// }
 
-</script>
+      socket.on('serverMsg', (data) => {
+        console.log(data.msg);
+        // ctx.clearRect(0, 0, 500, 500);
+        // ctx.fillText('Msg', data);
+      });
 
-<button type="button" class="btn btn-primary" onclick="happy()">
-  Happy
-</button>
+    </script>
+
+    <!-- <button type="button" class="btn btn-primary" onclick="happy()">
+      Happy
+    </button> -->
+
+  </body>
+</html>
