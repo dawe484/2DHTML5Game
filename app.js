@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 app.use('/client', express.static(__dirname + '/client'));
 
 serv.listen(2000);
-console.log("Server started.");
+console.log("Server running...");
 
 var SOCKET_LIST = {}; // list of connected players
 
@@ -19,11 +19,11 @@ io.sockets.on('connection', (socket) => {
   socket.id = Math.random();
   SOCKET_LIST[socket.id] = socket;
 
+  // console.log('socket connection');
+
   socket.on('disconnect', () => {
     delete SOCKET_LIST[socket.id];
   });
-
-  // console.log('socket connection');
 
   // socket.on('happy', function(data) {
   //   console.log(`happy because ${data.reason}`);
