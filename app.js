@@ -4,6 +4,8 @@ let express = require('express');
 let app = express();
 let serv = require('http').Server(app);
 
+let colors = require('colors/safe');
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/client/index.html');
 });
@@ -15,6 +17,7 @@ console.log("Server running...");
 
 let SOCKET_LIST = {};
 let PLAYER_LIST = {}; // list of connected players
+let onlinePlayers = 0;
 /*
 let Player = (id) => {
   let self = {
@@ -40,6 +43,19 @@ class Player {
   constructor(id) {
     this.id = id;
   }
+
+  onConnect(socket) {
+    onlinePlayers++;
+    console.log(colors.green('>'), 'Player:', socket.id, 'connected.',
+      colors.yellow('\tOnline:'), onlinePlayers, 'players.');
+  }
+
+  onDisconnect(socket) {
+    onlinePlayers--;
+    console.log(colors.red('<'), 'Player:', socket.id, 'disconnected.',
+      colors.yellow('\tOnline:'), onlinePlayers, 'players.');
+  }
+
 }
 
 let io = require('socket.io')(serv, {});
@@ -52,12 +68,13 @@ io.sockets.on('connection', (socket) => {
   //Player.onConnect(socket);
   let player = new Player(socket.id);
   PLAYER_LIST[socket.id] = player;
-  console.log('player', player, 'connect');
+  player.onConnect(socket);
+  //console.log('>', socket.id, 'connected.');
 
   socket.on('disconnect', () => {
     delete SOCKET_LIST[socket.id];
     delete PLAYER_LIST[socket.id];
-    console.log('player', player, 'disconnect');
+    player.onDisconnect(socket);
     // Player.onDisconnect(socket);
     //player.onDisconnect(socket.id);
   });
