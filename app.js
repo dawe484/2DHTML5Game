@@ -55,7 +55,32 @@ class Player {
     console.log(colors.red('<'), 'Player:', socket.id, 'disconnected.',
       colors.yellow('\tOnline:'), onlinePlayers, 'players.');
   }
+}
 
+let USERS = {
+  // username::password
+  'david':'david',
+  'tomas':'tomas',
+  'admin':'admin'
+}
+
+let isValidPassword = (data, callback) => {
+  setTimeout(() => {
+    callback(USERS[data.username] === data.password);
+  }, 10);
+}
+
+let isUsernameTaken = (data, callback) => {
+  setTimeout(() => {
+    callback(USERS[data.username]);
+  }, 10);
+}
+
+let addUser = (data, callback) => {
+  setTimeout(() => {
+    USERS[data.username] = data.password;
+    callback();
+  }, 10);
 }
 
 let io = require('socket.io')(serv, {});
@@ -64,12 +89,34 @@ io.sockets.on('connection', (socket) => {
   SOCKET_LIST[socket.id] = socket;
   // console.log('socket connection:');
 
-  // PLAYER_LIST[socket.id] = player;
-  //Player.onConnect(socket);
   let player = new Player(socket.id);
-  PLAYER_LIST[socket.id] = player;
-  player.onConnect(socket);
-  //console.log('>', socket.id, 'connected.');
+
+  socket.on('signIn', (data) => {
+    isValidPassword(data, (res) => {
+      if (res) {
+        // PLAYER_LIST[socket.id] = player;
+        // Player.onConnect(socket);
+        //let player = new Player(socket.id);
+        PLAYER_LIST[socket.id] = player;
+        player.onConnect(socket);
+        socket.emit('signInResponse', {success:true});
+      } else {
+        socket.emit('signInResponse', {success:false});
+      }
+    });
+  });
+
+  socket.on('signUp', (data) => {
+    isUsernameTaken(data, (res) => {
+      if (res) {
+        socket.emit('signUpResponse', {success:false});
+      } else {
+        addUser(data, () => {
+          socket.emit('signUpResponse', {success:true});
+        });
+      }
+    });
+  });
 
   socket.on('disconnect', () => {
     delete SOCKET_LIST[socket.id];
