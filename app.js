@@ -1,5 +1,8 @@
 'use strict'
 
+let mongojs = require("mongojs");
+let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
+
 let express = require('express');
 let app = express();
 let serv = require('http').Server(app);
@@ -65,22 +68,32 @@ let USERS = {
 }
 
 let isValidPassword = (data, callback) => {
-  setTimeout(() => {
-    callback(USERS[data.username] === data.password);
-  }, 10);
+  db.account.find({username:data.username, password:data.password}, (error, result) => {
+    // find every account in db
+    if (result.length > 0) // check if in db are any accounts
+      callback(true);
+    else
+      callback(false);
+    // callback(USERS[data.username] === data.password);
+  });
 }
 
 let isUsernameTaken = (data, callback) => {
-  setTimeout(() => {
-    callback(USERS[data.username]);
-  }, 10);
+  db.account.find({username:data.username}, (error, result) => {
+  // find every account with username in db and check if the username exists in db
+  if (result.length > 0)
+    callback(true);
+  else
+    callback(false);
+    //callback(USERS[data.username]);
+  });
 }
 
 let addUser = (data, callback) => {
-  setTimeout(() => {
-    USERS[data.username] = data.password;
+  // insert a new user into the db
+  db.account.insert({username:data.username, password:data.password}, (error) => {
     callback();
-  }, 10);
+  });
 }
 
 let io = require('socket.io')(serv, {});
