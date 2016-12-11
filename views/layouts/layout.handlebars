@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Viewport meta tag is critical to have mobile browsers
+    actually report correct screen dimensions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>MAGICAL HEROES</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">MAGICAL HEROES</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <!--<li class="active"><a href="#">GAME INFO</a></li>-->
+            <li><a href="#news">News</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Game Info<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Beginner Guides</a></li>
+                <li><a href="#">Heroes</a></li>
+                <li><a href="#">Items</a></li>
+                <li><a href="#">Book Pages</a></li>
+                <li><a href="#">Game Modes</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Media<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Artwork</a></li>
+                <li><a href="#">Screenshots</a></li>
+                <li><a href="#">Videos</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Community<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Feedback & Discussions</a></li>
+                <li><a href="#">Bug Report</a></li>
+              </ul>
+            </li>
+            <li><a href="#support">Support</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/accounts/signup">Sign Up</a></li>
+            <li><a href="/accounts/login">Log In</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+
+      {{{body}}}
+
+      <footer class="footer">
+        <p>&copy; 2016 Magical Heroes</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
