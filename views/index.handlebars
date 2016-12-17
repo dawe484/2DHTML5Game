@@ -1,5 +1,5 @@
 <!-- Carousel -->
-<div id="indexCarousel" class="carousel slide" data-ride="carousel">
+<div id="indexCarousel" class="carousel fade" data-ride="carousel">
   <!-- Indicators -->
 	<ol class="carousel-indicators">
     <li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
@@ -29,30 +29,155 @@
 </div>
 <!-- end Carousel -->
 
-<div class="jumbotron">
+<div class="jumbotron" id="jumbo">
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			<div class="jumbotron" id="jumbotron8">
-				<div class="navbar-inverse" id="news-header">
-					Christmas Event
-				</div>
-				<div class="news-date">
-					<p>from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</p>
-				</div>
-				<div class="row featurette">
-					<!-- <div class="row"> -->
-						<div class="col-xs-6 col-sm-4 col-md-4">
-							<a href=""><img class="img-responsive img-thumbnail" src="img/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
+			<!-- First Content -->
+			<div class="content">
+				<div class="jumbotron" id="jumbotron8">
+					<div class="navbar-inverse" id="news-header">
+						New Website Design
+					</div>
+					<div class="news-date">
+						<p>from <cite>The Magical Heroes Team</cite> today at 11:09 AM</p>
+					</div>
+					<div class="row featurette">
+						<div class="col-sm-4 col-md-4">
+							<div class="content-image">
+								<a href=""><img class="img-responsive img-thumbnail" src="img/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
+							</div>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8">
-							<p id="news-content">Dear Heroes,<br>
-								Winter is inevitably coming! On December 1st., Frosty the Snowman will make a return visit you and your heroes...
-								He brings with him new quests for the winter season.
-								Each day of the event brings a new challenge you can complete in ...
-							</p>
+							<div class="content">
+								<p id="news-content-heading">Dear Heroes,</p>
+								<p id="news-content">
+									We are glad to announce that new website design is finished now!<br>
+									We hope you like it.<br>
+									Thanks for support and have fun.
+								</p>
+								<p id="news-read-more"><a href="">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></p>
+							</div>
 						</div>
 					</div>
-					<!-- <a href=""><p id="news_read-more">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></p></a> -->
+				</div>
+			</div> <!-- End First Content -->
+			<!-- Second Content -->
+			<div class="content">
+				<div class="jumbotron" id="jumbotron8">
+					<div class="navbar-inverse" id="news-header">
+						Christmas Event
+					</div>
+					<div class="news-date">
+						<p>from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</p>
+					</div>
+					<div class="row featurette">
+						<div class="col-sm-4 col-md-4">
+							<div class="content-image">
+								<a href=""><img class="img-responsive img-thumbnail" src="img/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-8 col-md-8">
+							<div class="content">
+								<p id="news-content-heading">Dear Heroes,</p>
+								<p id="news-content">
+									Winter is inevitably coming! On December 1st., Frosty the Snowman will make a return visit you and your heroes...
+									He brings with him new quests for the winter season.
+									Each day of the event brings a new challenge you can complete in ...
+								</p>
+								<p id="news-read-more"><a href="">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- End Second Content -->
+			<!-- Third Content -->
+			<div class="content">
+				<div class="jumbotron" id="jumbotron8">
+					<div class="navbar-inverse" id="news-header">
+						Patch 0.0.161204_2141
+					</div>
+					<div class="news-date">
+						<p>from <cite>The Magical Heroes Team</cite> on 11/29/16 at 3:03 PM</p>
+					</div>
+					<div class="row featurette">
+						<div class="col-sm-4 col-md-4">
+							<div class="content-image">
+								<a href=""><img class="img-responsive img-thumbnail" src="img/thumbnails/leona_thumb.jpg" alt="Leona"></a>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-8 col-md-8">
+							<div class="content">
+								<p id="news-content-heading">Dear Heroes,</p>
+								<p id="news-content">
+									Winter is inevitably coming! On December 1st., Frosty the Snowman will make a return visit you and your heroes...
+									He brings with him new quests for the winter season.
+									Each day of the event brings a new challenge you can complete in ...
+								</p>
+								<p id="news-read-more"><a href="">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- End Third Content -->
+		</div>
+		<!-- Login Content -->
+		<div class="col-xs-6 col-md-4">
+			<div class="content-login">
+				<div class="jumbotron" id="jumbotron4">
+					<div class="navbar-inverse" id="news-header">
+						LOGIN
+					</div>
+					<div class="my-form">
+						<form>
+							<div class="form-group">
+								<div class="col-md-12">
+						    	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+								</div>
+						  </div>
+						  <div class="form-group">
+								<div class="col-md-12">
+								<!-- <div class="input-group"> -->
+						    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+		        			<!-- <button class="btn btn-danger" type="button">Press!</button> -->
+								</div>
+								<!-- <div class="col-md-1">
+									<div class="col-question-sign">
+										<a href=""><img src="img/icons/question-mark.svg" class="question-sign"></a>
+									</div>
+								</div> -->
+						  </div>
+						  <div class="squaredThree">
+								<input type="checkbox" name="optionsRadios" id="checkOther" value="other" ng-model="formData.other"
+								ng-true-value="'other'" ng-init="formData.other='other'" checked="">
+									<label for="checkOther"></label>
+							</div>
+					    <label class="label-checkbox">
+					    	Remember me
+					    </label>
+							<label class="reset-password">
+								<a href="">Forgot your password?</a>
+							</label>
+							<div class="col-md-12">
+								<a href="" type="button" class="btn btn-default">Login</a>
+								<!-- <button type="button" class="btn btn-default" id="btn-default-signup">Sign up</button> -->
+							</div>
+							<hr>
+							<div class="div-hr">
+								<!-- <a href=""><img src="img/icons/facebook-icon.svg" class="facebook"></a>
+								<a href=""><img src="img/icons/google-plus-icon.svg" class="google-plus"></a>
+								<a href=""><img src="img/icons/twitter-icon.svg" class="twitter"></a> -->
+								<a href="" class="btn btn-block btn-social btn-facebook">
+									<span class="fa fa-facebook"></span>Sign in with Facebook
+								</a>
+								<a href="" class="btn btn-block btn-social btn-google">
+							    <span class="fa fa-google-plus"></span>Sign in with Google
+							  </a>
+								<a href="" class="btn btn-block btn-social btn-twitter">
+							    <span class="fa fa-twitter"></span>Sign in with Twitter
+							  </a>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -62,28 +187,29 @@
 
 
 <!-- Main component for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="row">
+<!-- <div class="jumbotron">
+  <div class="row"> -->
 		<!-- First Content -->
-    <div class="col-xs-12 col-sm-6 col-md-8">
+    <!-- <div class="col-xs-12 col-sm-6 col-md-8">
       <div class="jumbotron" id="jumbotron8">
         <div class="navbar-inverse" id="patchHeader">
           Christmas Event
         </div>
 				<div class="img-responsive">
 					<a href=""><img src="img/thumbnails/crystal_thumb.jpg" alt="Crystal" class="img-thumbnail"></a>
-					<footer id="news_date">from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</footer>
-					<p id="news_content">Dear Heroes,<br>
-Winter is inevitably coming! On December 1st., Frosty the Snowman will make a return visit you and your heroes...
-He brings with him new quests for the winter season.
-Each day of the event brings a new challenge you can complete in ...
+					<footer id="news-date">from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</footer>
+					<p id="news-content-heading">Hello players,</p>
+					<p id="news-content">
+						The update to Patch 0.0.161204_2141 will take place on December 16th.
+						There will be a short period of downtime during the update, we apologize for this little inconvenience.
+						For the detailed description of the changes, please check out the full ...
 					</p>
-					<a href=""><p id="news_read-more">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></p></a>
+					<a href=""><p id="news-read-more">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></p></a>
 				</div>
       </div>
-    </div>
+    </div> -->
 		<!-- Add the extra clearfix for only the required viewport -->
-  	<div class="clearfix visible-xs-block"></div>
+  	<!-- <div class="clearfix visible-xs-block"></div>
     <div class="col-xs-6 col-md-4">
       <div class="jumbotron" id="jumbotron4">
 				<div class="navbar-inverse" id="patchHeader">
@@ -93,13 +219,13 @@ Each day of the event brings a new challenge you can complete in ...
 					<div class="form-group">
 				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
 				  </div>
-				  <div class="form-group">
+				  <div class="form-group"> -->
 						<!-- <div class="input-group"> -->
-				    	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				    	<!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
         			<!-- <button class="btn btn-danger" type="button">Press!</button> -->
-							<a href=""><img src="img/icons/question-mark.svg" class="question-sign"></a>
+							<!-- <a href=""><img src="img/icons/question-mark.svg" class="question-sign"></a> -->
 						<!-- </div> -->
-				  </div>
+				  <!-- </div>
 				  <div class="checkbox">
 				    <label>
 				      <input type="checkbox" checked="">Remember me
@@ -116,9 +242,9 @@ Each day of the event brings a new challenge you can complete in ...
 					</div>
 				</form>
       </div>
-    </div>
+    </div> -->
 		<!-- Second Content -->
-		<div class="col-xs-12 col-sm-6 col-md-8">
+		<!-- <div class="col-xs-12 col-sm-6 col-md-8">
       <div class="jumbotron" id="jumbotron8">
         <div class="navbar-inverse" id="patchHeader">
           Patch 0.0.161204_2141
@@ -136,4 +262,4 @@ For the detailed description of the changes, please check out the full ...
       </div>
     </div>
   </div>
-</div>
+</div> -->
