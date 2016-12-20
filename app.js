@@ -4,20 +4,27 @@ let colors = require('colors/safe');
 
 let express = require('express');
 let path = require('path');
-let cookieParser = require('cookie-parser');
+// let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let expressHandlebars = require('express-handlebars');
 let expressValidator = require('express-validator');
 let flash = require('connect-flash');
 let expressSession = require('express-session');
 let passport = require('passport');
-let localStrategy = require('passport-local').Strategy;
+let LocalStrategy = require('passport-local').Strategy;
+let mongo = require('mongodb');
+let mongoose = require('mongoose');
+let helmet = require('helmet');
 
-let mongojs = require("mongojs");
-let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+
+let db = mongoose.connection;
+
+// let mongojs = require('mongojs');
+// let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
 
 let routes = require('./routes/index');
-let accounts = require('./routes/accounts');
+let users = require('./routes/users');
 
 // Init App
 let app = express();
@@ -31,7 +38,10 @@ app.set('view engine', 'handlebars');
 // BodyParser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+// app.use(cookieParser());
+// Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work.
+// This module now directly reads and writes cookies on req/res. Using cookie-parser may result in issues
+// if the secret is not the same between this module and cookie-parser.
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
@@ -39,8 +49,10 @@ app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, 
 // Express Session
 app.use(expressSession({
   secret: 'secret',
-  saveUninitialized: true,
-  resave: true
+  saveUninitialized: false,
+  resave: false,
+  //cookie: { maxAge: 3600000 } // one hour
+  // cookie: { maxAge: 60000  } // one minute
 }));
 
 // Passport Init
@@ -69,16 +81,20 @@ app.use(expressValidator({
 // Connect Flash
 app.use(flash());
 
+// Helmet
+app.use(helmet());
+
 // Global Variables
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 });
 
 app.use('/', routes);
-app.use('/accounts', accounts);
+app.use('/users', users);
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/client/index.html');
@@ -89,8 +105,19 @@ app.use('/accounts', accounts);
 // Set Port
 app.set('port', (process.env.PORT || 2000));
 app.listen(app.get('port'), () => {
-  console.log(colors.green("Server running... ") + "on port " + app.get('port') + "; press " + colors.red("Ctrl-C") + " to terminate.");
+  console.log(colors.green("Server running... ") + "on port " + app.get('port')
+    + "; press " + colors.red("Ctrl-C") + " to terminate.");
+
+  // db.on('error', (err) => {
+  //     console.log('database error', err)
+  // })
+  //
+  // db.on('connect', () => {
+  //     console.log('database connected')
+  // })
+
 });
+
 //serv.listen(2000);
 //console.log("Server running...");
 
@@ -146,7 +173,7 @@ app.listen(app.get('port'), () => {
 // let isValidPassword = (data, callback) => {
 //   db.account.find({username:data.username, password:data.password}, (error, result) => {
 //     // find every account in db
-//     if (result.length > 0) // check if in db are any accounts
+//     if (result.length > 0) // check if in db are any users
 //       callback(true);
 //     else
 //       callback(false);

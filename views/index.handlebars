@@ -27,7 +27,7 @@
     </div>
 	</div>
 </div>
-<!-- end Carousel -->
+<!-- End Carousel -->
 
 <div class="jumbotron" id="jumbo">
 	<div class="row">
@@ -35,9 +35,11 @@
 			<!-- First Content -->
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
-					<div class="navbar-inverse" id="news-header">
-						New Website Design
-					</div>
+					<a href="">
+						<div class="navbar-inverse" id="news-header">
+							New Website Design
+						</div>
+					</a>
 					<div class="news-date">
 						<p>from <cite>The Magical Heroes Team</cite> today at 11:09 AM</p>
 					</div>
@@ -60,13 +62,16 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- End First Content -->
+			</div>
+			<!-- End First Content -->
 			<!-- Second Content -->
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
-					<div class="navbar-inverse" id="news-header">
-						Christmas Event
-					</div>
+					<a href="">
+						<div class="navbar-inverse" id="news-header">
+							Christmas Event
+						</div>
+					</a>
 					<div class="news-date">
 						<p>from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</p>
 					</div>
@@ -89,13 +94,16 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- End Second Content -->
+			</div>
+			<!-- End Second Content -->
 			<!-- Third Content -->
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
-					<div class="navbar-inverse" id="news-header">
-						Patch 0.0.161204_2141
-					</div>
+					<a href="">
+						<div class="navbar-inverse" id="news-header">
+							Patch 0.0.161204_2141
+						</div>
+					</a>
 					<div class="news-date">
 						<p>from <cite>The Magical Heroes Team</cite> on 11/29/16 at 3:03 PM</p>
 					</div>
@@ -118,22 +126,29 @@
 						</div>
 					</div>
 				</div>
-			</div> <!-- End Third Content -->
+			</div>
+			<!-- End Third Content -->
 		</div>
 		<!-- Login Content -->
 		<div class="col-xs-6 col-md-4">
 			<div class="content-login">
 				<div class="jumbotron" id="jumbotron4">
-					<div class="navbar-inverse" id="news-header">
+					<div class="navbar-inverse" id="login-header">
 						LOGIN
 					</div>
 					<div class="my-form">
-						<form>
+						{{#if user}}
+						<div>
+
+						</div>
+						{{else}}
+						<form method="post" action="/users/login">
 							<div class="form-group">
 								<div class="col-md-12">
 									<div class="input-group margin-bottom-sm">
-									  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i></span>
-									  <input class="form-control" type="email" placeholder="Email address">
+									  <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+									  <!-- <input class="form-control" type="username" placeholder="Username"> -->
+										<input type="text" class="form-control" name="username" placeholder="Username">
 									</div>
 						    	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"> -->
 								</div>
@@ -142,7 +157,8 @@
 								<div class="col-md-12">
 									<div class="input-group">
 									  <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
-									  <input class="form-control" type="password" placeholder="Password">
+									  <!-- <input class="form-control" type="password" placeholder="Password"> -->
+										<input type="password" class="form-control" name="password" placeholder="Password">
 									</div>
 						    	<!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
 								</div>
@@ -164,7 +180,8 @@
 								<a href="">Forgot your password?</a>
 							</label>
 							<div class="col-md-12">
-								<a href="" type="button" class="btn btn-default">Login</a>
+								<!-- <a href="" type="button" class="btn btn-default">Login</a> -->
+								<button type="submit" class="btn btn-default">Login</button>
 								<!-- <button type="button" class="btn btn-default" id="btn-default-signup">Sign up</button> -->
 							</div>
 							<hr>
@@ -183,10 +200,12 @@
 							  </a>
 							</div>
 						</form>
+						{{/if}}
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- End Login Content -->
 	</div>
 </div>
 

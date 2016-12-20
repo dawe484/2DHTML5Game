@@ -32,45 +32,70 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <!--<li class="active"><a href="#">GAME INFO</a></li>-->
-            <li><a href="#news">News</a></li>
+            <li><a href="">News</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Game Info<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Beginner Guides</a></li>
-                <li><a href="#">Heroes</a></li>
-                <li><a href="#">Items</a></li>
-                <li><a href="#">Book Pages</a></li>
-                <li><a href="#">Game Modes</a></li>
+                <li><a href="">Beginner Guides</a></li>
+                <li><a href="">Heroes</a></li>
+                <li><a href="">Items</a></li>
+                <li><a href="">Book Pages</a></li>
+                <li><a href="">Game Modes</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Media<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Artwork</a></li>
-                <li><a href="#">Screenshots</a></li>
-                <li><a href="#">Videos</a></li>
+                <li><a href="">Artwork</a></li>
+                <li><a href="">Screenshots</a></li>
+                <li><a href="">Videos</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Community<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Feedback & Discussions</a></li>
-                <li><a href="#">Bug Report</a></li>
+                <li><a href="">Feedback & Discussions</a></li>
+                <li><a href="">Bug Report</a></li>
               </ul>
             </li>
-            <li><a href="#support">Support</a></li>
+            <li><a href="">Support</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/accounts/signup">Sign Up</a></li>
-            <li><a href="/accounts/login">Login</a></li>
+            {{#if user}}
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">
+                {{user.username}}
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/users/logout">Logout</a></li>
+              </ul>
+            </li>
+            {{else}}
+            <li><a href="/users/signup">Sign Up</a></li>
+            <li><a href="/users/login">Login</a></li>
+            {{/if}}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="container">
+
+      {{#if success_msg}}
+        <div class="alert alert-success">{{success_msg}}</div>
+      {{/if}}
+
+      {{#if error_msg}}
+        <div class="alert alert-danger">{{error_msg}}</div>
+      {{/if}}
+
+      {{#if error}}
+        <div class="alert alert-danger">{{error}}</div>
+      {{/if}}
 
       {{{body}}}
 
