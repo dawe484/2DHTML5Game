@@ -130,18 +130,32 @@
 			<!-- End Third Content -->
 		</div>
 		<!-- Login Content -->
-		<div class="col-xs-6 col-md-4">
+		<div class="col-xs-12 col-md-4">
+
+			{{#if user}}
+
 			<div class="content-login">
 				<div class="jumbotron" id="jumbotron4">
 					<div class="navbar-inverse" id="login-header">
 						LOGIN
 					</div>
 					<div class="my-form">
-						{{#if user}}
-						<div>
-
+						<div class="col-md-12" id="logged">
+							<a href="" type="button" class="btn btn-default">Play now</a>
 						</div>
-						{{else}}
+						<label></label>
+					</div>
+				</div>
+			</div>
+
+			{{else}}
+
+			<div class="content-login">
+				<div class="jumbotron" id="jumbotron4">
+					<div class="navbar-inverse" id="login-header">
+						LOGIN
+					</div>
+					<div class="my-form">
 						<form method="post" action="/users/login">
 							<div class="form-group">
 								<div class="col-md-12">
@@ -200,10 +214,12 @@
 							  </a>
 							</div>
 						</form>
-						{{/if}}
 					</div>
 				</div>
 			</div>
+
+		{{/if}}
+
 		</div>
 		<!-- End Login Content -->
 	</div>

@@ -30,6 +30,9 @@ let users = require('./routes/users');
 let app = express();
 //let serv = require('http').Server(app);
 
+// Set session expiryDate
+let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
@@ -53,6 +56,12 @@ app.use(expressSession({
   resave: false,
   //cookie: { maxAge: 3600000 } // one hour
   // cookie: { maxAge: 60000  } // one minute
+  cookie: {
+    //secure: true,
+    httpOnly: true,
+    path: '/',
+    maxAge: expiryDate
+  }
 }));
 
 // Passport Init

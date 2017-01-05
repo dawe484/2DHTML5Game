@@ -14,6 +14,7 @@ body {
   padding-top: 70px;
   background-color: #010d18;
   font-family: "Gill Sans W04", GillSans, "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 15px;
   /*font-family: BeaufortLoL,"Times New Roman";*/
 }
 
@@ -30,7 +31,7 @@ footer {
 
 .navbar-inverse .navbar-nav>li>a, .navbar-right>a {
   color: #c9aa71;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   line-height: normal;
   padding-top: 20px;
@@ -61,6 +62,10 @@ footer {
 
 .navbar-brand {
   padding-top: 17px;
+}
+
+.dropdown-menu {
+  font-size: 15px;
 }
 
 .carousel-indicators {
@@ -132,13 +137,6 @@ footer {
     overflow: hidden;
 }
 
-.container .jumbotron {
-  /*margin-top: 14px;*/
-  /*margin-bottom: -30px;*/
-  /*border: 8px solid #262626;*/
-  /*box-shadow: 0 0 0 2px #080808 inset;*/
-}
-
 #jumbo {
   margin-top: 20px;
 }
@@ -187,7 +185,7 @@ footer {
   margin-right: -42px;*/
 }
 
-#news-header {
+#news-header, #login-header {
   color: #c9aa71;
   font-size: 20px;
   font-weight: 700;
@@ -224,7 +222,7 @@ a:focus, a:hover {
 }
 
 .news-date p {
-  font-size: 14px;
+  font-size: 15px;
   padding-left: 20px;
   padding-top: 10px;
   color: #fff;
@@ -262,18 +260,22 @@ cite {
 }
 
 .col-xs-12, .col-sm-8 .col-md-8 {
-  padding-right: 0px;
-  padding-left: 0px;
+  padding-right: 20px;
+  padding-left: 20px;
   padding-top: 20px;
 }
 
 .content {
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.content p {
+  font-size: 15px;
 }
 
 .content-login {
-  padding-right: 20px;
+  padding-right: 0px;
 }
 
 /*.col-sm-8 {
@@ -281,19 +283,19 @@ cite {
 }*/
 
 #news-content-heading {
-  font-size: 14px;
+  /*font-size: 15px;*/
   padding-top: 16px;
   color: #fff;
 }
 
 #news-content {
-  font-size: 14px;
+  /*font-size: 15px;*/
   padding-top: 10px;
   color: #fff;
 }
 
 #news-read-more {
-  font-size: 14px;
+  /*font-size: 15px;*/
   font-weight: 700;
   padding-top: 10px;
   text-align-last: right;
@@ -349,23 +351,17 @@ cite {
   padding-bottom: 14px;
 }
 
+#logged {
+  padding-top: 44px;
+}
+
 .form-control:focus {
   /*border-color: #080808;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(8, 8, 8, 0.9);*/
 }
 
-#login-header {
-  color: #c9aa71;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: normal;
-  text-shadow: 2px 1px #000000;
-  text-transform: uppercase;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 0px;
+.input-group {
+  height: 38px;
 }
 
 .input-group-addon {
@@ -373,6 +369,10 @@ cite {
   color: #fff;
   background-color: #0687bf;
   border: 0px;
+}
+
+.input-group .form-control {
+  height: 38px;
 }
 
 #exampleInputPassword1 {
@@ -404,7 +404,7 @@ cite {
   height: 7px;
   position: absolute;
   top: 4px;
-  left: 22px;
+  left: 2px;
   border: 3px solid #0687bf;
   border-top: none;
   border-right: none;
@@ -420,6 +420,7 @@ cite {
 
 .squaredThree input[type=checkbox] {
   visibility: hidden;
+  margin-left: -20px;
 }
 
 .squaredThree input[type=checkbox]:checked + label:after {
@@ -434,18 +435,20 @@ cite {
 }
 
 .label-checkbox {
-  padding-left: 8px;
+  padding-left: 6px;
   padding-right: 12px;
   color: #fff;
   font-weight: normal;
 }
 
 .reset-password {
-  padding-left: 8px;
+  padding-left: 25px;
 }
 
 label {
   margin-bottom: 7px;
+  display: inline-flex;
+  font-weight: normal;
 }
 
 .btn-default {
@@ -459,6 +462,8 @@ label {
   background-color: #0687bf;
   color: #fff;
   width: 100%;
+  height: 38px;
+  font-size: 18px;
   border-radius: 0px;
   border: 0px !important;
   text-transform: uppercase;
@@ -473,31 +478,33 @@ label {
   box-shadow: none;
 }
 
-.btn-login-signup {
-  /*margin-left: -47px;
-  margin-right: -47px;*/
-}
-
-#btn-default-login {
-  /*margin-left: -47px;*/
-}
-
-#btn-default-signup {
-  /*margin-top: -69px;
-  margin-left: 122px;*/
-}
-
 .btn-social {
   /*text-transform: uppercase;*/
   border-radius: 0px;
   border: 0px;
   text-align: center;
-  text-indent: -30px;
+  height: 38px;
+  font-size: 18px;
+  /*text-indent: -30px;*/
 }
 
 .btn-social>:first-child {
-  width: 40px;
+  width: 44px;
   text-indent: 4px;
+  line-height: 40px;
+}
+
+.fa.fa-facebook {
+  text-indent: 12px;
+  line-height: 52px;
+}
+
+.fa {
+  font-size: 22px;
+}
+
+.fa-fw {
+  width: 18px;
 }
 
 hr {
@@ -510,6 +517,143 @@ hr {
   padding-top: 14px;
 }
 
+.btn-block+.btn-block {
+  margin-top: 10px;
+}
+
 .btn-twitter {
   margin-bottom: 10px;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+.breadcrumbs {
+  padding-left: 10px;
+  padding-bottom: 6px;
+  color: #c9aa71;
+  text-shadow: 2px 1px #000000;
+  /*text-transform: uppercase;*/
+}
+
+.breadcrumbs>h2 {
+  font-weight: 700;
+}
+
+.breadcrumb {
+  padding: 0;
+  margin-bottom: 20px;
+  background-color: #010d18;
+  border-radius: 0;
+}
+
+.breadcrumbs-a, .breadcrumb>li, .breadcrumb>li+li:before {
+  color: #c9aa71;
+  text-shadow: 2px 1px #000000;
+  /*text-transform: uppercase;*/
+  font-size: 18px;
+}
+
+.breadcrumb>li+li:before {
+  padding-left: 4px;
+  padding-right: 2px;
+}
+
+.breadcrumbs-a:focus, .breadcrumbs-a:hover {
+  color: #f1e6d0;
+}
+
+.account {
+  padding: 25px 25px 100px;
+}
+
+.account h3 {
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.account .well {
+  padding: 26px 0 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 0;
+}
+
+.col-md-5 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.account .social-login dt, .account .account-login dt {
+  padding: 5px 0;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.account .social-login dd a {
+  margin: 10px 0;
+}
+
+.account .input-group {
+  margin: 10px 0;
+}
+
+.label-checkbox-black {
+  padding-left: 8px;
+  /*padding-right: 12px;*/
+  color: #000;
+  font-weight: normal;
+}
+
+/*.handle {
+  margin-left: -17px;
+}*/
+
+.squaredThree.signup-squaredThree {
+  padding-left: 0;
+}
+
+.squaredThree.signup-squaredThree input[type=checkbox] {
+  margin-left: -17px;
+}
+
+.squaredThree.signup-squaredThree label {
+  background-color: #0687bf;
+}
+
+.squaredThree.signup-squaredThree label:after {
+  border-color: #fff;
+  left: 2px;
+}
+
+.account .account-login dd.handle p {
+  display: block;
+  margin-left: 21px;
+  margin-top: -6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #000;
+}
+
+.account .account-login dd.handle p a, .account .grayscale a {
+  /*font-size: 15px;*/
+  color: #0687bf;
+}
+
+.account .account-login dd.handle p a:hover, .account .grayscale a:hover {
+  color: #2bc3fb;
+}
+
+.account .grayscale {
+  padding: 15px 16px;
+  background-color: #072340;
+  text-align: center;
+  color: #fff;
+}
+
+#handle {
+  padding-top: 8px;
+  padding-bottom: 12px;
 }
