@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
   <body>
-    <!-- Fixed navbar -->
+    {{!-- Fixed navbar --}}
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -65,6 +65,11 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {{#if user}}
+            <li>
+              <a href="" title="Notifications">
+                <i class="fa fa-bell" aria-hidden="true"> 0</i>
+              </a>
+            </li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">
@@ -72,6 +77,8 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
+                <li><a href="">My Profile</a></li>
+                <li><a href="">Settings</a></li>
                 <li><a href="/users/logout">Logout</a></li>
               </ul>
             </li>
@@ -80,7 +87,8 @@
             <li><a href="/users/login">Login</a></li>
             {{/if}}
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
+        {{!-- End class="navbar-collapse collapse" --}}
       </div>
     </nav>
     <div class="container">
@@ -103,7 +111,8 @@
         <p>&copy; 2016 Magical Heroes</p>
       </footer>
 
-    </div> <!-- /container -->
+    </div>
+    {{!-- End class="container" --}}
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

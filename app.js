@@ -12,9 +12,11 @@ let flash = require('connect-flash');
 let expressSession = require('express-session');
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
-let mongo = require('mongodb');
+// let mongo = require('mongodb');
 let mongoose = require('mongoose');
 let helmet = require('helmet');
+//let winston = require('winston'); // for logging in future
+let morgan = require('morgan');
 
 mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
@@ -25,13 +27,20 @@ let db = mongoose.connection;
 
 let routes = require('./routes/index');
 let users = require('./routes/users');
+let play = require('./routes/play');
 
 // Init App
 let app = express();
 //let serv = require('http').Server(app);
 
+// Helmet
+app.use(helmet());
+
+// Morgan
+app.use(morgan('dev'));
+
 // Set session expiryDate
-let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+//let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
@@ -41,32 +50,6 @@ app.set('view engine', 'handlebars');
 // BodyParser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(cookieParser());
-// Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work.
-// This module now directly reads and writes cookies on req/res. Using cookie-parser may result in issues
-// if the secret is not the same between this module and cookie-parser.
-
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
-
-// Express Session
-app.use(expressSession({
-  secret: 'secret',
-  saveUninitialized: false,
-  resave: false,
-  //cookie: { maxAge: 3600000 } // one hour
-  // cookie: { maxAge: 60000  } // one minute
-  cookie: {
-    //secure: true,
-    httpOnly: true,
-    path: '/',
-    maxAge: expiryDate
-  }
-}));
-
-// Passport Init
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Express Validator
 app.use(expressValidator({
@@ -87,11 +70,35 @@ app.use(expressValidator({
   }
 }));
 
+// app.use(cookieParser());
+// Since version 1.5.0, the cookie-parser middleware no longer needs to be used for this module to work.
+// This module now directly reads and writes cookies on req/res. Using cookie-parser may result in issues
+// if the secret is not the same between this module and cookie-parser.
+
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
+
+// Express Session - save in memory - look in api doc for Compatible Session Stores
+app.use(expressSession({
+  secret: 'secret',
+  saveUninitialized: false,
+  resave: false,
+  //cookie: { maxAge: 3600000 } // one hour
+  // cookie: { maxAge: 60000  } // one minute
+  cookie: {
+    //secure: true,
+    httpOnly: true,
+    path: '/',
+    //maxAge: expiryDate
+  }
+}));
+
+// Passport Init
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Connect Flash
 app.use(flash());
-
-// Helmet
-app.use(helmet());
 
 // Global Variables
 app.use((req, res, next) => {
@@ -104,6 +111,7 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/play', play);
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/client/index.html');

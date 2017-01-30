@@ -12,7 +12,7 @@ let bcrypt = require('bcryptjs');
 // })
 
 // User Schema
-var UserSchema = mongoose.Schema({
+let UserSchema = mongoose.Schema({
   // firstName: {
   //   type: String
   // },
@@ -28,10 +28,15 @@ var UserSchema = mongoose.Schema({
   },
   email: {
     type: String
+  },
+  signup_time: {
+    type: Date, default: Date.now
   }
-});
+},
+  {versionKey: '_documentVersion'}
+);
 
-var User = module.exports = mongoose.model('User', UserSchema);
+let User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.createUser = (newUser, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
@@ -44,7 +49,7 @@ module.exports.createUser = (newUser, callback) => {
 }
 
 module.exports.getUserByUsername = (username, callback) => {
-  var query = {username: username};
+  let query = {username: username};
   User.findOne(query, callback);
 }
 

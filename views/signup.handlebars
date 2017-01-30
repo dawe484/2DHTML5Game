@@ -3,7 +3,7 @@
     <div class="col-xs-1">
     </div>
     <div class="col-xs-10">
-      <!-- Breadcrumbs -->
+      {{!-- Breadcrumbs --}}
       <div class="breadcrumbs">
         <h2>Sign Up</h2>
         <ol class="breadcrumb">
@@ -13,7 +13,7 @@
           <li>Sign Up</li>
         </ol>
       </div>
-      <!-- End Breadcrumbs -->
+      {{!-- End Breadcrumbs --}}
     </div>
     <div class="col-xs-1">
     </div>
@@ -79,6 +79,12 @@
       										<input type="password" class="form-control" name="password2" placeholder="Comfirm Password">
       									</div>
                       </dd>
+                      <dd>
+                        <div class="input-group">
+      									  <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+      										<input type="email" class="form-control" name="email" placeholder="Email">
+      									</div>
+                      </dd>
                       <dd class="handle">
                         <div class="squaredThree signup-squaredThree">
           								<input type="checkbox" name="optionsRadios" id="checkOther" value="other" ng-model="formData.other"
@@ -109,7 +115,7 @@
                   </form>
                 </div>
               </div>
-              <!-- End div class"well"  -->
+              {{!-- End div class"well clearfix" --}}
               <div class="grayscale clearfix">
                 "Already have an account?"
                 <a href="/users/login">Log in here!</a>

@@ -1,11 +1,12 @@
-<!-- Carousel -->
+{{!-- Carousel --}}
 <div id="indexCarousel" class="carousel fade" data-ride="carousel">
-  <!-- Indicators -->
+  {{!-- Indicators --}}
 	<ol class="carousel-indicators">
     <li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#indexCarousel" data-slide-to="1" ></li>
     <li data-target="#indexCarousel" data-slide-to="2" ></li>
 	</ol>
+	{{!-- End Indicators --}}
 	<div class="carousel-inner" role="listbox">
     <div class="item active">
       <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_0','lc'])">
@@ -15,24 +16,24 @@
     </div>
     <div class="item ">
       <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_1','rom'])">
-        <span class="img-holder third-slide" style="background-image:url('http://img1.loygame.com/attach/2016_09_14_07_54_10_951_banner-1680-380-ROM.png')">
+        <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_02.jpg')">
         </span>
       </a>
     </div>
     <div class="item ">
       <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_2','soh'])">
-        <span class="img-holder third-slide" style="background-image:url('http://img1.loygame.com/attach/2016_09_28_05_33_32_760_SOH-S20-1680-380.jpg')">
+        <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_03.jpg')">
         </span>
       </a>
     </div>
 	</div>
 </div>
-<!-- End Carousel -->
+{{!-- End Carousel --}}
 
 <div class="jumbotron" id="jumbo">
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
-			<!-- First Content -->
+			{{!-- First Content --}}
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
 					<a href="">
@@ -63,8 +64,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- End First Content -->
-			<!-- Second Content -->
+			{{!-- End First Content --}}
+			{{!-- Second Content --}}
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
 					<a href="">
@@ -95,8 +96,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- End Second Content -->
-			<!-- Third Content -->
+			{{!-- End Second Content --}}
+			{{!-- Third Content --}}
 			<div class="content">
 				<div class="jumbotron" id="jumbotron8">
 					<a href="">
@@ -127,9 +128,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- End Third Content -->
+			{{!-- End Third Content --}}
 		</div>
-		<!-- Login Content -->
+		{{!-- Login Content --}}
 		<div class="col-xs-12 col-md-4">
 
 			{{#if user}}
@@ -141,7 +142,7 @@
 					</div>
 					<div class="my-form">
 						<div class="col-md-12" id="logged">
-							<a href="" type="button" class="btn btn-default">Play now</a>
+							<a href="/play" type="button" class="btn btn-default">Play now</a>
 						</div>
 						<label></label>
 					</div>
@@ -221,7 +222,7 @@
 		{{/if}}
 
 		</div>
-		<!-- End Login Content -->
+		{{!-- End Login Content --}}
 	</div>
 </div>
 

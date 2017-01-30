@@ -68,6 +68,12 @@ footer {
   font-size: 15px;
 }
 
+.navbar-nav>li>a>i {
+  /*padding-top: 16px;*/
+  font-size: 18px;
+  color: #444;
+}
+
 .carousel-indicators {
   position: absolute;
   bottom: 6px;
