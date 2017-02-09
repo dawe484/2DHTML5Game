@@ -4,12 +4,16 @@ let express = require('express');
 let router = express.Router();
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
+let csrf = require('csurf');
+
+let csrfProtection = csrf();
+router.use(csrfProtection);
 
 let User = require('../models/user');
 
 // Get Homepage
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
 });
 
 // Local Strategy for Login to Local Database
@@ -39,6 +43,7 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+// Deserialize
 passport.deserializeUser((id, done) => {
   User.getUserById(id, (err, user) => {
     done(err, user);

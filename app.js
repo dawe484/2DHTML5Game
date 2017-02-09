@@ -18,20 +18,40 @@ let helmet = require('helmet');
 //let winston = require('winston'); // for logging in future
 let morgan = require('morgan');
 
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
-
-let db = mongoose.connection;
-
-// let mongojs = require('mongojs');
-// let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
-
 let routes = require('./routes/index');
 let users = require('./routes/users');
+let news = require('./routes/news');
+let beginnerGuides = require('./routes/beginnerGuides');
+let heroes = require('./routes/heroes');
+let items = require('./routes/items');
+let bookPages = require('./routes/bookPages');
+let gameModes = require('./routes/gameModes');
+let artwork = require('./routes/artwork');
+let screenshots = require('./routes/screenshots');
+let videos = require('./routes/videos');
+let feedback = require('./routes/feedback');
+let bugReport = require('./routes/bugReport');
+let support = require('./routes/support');
 let play = require('./routes/play');
 
 // Init App
 let app = express();
 //let serv = require('http').Server(app);
+
+// Set connection to the database
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+
+// require('./config/passport');
+
+// View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
+app.set('view engine', 'handlebars');
+
+// let db = mongoose.connection;
+
+// let mongojs = require('mongojs');
+// let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
 
 // Helmet
 app.use(helmet());
@@ -41,11 +61,6 @@ app.use(morgan('dev'));
 
 // Set session expiryDate
 //let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-
-// View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
-app.set('view engine', 'handlebars');
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -75,9 +90,6 @@ app.use(expressValidator({
 // This module now directly reads and writes cookies on req/res. Using cookie-parser may result in issues
 // if the secret is not the same between this module and cookie-parser.
 
-// Set Static Folder
-app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
-
 // Express Session - save in memory - look in api doc for Compatible Session Stores
 app.use(expressSession({
   secret: 'secret',
@@ -93,12 +105,33 @@ app.use(expressSession({
   }
 }));
 
+// Connect Flash
+app.use(flash());
+
 // Passport Init
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Connect Flash
-app.use(flash());
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
+
+// // Catch 404 and forward to Error Handler
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
+//
+// // Error Handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 // Global Variables
 app.use((req, res, next) => {
@@ -109,9 +142,21 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', routes);
 app.use('/users', users);
+app.use('/news', news);
+app.use('/beginner-guides', beginnerGuides);
+app.use('/heroes', heroes);
+app.use('/items', items);
+app.use('/book-pages', bookPages);
+app.use('/game-modes', gameModes);
+app.use('/artwork', artwork);
+app.use('/screenshots', screenshots);
+app.use('/videos', videos);
+app.use('/feedback', feedback);
+app.use('/bug-report', bugReport);
+app.use('/support', support);
 app.use('/play', play);
+app.use('/', routes);
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/client/index.html');

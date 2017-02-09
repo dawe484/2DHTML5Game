@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="176"
-   height="176.00002"
-   viewBox="0 0 176 176.00002"
+   width="70mm"
+   height="30mm"
+   viewBox="0 0 248.03149 106.29921"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="icon_avatar.svg">
+   sodipodi:docname="bar_avatar.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,13 +25,13 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.376678"
-     inkscape:cx="51.278156"
-     inkscape:cy="80.960663"
+     inkscape:zoom="1.2677323"
+     inkscape:cx="10.125016"
+     inkscape:cy="25.262579"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer3"
      showgrid="false"
-     units="px"
+     units="mm"
      showborder="false"
      inkscape:window-width="1366"
      inkscape:window-height="705"
@@ -41,9 +41,7 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0"
-     inkscape:snap-bbox="true"
-     inkscape:snap-bbox-midpoints="true" />
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -57,30 +55,19 @@
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:label="Vrstva 1"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-7.6293945e-6,-833.84252)">
-    <ellipse
-       style="opacity:1;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:2.0247581;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path4136"
-       cx="88"
-       cy="921.84253"
-       rx="88"
-       ry="88.000008" />
-    <circle
-       r="72"
-       cy="921.84253"
-       cx="88"
-       id="circle4138"
-       style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-  </g>
-  <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Vrstva 2"
-     style="display:none"
-     transform="translate(-7.6293945e-6,-1.1653817)">
+     style="display:inline"
+     transform="translate(-177.16537,-35.433074)">
+    <rect
+       style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:3.12749219;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4140"
+       width="248.03149"
+       height="106.29921"
+       x="177.16536"
+       y="-974.40942"
+       transform="matrix(1,0,0,-1,0,-832.67714)" />
     <rect
        transform="matrix(1,0,0,-1,0,-832.67714)"
        y="-907.08667"
@@ -105,21 +92,20 @@
        width="106.29921"
        id="rect4146"
        style="opacity:1;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:3.12749219;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Vrstva 3"
+     style="display:none"
+     transform="translate(-177.16537,-35.433075)">
     <rect
-       style="opacity:1;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:3.12749219;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="display:inline;opacity:1;fill:#00ff00;fill-opacity:1;stroke:none;stroke-width:3.12749219;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4148"
        width="70.866142"
        height="70.866142"
        x="53.149605"
        y="-1052.3622"
-       transform="matrix(1,0,0,-1,0,-832.67714)" />
-    <rect
-       style="opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:3.12749219;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4140"
-       width="248.03149"
-       height="106.29921"
-       x="177.16536"
-       y="-974.40942"
-       transform="matrix(1,0,0,-1,0,-832.67714)" />
+       transform="matrix(1,0,0,-1,7.6293945e-6,-832.67714)" />
   </g>
 </svg>

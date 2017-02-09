@@ -19,7 +19,7 @@ let router = express.Router();
 
 // Play Game
 router.get('/', (req, res) => {
-  res.render('play', {layout: false});
+  res.render('play', {layout: false , title: 'Magical Heroes'});
 });
 
 module.exports = router;

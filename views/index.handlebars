@@ -9,19 +9,19 @@
 	{{!-- End Indicators --}}
 	<div class="carousel-inner" role="listbox">
     <div class="item active">
-      <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_0','lc'])">
+      <a href="#" onclick="">
         <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_01.jpg')">
         </span>
       </a>
     </div>
     <div class="item ">
-      <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_1','rom'])">
+      <a href="#" onclick="">
         <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_02.jpg')">
         </span>
       </a>
     </div>
     <div class="item ">
-      <a href="#" onclick="_gaq.push(['_trackEvent','v2_home','banner_2','soh'])">
+      <a href="#" onclick="">
         <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_03.jpg')">
         </span>
       </a>
@@ -196,6 +196,7 @@
 							</label>
 							<div class="col-md-12">
 								<!-- <a href="" type="button" class="btn btn-default">Login</a> -->
+								<input type="hidden" name="_csrf" value="{{ csrfToken }}" />
 								<button type="submit" class="btn btn-default">Login</button>
 								<!-- <button type="button" class="btn btn-default" id="btn-default-signup">Sign up</button> -->
 							</div>

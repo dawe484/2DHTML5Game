@@ -4,6 +4,10 @@ let express = require('express');
 let router = express.Router();
 let passport = require('passport');
 let LocalStrategy = require('passport-local').Strategy;
+let csrf = require('csurf');
+
+let csrfProtection = csrf();
+router.use(csrfProtection);
 
 // let mongojs = require('mongojs');
 // let bcrypt = require('bcryptjs');
@@ -14,12 +18,12 @@ let User = require('../models/user');
 
 // Sign Up
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
 });
 
 // Log In
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
 });
 
 // Sign Up User
@@ -93,6 +97,7 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+// Deserialize
 passport.deserializeUser((id, done) => {
   User.getUserById(id, (err, user) => {
     done(err, user);

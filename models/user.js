@@ -4,6 +4,7 @@
 // let mongojs = require('mongojs');
 let mongoose = require('mongoose');
 let bcrypt = require('bcryptjs');
+let Schema = mongoose.Schema;
 
 // mongojs will use existing connection of that instance instead of creating a new one
 //let db = mongojs('localhost:27017/2DHTML5Game', ['account']);

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>MAGICAL HEROES</title>
+    <title>{{title}}</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.css" />
@@ -27,41 +27,41 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">MAGICAL HEROES</a>
+          <a class="navbar-brand" href="/">{{title}}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <!--<li class="active"><a href="#">GAME INFO</a></li>-->
-            <li><a href="">News</a></li>
+            <li><a href="/news">News</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Game Info<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="">Beginner Guides</a></li>
-                <li><a href="">Heroes</a></li>
-                <li><a href="">Items</a></li>
-                <li><a href="">Book Pages</a></li>
-                <li><a href="">Game Modes</a></li>
+                <li><a href="/beginner-guides">Beginner Guides</a></li>
+                <li><a href="/heroes">Heroes</a></li>
+                <li><a href="/items">Items</a></li>
+                <li><a href="/book-pages">Book Pages</a></li>
+                <li><a href="/game-modes">Game Modes</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Media<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="">Artwork</a></li>
-                <li><a href="">Screenshots</a></li>
-                <li><a href="">Videos</a></li>
+                <li><a href="/artwork">Artwork</a></li>
+                <li><a href="/screenshots">Screenshots</a></li>
+                <li><a href="/videos">Videos</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                 aria-expanded="false">Community<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="">Feedback & Discussions</a></li>
-                <li><a href="">Bug Report</a></li>
+                <li><a href="/feedback">Feedback & Discussions</a></li>
+                <li><a href="/bug-report">Bug Report</a></li>
               </ul>
             </li>
-            <li><a href="">Support</a></li>
+            <li><a href="/support">Support</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {{#if user}}
