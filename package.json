@@ -1,6 +1,6 @@
 {
   "name": "2DHTML5Game",
-  "version": "0.0.2",
+  "version": "0.0.51",
   "private": true,
   "description": "",
   "main": "app.js",
@@ -21,7 +21,6 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
-    "pixi.js": "^4.3.4",
     "winston": "^2.3.0"
   },
   "devDependencies": {},

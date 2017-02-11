@@ -16,6 +16,18 @@ router.get('/', (req, res) => {
   res.render('index', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
 });
 
+// Serialize
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize
+passport.deserializeUser((id, done) => {
+  User.getUserById(id, (err, user) => {
+    done(err, user);
+  });
+});
+
 // Local Strategy for Login to Local Database
 passport.use(new LocalStrategy(
   (username, password, done) => {
@@ -37,18 +49,6 @@ passport.use(new LocalStrategy(
     });
   }
 ));
-
-// Serialize
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-// Deserialize
-passport.deserializeUser((id, done) => {
-  User.getUserById(id, (err, user) => {
-    done(err, user);
-  });
-});
 
 // Login User
 router.post('/login',

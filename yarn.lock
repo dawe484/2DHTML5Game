@@ -61,10 +61,6 @@ bcryptjs:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.3.0.tgz#5826900cfef7abaf3425c72e4d464de509b8c2ec"
 
-bit-twiddle@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bit-twiddle/-/bit-twiddle-1.0.2.tgz#0c6c1fabe2b23d17173d9a61b7b7093eb9e1769e"
-
 bluebird@^3.4.0:
   version "3.4.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.6.tgz#01da8d821d87813d158967e743d5fe6c62cf8c0f"
@@ -252,10 +248,6 @@ dont-sniff-mimetype@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dont-sniff-mimetype/-/dont-sniff-mimetype-1.0.0.tgz#5932890dc9f4e2f19e5eb02a20026e5e5efc8f58"
 
-earcut@^2.0.7:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.1.1.tgz#157634e5f3ebb42224e475016e86a5b6ce556b45"
-
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -275,10 +267,6 @@ escape-html@~1.0.3:
 etag@~1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.7.0.tgz#03d30b5f67dd6e632d2945d30d6652731a34d5d8"
-
-eventemitter3@^2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-2.0.2.tgz#20ce4891909ce9f35b088c94fab40e2c96f473ac"
 
 express:
   version "4.14.0"
@@ -502,10 +490,6 @@ isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
-ismobilejs@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/ismobilejs/-/ismobilejs-0.4.0.tgz#7b986252118e552137f36e42c21794af6c91558f"
-
 isstream@0.1.x:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -561,10 +545,6 @@ mime-types@~2.1.11:
 mime@1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
-
-mini-signals@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/mini-signals/-/mini-signals-1.1.1.tgz#3e65d6f13581a6047c4d0f0ad0b127a33039911b"
 
 "minimatch@2 || 3":
   version "3.0.3"
@@ -655,10 +635,6 @@ nocache@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.0.0.tgz#202b48021a0c4cbde2df80de15a17443c8b43980"
 
-object-assign@^4.0.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
-
 object-keys@^1.0.10, object-keys@^1.0.8:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
@@ -693,10 +669,6 @@ optimist@^0.6.1:
   dependencies:
     minimist "~0.0.1"
     wordwrap "~0.0.2"
-
-parse-uri@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/parse-uri/-/parse-uri-1.0.0.tgz#2872dcc22f1a797acde1583d8a0ac29552ddac20"
 
 parseurl@~1.3.1:
   version "1.3.1"
@@ -736,22 +708,6 @@ path-to-regexp@0.1.7:
 pause@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
-
-pixi-gl-core@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/pixi-gl-core/-/pixi-gl-core-1.0.3.tgz#3bd4fb3538a2ee601a048d8dc01f6df55e0b3550"
-
-pixi.js:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-4.3.4.tgz#b8258f3f61565563b60c0eeb423eaa67ce505b9e"
-  dependencies:
-    bit-twiddle "^1.0.2"
-    earcut "^2.0.7"
-    eventemitter3 "^2.0.0"
-    ismobilejs "^0.4.0"
-    object-assign "^4.0.1"
-    pixi-gl-core "^1.0.3"
-    resource-loader "^2.0.4"
 
 platform@1.3.1:
   version "1.3.1"
@@ -828,13 +784,6 @@ require_optional@~1.0.0:
 resolve-from@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-2.0.0.tgz#9480ab20e94ffa1d9e80a804c7ea147611966b57"
-
-resource-loader@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/resource-loader/-/resource-loader-2.0.4.tgz#f7141ce7bebc270f915b5185e7d899f2565e8ff5"
-  dependencies:
-    mini-signals "^1.1.1"
-    parse-uri "^1.0.0"
 
 right-align@^0.1.1:
   version "0.1.3"

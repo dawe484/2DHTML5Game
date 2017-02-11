@@ -16,6 +16,10 @@ router.use(csrfProtection);
 
 let User = require('../models/user');
 
+router.get('/profile', (req, res) => {
+  res.render('profile', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
+});
+
 // Sign Up
 router.get('/signup', (req, res) => {
   res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
@@ -24,6 +28,18 @@ router.get('/signup', (req, res) => {
 // Log In
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
+});
+
+// Serialize
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize
+passport.deserializeUser((id, done) => {
+  User.getUserById(id, (err, user) => {
+    done(err, user);
+  });
 });
 
 // Sign Up User
@@ -50,24 +66,32 @@ router.post('/signup', (req, res) => {
     res.render('signup', {
       errors:errors
     });
-  } else {
-    let newUser = new User({
-      // firstName: firstName,
-      // lastName: lastName,
-      username: username,
-      password: password,
-      email: email
-    });
-
-    User.createUser(newUser, (err, user) => {
-      if (err) throw err;
-      console.log(user);
-    });
-
-    req.flash('success_msg', 'You are registered and can now login');
-
-    res.redirect('/users/login');
   }
+
+  User.findOne({'username': username}, (err, user) => {
+    if (err) throw err;
+
+    if (user) {
+      //return done(null, false, {message: 'Username is already in use.'});
+      req.flash('error_msg', 'Username is already in use.');
+      res.redirect('/users/signup');
+    } else {
+
+      let newUser = new User({
+        username: username,
+        password: password,
+        email: email
+      });
+
+      User.createUser(newUser, (err, user) => {
+        if (err) throw err;
+        console.log(user);
+      });
+
+      req.flash('success_msg', 'You are registered and can now login');
+      res.redirect('/users/login');
+    }
+  });
 });
 
 // Local Strategy for Login to Local Database
@@ -87,22 +111,9 @@ passport.use(new LocalStrategy(
           return done(null, false, {message: 'Invalid password'});
         }
       });
-
     });
   }
 ));
-
-// Serialize
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-// Deserialize
-passport.deserializeUser((id, done) => {
-  User.getUserById(id, (err, user) => {
-    done(err, user);
-  });
-});
 
 // Login User
 router.post('/login',
@@ -118,10 +129,8 @@ router.post('/login',
 // Logout User
 router.get('/logout', (req, res) => {
   req.logout();
-
-  req.flash('success_msg', 'You are logged out');
-
-  res.redirect('/users/login');
+  // req.flash('success_msg', 'You are logged out');
+  res.redirect('/');
 });
 
 module.exports = router;

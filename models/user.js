@@ -1,16 +1,8 @@
 'use strict'
 
-// let mongodb = require('mongodb');
-// let mongojs = require('mongojs');
 let mongoose = require('mongoose');
 let bcrypt = require('bcryptjs');
 let Schema = mongoose.Schema;
-
-// mongojs will use existing connection of that instance instead of creating a new one
-//let db = mongojs('localhost:27017/2DHTML5Game', ['account']);
-// mongodb.Db.connect('mongodb://localhost:27017/2DHTML5Game', (err, theDb) => {
-//   let db = mongojs(theDb, ['users']); // specified all collections in db !!
-// })
 
 // User Schema
 let UserSchema = mongoose.Schema({
@@ -21,14 +13,18 @@ let UserSchema = mongoose.Schema({
   //   type: String
   // },
   username: {
-    type: String
-    // index: true
+    type: String,
+    // index: true,
+    // unique: true,
+    // set: toLower
   },
   password: {
     type: String
   },
   email: {
-    type: String
+    type: String,
+    // unique: true,
+    // set: toLower
   },
   signup_time: {
     type: Date, default: Date.now
@@ -64,3 +60,7 @@ module.exports.comparePassword = (candidatePassword, hash, callback) => {
     callback(null, isMatch);
   });
 }
+
+// function toLower(str) {
+//   return str.toLowerCase();
+// }

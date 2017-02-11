@@ -4,19 +4,17 @@ let colors = require('colors/safe');
 
 let express = require('express');
 let path = require('path');
+let morgan = require('morgan');
 // let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let expressHandlebars = require('express-handlebars');
+let expressSession = require('express-session');
 let expressValidator = require('express-validator');
 let flash = require('connect-flash');
-let expressSession = require('express-session');
 let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy;
-// let mongo = require('mongodb');
 let mongoose = require('mongoose');
 let helmet = require('helmet');
 //let winston = require('winston'); // for logging in future
-let morgan = require('morgan');
 
 let routes = require('./routes/index');
 let users = require('./routes/users');
@@ -47,8 +45,6 @@ mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
-
-// let db = mongoose.connection;
 
 // let mongojs = require('mongojs');
 // let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
@@ -115,24 +111,6 @@ app.use(passport.session());
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'client/'))); // folder for images, css files, etc.
 
-// // Catch 404 and forward to Error Handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-//
-// // Error Handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
 // Global Variables
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
@@ -157,6 +135,24 @@ app.use('/bug-report', bugReport);
 app.use('/support', support);
 app.use('/play', play);
 app.use('/', routes);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/client/index.html');
