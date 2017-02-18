@@ -146,12 +146,12 @@ connect-flash:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
 
-connect@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/connect/-/connect-3.4.1.tgz#a21361d3f4099ef761cda6dc4a973bb1ebb0a34d"
+connect@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/connect/-/connect-3.5.0.tgz#b357525a0b4c1f50599cd983e1d9efeea9677198"
   dependencies:
     debug "~2.2.0"
-    finalhandler "0.4.1"
+    finalhandler "0.5.0"
     parseurl "~1.3.1"
     utils-merge "1.0.0"
 
@@ -339,15 +339,6 @@ eyes@0.1.x:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
-finalhandler@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-0.4.1.tgz#85a17c6c59a94717d262d61230d4b0ebe3d4a14d"
-  dependencies:
-    debug "~2.2.0"
-    escape-html "~1.0.3"
-    on-finished "~2.3.0"
-    unpipe "~1.0.0"
-
 finalhandler@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-0.5.0.tgz#e9508abece9b6dba871a6942a1d7911b91911ac7"
@@ -403,31 +394,31 @@ handlebars@^4.0.5:
     uglify-js "^2.6"
 
 helmet:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/helmet/-/helmet-3.1.0.tgz#64449547398e51b063fe1c75e7cb0274a557ea09"
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-3.4.0.tgz#05a9437486b05ca219ed8d21dc5e3b6ec0c18118"
   dependencies:
-    connect "3.4.1"
+    connect "3.5.0"
     dns-prefetch-control "0.1.0"
     dont-sniff-mimetype "1.0.0"
     frameguard "3.0.0"
-    helmet-csp "2.1.0"
+    helmet-csp "2.3.0"
     hide-powered-by "1.0.0"
     hpkp "2.0.0"
     hsts "2.0.0"
     ienoopen "1.0.0"
     nocache "2.0.0"
-    referrer-policy "1.0.0"
+    referrer-policy "1.1.0"
     x-xss-protection "1.0.0"
 
-helmet-csp@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/helmet-csp/-/helmet-csp-2.1.0.tgz#c0fbff8d9e8f3bbff2b83dc7fed3d47143184040"
+helmet-csp@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/helmet-csp/-/helmet-csp-2.3.0.tgz#bc341939dfef5266cc817abcf53f079f61fe7e3f"
   dependencies:
     camelize "1.0.0"
     content-security-policy-builder "1.1.0"
     dasherize "2.0.0"
     lodash.reduce "4.6.0"
-    platform "1.3.1"
+    platform "1.3.3"
 
 hide-powered-by@1.0.0:
   version "1.0.0"
@@ -709,9 +700,9 @@ pause@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
 
-platform@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.1.tgz#492210892335bd3131c0a08dda2d93ec3543e423"
+platform@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/platform/-/platform-1.3.3.tgz#646c77011899870b6a0903e75e997e8e51da7461"
 
 process-nextick-args@~1.0.6:
   version "1.0.7"
@@ -762,9 +753,9 @@ readable-stream@2.1.5:
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-referrer-policy@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/referrer-policy/-/referrer-policy-1.0.0.tgz#f60eedc92f942b01a6118121ec932d66e8fd7e14"
+referrer-policy@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/referrer-policy/-/referrer-policy-1.1.0.tgz#35774eb735bf50fb6c078e83334b472350207d79"
 
 regexp-clone@0.0.1:
   version "0.0.1"
@@ -902,6 +893,10 @@ util-deprecate@~1.0.1:
 utils-merge@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.0.tgz#0294fb922bb9375153541c4f7096231f287c8af8"
+
+uuid:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
 validator@~6.1.0:
   version "6.1.0"

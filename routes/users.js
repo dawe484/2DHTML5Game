@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 let express = require('express');
 let router = express.Router();
@@ -16,31 +16,27 @@ router.use(csrfProtection);
 
 let User = require('../models/user');
 
-router.get('/profile', (req, res) => {
-  res.render('profile', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
-});
+router.get('/profile', (req, res) =>
+  res.render('profile', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+);
 
 // Sign Up
-router.get('/signup', (req, res) => {
-  res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
-});
+router.get('/signup', (req, res) =>
+  res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+);
 
 // Log In
-router.get('/login', (req, res) => {
-  res.render('login', { title: 'Magical Heroes', csrfToken: req.csrfToken() });
-});
+router.get('/login', (req, res) =>
+  res.render('login', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+);
 
 // Serialize
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+passport.serializeUser((user, done) => done(null, user.id));
 
 // Deserialize
-passport.deserializeUser((id, done) => {
-  User.getUserById(id, (err, user) => {
-    done(err, user);
-  });
-});
+passport.deserializeUser((id, done) =>
+  User.getUserById(id, (err, user) => done(err, user))
+);
 
 // Sign Up User
 router.post('/signup', (req, res) => {
@@ -76,7 +72,6 @@ router.post('/signup', (req, res) => {
       req.flash('error_msg', 'Username is already in use.');
       res.redirect('/users/signup');
     } else {
-
       let newUser = new User({
         username: username,
         password: password,
@@ -95,25 +90,21 @@ router.post('/signup', (req, res) => {
 });
 
 // Local Strategy for Login to Local Database
-passport.use(new LocalStrategy(
-  (username, password, done) => {
-    User.getUserByUsername(username, (err, user) => {
-      if (err) throw err;
-      if (!user) {
-        return done(null, false, {message: 'Unknown User'});
-      }
+passport.use(new LocalStrategy((username, password, done) => {
+  User.getUserByUsername(username, (err, user) => {
+    if (err) throw err;
+    if (!user) return done(null, false, {message: 'Unknown User'});
 
-      User.comparePassword(password, user.password, (err, isMatch) => {
-        if (err) throw err;
-        if (isMatch) {
-          return done(null, user);
-        } else {
-          return done(null, false, {message: 'Invalid password'});
-        }
-      });
+    User.comparePassword(password, user.password, (err, isMatch) => {
+      if (err) throw err;
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, {message: 'Invalid password'});
+      }
     });
-  }
-));
+  });
+}));
 
 // Login User
 router.post('/login',
@@ -121,9 +112,7 @@ router.post('/login',
     successRedirect: '/',
     failureRedirect: '/users/login',
     failureFlash: true
-  }), (req, res) => {
-    res.redirect('/');
-  }
+  }), (req, res) => res.redirect('/')
 );
 
 // Logout User

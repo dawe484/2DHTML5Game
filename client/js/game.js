@@ -6,7 +6,7 @@
  *
 */
 
-'use strict'
+'use strict';
 /* #GAME SCRIPTS START# */
 
 //Aliases
@@ -165,8 +165,7 @@ function init() {
           "img/game/heroes/diu_win.svg",
           "img/game/heroes/crystal.svg",
           "img/game/heroes/sin.svg",
-          "img/game/heroes/leona.svg",
-          "img/game/heroes/leona.png"
+          "img/game/heroes/leona.svg"
         ])
         .on("progress", loadProgressHandler)
         .load(setup);
@@ -237,7 +236,6 @@ function init() {
     crystal = new Sprite(resources["img/game/heroes/crystal.svg"].texture);
     sin = new Sprite(resources["img/game/heroes/sin.svg"].texture);
     leona = new Sprite(resources["img/game/heroes/leona.svg"].texture);
-    leonapng = new Sprite(resources["img/game/heroes/leona.png"].texture);
 
     avatarIcon.interactive = true;
     avatarIcon.buttonMode = true;
@@ -404,9 +402,6 @@ function init() {
     leona.position.x = 30;
     leona.position.y = 574;
 
-    leonapng.position.x = 480;
-    leonapng.position.y = 574;
-
     menuStage.visible = false;
     menuStage.addChild(booksIcon);
 
@@ -451,7 +446,6 @@ function init() {
     stage.addChild(crystal);
     stage.addChild(sin);
     stage.addChild(leona);
-    stage.addChild(leonapng);
 
     //If you ever need to, here's how you can clean out WebGL's GPU memory manually
     // Object.keys(TextureCache).forEach(function(texture) {
@@ -502,7 +496,7 @@ function play() {
   // }
 
   menuIcon.click = menuIcon.tap = () => {
-    
+
   }
 
 }

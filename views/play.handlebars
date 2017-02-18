@@ -12,7 +12,6 @@
     <title>{{title}}</title>
     <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/css/style-play.css" />
-
     <style>
     /* Center the loader */
     #loader {
@@ -66,41 +65,27 @@
       text-align: center;
     }
     </style>
-
   </head>
-
-  <!-- <body onload="init();">
-
-    <script src="/js/pixi.min.js"></script>
-    <script src="/js/stats.min.js"></script>
-    <script src="/js/game.js"></script>
-
-  </body> -->
-
-  <body onload="myFunction()" style="margin:0;">
-
+  <!-- <body onload="myFunction()" style="margin:0"> -->
+  <body>
     <div id="loader"></div>
-
     <div style="display:none;" id="myDiv" class="animate-bottom">
       <script src="/js/pixi.min.js"></script>
       <script src="/js/stats.min.js"></script>
       <script src="/js/game.js"></script>
       <script>init();</script>
+      <!-- <script>window.addEventListener("load", init);</script> -->
     </div>
-
     <script>
-    var myVar;
-
-    function myFunction() {
-      myVar = setTimeout(showPage(), 3000);
-    }
-
-    function showPage() {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("myDiv").style.display = "block";
-    }
+      var myVar;
+      window.addEventListener("load", myFunction);
+      function myFunction() {
+        myVar = setTimeout(showPage(), 3000);
+      }
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+      }
     </script>
-
   </body>
-
 </html>

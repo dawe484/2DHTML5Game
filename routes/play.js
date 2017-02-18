@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 let express = require('express');
 let router = express.Router();
@@ -18,12 +18,11 @@ let router = express.Router();
 // renderer.render(stage);
 
 // Play Game
-router.get('/', (req, res) => {
-  res.render('play', {layout: false , title: 'Magical Heroes'});
-});
+router.get('/', (req, res) =>
+  res.render('play', {layout: false , title: 'Magical Heroes'})
+);
 
 module.exports = router;
-
 
 // var PIXI = require('pixi.js');
 //

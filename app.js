@@ -1,36 +1,41 @@
-'use strict'
+'use strict';
 
-let colors = require('colors/safe');
+const colors = require('colors/safe');
 
 let express = require('express');
 let path = require('path');
 let morgan = require('morgan');
 // let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
-let expressHandlebars = require('express-handlebars');
-let expressSession = require('express-session');
-let expressValidator = require('express-validator');
-let flash = require('connect-flash');
-let passport = require('passport');
-let mongoose = require('mongoose');
-let helmet = require('helmet');
-//let winston = require('winston'); // for logging in future
+const bodyParser = require('body-parser');
+const expressHandlebars = require('express-handlebars');
+const expressSession = require('express-session');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const passport = require('passport');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const winston = require('winston'); // for logging in future
+const uuid = require('uuid');
+// const env = require('./env');
+// const authority = env('AUTHORITY');
+// const authorityIsSecure = authority.startsWith('https');
+// const authorityProtocol = authorityIsSecure ? 'https' : 'http';
 
-let routes = require('./routes/index');
-let users = require('./routes/users');
-let news = require('./routes/news');
-let beginnerGuides = require('./routes/beginnerGuides');
-let heroes = require('./routes/heroes');
-let items = require('./routes/items');
-let bookPages = require('./routes/bookPages');
-let gameModes = require('./routes/gameModes');
-let artwork = require('./routes/artwork');
-let screenshots = require('./routes/screenshots');
-let videos = require('./routes/videos');
-let feedback = require('./routes/feedback');
-let bugReport = require('./routes/bugReport');
-let support = require('./routes/support');
-let play = require('./routes/play');
+const routes = require('./routes/index');
+const users = require('./routes/users');
+const news = require('./routes/news');
+const beginnerGuides = require('./routes/beginnerGuides');
+const heroes = require('./routes/heroes');
+const items = require('./routes/items');
+const bookPages = require('./routes/bookPages');
+const gameModes = require('./routes/gameModes');
+const artwork = require('./routes/artwork');
+const screenshots = require('./routes/screenshots');
+const videos = require('./routes/videos');
+const feedback = require('./routes/feedback');
+const bugReport = require('./routes/bugReport');
+const support = require('./routes/support');
+const play = require('./routes/play');
 
 // Init App
 let app = express();
@@ -49,8 +54,65 @@ app.set('view engine', 'handlebars');
 // let mongojs = require('mongojs');
 // let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
 
+function generateNonce(req, res, next) {
+  const rhyphen = /-/g
+  res.locals.nonce = uuid.v4().replace(rhyphen, '')
+  next()
+}
+
+function getNonce (req, res) {
+  return "'nonce-${ res.locals.nonce }'"
+}
+
+function getDirectives() {
+  const self = "'self'";
+  const unsafeInline = "'unsafe-inline'";
+  const unsafeEval = "'unsafe-eval'";
+  const scripts = [
+    'https://www.google-analytics.com',
+    'https://ajax.googleapis.com'
+  ];
+  return {
+    defaultSrc: [self],
+    scriptSrc: [self, getNonce, ...scripts, unsafeInline],
+    styleSrc: [self, unsafeInline],
+    //imgSrc: ['img.com', 'data:'],
+    imgSrc: [self],
+    //connectSrc: ["'self'"],
+    //sandbox: ['allow-forms', 'allow-scripts'],
+    //reportUri: '/report-violatio'
+    upgradeInsecureRequests: true,
+    reportUri: '/api/csp/report'
+    //objectSrc: [], // An empty array allows nothing through
+  }
+}
+
 // Helmet
 app.use(helmet());
+app.use(generateNonce);
+app.use(helmet.contentSecurityPolicy({
+  directives:
+  getDirectives(),
+  reportOnly: true,
+  browserSniff: false,
+  disableAndroid: true
+}));
+
+// CSP violations
+// You need a JSON parser first.
+app.use(bodyParser.json({
+  type: ['json', 'application/csp-report']
+}))
+
+app.post('/api/csp/report', (req, res) => {
+  // if (req.body) {
+  //   console.log('CSP Violation: ', req.body)
+  // } else {
+  //   console.log('CSP Violation: No data received!')
+  // }
+  winston.warn('CSP header violation ', req.body['csp-report']);
+  res.status(204).end()
+})
 
 // Morgan
 app.use(morgan('dev'));
@@ -97,7 +159,7 @@ app.use(expressSession({
     //secure: true,
     httpOnly: true,
     path: '/',
-    //maxAge: expiryDate
+    //maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
   }
 }));
 
@@ -137,14 +199,14 @@ app.use('/play', play);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -163,8 +225,10 @@ app.use(function(err, req, res, next) {
 // Set Port
 app.set('port', (process.env.PORT || 2000));
 app.listen(app.get('port'), () => {
-  console.log(colors.green("Server running... ") + "on port " + app.get('port')
-    + "; press " + colors.red("Ctrl-C") + " to terminate.");
+  console.log("---------------------------------------\n"
+    + colors.green("Server running... ") + "on port " + app.get('port')
+    + "\nPress " + colors.red("Ctrl-C") + " to terminate."
+    + "\n---------------------------------------");
 
   // db.on('error', (err) => {
   //     console.log('database error', err)
