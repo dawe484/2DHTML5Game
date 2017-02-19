@@ -66,8 +66,8 @@
     }
     </style>
   </head>
-  <!-- <body onload="myFunction()" style="margin:0"> -->
-  <body>
+  <body onload="myFunction()" style="margin:0">
+  <!-- <body> -->
     <div id="loader"></div>
     <div style="display:none;" id="myDiv" class="animate-bottom">
       <script src="/js/pixi.min.js"></script>
@@ -78,7 +78,7 @@
     </div>
     <script>
       var myVar;
-      window.addEventListener("load", myFunction);
+      // window.addEventListener("load", myFunction);
       function myFunction() {
         myVar = setTimeout(showPage(), 3000);
       }

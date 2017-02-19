@@ -69,12 +69,12 @@ function getDirectives() {
   const unsafeInline = "'unsafe-inline'";
   const unsafeEval = "'unsafe-eval'";
   const scripts = [
-    'https://www.google-analytics.com',
-    'https://ajax.googleapis.com'
+    '*.google-analytics.com',
+    'ajax.googleapis.com'
   ];
   return {
     defaultSrc: [self],
-    scriptSrc: [self, getNonce, ...scripts, unsafeInline],
+    scriptSrc: [self, getNonce, ...scripts, unsafeInline, unsafeEval],
     styleSrc: [self, unsafeInline],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self],
@@ -87,8 +87,12 @@ function getDirectives() {
   }
 }
 
-// Helmet
+// Helmet - implements X-DNS-Prefetch-Control:off;
+//        - remove X-Powered-By header
+//        - sets the X-Download-Options to prevent Internet Explorer from executing downloads in your site’s context
+//        - sets the X-XSS-Protection header to prevent reflected XSS attacks
 app.use(helmet());
+// CSP
 app.use(generateNonce);
 app.use(helmet.contentSecurityPolicy({
   directives:
@@ -113,6 +117,20 @@ app.post('/api/csp/report', (req, res) => {
   winston.warn('CSP header violation ', req.body['csp-report']);
   res.status(204).end()
 })
+
+// X-Frame - protect from clickjacking attacks
+app.use(helmet.frameguard({ action: 'deny'}));
+
+// HTTP Strict Transport Security (HSTS) - Implement Strict-Transport-Security
+app.use(helmet.hsts({
+  maxAge: 5184000, //60 days in seconds
+  includeSubdomains: false
+}));
+
+// Cache-Control
+app.use(helmet.noCache({
+  maxAge: 864000 //10 days
+}));
 
 // Morgan
 app.use(morgan('dev'));
