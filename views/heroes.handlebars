@@ -1,0 +1,16 @@
+<h1>Heroes</h1>
+
+{{# each heroes  }}
+  <div class="row">
+    {{# each this }}
+      <div class="col-xs-6 col-sm-4 col-md-2">
+        <div class="thumbnail">
+          <a href="/heroes/{{ this.name }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon" class="img-responsive"></a>
+          <div class="caption">
+            <p class="sticker-title">{{ this.name }}</p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{/each}}

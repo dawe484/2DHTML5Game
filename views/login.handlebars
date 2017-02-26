@@ -1,0 +1,113 @@
+<div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      {{!-- Breadcrumbs --}}
+      <div class="breadcrumbs">
+        <h2>Login</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/" class="breadcrumbs-a">Home</a>
+          </li>
+          <li>Login</li>
+        </ol>
+      </div>
+      {{!-- End Breadcrumbs --}}
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-xs-1">
+          </div>
+          <div class="col-xs-10">
+            <div class="account">
+              <h3>Login</h3>
+
+              <!-- {{#if errors}}
+                {{#each errors}}
+                  <div class="alert alert-danger">{{msg}}</div>
+                {{/each}}
+              {{/if}} -->
+
+              <div class="well clearfix">
+                <div class="col-md-5">
+                  <dl class="social-login">
+                    <dt>Login quickly:</dt>
+                    <dd>
+                      <a href="" class="btn btn-block btn-social btn-facebook">
+      									<span class="fa fa-facebook"></span>Login with Facebook
+      								</a>
+      								<a href="" class="btn btn-block btn-social btn-google">
+      							    <span class="fa fa-google-plus"></span>Login with Google+
+      							  </a>
+      								<a href="" class="btn btn-block btn-social btn-twitter">
+      							    <span class="fa fa-twitter"></span>Login with Twitter
+      							  </a>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-5">
+                  <form method="post" action="/users/login">
+                    <dl class="account-login">
+                      <dt>Login to Magical Heroes Account:</dt>
+                      <dd>
+                        <div class="input-group margin-bottom-sm">
+      									  <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+      										<input type="text" class="form-control" name="username" placeholder="Username">
+      									</div>
+                      </dd>
+                      <dd>
+                        <div class="input-group">
+      									  <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+      										<input type="password" class="form-control" name="password" placeholder="Password">
+      									</div>
+                      </dd>
+                      <dd class="handle" id="handle">
+                        <div class="squaredThree signup-squaredThree">
+          								<input type="checkbox" name="optionsRadios" id="checkOther" value="other" ng-model="formData.other"
+          								ng-true-value="'other'" ng-init="formData.other='other'" checked="">
+          								<label for="checkOther"></label>
+          							</div>
+                        <label class="label-checkbox-black">
+          					    	Remember me
+          					    </label>
+                        <label class="reset-password" id="login-reset-password">
+          								<a href="">Forgot your password?</a>
+          							</label>
+                      </dd>
+                      <dd>
+                        <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+                        <button type="submit" class="btn btn-default">Login</button>
+                      </dd>
+                    </dl>
+                  </form>
+                </div>
+              </div>
+              {{!-- End div class"well clearfix" --}}
+              <div class="grayscale clearfix">
+                "Not signed up yet?"
+                <a href="/users/signup">Sign up now!</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-1">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+
+</div>

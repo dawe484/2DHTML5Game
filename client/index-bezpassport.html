@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Viewport meta tag is critical to have mobile browsers
+    actually report correct screen dimensions -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Game</title>
+    <!--<link rel="stylesheet" type="text/css" href="/client/css/style.css">-->
+  </head>
+  <body>
+
+    <div id="signDiv">
+      Username: <input id="signDiv-username" type="text"></input><br>
+      Password: <input id="signDiv-password" type="password"></input>
+      <button id="signDiv-signIn" type="button" class="btn btn-primary">Sign In</button>
+      <button id="signDiv-signUp" type="button" class="btn btn-primary">Sign Up</button>
+    </div>
+
+    <div id="gameDiv" style="display:none;">
+      <canvas id="ctx" width="300" height="300" style="border: 1px solid #000000;"></canvas>
+    </div>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+      'use strict'
+
+      let socket = io();
+
+      // sign
+      var signDiv = document.getElementById('signDiv');
+      var signDivUsername = document.getElementById('signDiv-username');
+      var signDivSignIn = document.getElementById('signDiv-signIn');
+      var signDivSignUp = document.getElementById('signDiv-signUp');
+      var signDivPassword = document.getElementById('signDiv-password');
+
+      signDivSignIn.onclick = () => {
+        socket.emit('signIn', {username:signDivUsername.value, password:signDivPassword.value});
+      }
+
+      signDivSignUp.onclick = () => {
+        socket.emit('signUp', {username:signDivUsername.value, password:signDivPassword.value});
+      }
+
+      socket.on('signInResponse', (data) => {
+        if (data.success) {
+          signDiv.style.display = 'none';
+          gameDiv.style.display = 'inline-block';
+        } else
+          alert("Sign in unsuccessful.");
+      });
+
+      socket.on('signUpResponse', (data) => {
+        if (data.success) {
+          alert("Sign up successful.");
+        } else
+          alert("Sign in unsuccessful.");
+      });
+
+      // game
+      let ctx = document.getElementById("ctx").getContext("2d");
+      ctx.font = '30px Arial';
+
+      // var random = Math.random();
+
+      // var happy = function() {
+      //   socket.emit('happy', {
+      //     reason: 'its my birthday' + random
+      //   });
+      /// }
+
+      socket.on('serverMsg', (data) => {
+        console.log(data.msg);
+        // ctx.clearRect(0, 0, 500, 500);
+        // ctx.fillText('Msg', data);
+      });
+
+    </script>
+
+    <!-- <button type="button" class="btn btn-primary" onclick="happy()">
+      Happy
+    </button> -->
+
+  </body>
+</html>

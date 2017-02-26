@@ -1,0 +1,16 @@
+<h1>Stickers</h1>
+
+{{# each stickers  }}
+  <div class="row">
+    {{# each this }}
+      <div class="col-xs-6 col-sm-4 col-md-2">
+        <div class="thumbnail">
+          <img src="{{ this.image_path }}" alt="..." class="img-responsive">
+          <div class="caption">
+            <p class="sticker-title">{{ this.title }}</p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{/each}}
