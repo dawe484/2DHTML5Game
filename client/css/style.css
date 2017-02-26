@@ -674,3 +674,7 @@ h2 {
   padding-top: 8px;
   padding-bottom: 12px;
 }
+
+p.sticker-title {
+  text-align: center;
+}

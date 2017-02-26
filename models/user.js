@@ -1,11 +1,11 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let bcrypt = require('bcryptjs');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
 
 // User Schema
-let UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
   // firstName: {
   //   type: String
   // },

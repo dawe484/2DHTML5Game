@@ -1,12 +1,12 @@
 'use strict';
 
-let express = require('express');
-let router = express.Router();
-let passport = require('passport');
-let LocalStrategy = require('passport-local').Strategy;
-let csrf = require('csurf');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const csrf = require('csurf');
 
-let csrfProtection = csrf();
+const csrfProtection = csrf();
 router.use(csrfProtection);
 
 let User = require('../models/user');

@@ -1,10 +1,9 @@
 'use strict';
 
 const colors = require('colors/safe');
-
-let express = require('express');
-let path = require('path');
-let morgan = require('morgan');
+const express = require('express');
+const path = require('path');
+const morgan = require('morgan');
 // let cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHandlebars = require('express-handlebars');
@@ -26,7 +25,7 @@ const users = require('./routes/users');
 const news = require('./routes/news');
 const beginnerGuides = require('./routes/beginnerGuides');
 const heroes = require('./routes/heroes');
-const items = require('./routes/items');
+const stickers = require('./routes/stickers');
 const bookPages = require('./routes/bookPages');
 const gameModes = require('./routes/gameModes');
 const artwork = require('./routes/artwork');
@@ -72,12 +71,15 @@ function getDirectives() {
     '*.google-analytics.com',
     'ajax.googleapis.com'
   ];
+  const images = [
+    'akela.mendelu.cz/~xkrenar/'
+  ];
   return {
     defaultSrc: [self],
     scriptSrc: [self, getNonce, ...scripts, unsafeInline, unsafeEval],
     styleSrc: [self, unsafeInline],
     //imgSrc: ['img.com', 'data:'],
-    imgSrc: [self],
+    imgSrc: [self, ...images],
     //connectSrc: ["'self'"],
     //sandbox: ['allow-forms', 'allow-scripts'],
     //reportUri: '/report-violatio'
@@ -204,7 +206,7 @@ app.use('/users', users);
 app.use('/news', news);
 app.use('/beginner-guides', beginnerGuides);
 app.use('/heroes', heroes);
-app.use('/items', items);
+app.use('/stickers', stickers);
 app.use('/book-pages', bookPages);
 app.use('/game-modes', gameModes);
 app.use('/artwork', artwork);
@@ -218,7 +220,7 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -231,7 +233,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { title: 'Magical Heroes'})
 });
 
 // app.get('/', (req, res) => {

@@ -1,13 +1,13 @@
-<h1>Heroes</h1>
+<h1>Stickers</h1>
 
-{{# each heroes  }}
+{{# each stickers  }}
   <div class="row">
     {{# each this }}
       <div class="col-xs-6 col-sm-4 col-md-2">
         <div class="thumbnail">
-          <a href="/heroes/{{ this.name }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon" class="img-responsive"></a>
+          <img src="{{ this.image_path }}" alt="..." class="img-responsive">
           <div class="caption">
-            <p class="sticker-title">{{ this.name }}</p>
+            <p class="sticker-title">{{ this.title }}</p>
           </div>
         </div>
       </div>
