@@ -229,9 +229,13 @@ a:focus, a:hover {
 }
 
 .img-thumbnail {
-  width: 220px;
+  /*width: 220px;*/
   height: auto;
   border-radius: 0px;
+}
+
+.img-thumbnail.img-thumb {
+  width: 220px;
 }
 
 .news-date p {
@@ -281,6 +285,7 @@ cite {
 .content {
   padding-right: 0px;
   padding-left: 0px;
+  color: #fff;
 }
 
 .content p {
@@ -298,13 +303,13 @@ cite {
 #news-content-heading {
   /*font-size: 15px;*/
   padding-top: 16px;
-  color: #fff;
+  /*color: #fff;*/
 }
 
 #news-content {
   /*font-size: 15px;*/
   padding-top: 10px;
-  color: #fff;
+  /*color: #fff;*/
 }
 
 #news-read-more {
@@ -371,10 +376,6 @@ cite {
 .form-control:focus {
   /*border-color: #080808;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(8, 8, 8, 0.9);*/
-}
-
-.input-group {
-  height: 38px;
 }
 
 .input-group-addon {
@@ -598,7 +599,7 @@ h2 {
   box-shadow: inset 0 0;
 }
 
-.col-md-5 {
+.col-md-5, .col-xs-8, .col-xs-4 {
   padding-left: 0;
   padding-right: 0;
 }
@@ -623,10 +624,6 @@ h2 {
   color: #000;
   font-weight: normal;
 }
-
-/*.handle {
-  margin-left: -17px;
-}*/
 
 .squaredThree.signup-squaredThree {
   padding-left: 0;
@@ -677,4 +674,50 @@ h2 {
 
 p.sticker-title {
   text-align: center;
+}
+
+#paddingtop3 {
+  padding-top: 3px;
+}
+
+.input-group .form-control#search {
+  height: 28px;
+  font-weight: normal;
+}
+
+.btn-default#search {
+  height: 28px;
+  width: 28px;
+  font-size: 14px;
+  padding-left: 7px;
+}
+
+.checkClass {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.checkClass p {
+  font-size: 20px;
+}
+
+.checkClass label {
+  padding-bottom: 20px;
+  width: 98px;
+}
+
+.checkbox-inline+.checkbox-inline {
+  margin-left: 0;
+}
+
+.grid {
+  padding-left: 20px;
+}
+
+.col-xs-12.paddingtop0 {
+  padding-top: 0;
+}
+
+.caption {
+  padding-bottom: 20px;
 }

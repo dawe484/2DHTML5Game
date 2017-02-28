@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:name', (req, res) => {
-  res.render('hero', { title: 'Magical Heroes', output: req.params.name });
+  res.render('hero', { title: 'Magical Heroes', outputName: req.params.name });
 });
 
 // router.post('/submit', (req, res) => {
