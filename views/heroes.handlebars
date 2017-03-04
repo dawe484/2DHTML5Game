@@ -50,7 +50,27 @@
                   </p>
                 </div>
                 <div class="checkClass">
-                  <label class="checkbox-inline">
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label for="inlineCheckbox1">Tank</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label for="inlineCheckbox2">Fighter</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label for="inlineCheckbox3">Marksman</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox4" value="option4">
+                    <label for="inlineCheckbox4">Mage</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox5" value="option5">
+                    <label for="inlineCheckbox5">Support</label>
+                  </div>
+                  <!-- <label class="checkbox-inline">
                     <input type="checkbox" id="inlineCheckbox1" value="option1">Tank
                   </label>
                   <label class="checkbox-inline">
@@ -64,7 +84,7 @@
                   </label>
                   <label class="checkbox-inline">
                     <input type="checkbox" id="inlineCheckbox3" value="option5">Support
-                  </label>
+                  </label> -->
                 </div>
               </div>
             </div>
@@ -79,16 +99,16 @@
                     </div>
                   </div>
                 </div>
-                {{# each heroes  }}
+                {{# each heroes }}
                   <div class="row">
                     {{# each this }}
                       <div class="col-xs-6 col-sm-4 col-md-2">
                         <div class="grid">
-                          <a href="/heroes/{{ this.name }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon"
+                          <a href="/heroes/{{ this.urlName }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon"
                             class="img-responsive img-thumbnail"></a>
-                          <div class="caption">
-                            <p class="sticker-title">{{ this.name }}</p>
-                          </div>
+                        </div>
+                        <div class="caption">
+                          <p class="sticker-title">{{ this.name }}</p>
                         </div>
                       </div>
                     {{/each}}

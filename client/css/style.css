@@ -14,8 +14,10 @@ body {
   padding-top: 70px;
   /*background-color: #010d18;*/
   background-color: #d9d9d9;
-  font-family: "Gill Sans W04", GillSans, "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 15px;
+  /*font-family: "Gill Sans W04", GillSans, "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;*/
+  font-family: "Verdana";
+  font-size: 12px;
+  /*font-size: 15px;*/
   /*font-family: BeaufortLoL,"Times New Roman";*/
 }
 
@@ -70,7 +72,7 @@ footer {
 }
 
 .dropdown-menu {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .navbar-nav>li>a>i {
@@ -274,6 +276,8 @@ cite {
   /*min-width: 174px; funguje mozna nechat, zalezi jak bude vypadat login cast*/
   /*padding-left: 20px;*/
   padding-top: 20px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .col-xs-12, .col-sm-8 .col-md-8 {
@@ -289,7 +293,7 @@ cite {
 }
 
 .content p {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .content-login {
@@ -394,7 +398,7 @@ cite {
 }
 
 /* .squaredThree */
-.squaredThree {
+/*.squaredThree {
   position: relative;
   float:left;
   padding-left: 3px;
@@ -404,12 +408,12 @@ cite {
   width: 16px;
   height: 16px;
   cursor: pointer;
-  /*position: absolute;
-  top: 0;
-  left: 0;*/
+  //position: absolute;
+  //top: 0;
+  //left: 0;
   background: #fff;
-  /*border-radius: 4px;
-  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.4);*/
+  //border-radius: 4px;
+  //box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.4);
 }
 
 .squaredThree label:after {
@@ -439,7 +443,7 @@ cite {
 
 .squaredThree input[type=checkbox]:checked + label:after {
   opacity: 1;
-}
+}*/
 /* end .squaredThree */
 
 .checkbox label {
@@ -710,14 +714,152 @@ p.sticker-title {
   margin-left: 0;
 }
 
+.checkbox {
+  padding-left: 20px;
+}
+
+.checkbox label {
+  display: inline-block;
+  position: relative;
+  padding-left: 5px;
+}
+
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  margin-left: -20px;
+  /*border: 1px solid #cccccc;*/
+  /*border-radius: 3px;*/
+  background-color: #fff;
+  /*-webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;*/
+}
+
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  padding-top: 1px;
+  font-size: 11px;
+  /*color: #555555;*/
+}
+.checkbox input[type="checkbox"] {
+  opacity: 0;
+}
+
+/*.checkbox input[type="checkbox"]:focus + label::before {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}*/
+
+.checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+
+/*.checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65;
+}*/
+
+/*.checkbox input[type="checkbox"]:disabled + label::before {
+  background-color: #eeeeee;
+  cursor: not-allowed;
+}*/
+
+/*.checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}*/
+
+.checkbox.checkbox-inline {
+  margin-top: 0;
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+  background-color: #0687bf;
+  /*border-color: #0687bf;*/
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
 .grid {
   padding-left: 20px;
 }
 
-.col-xs-12.paddingtop0 {
+.paddingright20 {
+  padding-right: 20px;
+}
+
+.paddingtop0 {
   padding-top: 0;
 }
 
 .caption {
   padding-bottom: 20px;
+}
+
+.td_center {
+  text-align: center;
+}
+
+td {
+  padding: 2px;
+}
+
+.td-background-color {
+  padding: 4px;
+  background-color: #0687bf;
+  width: 120px;
+}
+
+.td-width80 {
+  width: 80px;
+}
+
+.table-hero-attributes {
+  padding-top: 20px;
+}
+
+.td-width {
+  width: 120px;
+}
+
+.img-skill {
+  height: 64px;
+  /*padding-left: 5px;*/
+}
+
+.skill1-title {
+  font-size: 20px;
+  padding-top: 16px;
+  /*margin-left: -40px;*/
+}
+
+.spell-description {
+  /*padding-left: 5px;*/
+}
+
+.video {
+  background-color: red;
+  width: 348px;
+  height: 196px;
+  /*padding-bottom: 20px;*/
+}
+
+.spell-divider {
+  background-color: #fff;
+  border: 0;
+  border-top: 8px solid #fff;
 }

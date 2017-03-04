@@ -18,7 +18,9 @@ const SkillSchema = new Schema({
 const HeroSchema = new Schema({
   date_added: { type: Date, default: Date.now },
   icon_path: { type: String, required: true },
+  web_image_path: { type: String, required: true },
   image_path: { type: String, required: true },
+  urlName: { type: String, required: true },
   name: { type: String, required: true },
   stars: { type: Number, required: true },
   class: { type: String, required: true },
@@ -62,4 +64,9 @@ const HeroSchema = new Schema({
   {versionKey: '_documentVersion'}
 );
 
-module.exports = mongoose.model('Hero', HeroSchema);
+let Hero = module.exports = mongoose.model('Hero', HeroSchema);
+
+module.exports.getHeroByUrlName = (urlName, callback) => {
+  let query = {urlName: urlName};
+  Hero.findOne(query, callback);
+}
