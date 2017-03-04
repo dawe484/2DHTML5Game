@@ -1,16 +1,126 @@
-<h1>Heroes</h1>
-
-{{# each heroes  }}
+<div>
   <div class="row">
-    {{# each this }}
-      <div class="col-xs-6 col-sm-4 col-md-2">
-        <div class="thumbnail">
-          <a href="/heroes/{{ this.name }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon" class="img-responsive"></a>
-          <div class="caption">
-            <p class="sticker-title">{{ this.name }}</p>
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      {{!-- Breadcrumbs --}}
+      <div class="breadcrumbs">
+        <h2>Heroes</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/" class="breadcrumbs-a">Home</a>
+          </li>
+          <li>Game Info &ndash; Heroes</li>
+        </ol>
+      </div>
+      {{!-- End Breadcrumbs --}}
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      Champion Filters
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="search" placeholder="Search Heroes">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" id="search">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          </button>
+                        </span>
+                      </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                  </div>
+                </div>
+                <div class="checkClass">
+                  <p>
+                    Classes:
+                  </p>
+                </div>
+                <div class="checkClass">
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label for="inlineCheckbox1">Tank</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label for="inlineCheckbox2">Fighter</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label for="inlineCheckbox3">Marksman</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox4" value="option4">
+                    <label for="inlineCheckbox4">Mage</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox5" value="option5">
+                    <label for="inlineCheckbox5">Support</label>
+                  </div>
+                  <!-- <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1">Tank
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2">Fighter
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3">Marksman
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option4">Mage
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option5">Support
+                  </label> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 paddingtop0">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      Champion Grid
+                    </div>
+                  </div>
+                </div>
+                {{# each heroes }}
+                  <div class="row">
+                    {{# each this }}
+                      <div class="col-xs-6 col-sm-4 col-md-2">
+                        <div class="grid">
+                          <a href="/heroes/{{ this.urlName }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon"
+                            class="img-responsive img-thumbnail"></a>
+                        </div>
+                        <div class="caption">
+                          <p class="sticker-title">{{ this.name }}</p>
+                        </div>
+                      </div>
+                    {{/each}}
+                  </div>
+                {{/each}}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    {{/each}}
+    </div>
+    <div class="col-xs-1">
+    </div>
   </div>
-{{/each}}
+</div>

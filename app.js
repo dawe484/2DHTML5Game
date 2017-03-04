@@ -19,6 +19,7 @@ const uuid = require('uuid');
 // const authority = env('AUTHORITY');
 // const authorityIsSecure = authority.startsWith('https');
 // const authorityProtocol = authorityIsSecure ? 'https' : 'http';
+//const MongoStore = require('connect-mongo')(expressSession);
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -175,12 +176,14 @@ app.use(expressSession({
   resave: false,
   //cookie: { maxAge: 3600000 } // one hour
   // cookie: { maxAge: 60000  } // one minute
-  cookie: {
-    //secure: true,
-    httpOnly: true,
-    path: '/',
-    //maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-  }
+  //store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  // cookie: {
+  //   secure: true,
+  //   httpOnly: true,
+  //   path: '/',
+  //   //maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+  //   maxAge: 180 * 60 * 1000 // 3 hours
+  // }
 }));
 
 // Connect Flash

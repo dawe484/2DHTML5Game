@@ -1,2 +1,343 @@
-<h1>Hero page</h1>
-<p>{{ output }}</p>
+<div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      {{!-- Breadcrumbs --}}
+      <div class="breadcrumbs">
+        <h2>{{ urlName }}</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/" class="breadcrumbs-a">Home</a>
+          </li>
+          <li><a href="/heroes" class="breadcrumbs-a">Game Info &ndash; Heroes</a></li>
+          <li>{{ name }}</li>
+        </ol>
+      </div>
+      {{!-- End Breadcrumbs --}}
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      {{ name }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 caption">
+                    <div class="">
+                      <img src="{{ webImage }}" alt="{{ name }}" class="img-responsive">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-8">
+                    <div class="">
+                      <div class="table-responsive">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div class="td-width">
+                                  <span>Name:</span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="">
+                                  <span>{{ name }}</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="td-width">
+                                  <span>Class:</span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="">
+                                  {{ class }}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="td-width">
+                                  <span>Position:</span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="">
+                                  {{ position }}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="td-width">
+                                  <span>Description:</span>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="">
+                                  {{ description }}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="table-hero-attributes">
+                      <div class="table-responsive">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Power</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ power }} (+{{ power_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Health</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ health }} (+{{ health_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Attack Damage</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ attack_damage }} (+{{ attack_damage_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Ability Power</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ ability_power }} (+{{ ability_power_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Armor</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ armor }} (+{{ armor_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="">
+                                <div class="td-background-color">
+                                  <span>Magic Resist</span>
+                                </div>
+                              </td>
+                              <td class="td_center">
+                                <div class="td-background-color td-width80">
+                                  <span>{{ magic_resist }} (+{{ magic_resist_inc }})</span>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 paddingtop0">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      Abilities
+                    </div>
+                  </div>
+                </div>
+                <!-- Skill 1 -->
+                <div class="row caption">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-3 caption paddingtop0">
+                        <div class="">
+                          <img src="{{ skill1_icon }}" alt="{{ skill1_title }}" class="img-skill">
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-9 paddingtop0">
+                        <div class="skill1-title">
+                          {{ skill1_title }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 paddingtop0">
+                        <div class="spell-description">
+                          {{ skill1_description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="video">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Skill Divider -->
+                <div class="row">
+                  <div class="grid paddingright20">
+                    <hr class="spell-divider">
+                  </div>
+                </div>
+                <!-- End Skill 1 + Divider -->
+                <!-- Skill 2 -->
+                <div class="row caption">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-3 caption paddingtop0">
+                        <div class="">
+                          <img src="{{ skill2_icon }}" alt="{{ skill2_title }}" class="img-skill">
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-9 paddingtop0">
+                        <div class="skill1-title">
+                          {{ skill2_title }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 paddingtop0">
+                        <div class="spell-description">
+                          {{ skill2_description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="video">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Skill Divider -->
+                <div class="row">
+                  <div class="grid paddingright20">
+                    <hr class="spell-divider">
+                  </div>
+                </div>
+                <!-- End Skill 2 + Divider -->
+                <!-- Skill 3 -->
+                <div class="row caption">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-3 caption paddingtop0">
+                        <div class="">
+                          <img src="{{ skill3_icon }}" alt="{{ skill3_title }}" class="img-skill">
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-9 paddingtop0">
+                        <div class="skill1-title">
+                          {{ skill3_title }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 paddingtop0">
+                        <div class="spell-description">
+                          {{ skill3_description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="video">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Skill Divider -->
+                <div class="row">
+                  <div class="grid paddingright20">
+                    <hr class="spell-divider">
+                  </div>
+                </div>
+                <!-- End Skill 3 + Divider -->
+                <!-- Skill 4 -->
+                <div class="row caption">
+                  <div class="col-xs-6">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-3 caption paddingtop0">
+                        <div class="">
+                          <img src="{{ skill4_icon }}" alt="{{ skill4_title }}" class="img-skill">
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-9 paddingtop0">
+                        <div class="skill1-title">
+                          {{ skill4_title }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 paddingtop0">
+                        <div class="spell-description">
+                          {{ skill4_description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="video">
+
+                    </div>
+                  </div>
+                </div>
+                <!-- End Skill 4-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+</div>
