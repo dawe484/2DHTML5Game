@@ -1,1 +1,11 @@
 <h1>User Profile</h1>
+
+<p>username: {{user.username}}</p>
+<p>email: {{user.email}}</p>
+<p>signup time: {{user.signup_time}}</p>
+
+{{#each heroes}}
+  {{#each this}}
+    <p>{{ this.name }}</p>
+  {{/each}}
+{{/each}}

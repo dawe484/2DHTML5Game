@@ -10,19 +10,19 @@
 	<div class="carousel-inner" role="listbox">
     <div class="item active">
       <a href="#" onclick="">
-        <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_01.jpg')">
+        <span class="img-holder third-slide" style="background-image:url('https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/MH_index-1680-380_01.jpg')">
         </span>
       </a>
     </div>
     <div class="item ">
       <a href="#" onclick="">
-        <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_02.jpg')">
+        <span class="img-holder third-slide" style="background-image:url('https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/MH_index-1680-380_02.jpg')">
         </span>
       </a>
     </div>
     <div class="item ">
       <a href="#" onclick="">
-        <span class="img-holder third-slide" style="background-image:url('img/MH_index-1680-380_03.jpg')">
+        <span class="img-holder third-slide" style="background-image:url('https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/MH_index-1680-380_03.jpg')">
         </span>
       </a>
     </div>
@@ -47,7 +47,7 @@
 					<div class="row featurette">
 						<div class="col-sm-4 col-md-4">
 							<div class="content-image">
-								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="img/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
+								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8">
@@ -79,7 +79,7 @@
 					<div class="row featurette">
 						<div class="col-sm-4 col-md-4">
 							<div class="content-image">
-								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="img/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
+								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/thumbnails/leona_thumb.jpg" alt="Leona"></a>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8">
@@ -111,7 +111,7 @@
 					<div class="row featurette">
 						<div class="col-sm-4 col-md-4">
 							<div class="content-image">
-								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="img/thumbnails/leona_thumb.jpg" alt="Leona"></a>
+								<a href=""><img class="img-responsive img-thumbnail img-thumb" src="https://akela.mendelu.cz/~xkrenar/game/database_image_path/web/index/thumbnails/crystal_thumb.jpg" alt="Crystal"></a>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8">
@@ -142,7 +142,7 @@
 					</div>
 					<div class="my-form">
 						<div class="col-md-12" id="logged">
-							<a href="/play" type="button" class="btn btn-default">Play now</a>
+							<a href="/play/{{ user.username }}" type="button" class="btn btn-default">Play now</a>
 						</div>
 						<label></label>
 					</div>
@@ -183,18 +183,18 @@
 									</div>
 								</div> -->
 						  </div>
-							<div class="checkbox checkbox-primary checkbox-inline content">
+							<!-- <div class="checkbox checkbox-primary checkbox-inline content">
 								<input type="checkbox" id="checkbox" value="option1">
 								<label for="checkbox">Remeber me</label>
-							</div>
-						  <!-- <div class="squaredThree">
+							</div> -->
+						  <div class="squaredThree">
 								<input type="checkbox" name="optionsRadios" id="checkOther" value="other" ng-model="formData.other"
 								ng-true-value="'other'" ng-init="formData.other='other'" checked="">
 									<label for="checkOther"></label>
 							</div>
 					    <label class="label-checkbox">
 					    	Remember me
-					    </label> -->
+					    </label>
 							<label class="reset-password">
 								<a href="">Forgot your password?</a>
 							</label>
@@ -230,83 +230,3 @@
 		{{!-- End Login Content --}}
 	</div>
 </div>
-
-
-
-<!-- Main component for a primary marketing message or call to action -->
-<!-- <div class="jumbotron">
-  <div class="row"> -->
-		<!-- First Content -->
-    <!-- <div class="col-xs-12 col-sm-6 col-md-8">
-      <div class="jumbotron" id="jumbotron8">
-        <div class="navbar-inverse" id="patchHeader">
-          Christmas Event
-        </div>
-				<div class="img-responsive">
-					<a href=""><img src="img/thumbnails/crystal_thumb.jpg" alt="Crystal" class="img-thumbnail"></a>
-					<footer id="news-date">from <cite>The Magical Heroes Team</cite> yesterday at 7:41 PM</footer>
-					<p id="news-content-heading">Hello players,</p>
-					<p id="news-content">
-						The update to Patch 0.0.161204_2141 will take place on December 16th.
-						There will be a short period of downtime during the update, we apologize for this little inconvenience.
-						For the detailed description of the changes, please check out the full ...
-					</p>
-					<a href=""><p id="news-read-more">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></p></a>
-				</div>
-      </div>
-    </div> -->
-		<!-- Add the extra clearfix for only the required viewport -->
-  	<!-- <div class="clearfix visible-xs-block"></div>
-    <div class="col-xs-6 col-md-4">
-      <div class="jumbotron" id="jumbotron4">
-				<div class="navbar-inverse" id="patchHeader">
-					LOGIN
-				</div>
-				<form>
-					<div class="form-group">
-				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-				  </div>
-				  <div class="form-group"> -->
-						<!-- <div class="input-group"> -->
-				    	<!-- <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"> -->
-        			<!-- <button class="btn btn-danger" type="button">Press!</button> -->
-							<!-- <a href=""><img src="img/icons/question-mark.svg" class="question-sign"></a> -->
-						<!-- </div> -->
-				  <!-- </div>
-				  <div class="checkbox">
-				    <label>
-				      <input type="checkbox" checked="">Remember me
-				    </label>
-				  </div>
-					<div class="btn-login-signup">
-						<button type="button" class="btn btn-default" id="btn-default-login">Log in</button>
-						<button type="button" class="btn btn-default" id="btn-default-signup">Sign up</button>
-					</div>
-					<div>
-						<a href=""><img src="img/icons/facebook-icon.svg" class="facebook"></a>
-						<a href=""><img src="img/icons/google-plus-icon.svg" class="google-plus"></a>
-						<a href=""><img src="img/icons/twitter-icon.svg" class="twitter"></a>
-					</div>
-				</form>
-      </div>
-    </div> -->
-		<!-- Second Content -->
-		<!-- <div class="col-xs-12 col-sm-6 col-md-8">
-      <div class="jumbotron" id="jumbotron8">
-        <div class="navbar-inverse" id="patchHeader">
-          Patch 0.0.161204_2141
-        </div>
-				<div class="img-responsive">
-					<a href=""><img src="img/thumbnails/leona_thumb.jpg" alt="Leona" class="img-thumbnail"></a>
-					<footer id="news_date">from <cite>The Magical Heroes Team</cite> on 11/29/16 at 3:03 PM</footer>
-					<p id="news_content">Hello players,<br>
-The update to Patch 0.0.161204_2141 will take place on December 16th.
-There will be a short period of downtime during the update, we apologize for this little inconvenience.
-For the detailed description of the changes, please check out the full ...
-					</p>
-					<a href=""><p id="news_read-more">Read more<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></p></a>
-				</div>
-      </div>
-    </div>
-  </div>
-</div> -->

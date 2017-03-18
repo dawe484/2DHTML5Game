@@ -1,16 +1,119 @@
-<h1>Stickers</h1>
-
-{{# each stickers  }}
+<div>
   <div class="row">
-    {{# each this }}
-      <div class="col-xs-6 col-sm-4 col-md-2">
-        <div class="thumbnail">
-          <img src="{{ this.image_path }}" alt="..." class="img-responsive">
-          <div class="caption">
-            <p class="sticker-title">{{ this.title }}</p>
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      {{!-- Breadcrumbs --}}
+      <div class="breadcrumbs">
+        <h2>Stickers</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="/" class="breadcrumbs-a">Home</a>
+          </li>
+          <li>Game Info &ndash; Stickers</li>
+        </ol>
+      </div>
+      {{!-- End Breadcrumbs --}}
+    </div>
+    <div class="col-xs-1">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-10">
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      Sticker Filters
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="search" placeholder="Search Stickers">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" id="search">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                          </button>
+                        </span>
+                      </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                  </div>
+                </div>
+                <div class="checkClass">
+                  <p>
+                    Types:
+                  </p>
+                </div>
+                <div class="checkClass">
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label for="inlineCheckbox1">Attack Damage</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2">
+                    <label for="inlineCheckbox2">Ability Power</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3">
+                    <label for="inlineCheckbox3">Health</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox4" value="option4">
+                    <label for="inlineCheckbox4">Armor</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox5" value="option5">
+                    <label for="inlineCheckbox5">Magic Resist</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox6" value="option6">
+                    <label for="inlineCheckbox6">Armor Pen</label>
+                  </div>
+                  <div class="checkbox checkbox-primary checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox7" value="option7">
+                    <label for="inlineCheckbox7">Magic Pen</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 paddingtop0">
+            <div class="content">
+              <div class="jumbotron" id="jumbotron8">
+                <div class="navbar-inverse" id="login-header">
+                  <div class="row">
+                    <div class="col-xs-8" id="paddingtop3">
+                      Sticker Grid
+                    </div>
+                  </div>
+                </div>
+                {{# each stickers }}
+                  <div class="row">
+                    {{# each this }}
+                      <div class="col-xs-6 col-sm-2">
+                        <div class="grid">
+                          <img src="{{ this.image_path }}" alt="{{ this.title }} Icon"
+                            class="img-responsive img-thumbnail">
+                        </div>
+                        <div class="caption">
+                          <p class="sticker-title">{{ this.title }}</p>
+                        </div>
+                      </div>
+                    {{/each}}
+                  </div>
+                {{/each}}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    {{/each}}
+    </div>
+    <div class="col-xs-1">
+    </div>
   </div>
-{{/each}}
+</div>

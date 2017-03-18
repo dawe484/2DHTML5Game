@@ -398,7 +398,7 @@ cite {
 }
 
 /* .squaredThree */
-/*.squaredThree {
+.squaredThree {
   position: relative;
   float:left;
   padding-left: 3px;
@@ -443,7 +443,7 @@ cite {
 
 .squaredThree input[type=checkbox]:checked + label:after {
   opacity: 1;
-}*/
+}
 /* end .squaredThree */
 
 .checkbox label {
@@ -825,7 +825,7 @@ td {
 }
 
 .td-width80 {
-  width: 80px;
+  width: 86px;
 }
 
 .table-hero-attributes {

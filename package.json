@@ -20,15 +20,19 @@
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
+    "pixi.js": "^4.4.2",
     "uuid": "^3.0.1",
     "winston": "^2.3.0"
   },
   "devDependencies": {
+    "browserify": "^14.1.0",
     "colors": "^1.1.2",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "watchify": "^3.9.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "browserify client/js/game.js -o client/js/bundle.js",
+    "watch": "watchify client/js/game.js -o client/js/bundle.js"
   },
   "repository": {
     "type": "git",
