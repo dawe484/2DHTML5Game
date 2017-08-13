@@ -1,9 +1,11 @@
+/* jshint node: true */
 'use strict';
 
 const colors = require('colors/safe');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+
 // let cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHandlebars = require('express-handlebars');
@@ -34,6 +36,7 @@ const play = require('./routes/play');
 
 // Init App
 let app = express();
+
 //let serv = require('http').Server(app);
 
 // Set connection to the database
@@ -43,44 +46,57 @@ mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
+app.engine('handlebars', expressHandlebars({
+  defaultLayout: 'layout',
+  helpers: {
+    toLowerCase: function (str) {
+      return str.toLowerCase();
+    }
+  }
+}));
 app.set('view engine', 'handlebars');
 
 // let mongojs = require('mongojs');
-// let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
+// let db = mongojs('localhost:27017/2DHTML5Game',
+// ['account']); // specified all collections in db !!
 
 function generateNonce(req, res, next) {
-  const rhyphen = /-/g
-  res.locals.nonce = uuid.v4().replace(rhyphen, '')
-  next()
+  const rhyphen = /-/g;
+  res.locals.nonce = uuid.v4().replace(rhyphen, '');
+  next();
 }
 
-function getNonce (req, res) {
-  return "'nonce-${ res.locals.nonce }'"
+function getNonce(req, res) {
+  return "'nonce-" + res.locals.nonce + "'"; // 'nonce-614d9122-d5b0-4760-aecf-3a5d17cf0ac9'
 }
 
 function getDirectives() {
   const self = "'self'";
+  const none = "'none'";
   const unsafeInline = "'unsafe-inline'";
-  const unsafeEval = "'unsafe-eval'";
+  // const unsafeEval = "'unsafe-eval'";
   const scripts = [
     '*.google-analytics.com',
-    'ajax.googleapis.com'
+    'ajax.googleapis.com',
+    'code.jquery.com',
   ];
   const images = [
-    'akela.mendelu.cz/~xkrenar/'
+    'akela.mendelu.cz/~xkrenar/',
   ];
   return {
     defaultSrc: [self],
-    scriptSrc: [self, getNonce, ...scripts, unsafeInline, unsafeEval],
+    scriptSrc: [
+      getNonce, self, ...scripts, unsafeInline, //unsafeEval,
+    ],
     styleSrc: [self, unsafeInline],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self, ...images],
+    fontSrc: [self, 'data:'],
+    childSrc: [none],
     //connectSrc: ["'self'"],
     //sandbox: ['allow-forms', 'allow-scripts'],
-    //reportUri: '/report-violatio'
-    upgradeInsecureRequests: true,
-    reportUri: '/api/csp/report'
+    upgradeInsecureRequests: false,//true, pro https:// na live serveru
+    reportUri: '/api/csp-report'
     //objectSrc: [], // An empty array allows nothing through
   }
 }
@@ -94,19 +110,19 @@ app.use(helmet());
 app.use(generateNonce);
 app.use(helmet.contentSecurityPolicy({
   directives:
-  getDirectives(),
-  reportOnly: true,
-  browserSniff: false,
-  disableAndroid: true
+    getDirectives(),
+    reportOnly: true,
+    browserSniff: false,
+    disableAndroid: true
 }));
 
 // CSP violations
 // You need a JSON parser first.
 app.use(bodyParser.json({
-  type: ['json', 'application/csp-report']
+  type: ['json', 'api/csp-report']
 }))
 
-app.post('/api/csp/report', (req, res) => {
+app.post('/api/csp-report', (req, res) => {
   // if (req.body) {
   //   console.log('CSP Violation: ', req.body)
   // } else {

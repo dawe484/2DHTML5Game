@@ -11,11 +11,18 @@ const User = require('../models/user');
 // });
 
 router.get('/:userUrlName', isLoggedIn, (req, res) => {
+  let playerName = req.params.userUrlName;
+  module.exports = playerName;
   User.getUserByUsername(req.params.userUrlName, (err, user) => {
     if (err) throw err;
     res.render('play', { layout: false, title: 'Magical Heroes', userUrlName: req.params.userUrlName });
   });
 });
+
+//module.exports = playerName; //= function() {
+//   console.log(playerName);
+//   return playerName;
+// }
 
 module.exports = router;
 

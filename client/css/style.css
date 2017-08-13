@@ -275,7 +275,7 @@ cite {
 .col-xs-6 {
   /*min-width: 174px; funguje mozna nechat, zalezi jak bude vypadat login cast*/
   /*padding-left: 20px;*/
-  padding-top: 20px;
+  /*padding-top: 20px;*/
   padding-left: 0;
   padding-right: 0;
 }
@@ -862,4 +862,40 @@ td {
   background-color: #fff;
   border: 0;
   border-top: 8px solid #fff;
+}
+
+.hide {
+  transform: scale(0);
+  width: 0;
+  padding: 0;
+
+}
+
+#section {
+  min-height: 0;
+}
+
+#heroesGrid {
+  padding-top: 20px;
+}
+
+.noHeroes {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  /*height: 76px;*/
+  margin-left: 20px;
+  margin-right: 20px;
+  /*margin-top: 160px;*/
+  margin-bottom: 20px;
+  padding: 4px;
+  /*color: #000;*/
+  display: none;
+}
+
+.noHeroes #jumbotron8 {
+  margin-bottom: 0;
+}
+
+.noHeroes #jumbotron8 p {
+  padding: 20px;
 }

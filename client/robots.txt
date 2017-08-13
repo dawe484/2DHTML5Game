@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /images/ # Hide the images folder
+Disallow: /support
+Disallow: /users/signup
+Disallow: /users/login

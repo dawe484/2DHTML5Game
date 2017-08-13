@@ -3,6 +3,9 @@
 <p>username: {{user.username}}</p>
 <p>email: {{user.email}}</p>
 <p>signup time: {{user.signup_time}}</p>
+{{#each user.avatar}}
+  <p>nickname: {{this.nickname}}</p>
+{{/each}}
 
 {{#each heroes}}
   {{#each this}}
