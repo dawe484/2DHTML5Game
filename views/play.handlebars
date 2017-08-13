@@ -10,7 +10,7 @@
     <meta name="author" content="David Krénar">
     <!-- <link rel="icon" href="/img/game/favicon.png"> -->
     <title>{{title}}</title>
-    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
     <link rel="stylesheet" type="text/css" href="/css/style-play.css" />
     <style>
     /* Center the loader */
@@ -65,18 +65,20 @@
       text-align: center;
     }
     </style>
+    <script type="text/javascript" src="/js/preloader.js" charset="utf-8"></script>
   </head>
-  <body onload="myFunction()" style="margin:0">
-  <!-- <body> -->
+  <!-- <body onload="myFunction()" style="margin:0"> -->
+  <body>
     <div id="loader"></div>
     <div style="display:none;" id="myDiv" class="animate-bottom">
-      <script src="/js/pixi.min.js"></script>
+      <script type="text/javascript" src="/js/bundle.js" charset="utf-8"></script>
+      <!-- <script src="/js/pixi.min.js"></script>
       <script src="/js/stats.min.js"></script>
-      <script src="/js/game.js"></script>
-      <script>init();</script>
+      <script src="/js/game.js"></script> -->
+      <!-- <script>init();</script> -->
       <!-- <script>window.addEventListener("load", init);</script> -->
     </div>
-    <script>
+    <!-- <script>
       var myVar;
       // window.addEventListener("load", myFunction);
       function myFunction() {
@@ -86,6 +88,6 @@
         document.getElementById("loader").style.display = "none";
         document.getElementById("myDiv").style.display = "block";
       }
-    </script>
+    </script> -->
   </body>
 </html>

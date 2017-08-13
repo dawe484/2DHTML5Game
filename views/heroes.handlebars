@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-xs-4">
                       <div class="input-group">
-                        <input type="text" class="form-control" id="search" placeholder="Search Heroes">
+                        <input type="text" class="form-control search" id="search" placeholder="Search Heroes">
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button" id="search">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -49,43 +49,28 @@
                     Classes:
                   </p>
                 </div>
-                <div class="checkClass">
-                  <div class="checkbox checkbox-primary checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox1" value="option1">
-                    <label for="inlineCheckbox1">Tank</label>
+                  <div class="checkClass category_filters">
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                      <input type="checkbox" class="category_item" id="filter-tank" value="tank">
+                      <label for="filter-tank">Tank</label>
+                    </div>
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                      <input type="checkbox" class="category_item" id="filter-fighter" value="fighter">
+                      <label for="filter-fighter">Fighter</label>
+                    </div>
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                      <input type="checkbox" class="category_item" id="filter-mage" value="mage">
+                      <label for="filter-mage">Mage</label>
+                    </div>
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                      <input type="checkbox" class="category_item" id="filter-marksman" value="marksman">
+                      <label for="filter-marksman">Marksman</label>
+                    </div>
+                    <div class="checkbox checkbox-primary checkbox-inline">
+                      <input type="checkbox" class="category_item" id="filter-support" value="support">
+                      <label for="filter-support">Support</label>
+                    </div>
                   </div>
-                  <div class="checkbox checkbox-primary checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox2" value="option2">
-                    <label for="inlineCheckbox2">Fighter</label>
-                  </div>
-                  <div class="checkbox checkbox-primary checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" value="option3">
-                    <label for="inlineCheckbox3">Marksman</label>
-                  </div>
-                  <div class="checkbox checkbox-primary checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox4" value="option4">
-                    <label for="inlineCheckbox4">Mage</label>
-                  </div>
-                  <div class="checkbox checkbox-primary checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox5" value="option5">
-                    <label for="inlineCheckbox5">Support</label>
-                  </div>
-                  <!-- <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox1" value="option1">Tank
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox2" value="option2">Fighter
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" value="option3">Marksman
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" value="option4">Mage
-                  </label>
-                  <label class="checkbox-inline">
-                    <input type="checkbox" id="inlineCheckbox3" value="option5">Support
-                  </label> -->
-                </div>
               </div>
             </div>
           </div>
@@ -100,18 +85,25 @@
                   </div>
                 </div>
                 {{# each heroes }}
-                  <div class="row">
+                  <div class="row block_container" id="heroesGrid">
                     {{# each this }}
-                      <div class="col-xs-6 col-sm-4 col-md-2">
-                        <div class="grid">
-                          <a href="/heroes/{{ this.urlName }}"><img src="{{ this.icon_path }}" alt="Leryssa Icon"
-                            class="img-responsive img-thumbnail"></a>
-                        </div>
-                        <div class="caption">
-                          <p class="sticker-title">{{ this.name }}</p>
+                      <div class="col-xs-6 col-sm-4 col-md-2" id="section">
+                        <div class="hero {{ toLowerCase this.class }}">
+                          <div class="grid">
+                            <a href="/heroes/{{ this.urlName }}">
+                              <img src="{{ this.icon_path }}" alt="{{ this.name }} Icon" class="img-responsive img-thumbnail" id="{{ this.class }}"></a>
+                          </div>
+                          <div class="caption">
+                            <p class="sticker-title">{{ this.name }}</p>
+                          </div>
                         </div>
                       </div>
                     {{/each}}
+                    <div class="noHeroes">
+                      <div class="" id="jumbotron8">
+                        <p>No heroes match your criteria.</p>
+                      </div>
+                    </div>
                   </div>
                 {{/each}}
               </div>

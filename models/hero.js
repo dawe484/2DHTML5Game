@@ -8,6 +8,7 @@ const SkillSchema = new Schema({
   icon_path: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
+  skill_type: { type: String, required: true },
   skill_level: { type: Number, required: true },
   flat_dmg: { type: Number },
   flat_dmg_inc: { type: Number },
@@ -17,6 +18,7 @@ const SkillSchema = new Schema({
 // Hero Schema
 const HeroSchema = new Schema({
   date_added: { type: Date, default: Date.now },
+  summoned: { type: String, default: 'no' },
   icon_path: { type: String, required: true },
   web_image_path: { type: String, required: true },
   image_path: { type: String, required: true },
@@ -26,6 +28,7 @@ const HeroSchema = new Schema({
   class: { type: String, required: true },
   position: { type: String, required: true },
   description: { type: String, required: true },
+  basic_atk_type: { type: String, required: true },
   level: { type: Number, required: true },
   color: { type: String, required: true },
   color_number: { type: Number, required: true },
@@ -69,4 +72,8 @@ let Hero = module.exports = mongoose.model('Hero', HeroSchema);
 module.exports.getHeroByUrlName = (urlName, callback) => {
   let query = {urlName: urlName};
   Hero.findOne(query, callback);
+}
+
+module.exports.getAllHeroes = () => {
+  Hero.find({});
 }

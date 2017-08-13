@@ -1,9 +1,11 @@
+/* jshint node: true */
 'use strict';
 
 const colors = require('colors/safe');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+
 // let cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressHandlebars = require('express-handlebars');
@@ -15,11 +17,6 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const winston = require('winston'); // for logging in future
 const uuid = require('uuid');
-// const env = require('./env');
-// const authority = env('AUTHORITY');
-// const authorityIsSecure = authority.startsWith('https');
-// const authorityProtocol = authorityIsSecure ? 'https' : 'http';
-//const MongoStore = require('connect-mongo')(expressSession);
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -39,6 +36,7 @@ const play = require('./routes/play');
 
 // Init App
 let app = express();
+
 //let serv = require('http').Server(app);
 
 // Set connection to the database
@@ -48,44 +46,57 @@ mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', expressHandlebars({defaultLayout:'layout'}));
+app.engine('handlebars', expressHandlebars({
+  defaultLayout: 'layout',
+  helpers: {
+    toLowerCase: function (str) {
+      return str.toLowerCase();
+    }
+  }
+}));
 app.set('view engine', 'handlebars');
 
 // let mongojs = require('mongojs');
-// let db = mongojs('localhost:27017/2DHTML5Game', ['account']); // specified all collections in db !!
+// let db = mongojs('localhost:27017/2DHTML5Game',
+// ['account']); // specified all collections in db !!
 
 function generateNonce(req, res, next) {
-  const rhyphen = /-/g
-  res.locals.nonce = uuid.v4().replace(rhyphen, '')
-  next()
+  const rhyphen = /-/g;
+  res.locals.nonce = uuid.v4().replace(rhyphen, '');
+  next();
 }
 
-function getNonce (req, res) {
-  return "'nonce-${ res.locals.nonce }'"
+function getNonce(req, res) {
+  return "'nonce-" + res.locals.nonce + "'"; // 'nonce-614d9122-d5b0-4760-aecf-3a5d17cf0ac9'
 }
 
 function getDirectives() {
   const self = "'self'";
+  const none = "'none'";
   const unsafeInline = "'unsafe-inline'";
-  const unsafeEval = "'unsafe-eval'";
+  // const unsafeEval = "'unsafe-eval'";
   const scripts = [
     '*.google-analytics.com',
-    'ajax.googleapis.com'
+    'ajax.googleapis.com',
+    'code.jquery.com',
   ];
   const images = [
-    'akela.mendelu.cz/~xkrenar/'
+    'akela.mendelu.cz/~xkrenar/',
   ];
   return {
     defaultSrc: [self],
-    scriptSrc: [self, getNonce, ...scripts, unsafeInline, unsafeEval],
+    scriptSrc: [
+      getNonce, self, ...scripts, unsafeInline, //unsafeEval,
+    ],
     styleSrc: [self, unsafeInline],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self, ...images],
+    fontSrc: [self, 'data:'],
+    childSrc: [none],
     //connectSrc: ["'self'"],
     //sandbox: ['allow-forms', 'allow-scripts'],
-    //reportUri: '/report-violatio'
-    upgradeInsecureRequests: true,
-    reportUri: '/api/csp/report'
+    upgradeInsecureRequests: false,//true, pro https:// na live serveru
+    reportUri: '/api/csp-report'
     //objectSrc: [], // An empty array allows nothing through
   }
 }
@@ -99,19 +110,19 @@ app.use(helmet());
 app.use(generateNonce);
 app.use(helmet.contentSecurityPolicy({
   directives:
-  getDirectives(),
-  reportOnly: true,
-  browserSniff: false,
-  disableAndroid: true
+    getDirectives(),
+    reportOnly: true,
+    browserSniff: false,
+    disableAndroid: true
 }));
 
 // CSP violations
 // You need a JSON parser first.
 app.use(bodyParser.json({
-  type: ['json', 'application/csp-report']
+  type: ['json', 'api/csp-report']
 }))
 
-app.post('/api/csp/report', (req, res) => {
+app.post('/api/csp-report', (req, res) => {
   // if (req.body) {
   //   console.log('CSP Violation: ', req.body)
   // } else {
@@ -223,8 +234,8 @@ app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  let err = new Error('Not Found');
-  err.status = 404;
+  //err.status = 404;
+  let err = new Error('404 Not Found');
   next(err);
 });
 
@@ -253,147 +264,4 @@ app.listen(app.get('port'), () => {
     + "\nPress " + colors.red("Ctrl-C") + " to terminate."
     + "\n---------------------------------------");
 
-  // db.on('error', (err) => {
-  //     console.log('database error', err)
-  // })
-  //
-  // db.on('connect', () => {
-  //     console.log('database connected')
-  // })
-
 });
-
-//serv.listen(2000);
-//console.log("Server running...");
-
-// let SOCKET_LIST = {};
-// let PLAYER_LIST = {}; // list of connected players
-// let onlinePlayers = 0;
-// /*
-// let Player = (id) => {
-//   let self = {
-//     id: id
-//   }
-//
-//   Player.list[id] = self;
-//   return self;
-// }
-//
-// Player.list = {};
-//
-// Player.onConnect = (socket) => {
-//   let player = Player(socket.id);
-// }
-//
-// Player.onDisconnect = (socket) => {
-//   delete Player.list[socket.id];
-// }
-// */
-//
-// class Player {
-//   constructor(id) {
-//     this.id = id;
-//   }
-//
-//   onConnect(socket) {
-//     onlinePlayers++;
-//     console.log(colors.green('>'), 'Player:', socket.id, 'connected.',
-//       colors.yellow('\tOnline:'), onlinePlayers, 'players.');
-//   }
-//
-//   onDisconnect(socket) {
-//     onlinePlayers--;
-//     console.log(colors.red('<'), 'Player:', socket.id, 'disconnected.',
-//       colors.yellow('\tOnline:'), onlinePlayers, 'players.');
-//   }
-// }
-//
-// let USERS = {
-//   // username::password
-//   'david':'david',
-//   'tomas':'tomas',
-//   'admin':'admin'
-// }
-//
-// let isValidPassword = (data, callback) => {
-//   db.account.find({username:data.username, password:data.password}, (error, result) => {
-//     // find every account in db
-//     if (result.length > 0) // check if in db are any users
-//       callback(true);
-//     else
-//       callback(false);
-//     // callback(USERS[data.username] === data.password);
-//   });
-// }
-//
-// let isUsernameTaken = (data, callback) => {
-//   db.account.find({username:data.username}, (error, result) => {
-//   // find every account with username in db and check if the username exists in db
-//   if (result.length > 0)
-//     callback(true);
-//   else
-//     callback(false);
-//     //callback(USERS[data.username]);
-//   });
-// }
-//
-// let addUser = (data, callback) => {
-//   // insert a new user into the db
-//   db.account.insert({username:data.username, password:data.password}, (error) => {
-//     callback();
-//   });
-// }
-
-// let io = require('socket.io')(serv, {});
-// io.sockets.on('connection', (socket) => {
-//   socket.id = Math.random();
-//   SOCKET_LIST[socket.id] = socket;
-//   // console.log('socket connection:');
-//
-//   let player = new Player(socket.id);
-//
-//   socket.on('signIn', (data) => {
-//     isValidPassword(data, (res) => {
-//       if (res) {
-//         // PLAYER_LIST[socket.id] = player;
-//         // Player.onConnect(socket);
-//         //let player = new Player(socket.id);
-//         PLAYER_LIST[socket.id] = player;
-//         player.onConnect(socket);
-//         socket.emit('signInResponse', {success:true});
-//       } else {
-//         socket.emit('signInResponse', {success:false});
-//       }
-//     });
-//   });
-//
-//   socket.on('signUp', (data) => {
-//     isUsernameTaken(data, (res) => {
-//       if (res) {
-//         socket.emit('signUpResponse', {success:false});
-//       } else {
-//         addUser(data, () => {
-//           socket.emit('signUpResponse', {success:true});
-//         });
-//       }
-//     });
-//   });
-//
-//   socket.on('disconnect', () => {
-//     delete SOCKET_LIST[socket.id];
-//     delete PLAYER_LIST[socket.id];
-//     player.onDisconnect(socket);
-//     // Player.onDisconnect(socket);
-//     //player.onDisconnect(socket.id);
-//   });
-//
-//
-//   // socket.on('happy', function(data) {
-//   //   console.log(`happy because ${data.reason}`);
-//   // });
-//
-//   // socket.emit('serverMsg', {
-//   //   msg: 'Hello'
-//   // });
-//
-// });

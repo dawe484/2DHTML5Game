@@ -3,15 +3,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
+const Hero = require('../models/hero');
+const Avatar = require('../models/avatar');
 
 // User Schema
 const UserSchema = mongoose.Schema({
-  // firstName: {
-  //   type: String
-  // },
-  // lastName: {
-  //   type: String
-  // },
+  urlName: {
+    type: String,
+    lowercase: true
+  },
   username: {
     type: String,
     // index: true,
@@ -23,12 +23,22 @@ const UserSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    // unique: true,
-    // set: toLower
   },
   signup_time: {
-    type: Date, default: Date.now
-  }
+    type: Date
+  },
+  offset: {
+    type: Number
+  },
+  local_signup_time: {
+    type: String
+  },
+  avatar: [ Avatar.schema ],
+  heroes: [ Hero.schema ]
+  // heroes: [{
+  //   type: Schema.ObjectId,
+  //   ref: 'Hero'
+  // }]
 },
   {versionKey: '_documentVersion'}
 );

@@ -3,6 +3,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Map Location Schema
+const MapLocationSchema = new Schema({
+  type_location: { type: String, required: true },
+  chapter: { type: String, required: true }
+});
+
 // Attributes Schema
 const AttributesSchema = new Schema({
   title: { type: String, required: true },
@@ -17,7 +23,8 @@ const StickerSchema = new Schema({
   rarity: { type: String, required: true },
   level_req: { type: Number, required: true },
   description: { type: String },
-  attributes: [ AttributesSchema ]
+  attributes: [ AttributesSchema ],
+  map_location: [ MapLocationSchema ]
 },
   {versionKey: '_documentVersion'}
 );
