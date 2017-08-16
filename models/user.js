@@ -33,6 +33,9 @@ const UserSchema = mongoose.Schema({
   local_signup_time: {
     type: String
   },
+  status: {
+    type: String
+  },
   avatar: [ Avatar.schema ],
   heroes: [ Hero.schema ]
   // heroes: [{

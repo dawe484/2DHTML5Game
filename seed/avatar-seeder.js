@@ -8,6 +8,8 @@ mongoose.connect('localhost:27017/2DHTML5Game');
 let avatars = [
   new Avatar({
     nickname: ' ',
+    playerStatus: 'offline',
+    tutorial: 'yes',
     icon_avatar_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/mainscreen/icon_avatar_image.png',
     icon_avatar_border_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/mainscreen/icon_avatar.png',
     player_lvl: 1,

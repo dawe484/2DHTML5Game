@@ -13,8 +13,10 @@ const User = require('../models/user');
 const Hero = require('../models/hero');
 const Avatar = require('../models/avatar');
 
+let userLoggedUsername;
+
 router.get('/profile', isLoggedIn, (req, res) => {
-  Hero.find( (err, heroes) => {
+  Hero.find((err, heroes) => {
     let heroesChunk = [];
     let chunkSize = 6;
     for (let i = 0; i < heroes.length; i += chunkSize) {
@@ -26,6 +28,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
 
 // Logout User
 router.get('/logout', isLoggedIn, (req, res) => {
+  User.findOne({username: userLoggedUsername}, (err, user) => {
+    user.status = 'logout';
+    user.save();
+  });
   req.logout();
   // req.flash('success_msg', 'You are logged out');
   res.redirect('/');
@@ -89,6 +95,7 @@ router.post('/signup', (req, res) => {
           signup_time: now,
           offset: now.getTimezoneOffset(),
           local_signup_time: now.toLocaleString(),
+          status: 'logout',
           avatar: [],
           heroes: []
         });
@@ -133,6 +140,12 @@ passport.use(new LocalStrategy((username, password, done) => {
         return done(null, false, {message: 'Invalid password'});
       }
     });
+
+    if (user) {
+      userLoggedUsername = user.username;
+      user.status = 'login';
+      user.save();
+    }
   });
 }));
 

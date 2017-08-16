@@ -21,8 +21,10 @@
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "pixi.js": "^4.4.2",
+    "socket.io": "^2.0.3",
     "uuid": "^3.0.1",
-    "winston": "^2.3.0"
+    "winston": "^2.3.0",
+    "ws": "^3.1.0"
   },
   "devDependencies": {
     "browserify": "^14.1.0",

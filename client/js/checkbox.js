@@ -20,12 +20,12 @@ $(document).ready(function() {
 
   $('.search').on('keyup', function() {
     let numberOfHeroes = $('div .hero').length;
-    console.log(numberOfHeroes);
+    // console.log(numberOfHeroes);
     let searchHero = $(this).val().toLowerCase();
     let arrayOfHeroes = [];
     $('div .hero').each(function() {
       let heroName = $(this)[0].innerText.toLowerCase();
-      console.log(heroName.indexOf(searchHero));
+      // console.log(heroName.indexOf(searchHero));
       arrayOfHeroes.push(heroName.indexOf(searchHero));
       if (heroName.indexOf(searchHero) === -1) {
         $(this).hide();
@@ -33,32 +33,12 @@ $(document).ready(function() {
         $(this).show();
       }
     });
-    console.log('array: ' + arrayOfHeroes);
-    console.log(allSameValue(arrayOfHeroes));
+    // console.log('array: ' + arrayOfHeroes);
+    // console.log(allSameValue(arrayOfHeroes));
     if (allSameValue(arrayOfHeroes)) {
       $('div .noHeroes').show();
     } else {
       $('div .noHeroes').hide();
     }
-    // $(".commentlist li").each(function(){
-    //   console.log(this);
-    // });
-    // $('div .hero').hide();
-    // $("[alt* = '" + searchHero + "']").show();
-    // console.log(searchHero);
-    // // let heroes = $('div .hero');
-    // $('.grid').each(function() {
-    //   let heroName = $(this).text().toLowerCase();
-    //   console.log(heroName.indexOf(searchHero));
-    //   if (heroName.indexOf(searchHero) === -1) {
-    //     console.log($(this));
-    //     // console.log($('div.hero'));
-    //     // $(heroes).hide();
-    //     $(this).hide();
-    //   } else {
-    //     // $('div .hero .caption').show();
-    //     $(this).show();
-    //   }
-    // });
   });
 });

@@ -74,11 +74,12 @@ function getDirectives() {
   const self = "'self'";
   const none = "'none'";
   const unsafeInline = "'unsafe-inline'";
-  // const unsafeEval = "'unsafe-eval'";
+  const unsafeEval = "'unsafe-eval'";
   const scripts = [
     '*.google-analytics.com',
     'ajax.googleapis.com',
     'code.jquery.com',
+    'cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js',
   ];
   const images = [
     'akela.mendelu.cz/~xkrenar/',
@@ -86,14 +87,14 @@ function getDirectives() {
   return {
     defaultSrc: [self],
     scriptSrc: [
-      getNonce, self, ...scripts, unsafeInline, //unsafeEval,
+      getNonce, self, ...scripts, unsafeInline, unsafeEval,
     ],
     styleSrc: [self, unsafeInline],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self, ...images],
     fontSrc: [self, 'data:'],
     childSrc: [none],
-    //connectSrc: ["'self'"],
+    connectSrc: [self, 'ws://localhost:2000'],
     //sandbox: ['allow-forms', 'allow-scripts'],
     upgradeInsecureRequests: false,//true, pro https:// na live serveru
     reportUri: '/api/csp-report'
@@ -258,10 +259,61 @@ app.use((err, req, res, next) => {
 
 // Set Port
 app.set('port', (process.env.PORT || 2000));
-app.listen(app.get('port'), () => {
+let server = app.listen(app.get('port'), () => {
   console.log("---------------------------------------\n"
-    + colors.green("Server running... ") + "on port " + app.get('port')
+    + colors.green("Web server is running... ") + "on port " + app.get('port')
     + "\nPress " + colors.red("Ctrl-C") + " to terminate."
     + "\n---------------------------------------");
+});
+
+let SOCKET_LIST = {};
+
+const socket = require('socket.io');
+let io = socket(server);
+
+const User = require('./models/user');
+
+// User.getUserByUsername('meda', (err, user) => {
+//   if (err) throw err;
+//   // if (user.avatar[0].playerStatus != 'online') {
+//   //   user.avatar[0].playerStatus = 'online';
+//   //   user.save();
+//   // }
+//   // res.render('play', { layout: false, title: 'Magical Heroes', userUrlName: req.params.userUrlName });
+//   console.log(colors.yellow(user.username));
+// });
+
+io.sockets.on('connection', (socket) => {
+
+  SOCKET_LIST[socket.id] = socket;
+  let address = socket.handshake.headers.referer;
+  console.log(address); // 27
+  let playerName = address.substr(27);
+  // console.log(playerName);
+
+  console.log('player:', colors.cyan(playerName), 'connected on socket: ', colors.magenta(socket.id), '.');
+
+  User.getUserByUsername(playerName, (err, user) => {
+    if (err) throw err;
+    if (user) console.log(user.email);
+  });
+
+  socket.on('mouse', mouseMsg);
+
+  function mouseMsg(data) {
+    data = 'Monday';
+    socket.broadcast.emit('mouse', data); // send data to everyone but not me
+    // io.sockets.emit('mouse', data); // send data to everyone, me too
+    console.log(data);
+  }
+
+  socket.emit('serverMsg', {
+    message: 'Hello',
+  });
+
+  socket.on('disconnect', function() {
+    delete SOCKET_LIST[socket.id];
+    console.log('player:', colors.cyan(playerName), 'disconnected.');
+  });
 
 });
