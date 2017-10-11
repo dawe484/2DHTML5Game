@@ -5,12 +5,12 @@
     <div class="col-xs-10">
       {{!-- Breadcrumbs --}}
       <div class="breadcrumbs">
-        <h2>Stickers</h2>
+        <h2>Glyphs</h2>
         <ol class="breadcrumb">
           <li>
             <a href="/" class="breadcrumbs-a">Home</a>
           </li>
-          <li>Game Info &ndash; Stickers</li>
+          <li>Game Info &ndash; Glyphs</li>
         </ol>
       </div>
       {{!-- End Breadcrumbs --}}
@@ -30,11 +30,11 @@
                 <div class="navbar-inverse" id="login-header">
                   <div class="row">
                     <div class="col-xs-8" id="paddingtop3">
-                      Sticker Filters
+                      Glyph Filters
                     </div>
                     <div class="col-xs-4">
                       <div class="input-group">
-                        <input type="text" class="form-control" id="search" placeholder="Search Stickers">
+                        <input type="text" class="form-control" id="search" placeholder="Search Glyphs">
                         <span class="input-group-btn">
                           <button class="btn btn-default" type="button" id="search">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -88,11 +88,11 @@
                 <div class="navbar-inverse" id="login-header">
                   <div class="row">
                     <div class="col-xs-8" id="paddingtop3">
-                      Sticker Grid
+                      Glyphs Grid
                     </div>
                   </div>
                 </div>
-                {{# each stickers }}
+                {{# each glyphs }}
                   <div class="row">
                     {{# each this }}
                       <div class="col-xs-6 col-sm-2">
@@ -101,7 +101,7 @@
                             class="img-responsive img-thumbnail">
                         </div>
                         <div class="caption">
-                          <p class="sticker-title">{{ this.title }}</p>
+                          <p class="glyph-title">{{ this.title }}</p>
                         </div>
                       </div>
                     {{/each}}

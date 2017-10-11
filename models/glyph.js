@@ -15,8 +15,8 @@ const AttributesSchema = new Schema({
   amount: { type: Number, required: true }
 });
 
-// Sticker Schema
-const StickerSchema = new Schema({
+// Glyph Schema
+const GlyphSchema = new Schema({
   date_added: { type: Date, default: Date.now },
   image_path: { type: String, required: true },
   title: { type: String, required: true },
@@ -29,4 +29,4 @@ const StickerSchema = new Schema({
   {versionKey: '_documentVersion'}
 );
 
-module.exports = mongoose.model('Sticker', StickerSchema);
+module.exports = mongoose.model('Glyph', GlyphSchema);

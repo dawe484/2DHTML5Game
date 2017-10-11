@@ -1,14 +1,14 @@
 'use strict';
 
-const Sticker = require('../models/sticker');
+const Glyph = require('../models/glyph');
 const mongoose = require('mongoose');
 
 mongoose.connect('localhost:27017/2DHTML5Game');
 
-let stickers = [
+let glyphs = [
   // GREY
   // Armor
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Armor.png',
     title: 'Armor',
     rarity: 'Grey',
@@ -25,7 +25,7 @@ let stickers = [
     ]
   }),
   // Health Regen
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Health_Regen.png',
     title: 'Health Regen',
     rarity: 'Grey',
@@ -41,7 +41,7 @@ let stickers = [
     ]
   }),
   // Double Attack
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Double_Attack.png',
     title: 'Double Attack',
     rarity: 'Grey',
@@ -67,7 +67,7 @@ let stickers = [
     ]
   }),
   // Attack Damage
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Attack_Damage.png',
     title: 'Attack Damage',
     rarity: 'Grey',
@@ -84,7 +84,7 @@ let stickers = [
     ]
   }),
   // Attack Force
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Attack_Force.png',
     title: 'Attack Force',
     rarity: 'Grey',
@@ -100,7 +100,7 @@ let stickers = [
     ]
   }),
   // Hardiness
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Hardiness.png',
     title: 'Hardiness',
     rarity: 'Grey',
@@ -116,7 +116,7 @@ let stickers = [
     ]
   }),
   // Magic Penetration
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Penetration.png',
     title: 'Hardiness',
     rarity: 'Grey',
@@ -132,7 +132,7 @@ let stickers = [
     ]
   }),
   // Regenerate
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Regenerate.png',
     title: 'Regenerate',
     rarity: 'Grey',
@@ -149,7 +149,7 @@ let stickers = [
     ]
   }),
   // Magic Force
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Force.png',
     title: 'Magic Force',
     rarity: 'Grey',
@@ -165,7 +165,7 @@ let stickers = [
     ]
   }),
   // Energy Regen
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Energy_Regen.png',
     title: 'Energy Regen',
     rarity: 'Grey',
@@ -180,7 +180,7 @@ let stickers = [
     ]
   }),
   // Health
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Health.png',
     title: 'Health',
     rarity: 'Grey',
@@ -196,7 +196,7 @@ let stickers = [
     ]
   }),
   // Ability Power
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Ability_Power.png',
     title: 'Ability Power',
     rarity: 'Grey',
@@ -212,7 +212,7 @@ let stickers = [
     ]
   }),
   // Magic Resist
-  new Sticker({
+  new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Resist.png',
     title: 'Magic Resist',
     rarity: 'Grey',
@@ -231,10 +231,10 @@ let stickers = [
 
 let done = 0;
 
-for (let i = 0; i < stickers.length; i++) {
-  stickers[i].save( (err, result) => {
+for (let i = 0; i < glyphs.length; i++) {
+  glyphs[i].save( (err, result) => {
     done++;
-    if (done === stickers.length) {
+    if (done === glyphs.length) {
       exit();
     }
   });

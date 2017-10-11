@@ -9,6 +9,7 @@ let avatars = [
   new Avatar({
     nickname: ' ',
     playerStatus: 'offline',
+    storyTutorial: 'yes',
     tutorial: 'yes',
     icon_avatar_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/mainscreen/icon_avatar_image.png',
     icon_avatar_border_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/mainscreen/icon_avatar.png',
@@ -16,7 +17,8 @@ let avatars = [
     max_hero_lvl: 10,
     current_exp: 0,
     next_lvl_exp: 8,
-    energy: 60,
+    current_energy: 60,
+    max_energy: 60,
     gold: 0,
     diamond: 500
   }),

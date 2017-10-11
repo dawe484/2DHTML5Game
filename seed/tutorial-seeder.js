@@ -7,8 +7,20 @@ mongoose.connect('localhost:27017/2DHTML5Game');
 
 let tutorials = [
   new Tutorial({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/tutorial/tutorial-01.png',
-    sequence: 1
+    speaker: 'M',
+    text: "This is Magic Bookcase where you can summon heroes."
+  }),
+  new Tutorial({
+    speaker: 'M',
+    text: "Book of Magic may grants you 1 star hero, hero's page or glyphs."
+  }),
+  new Tutorial({
+    speaker: 'M',
+    text: "Ok, let's give it a try. This time is for free."
+  }),
+  new Tutorial({
+    speaker: 'M',
+    text: "Grand Book of Magic may grants 2-star or 3-star heroes."
   }),
 ];
 

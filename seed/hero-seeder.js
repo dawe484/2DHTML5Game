@@ -365,7 +365,7 @@ let heroes = [
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leona/leona.png',
     urlName: 'leona',
     name: 'Leona',
-    stars: 1,
+    stars: 2,
     class: 'Support',
     position: 'Back',
     description: 'Back row support. Magic basic attack.',

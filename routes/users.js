@@ -113,6 +113,7 @@ router.post('/signup', (req, res) => {
               }
             });
             Avatar.find( (err, avatar) => {
+              console.log(avatar);
               doc.avatar = avatar;
               doc.save();
             });

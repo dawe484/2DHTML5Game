@@ -24,7 +24,7 @@ router.get('/:userUrlName', (req, res) => {
       user.save();
     }
     res.render('play', { layout: false, title: 'Magical Heroes', userUrlName: req.params.userUrlName });
-    console.log(colors.yellow(user.username) + ' - ' + colors.magenta(user.avatar[0].playerStatus));
+    // console.log(colors.cyan(user.username) + ' - ' + colors.yellow(user.avatar[0].playerStatus));
 
   });
 });

@@ -23,7 +23,7 @@ const users = require('./routes/users');
 const news = require('./routes/news');
 const beginnerGuides = require('./routes/beginnerGuides');
 const heroes = require('./routes/heroes');
-const stickers = require('./routes/stickers');
+const glyphs = require('./routes/glyphs');
 const bookPages = require('./routes/bookPages');
 const gameModes = require('./routes/gameModes');
 const artwork = require('./routes/artwork');
@@ -40,7 +40,28 @@ let app = express();
 //let serv = require('http').Server(app);
 
 // Set connection to the database
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+let databaseOption = {
+  server: {
+    socketOptions: {
+      keepAlive: 300000,
+      connectTimeoutMS: 30000
+    }
+  },
+  replset: {
+    socketOptions: {
+      keepAlive: 300000,
+      connectTimeoutMS: 30000
+    }
+  }
+};
+
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game', databaseOption)
+  .then(() => {
+    console.log('Database successfully connected.');
+  }, (err) => {
+    console.error('Database not connected.\n'+err.message);
+    process.exit();
+  });
 
 // require('./config/passport');
 
@@ -221,7 +242,7 @@ app.use('/users', users);
 app.use('/news', news);
 app.use('/beginner-guides', beginnerGuides);
 app.use('/heroes', heroes);
-app.use('/stickers', stickers);
+app.use('/glyphs', glyphs);
 app.use('/book-pages', bookPages);
 app.use('/game-modes', gameModes);
 app.use('/artwork', artwork);
@@ -262,8 +283,8 @@ app.set('port', (process.env.PORT || 2000));
 let server = app.listen(app.get('port'), () => {
   console.log("---------------------------------------\n"
     + colors.green("Web server is running... ") + "on port " + app.get('port')
-    + "\nPress " + colors.red("Ctrl-C") + " to terminate."
-    + "\n---------------------------------------");
+    + "\nPress " + colors.red("Ctrl-C") + " to terminate.");
+    // + "\n---------------------------------------");
 });
 
 let SOCKET_LIST = {};
@@ -272,48 +293,132 @@ const socket = require('socket.io');
 let io = socket(server);
 
 const User = require('./models/user');
+const StoryTutorial = require('./models/storyTutorial');
+const Tutorial = require('./models/tutorial');
 
-// User.getUserByUsername('meda', (err, user) => {
-//   if (err) throw err;
-//   // if (user.avatar[0].playerStatus != 'online') {
-//   //   user.avatar[0].playerStatus = 'online';
-//   //   user.save();
-//   // }
-//   // res.render('play', { layout: false, title: 'Magical Heroes', userUrlName: req.params.userUrlName });
-//   console.log(colors.yellow(user.username));
-// });
-
-io.sockets.on('connection', (socket) => {
+// io.sockets.on('connection', (socket) => {
+io.on('connection', (socket) => {
 
   SOCKET_LIST[socket.id] = socket;
   let address = socket.handshake.headers.referer;
   console.log(address); // 27
   let playerName = address.substr(27);
-  // console.log(playerName);
 
-  console.log('player:', colors.cyan(playerName), 'connected on socket: ', colors.magenta(socket.id), '.');
+  console.log('player:', colors.cyan(playerName), colors.green('connected'), 'on socket:', colors.magenta(socket.id), '.');
+
+  let storyTutorialNotDone;
+
+  function countdownTimer(countdown, countdownSocketEmit, countdownSocketOn) {
+    let myTimer = setInterval(() => {
+      countdown--;
+      // console.log(countdownSocketEmit, countdown);
+      socket.emit(countdownSocketEmit, {
+        countdown: countdown
+      });
+    }, 1000);
+    socket.on(countdownSocketOn, () => {
+      clearInterval(myTimer);
+    });
+  }
 
   User.getUserByUsername(playerName, (err, user) => {
     if (err) throw err;
-    if (user) console.log(user.email);
+    if (user) {
+      console.log(user.email);
+      console.log('Story tutorial:', user.avatar[0].storyTutorial);
+      if (user.avatar[0].storyTutorial === 'yes') {
+        storyTutorialNotDone = true;
+        StoryTutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, storyTutorials) => {
+          // console.log(storyTutorials);
+          if (err) throw err;
+          socket.emit('storyTutorialData', {
+            message: storyTutorials
+          });
+        });
+      }
+
+      socket.on('btnSkipMsg', (data) => {
+        storyTutorialNotDone = false;
+        // user.avatar[0].storyTutorial = 'no';
+        // user.save();
+        console.log('Story tutorial:', user.avatar[0].storyTutorial);
+        console.log('Tutorial:', user.avatar[0].tutorial);
+
+        if (storyTutorialNotDone == false) {
+          // message: user.heroes
+          if (user.avatar[0].tutorial === 'yes') {
+            Tutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, tutorials) => {
+              if (err) throw err;
+              socket.emit('tutorialData', {
+                message: tutorials
+              });
+            });
+            socket.emit('avatarData', {
+              diamond: user.avatar[0].diamond,
+              gold: user.avatar[0].gold,
+              currentEnergy: user.avatar[0].current_energy,
+              maxEnergy: user.avatar[0].max_energy,
+              nextLvlExp: user.avatar[0].next_lvl_exp,
+              currentExp: user.avatar[0].current_exp,
+              maxHeroLvl: user.avatar[0].max_hero_lvl,
+              playerLvl: user.avatar[0].player_lvl,
+              nickname: user.avatar[0].nickname
+            });
+          }
+        }
+      });
+
+      socket.on('btnSummonx1BoMMsg', (data) => {
+        User.find({username: playerName}, {
+          _id: 0, 'heroes': {
+            $elemMatch: {
+              'name': 'Leryssa'
+            }
+          }, 'heroes.urlName': 1
+        }, (err, heroes) => {
+          if (err) throw err;
+          socket.emit('summonLeryssa', {
+            message: heroes
+          });
+        });
+        countdownTimer(20, 'timer5minutesStarted', 'timer5minutesEnded');
+      });
+
+      socket.on('btnSummonx1GBoMMsg', (data) => {
+        User.find({username: playerName}, {
+          _id: 0, 'heroes': {
+            $elemMatch: {
+              'name': 'Leona'
+            }
+          }, 'heroes.urlName': 1
+        }, (err, heroes) => {
+          if (err) throw err;
+          socket.emit('summonLeona', {
+            message: heroes
+          });
+        });
+        countdownTimer(30, 'timer46hoursStarted', 'timer46hoursEnded');
+      });
+
+    }
   });
 
-  socket.on('mouse', mouseMsg);
-
-  function mouseMsg(data) {
-    data = 'Monday';
-    socket.broadcast.emit('mouse', data); // send data to everyone but not me
-    // io.sockets.emit('mouse', data); // send data to everyone, me too
-    console.log(data);
-  }
-
-  socket.emit('serverMsg', {
-    message: 'Hello',
-  });
+  // socket.on('mouse', mouseMsg);
+  //
+  // function mouseMsg(data) {
+  //   data = 'Monday';
+  //   socket.broadcast.emit('mouse', data); // send data to everyone but not me
+  //   // io.sockets.emit('mouse', data); // send data to everyone, me too
+  //   console.log(data);
+  // }
+  //
+  // socket.emit('serverMsg', {
+  //   message: 'Hello from server.',
+  // });
 
   socket.on('disconnect', function() {
     delete SOCKET_LIST[socket.id];
-    console.log('player:', colors.cyan(playerName), 'disconnected.');
+    console.log('player:', colors.cyan(playerName), colors.red('disconnected'), 'on socket:', colors.magenta(socket.id), '.');
   });
 
 });
