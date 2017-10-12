@@ -57,7 +57,7 @@ let databaseOption = {
 
 mongoose.connect('mongodb://localhost:27017/2DHTML5Game', databaseOption)
   .then(() => {
-    console.log('Database successfully connected.');
+    console.log('Database successfully connected.\n---------------------------------------');
   }, (err) => {
     console.error('Database not connected.\n'+err.message);
     process.exit();
@@ -306,7 +306,7 @@ io.on('connection', (socket) => {
 
   console.log('player:', colors.cyan(playerName), colors.green('connected'), 'on socket:', colors.magenta(socket.id), '.');
 
-  let storyTutorialNotDone;
+  // let storyTutorialNotDone;
 
   function countdownTimer(countdown, countdownSocketEmit, countdownSocketOn) {
     let myTimer = setInterval(() => {
@@ -321,13 +321,37 @@ io.on('connection', (socket) => {
     });
   }
 
+  function sendTutorial(user) {
+    if (user.avatar[0].tutorial === 'yes') {
+      Tutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, tutorials) => {
+        if (err) throw err;
+        socket.emit('tutorialData', {
+          message: tutorials
+        });
+      });
+      socket.emit('avatarData', {
+        diamond: user.avatar[0].diamond,
+        gold: user.avatar[0].gold,
+        currentEnergy: user.avatar[0].current_energy,
+        maxEnergy: user.avatar[0].max_energy,
+        nextLvlExp: user.avatar[0].next_lvl_exp,
+        currentExp: user.avatar[0].current_exp,
+        maxHeroLvl: user.avatar[0].max_hero_lvl,
+        playerLvl: user.avatar[0].player_lvl,
+        nickname: user.avatar[0].nickname
+      });
+    }
+  }
+
   User.getUserByUsername(playerName, (err, user) => {
     if (err) throw err;
     if (user) {
-      console.log(user.email);
+      // console.log(user.email);
       console.log('Story tutorial:', user.avatar[0].storyTutorial);
-      if (user.avatar[0].storyTutorial === 'yes') {
-        storyTutorialNotDone = true;
+      if (user.avatar[0].storyTutorial === 'no') {
+        sendTutorial(user);
+      } else if (user.avatar[0].storyTutorial === 'yes') {
+        // storyTutorialNotDone = true;
         StoryTutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, storyTutorials) => {
           // console.log(storyTutorials);
           if (err) throw err;
@@ -338,34 +362,19 @@ io.on('connection', (socket) => {
       }
 
       socket.on('btnSkipMsg', (data) => {
-        storyTutorialNotDone = false;
-        // user.avatar[0].storyTutorial = 'no';
-        // user.save();
+        // storyTutorialNotDone = false;
+        if (user.avatar[0].storyTutorial === 'yes') {
+          user.avatar[0].storyTutorial = 'no';
+          user.save();
+          console.log('Save "no" to storyTutorial in DB.');
+        }
         console.log('Story tutorial:', user.avatar[0].storyTutorial);
         console.log('Tutorial:', user.avatar[0].tutorial);
 
-        if (storyTutorialNotDone == false) {
+        // if (storyTutorialNotDone === false) {
           // message: user.heroes
-          if (user.avatar[0].tutorial === 'yes') {
-            Tutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, tutorials) => {
-              if (err) throw err;
-              socket.emit('tutorialData', {
-                message: tutorials
-              });
-            });
-            socket.emit('avatarData', {
-              diamond: user.avatar[0].diamond,
-              gold: user.avatar[0].gold,
-              currentEnergy: user.avatar[0].current_energy,
-              maxEnergy: user.avatar[0].max_energy,
-              nextLvlExp: user.avatar[0].next_lvl_exp,
-              currentExp: user.avatar[0].current_exp,
-              maxHeroLvl: user.avatar[0].max_hero_lvl,
-              playerLvl: user.avatar[0].player_lvl,
-              nickname: user.avatar[0].nickname
-            });
-          }
-        }
+        sendTutorial(user);
+        // }
       });
 
       socket.on('btnSummonx1BoMMsg', (data) => {

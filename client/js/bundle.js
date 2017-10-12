@@ -19,6 +19,7 @@ const GAME_WIDTH = 1920,
       LATENCY = 500,
       png = '.png',
       jpg = '.jpg',
+      loadingScreenPath = '/images/game/loading_screen'+jpg,
       mainscreenPath = '/images/game/mainscreen/',
       backgroundEmptyPath = mainscreenPath+'background_empty'+jpg,
       backgroundDarkerPath = mainscreenPath+'background_darker'+png,
@@ -113,7 +114,8 @@ let backgroundEmpty_mc,
   // trials_sc, textTrials_sc, battle_sc, textBattle_sc, markets_sc, textMarkets_sc;
 
 // Summoning Books variables (sbc = summonBooksContainer)
-  // backgroundEmpty_sbc, backgroundDarker_sbc, backIcon_sbc, backgroundBook_sbc,
+  // backgroundEmpty_sbc, backgroundDarker_sbc,
+  backIcon_sbc, //backgroundBook_sbc,
   // bannerBoM_sbc,
   textBannerBoM_sbc, //backgroundBoM_sbc, boM_sbc,
   btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc,
@@ -214,6 +216,7 @@ function init() {
       // Use PIXI's built-in 'loader' module to load an image and run the 'setup' function when it's done
       loader
         .add([
+          loadingScreenPath,
           backgroundEmptyPath, backgroundDarkerPath, btnPurple248x80Path,
           apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path,
           scrollBtn192x72Path, scroll192x1068Path, scrollBtn192x48Path,
@@ -306,6 +309,8 @@ function init() {
       fill: '#ff0000'
     });
 
+    // setLoadingContainer();
+
   // ----- MAIN SCREEN (stage)-----
     // Avatar in avatarContainer ('avatarBorder', ...)
     // Bars in barContainer which is in mainScreenContainer ('stamina', 'gold', 'diamond')
@@ -315,7 +320,11 @@ function init() {
     // ----- SUMMON x1 (10) SCREEN (suc = summonContainer) -----
 
     // ----- STORY TUTORIAL SCREEN -----
+    // socket.on('storyTutorialData', (data) => {
+      // console.log(data.message);
     setStoryTutorialContainer();
+    // });
+
     // ----- MAIN SCREEN -----
     setAvatarContainer(); // Add Avatar into the Main Screen (mainScreenContainer)
     setBarContainer(); // Add Bars into the Main Screen
@@ -486,6 +495,17 @@ function setMiddlePos(parent, child) {
   return {x, y};
 }
 
+function setLoadingContainer() {
+  let loadingContainer = new Container();
+
+  let loadingScreen = new Sprite(resources[loadingScreenPath].texture);
+  loadingScreen.position.set(0, 0);
+
+  loadingContainer.addChild(loadingScreen);
+
+  stage.addChild(loadingContainer);
+}
+
 // Setup storyTutorialContainer
 function setStoryTutorialContainer() {
   storyTutorialContainer = new Container();
@@ -529,14 +549,21 @@ function setStoryTutorialContainer() {
   arrowDown120x48_stc.vx = 0;
   arrowDown120x48_stc.vy = 0;
 
+  // goUpAndDown(arrowDown120x48_stc, 952, 1);
+
   storyTutorialContainer.addChild(
     backgroundEmpty_stc, btnSkip_stc, textBtnSkip_stc, apprentice_stc, player_stc,
     master_stc, bubble_stc, textBubble_stc, arrowDown120x48_stc);
 
-  stage.addChild(storyTutorialContainer);
+  // stage.addChild(storyTutorialContainer);
 
   // Server send data with tutorial information if avatar.tutorial = 'yes'
   socket.on('storyTutorialData', (data) => {
+    setTimeout(() => {
+      stage.addChild(storyTutorialContainer);
+      // console.log(stage.children);
+    }, LATENCY*2);
+
     console.log(data.message);
 
     btnSkip_stc.interactive = true;
@@ -634,8 +661,11 @@ function setMainScreenContainer() {
       setTimeout(() => {
         console.log(data.message);
 
-        storyTutorialContainer.removeChild(master_stc, arrowDown120x48_stc);
-        stage.removeChild(storyTutorialContainer);
+        if (stage.children[0]) {
+          storyTutorialContainer.removeChild(master_stc, arrowDown120x48_stc);
+          stage.removeChild(storyTutorialContainer);
+        }
+
         mainScreenIconsContainer.removeChild(summonBooks_mac, textSummonBooks_mac);
 
         summonBooks_mac.interactive = true;
@@ -821,16 +851,24 @@ function setMainScreenContainer() {
                             );
                           }
                           if (i === 5) {
-                            console.log('happy');
                             summonContainer.removeChild(handIcon_tc);
                             setTimeout(() => {
                               handIcon_tc.position.set(
-                                backIcon_suc.x+backIcon_suc.width/4*3,
-                                backIcon_suc.y+backIcon_suc.height/4*3
+                                backIcon_sbc.x+backIcon_sbc.width/4*3,
+                                backIcon_sbc.y+backIcon_sbc.height/4*3
                               );
 
-                              
+                              backIcon_sbc.interactive = true;
+                              backIcon_sbc.buttonMode = true;
 
+                              backIcon_sbc.on('pointerup', () => {
+                                backIcon_sbc.interactive = false;
+                                backIcon_sbc.buttonMode = false;
+                                setTimeout(() => {
+                                  console.log('happy');
+
+                                }, LATENCY);
+                              });
                               summonBooksContainer.addChild(handIcon_tc);
                             }, LATENCY);
                           }
@@ -1284,7 +1322,7 @@ function setSummonBooksContainer() {
   let backgroundDarker_sbc = new Sprite(resources[backgroundDarkerPath].texture);
   backgroundDarker_sbc.position.set(0, 0);
 
-  let backIcon_sbc = new Sprite(resources[backIconPath].texture);
+  backIcon_sbc = new Sprite(resources[backIconPath].texture);
   backIcon_sbc.position.set(36, 36);
 
   let backgroundBook_sbc = new Sprite(resources[backgroundBookPath].texture);
