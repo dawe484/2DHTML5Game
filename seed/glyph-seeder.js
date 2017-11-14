@@ -6,14 +6,30 @@ const mongoose = require('mongoose');
 mongoose.connect('localhost:27017/2DHTML5Game');
 
 let glyphs = [
-  // GREY
+// ---- GREY ---- //
+  // Ability Power
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/ability_power_icon.png',
+    title: 'Ability Power',
+    rarity: 'Grey',
+    level_req: 2,
+    description: 'Adds a small amount of Ability power.',
+    attributes: [
+      { title: 'ability power', amount: 6 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-3' },
+      { type_location: 'Normal', chapter: '4-4' },
+      { type_location: 'Normal', chapter: '6-6' }
+    ]
+  }),
   // Armor
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Armor.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/armor_icon.png',
     title: 'Armor',
     rarity: 'Grey',
     level_req: 2,
-    description: 'Adds a small amount of armor.',
+    description: 'Adds a small amount of Armor.',
     attributes: [
       { title: 'armor', amount: 2 }
     ],
@@ -24,25 +40,72 @@ let glyphs = [
       { type_location: 'Normal', chapter: '6-4' }
     ]
   }),
-  // Health Regen
+  // Armor Penetration
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Health_Regen.png',
-    title: 'Health Regen',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/armor_pen_icon.png',
+    title: 'Armor Penetration',
     rarity: 'Grey',
     level_req: 2,
-    description: 'Adds a small amount of health regeneration.',
+    description: 'Adds a small amount of Armor Penetration.',
     attributes: [
-      { title: 'health regen', amount: 60 }
+      { title: 'armor penetration', amount: 1 }
     ],
     map_location: [
-      { type_location: 'Normal', chapter: '1-1' },
-      { type_location: 'Normal', chapter: '4-4' },
-      { type_location: 'Normal', chapter: '7-8' }
+      { type_location: 'Normal', chapter: '2-1' },
+      { type_location: 'Normal', chapter: '5-8' }
+    ]
+  }),
+  // Attack Damage
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/attack_damage_icon.png',
+    title: 'Attack Damage',
+    rarity: 'Grey',
+    level_req: 1,
+    description: 'Adds a small amount of Attack Damage.',
+    attributes: [
+      { title: 'attack damage', amount: 6 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-2' },
+      { type_location: 'Normal', chapter: '3-6' },
+      { type_location: 'Normal', chapter: '5-5' },
+      { type_location: 'Normal', chapter: '6-8' }
+    ]
+  }),
+  // Attack Force
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/attack_force_icon.png',
+    title: 'Attack Force',
+    rarity: 'Grey',
+    level_req: 2,
+    description: "A soldier who's' been hitting the gym.",
+    attributes: [
+      { title: 'health', amount: 60 },
+      { title: 'attack damage', amount: 3 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-4' },
+      { type_location: 'Normal', chapter: '4-6' }
+    ]
+  }),
+  // Crit Strike
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/crit_strike_icon.png',
+    title: 'Crit Strike',
+    rarity: 'Grey',
+    level_req: 2,
+    description: 'Adds a small amount of Crit Strike chance.',
+    attributes: [
+      { title: 'crit strike level', amount: 2.5 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '2-2' },
+      { type_location: 'Normal', chapter: '3-2' }
     ]
   }),
   // Double Attack
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Double_Attack.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/double_attack_icon.png',
     title: 'Double Attack',
     rarity: 'Grey',
     level_req: 2,
@@ -66,42 +129,24 @@ let glyphs = [
       { type_location: 'Legend', chapter: '11-1' }
     ]
   }),
-  // Attack Damage
+  // Energy Regen
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Attack_Damage.png',
-    title: 'Attack Damage',
-    rarity: 'Grey',
-    level_req: 1,
-    description: 'Adds a small amount of Attack damage.',
-    attributes: [
-      { title: 'attack damage', amount: 6 }
-    ],
-    map_location: [
-      { type_location: 'Normal', chapter: '1-2' },
-      { type_location: 'Normal', chapter: '3-6' },
-      { type_location: 'Normal', chapter: '5-5' },
-      { type_location: 'Normal', chapter: '6-8' }
-    ]
-  }),
-  // Attack Force
-  new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Attack_Force.png',
-    title: 'Attack Force',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/energy_regen_icon.png',
+    title: 'Energy Regen',
     rarity: 'Grey',
     level_req: 2,
-    description: "A soldier who's' been hitting the gym.",
+    description: 'Adds a small amount of Energy regen.',
     attributes: [
-      { title: 'health', amount: 60 },
-      { title: 'attack damage', amount: 3 }
+      { title: 'energy regen', amount: 10 }
     ],
     map_location: [
       { type_location: 'Normal', chapter: '1-4' },
-      { type_location: 'Normal', chapter: '4-6' }
+      { type_location: 'Normal', chapter: '3-7' }
     ]
   }),
   // Hardiness
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Hardiness.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/hardiness_icon.png',
     title: 'Hardiness',
     rarity: 'Grey',
     level_req: 2,
@@ -115,10 +160,58 @@ let glyphs = [
       { type_location: 'Normal', chapter: '3-8' }
     ]
   }),
-  // Magic Penetration
+  // Health
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Penetration.png',
-    title: 'Hardiness',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/health_icon.png',
+    title: 'Health',
+    rarity: 'Grey',
+    level_req: 1,
+    description: 'Adds a small amount of health.',
+    attributes: [
+      { title: 'health', amount: 100 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-1' },
+      { type_location: 'Normal', chapter: '4-7' },
+      { type_location: 'Normal', chapter: '6-4' }
+    ]
+  }),
+  // Health Regen
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/health_regen_icon.png',
+    title: 'Health Regen',
+    rarity: 'Grey',
+    level_req: 2,
+    description: 'Adds a small amount of health regeneration.',
+    attributes: [
+      { title: 'health regen', amount: 60 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-1' },
+      { type_location: 'Normal', chapter: '4-4' },
+      { type_location: 'Normal', chapter: '7-8' }
+    ]
+  }),
+  // Magic Force
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_force_icon.png',
+    title: 'Magic Force',
+    rarity: 'Grey',
+    level_req: 2,
+    description: 'A mage who works out?',
+    attributes: [
+      { title: 'health', amount: 60 },
+      { title: 'ability power', amount: 3 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-6' },
+      { type_location: 'Normal', chapter: '6-6' }
+    ]
+  }),
+    // Magic Penetration
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_pen_icon.png',
+    title: 'Magic Penetration',
     rarity: 'Grey',
     level_req: 2,
     description: 'Adds a small amount of Magic penetration.',
@@ -131,9 +224,25 @@ let glyphs = [
       { type_location: 'Normal', chapter: '6-2' }
     ]
   }),
+  // Magic Resist
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_resist_icon.png',
+    title: 'Magic Resist',
+    rarity: 'Grey',
+    level_req: 2,
+    description: 'Adds a small amount of Magic resist.',
+    attributes: [
+      { title: 'magic resist', amount: 2 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '1-3' },
+      { type_location: 'Normal', chapter: '3-5' },
+      { type_location: 'Normal', chapter: '6-7' }
+    ]
+  }),
   // Regenerate
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Regenerate.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/regenerate_icon.png',
     title: 'Regenerate',
     rarity: 'Grey',
     level_req: 2,
@@ -148,86 +257,382 @@ let glyphs = [
       { type_location: 'Normal', chapter: '7-3' }
     ]
   }),
-  // Magic Force
+// ---- GREEN ---- //
+  // Aggression
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Force.png',
-    title: 'Magic Force',
-    rarity: 'Grey',
-    level_req: 2,
-    description: 'A mage who works out?',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/aggression_icon.png',
+    title: 'Aggression',
+    rarity: 'Green',
+    level_req: 9,
+    description: "Word around town is you've got weapons of mass destruction here?",
     attributes: [
-      { title: 'health', amount: 60 },
-      { title: 'ability power', amount: 3 }
-    ],
-    map_location: [
-      { type_location: 'Normal', chapter: '1-6' },
-      { type_location: 'Normal', chapter: '6-6' }
-    ]
-  }),
-  // Energy Regen
-  new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Energy_Regen.png',
-    title: 'Energy Regen',
-    rarity: 'Grey',
-    level_req: 2,
-    description: 'Adds a small amount of Energy regen.',
-    attributes: [
-      { title: 'energy regen', amount: 10 }
-    ],
-    map_location: [
-      { type_location: 'Normal', chapter: '1-4' },
-      { type_location: 'Normal', chapter: '3-7' }
-    ]
-  }),
-  // Health
-  new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Health.png',
-    title: 'Health',
-    rarity: 'Grey',
-    level_req: 1,
-    description: 'Adds a small amount of health.',
-    attributes: [
-      { title: 'health', amount: 100 }
-    ],
-    map_location: [
-      { type_location: 'Normal', chapter: '1-1' },
-      { type_location: 'Normal', chapter: '4-7' },
-      { type_location: 'Normal', chapter: '6-4' }
-    ]
-  }),
-  // Ability Power
-  new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Ability_Power.png',
-    title: 'Ability Power',
-    rarity: 'Grey',
-    level_req: 2,
-    description: 'Adds a small amount of Ability power.',
-    attributes: [
+      { title: 'attack damage', amount: 12 },
       { title: 'ability power', amount: 6 }
     ],
     map_location: [
-      { type_location: 'Normal', chapter: '1-3' },
-      { type_location: 'Normal', chapter: '4-4' },
-      { type_location: 'Normal', chapter: '6-6' }
+      { type_location: 'Normal', chapter: '2-4' },
+      { type_location: 'Normal', chapter: '4-3' },
+      { type_location: 'Normal', chapter: '9-1' }
     ]
   }),
-  // Magic Resist
+  // Avarice
   new Glyph({
-    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/stickers/Magic_Resist.png',
-    title: 'Magic Resist',
-    rarity: 'Grey',
-    level_req: 2,
-    description: 'Adds a small amount of Magic resist.',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/avarice_icon.png',
+    title: 'Avarice',
+    rarity: 'Green',
+    level_req: 10,
+    description: "There are all mine!",
     attributes: [
+      { title: 'attack damage', amount: 3 },
+      { title: 'crit strike level', amount: 3.7 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Balance
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/balance_icon.png',
+    title: 'Balance',
+    rarity: 'Green',
+    level_req: 15,
+    description: "Let me weigh your heart",
+    attributes: [
+      { title: 'attack damage', amount: 5 },
+      { title: 'armor', amount: 5 },
+      { title: 'ability power', amount: 5 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Bloodthirst
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/bloodthirst_icon.png',
+    title: 'Bloodthirst',
+    rarity: 'Green',
+    level_req: 10,
+    description: "This red liquid is as delicious as it looks.",
+    attributes: [
+      { title: 'attack damage', amount: 3 },
+      { title: 'life steal level', amount: 3 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '2-6' },
+      { type_location: 'Normal', chapter: '5-6' }
+    ]
+  }),
+  // Bravery
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/bravery_icon.png',
+    title: 'Bravery',
+    rarity: 'Green',
+    level_req: 11,
+    description: "Brave heart.",
+    attributes: [
+      { title: 'attack damage', amount: 5 },
+      { title: 'armor', amount: 2 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Cardio
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/cardio_icon.png',
+    title: 'Cardio',
+    rarity: 'Green',
+    level_req: 9,
+    description: "A breastplate.",
+    attributes: [
+      { title: 'armor', amount: 5 },
+      { title: 'health regen', amount: 50 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Chivalry
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/chivalry_icon.png',
+    title: 'Chivalry',
+    rarity: 'Green',
+    level_req: 16,
+    description: "No one can stop a punk who knows karate.",
+    attributes: [
+      { title: 'health', amount: 240 },
+      { title: 'attack damage', amount: 4 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Defense
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/defense_icon.png',
+    title: 'Defense',
+    rarity: 'Green',
+    level_req: 15,
+    description: "I will protect you!",
+    attributes: [
+      { title: 'attack damage', amount: 8 },
+      { title: 'magic resist', amount: 4 },
+      { title: 'health regen', amount: 50 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Divine Power
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/divine_power_icon.png',
+    title: 'Divine Power',
+    rarity: 'Green',
+    level_req: 11,
+    description: "If you drink your milk, you can too!",
+    attributes: [
+      { title: 'attack damage', amount: 6 },
+      { title: 'ability power', amount: 12 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '2-2' },
+      { type_location: 'Normal', chapter: '6-3' }
+    ]
+  }),
+  // Enforcement
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/enforcement_icon.png',
+    title: 'Enforcement',
+    rarity: 'Green',
+    level_req: 18 ,
+    description: "You have the right to remain silent!",
+    attributes: [
+      { title: 'health', amount: 60 },
+      { title: 'attack damage', amount: 10 },
+      { title: 'ability power', amount: 10 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Extra Health
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/extra_health_icon.png',
+    title: 'Extra Health',
+    rarity: 'Green',
+    level_req: 8,
+    description: "You are what you eat.",
+    attributes: [
+      { title: 'health', amount: 180 },
+      { title: 'health regen', amount: 50 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '2-1' },
+      { type_location: 'Normal', chapter: '5-2' }
+    ]
+  }),
+  // Fortitude
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/fortitude_icon.png',
+    title: 'Fortitude',
+    rarity: 'Green',
+    level_req: 8,
+    description: "Attack!",
+    attributes: [
+      { title: 'attack damage', amount: 10 },
+      { title: 'health regen', amount: 50 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '2-3' },
+      { type_location: 'Normal', chapter: '4-5' }
+    ]
+  }),
+  // Illusion
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/illusion_icon.png',
+    title: 'Illusion',
+    rarity: 'Green',
+    level_req: 18,
+    description: "What else do you wanna see besides poker cards?",
+    attributes: [
+      { title: 'ability power', amount: 8 },
+      { title: 'magic penetration', amount: 2 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Immortality
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/immortality_icon.png',
+    title: 'Immortality',
+    rarity: 'Green',
+    level_req: 12,
+    description: "Chuck Norris said he's gonna live forever.",
+    attributes: [
+      { title: 'health', amount: 220 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Infinity
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/infinity_icon.png',
+    title: 'Infinity',
+    rarity: 'Green',
+    level_req: 17,
+    description: "Healthy teeth lead to a healthy appetite.",
+    attributes: [
+      { title: 'ability power', amount: 5 },
+      { title: 'life steal level', amount: 3 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Magic Shield
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/magic_shield_icon.png',
+    title: 'Magic Shield',
+    rarity: 'Green',
+    level_req: 15,
+    description: "This is also called coating.",
+    attributes: [
+      { title: 'armor', amount: 4 },
+      { title: 'ability power', amount: 8 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Meditation
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/meditation_icon.png',
+    title: 'Meditation',
+    rarity: 'Green',
+    level_req: 7,
+    description: "Think about what to eat for dinner.",
+    attributes: [
+      { title: 'ability power', amount: 7 },
       { title: 'magic resist', amount: 2 }
     ],
     map_location: [
-      { type_location: 'Normal', chapter: '1-3' },
-      { type_location: 'Normal', chapter: '3-5' },
-      { type_location: 'Normal', chapter: '6-7' }
+      { type_location: 'Normal', chapter: '2-5' },
+      { type_location: 'Normal', chapter: '4-8' },
+      { type_location: 'Normal', chapter: '5-4' }
     ]
   }),
+  // Nature
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/nature_icon.png',
+    title: 'Nature',
+    rarity: 'Green',
+    level_req: 10,
+    description: "I love nature. Look, even my desktop background is nature scenes!",
+    attributes: [
+      { title: 'health', amount: 180 },
+      { title: 'energy regen', amount: 15 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Osmosis
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/osmosis_icon.png',
+    title: 'Osmosis',
+    rarity: 'Green',
+    level_req: 16,
+    description: "I'm part of you, and you're part of me.",
+    attributes: [
+      { title: 'attack damage', amount: 8 },
+      { title: 'ability power', amount: 8 },
+      { title: 'armor penetration', amount: 2 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Providence
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/providence_icon.png',
+    title: 'Providence',
+    rarity: 'Green',
+    level_req: 7,
+    description: "You've always felt there's someone watching you from the shadows...",
+    attributes: [
+      { title: 'health', amount: 140 },
+      { title: 'magic resist', amount: 2 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Prowess
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/prowess_icon.png',
+    title: 'Prowess',
+    rarity: 'Green',
+    level_req: 7,
+    description: "In a showdown, fortune favors the bold.",
+    attributes: [
+      { title: 'armor', amount: 2 },
+      { title: 'ability power', amount: 7 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Sublimity
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/sublimity_icon.png',
+    title: 'Sublimity',
+    rarity: 'Green',
+    level_req: 16,
+    description: "A mountain doesn't have to say it's tall.",
+    attributes: [
+      { title: 'health', amount: 260 },
+      { title: 'health regen', amount: 50 },
+      { title: 'energy regen', amount: 10 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+  // Valor
+  new Glyph({
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/valor_icon.png',
+    title: 'Valor',
+    rarity: 'Green',
+    level_req: 12,
+    description: "Black Friday was made for you.",
+    attributes: [
+      { title: 'attack damage', amount: 8 },
+      { title: 'ability power', amount: 8 },
+      { title: 'energy regen', amount: 10 }
+    ],
+    map_location: [
+      { type_location: 'Normal', chapter: '0-0' }
+    ]
+  }),
+// ---- BLUE ---- //
+  //
+// ---- PURPLE ---- //
+  //
+// ---- ORANGE ---- //
+  //
+// ---- ?? RED in 2019 ?? ---- //
 ];
+
+Glyph.remove({}, function(err) {
+    if (err) {
+      console.err(err)
+    } else {
+      console.log('Remove all!');
+    }
+  }
+);
 
 let done = 0;
 
@@ -235,6 +640,7 @@ for (let i = 0; i < glyphs.length; i++) {
   glyphs[i].save( (err, result) => {
     done++;
     if (done === glyphs.length) {
+      console.log('All glyphs saved in DB.');
       exit();
     }
   });

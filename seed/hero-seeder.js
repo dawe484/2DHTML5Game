@@ -92,6 +92,48 @@ let heroes = [
         flat_dmg_inc: 23,
         skill_power: 25
       }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Armor' },
+          { number: 1, title: 'Health Regen' },
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Attack Damage' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Health' },
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Aggression' },
+          { number: 1, title: 'Immortality' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Fortitude' },
+          { number: 1, title: 'Aggression' },
+          { number: 1, title: 'Defense' },
+          { number: 1, title: 'Enforcement' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
     ]
   }),
   // Diu Win
@@ -180,6 +222,48 @@ let heroes = [
         flat_dmg_inc: 0.5,
         skill_power: 0
       }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Armor' },
+          { number: 1, title: 'Attack Force' },
+          { number: 1, title: 'Attack Force' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Fortitude' },
+          { number: 1, title: 'Bravery' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Magic Resist' },
+          { number: 1, title: 'Aggression' },
+          { number: 1, title: 'Bloodthirst' },
+          { number: 1, title: 'Defense' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
     ]
   }),
   // Crystal
@@ -191,7 +275,7 @@ let heroes = [
     name: 'Crystal',
     stars: 1,
     class: 'Mage',
-    position: 'Mid',
+    position: 'Middle',
     description: 'Mid row mage. Magic basic attack. Her ultimate can deal tons of damage.',
     basic_atk_type: 'magic',
     level: 1,
@@ -268,6 +352,48 @@ let heroes = [
         flat_dmg_inc: 0.5,
         skill_power: 0
       }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Magic Penetration' },
+          { number: 1, title: 'Magic Penetration' },
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Hardiness' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Prowess' },
+          { number: 1, title: 'Meditation' },
+          { number: 1, title: 'Meditation' },
+          { number: 1, title: 'Providence' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Regenerate' },
+          { number: 1, title: 'Divine Power' },
+          { number: 1, title: 'Magic Shield' },
+          { number: 1, title: 'Magic Shield' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
     ]
   }),
   // Sin
@@ -279,7 +405,7 @@ let heroes = [
     name: 'Sin',
     stars: 1,
     class: 'Marksman',
-    position: 'Mid',
+    position: 'Middle',
     description: 'Mid row marksman. Physical basic attack.',
     basic_atk_type: 'physical',
     level: 1,
@@ -356,6 +482,48 @@ let heroes = [
         flat_dmg_inc: 27.8,
         skill_power: 144
       }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Attack Force' },
+          { number: 1, title: 'Attack Force' },
+          { number: 1, title: 'Regenerate' },
+          { number: 1, title: 'Attack Damage' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Health' },
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Providence' },
+          { number: 1, title: 'Fortitude' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Health Regen' },
+          { number: 1, title: 'Regenerate' },
+          { number: 1, title: 'Defense' },
+          { number: 1, title: 'Osmosis' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
     ]
   }),
   // Leona
@@ -444,9 +612,841 @@ let heroes = [
         flat_dmg_inc: 33.7,
         skill_power: 174
       }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Magic Resist' },
+          { number: 1, title: 'Magic Resist' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Prowess' },
+          { number: 1, title: 'Meditation' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Energy Regen' },
+          { number: 1, title: 'Magic Shield' },
+          { number: 1, title: 'Magic Shield' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
     ]
+  }),
+  // Aelois
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois.png',
+    urlName: 'aelois',
+    name: 'Aelois',
+    stars: 1,
+    class: 'Marksman',
+    position: 'Back',
+    description: ' ',
+    basic_atk_type: 'physical',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Health' },
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Regenerate' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Armor Penetration' },
+          { number: 1, title: 'Attack Force' },
+          { number: 1, title: 'Fortitude' },
+          { number: 1, title: 'Bravery' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Attack Damage' },
+          { number: 1, title: 'Fortitude' },
+          { number: 1, title: 'Extra Health' },
+          { number: 1, title: 'Defense' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+  }),
+  // Amara
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara.png',
+    urlName: 'amara',
+    name: 'Amara',
+    stars: 1,
+    class: 'Support',
+    position: 'Back',
+    description: ' ',
+    basic_atk_type: 'magic',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Energy Regen' },
+          { number: 1, title: 'Armor' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Health' },
+          { number: 1, title: 'Valor' },
+          { number: 1, title: 'Meditation' },
+          { number: 1, title: 'Extra Health' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Energy Regen' },
+          { number: 1, title: 'Prowess' },
+          { number: 1, title: 'Nature' },
+          { number: 1, title: 'Sublimity' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+  }),
+  // Nadia
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia.png',
+    urlName: 'nadia',
+    name: 'Nadia',
+    stars: 1,
+    class: 'Mage',
+    position: 'Middle',
+    description: ' ',
+    basic_atk_type: 'magic',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Health' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Health Regen' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Prowess' },
+          { number: 1, title: 'Meditation' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Health Regen' },
+          { number: 1, title: 'Nature' },
+          { number: 1, title: 'Magic Shield' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+  }),
+  // Nyx
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx.png',
+    urlName: 'nyx',
+    name: 'Nyx',
+    stars: 1,
+    class: 'Mage',
+    position: 'Back',
+    description: ' ',
+    basic_atk_type: 'magic',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Magic Force' },
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Energy Regen' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Regenerate' },
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Providence' },
+          { number: 1, title: 'Meditation' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Valor' },
+          { number: 1, title: 'Extra Health' },
+          { number: 1, title: 'Magic Shield' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+  }),
+  // Zalajin
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin.png',
+    urlName: 'zalajin',
+    name: 'Zalajin',
+    stars: 1,
+    class: 'Mage/Support',
+    position: 'Middle',
+    description: ' ',
+    basic_atk_type: 'magic',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Health Regen' },
+          { number: 1, title: 'Regenerate' },
+          { number: 1, title: 'Magic Force' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Hardiness' },
+          { number: 1, title: 'Prowess' },
+          { number: 1, title: 'Nature' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Ability Power' },
+          { number: 1, title: 'Meditation' },
+          { number: 1, title: 'Nature' },
+          { number: 1, title: 'Magic Shield' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+  }),
+  // Zaya
+  new Hero({
+    icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya-icon.png',
+    web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya-web.png',
+    image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya.png',
+    urlName: 'zaya',
+    name: 'Zaya',
+    stars: 1,
+    class: 'Fighter',
+    position: 'Back',
+    description: ' ',
+    basic_atk_type: 'physical',
+    level: 1,
+    color: 'Grey',
+    color_number: 0,
+    attack_range: 200,
+    power: 204,
+    power_inc: 15,
+    health: 540,
+    health_inc: 82,
+    attack_damage: 46,
+    attack_damage_inc: 3,
+    ability_power: 33,
+    ability_power_inc: 2.47,
+    armor: 24,
+    armor_inc: 3,
+    magic_resist: 22,
+    magic_resist_inc: 1.8,
+    attack_speed: 100,
+    attack_speed_inc: 0.008,
+    health_regen: 32,
+    health_regen_inc: 0.06,
+    movement_speed: 345,
+    energy_regen: 300,
+    crit_damage_lvl: 0,
+    crit_strike_lvl: 0,
+    hit_lvl: 765,
+    dodge_lvl: 0,
+    life_steal_lvl: 0,
+    energy_steal: 0,
+    energy_boost: 0,
+    armor_pen: 0,
+    magic_pen: 0,
+    healing_effect: 0,
+    shield_effect: 0,
+    skills: [
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_1-cannon_barrage.png',
+        title: 'Skill 1',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 1.1,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
+        title: 'Skill 2',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 0,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_3-parrrley.png',
+        title: 'Skill 3',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 40,
+        flat_dmg_inc: 1.15,
+        skill_power: 0
+      },
+      {
+        icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_4-bane_of_the_seven_seas.png',
+        title: 'Skill 4',
+        description: " ",
+        skill_type: ' ',
+        skill_level: 1,
+        flat_dmg: 0,
+        flat_dmg_inc: 23,
+        skill_power: 25
+      }
+    ],
+    glyphs_rarity: [
+      // Grey -> Green
+      {
+        current_status: 'Grey',
+        next_status: 'Green',
+        glyphs: [
+          { number: 1, title: 'Attack Force' },
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Health Regen' }
+        ]
+      },
+      // Green -> Green +1
+      {
+        current_status: 'Green',
+        next_status: 'Green +1',
+        glyphs: [
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Immortality' },
+          { number: 1, title: 'Osmosis' }
+        ]
+      },
+      // Green +1 -> Blue
+      {
+        current_status: 'Green +1',
+        next_status: 'Blue',
+        glyphs: [
+          { number: 1, title: 'Double Attack' },
+          { number: 1, title: 'Immortality' },
+          { number: 1, title: 'Osmosis' },
+          { number: 1, title: 'Osmosis' }
+        ]
+      },
+      // Blue -> Blue +1
+      // Blue +1 -> Blue +2
+      // Blue +2 -> Purple
+      // Purple -> Purple +1
+      // Purple +1 -> Purple +2
+      // Purple +2 -> Purple +3
+      // Purple +3 -> Orange
+    ]
+    // predelat number 2 na 1 vsude a ukladat priznak, zda uz ma hrdina glyph naucen
   })
 ];
+
+Hero.remove({}, function(err) {
+    if (err) {
+      console.err(err)
+    } else {
+      console.log('Remove all!');
+    }
+  }
+);
 
 let done = 0;
 
@@ -454,6 +1454,7 @@ for (let i = 0; i < heroes.length; i++) {
   heroes[i].save( (err, result) => {
     done++;
     if (done === heroes.length) {
+      console.log('All heroes saved in DB.');
       exit();
     }
   });

@@ -44,7 +44,7 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: 'P',
-    text: "The Grandmaster sends me. What happened?"
+    text: "The Grandmaster sent me. What happened?"
   }),
   new StoryTutorial({
     speaker: 'M',
@@ -64,7 +64,7 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: 'M',
-    text: "The Grandmaster didn't tell you what kind of books we are hiding here?"
+    text: "The Grandmaster didn't tell you what kinds of books we are\nhiding here?"
   }),
   new StoryTutorial({
     speaker: 'P',
@@ -72,14 +72,16 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: 'M',
-    text: "All right then. The difference is that magic books contain the abilities\n"+
-      "of ancient heroes."
+    text: "All right then. The difference is that magic books contain\nthe abilities of ancient heroes."
   }),
   new StoryTutorial({
     speaker: 'M',
-    text: "When the hero dies, the force he controls, or her, is sealed into a normal book\n"+
-      "which then becomes magical which means that the one who owns the book\n"+
-      "can summon this hero through the summoning spell and it's only up to\n"+
+    text: "When the hero dies, the force he controls, or her, is sealed into\na normal book"+
+      "which then becomes magical which means that\nthe one who owns the book..."
+  }),
+  new StoryTutorial({
+    speaker: 'M',
+    text: "...can summon this hero through the summoning spell and it's\nonly up to"+
       "the owner whether the hero will do good or evil."
   }),
   new StoryTutorial({
@@ -96,13 +98,22 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: 'P',
-    text: "OK. But what am I supposed to do when I met a summoning hero."
+    text: "OK. But what am I supposed to do when I met a summoning\nhero."
   }),
   new StoryTutorial({
     speaker: 'M',
-    text: "Come with me. One magic book stays here, I will teach you how to summon\na hero."
+    text: "Come with me. One magic book stays here, I will teach you\nhow to summon a hero."
   }),
 ];
+
+StoryTutorial.remove({}, function(err) {
+    if (err) {
+      console.err(err)
+    } else {
+      console.log('Remove all!');
+    }
+  }
+);
 
 let done = 0;
 

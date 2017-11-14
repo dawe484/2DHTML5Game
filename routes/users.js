@@ -12,6 +12,7 @@ router.use(csrfProtection);
 const User = require('../models/user');
 const Hero = require('../models/hero');
 const Avatar = require('../models/avatar');
+const Language = require('../models/language');
 
 let userLoggedUsername;
 
@@ -95,6 +96,7 @@ router.post('/signup', (req, res) => {
           signup_time: now,
           offset: now.getTimezoneOffset(),
           local_signup_time: now.toLocaleString(),
+          language: 'english',
           status: 'logout',
           avatar: [],
           heroes: []

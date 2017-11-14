@@ -22,6 +22,14 @@ let tutorials = [
     speaker: 'M',
     text: "Grand Book of Magic may grants 2-star or 3-star heroes."
   }),
+  new Tutorial({
+    speaker: 'M',
+    text: "Wow, you have learnt how to summon heroes. Great! But I missed your name."
+  }),
+  new Tutorial({
+    speaker: 'M',
+    text: "What a great name! Now we can take a look at the map."
+  }),
 ];
 
 let done = 0;

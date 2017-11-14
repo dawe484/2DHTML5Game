@@ -33,6 +33,9 @@ const UserSchema = mongoose.Schema({
   local_signup_time: {
     type: String
   },
+  language: {
+    type: String
+  },
   status: {
     type: String
   },

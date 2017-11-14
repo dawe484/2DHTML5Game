@@ -15,6 +15,13 @@ const SkillSchema = new Schema({
   skill_power: { type: Number, required: true }
 });
 
+// Glyph Schema
+const GlyphSchema = new Schema({
+  number: { type: Number, required: true },
+  title: { type: String, required: true },
+  equipped: { type: String, default: 'no' }
+});
+
 // Hero Schema
 const HeroSchema = new Schema({
   date_added: { type: Date, default: Date.now },
@@ -62,7 +69,12 @@ const HeroSchema = new Schema({
   magic_pen: { type: Number, required: true },
   healing_effect: { type: Number, required: true },
   shield_effect: { type: Number, required: true },
-  skills: [ SkillSchema ]
+  skills: [ SkillSchema ],
+  glyphs_rarity: [{
+    current_status: { type: String, required: true },
+    next_status: { type: String, required: true },
+    glyphs: [ GlyphSchema ]
+  }]
 },
   {versionKey: '_documentVersion'}
 );

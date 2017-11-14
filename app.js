@@ -110,10 +110,10 @@ function getDirectives() {
     scriptSrc: [
       getNonce, self, ...scripts, unsafeInline, unsafeEval,
     ],
-    styleSrc: [self, unsafeInline],
+    styleSrc: [self, unsafeInline, 'fonts.googleapis.com'],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self, ...images],
-    fontSrc: [self, 'data:'],
+    fontSrc: [self, 'data:', 'fonts.googleapis.com'],
     childSrc: [none],
     connectSrc: [self, 'ws://localhost:2000'],
     //sandbox: ['allow-forms', 'allow-scripts'],
@@ -306,7 +306,7 @@ io.on('connection', (socket) => {
 
   console.log('player:', colors.cyan(playerName), colors.green('connected'), 'on socket:', colors.magenta(socket.id), '.');
 
-  // let storyTutorialNotDone;
+  let storyTutorialNotDone;
 
   function countdownTimer(countdown, countdownSocketEmit, countdownSocketOn) {
     let myTimer = setInterval(() => {
@@ -330,15 +330,44 @@ io.on('connection', (socket) => {
         });
       });
       socket.emit('avatarData', {
-        diamond: user.avatar[0].diamond,
-        gold: user.avatar[0].gold,
-        currentEnergy: user.avatar[0].current_energy,
-        maxEnergy: user.avatar[0].max_energy,
-        nextLvlExp: user.avatar[0].next_lvl_exp,
-        currentExp: user.avatar[0].current_exp,
-        maxHeroLvl: user.avatar[0].max_hero_lvl,
+        nickname: user.avatar[0].nickname,
         playerLvl: user.avatar[0].player_lvl,
-        nickname: user.avatar[0].nickname
+        // maxHeroLvl: user.avatar[0].max_hero_lvl,
+        currentExp: user.avatar[0].current_exp,
+        nextLvlExp: user.avatar[0].next_lvl_exp,
+        // currentEnergy: user.avatar[0].current_energy,
+        // maxEnergy: user.avatar[0].max_energy,
+        // gold: user.avatar[0].gold,
+        // diamond: user.avatar[0].diamond,
+        // language: user.avatar[0].language,
+        // avatarBorder: user.avatar[0].avatar_border_path,
+        // mainScreenIconsTitle: user.avatar[0].mainScreenIconsTitle,
+        map: user.avatar[0].mainScreenIconsTitle[0],
+        guild: user.avatar[0].mainScreenIconsTitle[1],
+        ranking: user.avatar[0].mainScreenIconsTitle[2],
+        friends: user.avatar[0].mainScreenIconsTitle[3],
+        crusade: user.avatar[0].mainScreenIconsTitle[4],
+        mail: user.avatar[0].mainScreenIconsTitle[5],
+        town: user.avatar[0].mainScreenIconsTitle[6],
+        summonBooks: user.avatar[0].mainScreenIconsTitle[7],
+        // // scrollIconsTitle: user.avatar[0].scrollIconsTitle,
+        // heroes: user.avatar[0].scrollIconsTitle[0],
+        // inventory: user.avatar[0].scrollIconsTitle[1],
+        // tasks: user.avatar[0].scrollIconsTitle[2],
+        // trials: user.avatar[0].scrollIconsTitle[3],
+        // battle: user.avatar[0].scrollIconsTitle[4],
+        // markets: user.avatar[0].scrollIconsTitle[5],
+        // arena: user.avatar[0].scrollIconsTitle[6],
+        // grandArena: user.avatar[0].scrollIconsTitle[7],
+        // arenaShop: user.avatar[0].scrollIconsTitle[8],
+        // grandArenaShop: user.avatar[0].scrollIconsTitle[9],
+        // guildShop: user.avatar[0].scrollIconsTitle[10],
+        // crusadeShop: user.avatar[0].scrollIconsTitle[11],
+        // fantasyShop: user.avatar[0].scrollIconsTitle[12],
+        // shop: user.avatar[0].scrollIconsTitle[13]
+        // bannersTitle: user.avatar[0].bannersTitle,
+        // buttonsTitle: user.avatar[0].buttonsTitle,
+        // labelsTitle: user.avatar[0].labelsTitle
       });
     }
   }
@@ -346,12 +375,13 @@ io.on('connection', (socket) => {
   User.getUserByUsername(playerName, (err, user) => {
     if (err) throw err;
     if (user) {
-      // console.log(user.email);
+      console.log('USER:', user.username);
       console.log('Story tutorial:', user.avatar[0].storyTutorial);
       if (user.avatar[0].storyTutorial === 'no') {
+        console.log('send tutorial');
         sendTutorial(user);
       } else if (user.avatar[0].storyTutorial === 'yes') {
-        // storyTutorialNotDone = true;
+        storyTutorialNotDone = true;
         StoryTutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, storyTutorials) => {
           // console.log(storyTutorials);
           if (err) throw err;
@@ -362,7 +392,7 @@ io.on('connection', (socket) => {
       }
 
       socket.on('btnSkipMsg', (data) => {
-        // storyTutorialNotDone = false;
+        storyTutorialNotDone = false;
         if (user.avatar[0].storyTutorial === 'yes') {
           user.avatar[0].storyTutorial = 'no';
           user.save();
@@ -371,10 +401,10 @@ io.on('connection', (socket) => {
         console.log('Story tutorial:', user.avatar[0].storyTutorial);
         console.log('Tutorial:', user.avatar[0].tutorial);
 
-        // if (storyTutorialNotDone === false) {
+        if (storyTutorialNotDone === false) { // == storyTutorial is done
           // message: user.heroes
-        sendTutorial(user);
-        // }
+          sendTutorial(user);
+        }
       });
 
       socket.on('btnSummonx1BoMMsg', (data) => {
@@ -409,9 +439,157 @@ io.on('connection', (socket) => {
         countdownTimer(30, 'timer46hoursStarted', 'timer46hoursEnded');
       });
 
+      socket.on('barContainer', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('barContainerData', {
+            currentEnergy: data[0].avatar[0].current_energy,
+            maxEnergy: data[0].avatar[0].max_energy,
+            gold: data[0].avatar[0].gold,
+            diamond: data[0].avatar[0].diamond
+          });
+        });
+      });
+
+      socket.on('scrollContainer', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('scrollContainerData', {
+            heroes: user.avatar[0].scrollIconsTitle[0],
+            inventory: user.avatar[0].scrollIconsTitle[1],
+            tasks: user.avatar[0].scrollIconsTitle[2],
+            trials: user.avatar[0].scrollIconsTitle[3],
+            battle: user.avatar[0].scrollIconsTitle[4],
+            markets: user.avatar[0].scrollIconsTitle[5],
+            arena: user.avatar[0].scrollIconsTitle[6],
+            grandArena: user.avatar[0].scrollIconsTitle[7],
+            arenaShop: user.avatar[0].scrollIconsTitle[8],
+            grandArenaShop: user.avatar[0].scrollIconsTitle[9],
+            guildShop: user.avatar[0].scrollIconsTitle[10],
+            crusadeShop: user.avatar[0].scrollIconsTitle[11],
+            fantasyShop: user.avatar[0].scrollIconsTitle[12],
+            shop: user.avatar[0].scrollIconsTitle[13]
+          });
+        });
+      });
+
+      // let avatarDataChanged = [];
+
+      socket.on('avatarScreen', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          // console.log(avatarData[0]);
+          // console.log(avatarDataChanged[0]);
+          // console.log(JSON.stringify(avatarDataChanged) !== JSON.stringify(avatarData));
+          if (err) throw err;
+          // if (JSON.stringify(avatarDataChanged) !== JSON.stringify(avatarData)) {
+            // console.log('send data from server');
+          socket.emit('avatarScreenData', {
+            // message: avatarData[0].avatar[0].gold
+            nickname: data[0].avatar[0].nickname,
+            lblPlayerLvl: data[0].avatar[0].labelsTitle[0],
+            playerLvl: data[0].avatar[0].player_lvl,
+            lblPresentExp: data[0].avatar[0].labelsTitle[1],
+            currentExp: data[0].avatar[0].current_exp,
+            nextLvlExp: data[0].avatar[0].next_lvl_exp,
+            lblMaxHeroLvl: data[0].avatar[0].labelsTitle[2],
+            maxHeroLvl: data[0].avatar[0].max_hero_lvl,
+            lblAccountID: data[0].avatar[0].labelsTitle[3],
+            avatarBorder: data[0].avatar[0].avatar_border_path,
+            btnChangeAvatar: data[0].avatar[0].buttonsTitle[1],
+            btnChangeBorder: data[0].avatar[0].buttonsTitle[2],
+            btnChangeName: data[0].avatar[0].buttonsTitle[3],
+            btnAchievement: data[0].avatar[0].buttonsTitle[4],
+            btnSystemSettings: data[0].avatar[0].buttonsTitle[5]
+          });
+          //   avatarDataChanged = avatarData;
+          // }
+        });
+      });
+
+      // socket.emit('avatarChangeName', 'avatarChangeNameClick');
+      socket.on('avatarChangeName', () => {
+        socket.emit('avatarChangeNameData', {
+          buttonCancel: user.avatar[0].buttonsTitle[6],
+          buttonConfirm: user.avatar[0].buttonsTitle[7],
+          bannerChangeName: user.avatar[0].bannersTitle[0],
+          nickname: user.avatar[0].nickname
+        });
+      });
+
+      socket.on('summonBooks', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('summonBooksData', {
+            bookOfMagic: data[0].avatar[0].bannersTitle[1],
+            grandBookOfMagic: data[0].avatar[0].bannersTitle[2],
+            free: data[0].avatar[0].labelsTitle[4],
+            freeTimes: data[0].avatar[0].labelsTitle[5],
+            freeTime: data[0].avatar[0].labelsTitle[6],
+            freeAfter: data[0].avatar[0].labelsTitle[7],
+            maxFreeSummon: data[0].avatar[0].labelsTitle[8],
+            gold1more: data[0].avatar[0].labelsTitle[9],
+            gold10more: data[0].avatar[0].labelsTitle[10],
+            diamond1more: data[0].avatar[0].labelsTitle[11],
+            diamond10more: data[0].avatar[0].labelsTitle[12],
+            discount10off: data[0].avatar[0].labelsTitle[13],
+            summonx1: data[0].avatar[0].buttonsTitle[8],
+            summonx10: data[0].avatar[0].buttonsTitle[9]
+          });
+        });
+      });
+
+      socket.on('summonx1BoM', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('summonx1BoMData', {
+            bookOfMagic: data[0].avatar[0].bannersTitle[1],
+            gold1more: data[0].avatar[0].labelsTitle[9],
+            gold10more: data[0].avatar[0].labelsTitle[10],
+            more1: data[0].avatar[0].buttonsTitle[10],
+            more10: data[0].avatar[0].buttonsTitle[11]
+          });
+        });
+      });
+
+      socket.on('summonx1GBoM', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('summonx1GBoMData', {
+            grandBookOfMagic: data[0].avatar[0].bannersTitle[2],
+            diamond1more: data[0].avatar[0].labelsTitle[11],
+            diamond10more: data[0].avatar[0].labelsTitle[12],
+            more1: data[0].avatar[0].buttonsTitle[10],
+            more10: data[0].avatar[0].buttonsTitle[11]
+          });
+        });
+      });
+
+      socket.on('heroesContainer', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'heroes.summoned': 1, 'heroes.name': 1, 'heroes.stars': 1,
+          'heroes.class': 1, 'heroes.level': 1, 'heroes.color': 1, 'heroes.color_number': 1,
+          'heroes.glyphs_rarity': 1,
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('heroesContainerData', {
+            heroesMsg: data[0].heroes
+          });
+        });
+      });
     }
   });
-
   // socket.on('mouse', mouseMsg);
   //
   // function mouseMsg(data) {
