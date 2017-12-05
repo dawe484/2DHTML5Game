@@ -3,6 +3,7 @@
 
 const WebFont = require('webfontloader');
 const PIXI = require('pixi.js');
+const Hammer = require('hammerjs');
 
 let fontsLoaded = false;
 
@@ -64,7 +65,7 @@ const GAME_WIDTH = 1920,
       avatarLevelBluePath = `${iconsFolderPath}avatar_level_blue_icon${png}`,
       avatarFieldPath = `${labelsFolderPath}avatar_field_label${png}`,
       barBackgroundPath = `${backgroundsFolderPath}bar_background${png}`,
-      plusIconPath = `${iconsFolderPath}bar_plus_icon${png}`,
+      plusIconPath = `${iconsFolderPath}plus_icon${png}`,
       goldIconPath = `${iconsFolderPath}gold_icon${png}`,
       diamondIconPath = `${iconsFolderPath}diamond_icon${png}`,
       handIconPath = `${iconsFolderPath}hand_icon${png}`,
@@ -150,11 +151,11 @@ const GAME_WIDTH = 1920,
       borderBluePlus2Path = `${heroesFolderPath}border_blue+2${png}`,
       starIconPath = `${iconsFolderPath}star_icon${png}`,
       pedestalPath = `${heroesFolderPath}pedestal${png}`,
-      starBackgrounPath = `${backgroundsFolderPath}star_background${png}`,
+      starBackgroundPath = `${backgroundsFolderPath}star_background${png}`,
       expBackgroundPath = `${backgroundsFolderPath}exp_pages_power_background${png}`,
       pageIconPath = `${iconsFolderPath}page_icon${png}`,
-      heroesUpperBackgroundPath = `${backgroundsFolderPath}heroes_upper_background${png}`,
-      heroesBottomBackgroundPath = `${backgroundsFolderPath}heroes_bottom_background${png}`,
+      heroUpperBackgroundPath = `${backgroundsFolderPath}hero_upper_background${png}`,
+      heroBottomBackgroundPath = `${backgroundsFolderPath}hero_bottom_background${png}`,
       equipIconPath = `${iconsFolderPath}equip_icon${png}`,
       equipIconSelectedPath = `${iconsFolderPath}equip_icon_s${png}`,
       glyphsIconPath = `${iconsFolderPath}glyphs_icon${png}`,
@@ -168,20 +169,39 @@ const GAME_WIDTH = 1920,
       nextGlyphsIconPath = `${iconsFolderPath}next_glyphs_icon${png}`,
       helpIconPath = `${iconsFolderPath}help_icon${png}`, // ? mark on btn
       // ------------------------ Heroes ---------------------------------------
-      aeloisPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
-      amaraPath = `${heroesFolderPath}amara/amara_stats${png}`,
-      crystalPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
-      diuwinPath = `${heroesFolderPath}diu_win/diu_win_stats${png}`,
-      leonaPath = `${heroesFolderPath}leona/leona_stats${png}`,
-      leryssaPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
-      nadiaPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
-      nyxPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
-      sinPath = `${heroesFolderPath}sin/sin_stats${png}`,
-      zalajinPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
-      zayaPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
+      aeloisPath = `${heroesFolderPath}aelois/aelois${png}`,
+      amaraPath = `${heroesFolderPath}amara/amara${png}`,
+      crystalPath = `${heroesFolderPath}crystal/crystal${png}`,
+      diuwinPath = `${heroesFolderPath}diuwin/diuwin${png}`,
+      leonaPath = `${heroesFolderPath}leona/leona${png}`,
+      leryssaPath = `${heroesFolderPath}leryssa/leryssa${png}`,
+      nadiaPath = `${heroesFolderPath}nadia/nadia${png}`,
+      nyxPath = `${heroesFolderPath}nyx/nyx${png}`,
+      sinPath = `${heroesFolderPath}sin/sin${png}`,
+      zalajinPath = `${heroesFolderPath}zalajin/zalajin${png}`,
+      zayaPath = `${heroesFolderPath}zaya/zaya${png}`,
+      // ------------------------ Heroes Stats ---------------------------------
+      aeloisStatsPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
+      amaraStatsPath = `${heroesFolderPath}amara/amara_stats${png}`,
+      crystalStatsPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
+      diuwinStatsPath = `${heroesFolderPath}diuwin/diuwin_stats${png}`,
+      leonaStatsPath = `${heroesFolderPath}leona/leona_stats${png}`,
+      leryssaStatsPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
+      nadiaStatsPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
+      nyxStatsPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
+      sinStatsPath = `${heroesFolderPath}sin/sin_stats${png}`,
+      zalajinStatsPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
+      zayaStatsPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
       // -----------------------------------------------------------------------
       plusGreenIconPath = `${iconsFolderPath}plus_green_icon${png}`,
-      plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`
+      plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`,
+      skillBackgroundPath = `${backgroundsFolderPath}skill_background${png}`,
+      skillLabelPath = `${labelsFolderPath}skill_label${png}`,
+      statsUpperBackgroundPath = `${backgroundsFolderPath}stats_upper_background${png}`,
+      statsBottomBackgroundPath = `${backgroundsFolderPath}stats_bottom_background${png}`,
+      statsGreyLabelPath = `${labelsFolderPath}stats_grey_label${png}`,
+      statsWhiteLabelPath = `${labelsFolderPath}stats_white_label${png}`,
+      statsBackgroundPath = `${backgroundsFolderPath}stats_background${png}`
       ;
 
 // Global variables
@@ -192,14 +212,15 @@ let renderer, stage, stats,
     avatarContainer, avatarScreenContainer, avatarChangeNameContainer,
     scrollContainer, battleContainer, marketsContainer,
     summonBooksContainer, summonContainer,
-    heroesContainer;
+    heroesContainer, heroesPortraitContainer;
 
 let freeCounter;
 
 // Define Textstyle variables
 let textStyleBtn80_48_black, textStyleBubble_52_white, textStyle144_40_black,
   textStyleLevel_40_white, textStyleAvatar_28, textStyle_32left_black, textStyle_32center_black,
-  textStyle_32right_black, textStyle10pOff;
+  textStyle_32right_black, textStyle10pOff, textStyleHeroStats_28left_black,
+  textStyleHeroStatsLevel_32left_white;
 
 let closeIcon;
 
@@ -274,6 +295,7 @@ let backgroundEmpty_mc,
   ;
 
 // Heroes variables
+let scrollArrow72x36;
 
 // Inventory variables
 
@@ -381,14 +403,20 @@ function init() {
           leftArrowIconPath, rightArrowIconPath, bookmarkIconPath, allIconPath,
           fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
           tankIconPath, borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
-          borderBluePlus1Path, borderBluePlus2Path, starIconPath, pedestalPath, starBackgrounPath,
-          expBackgroundPath, pageIconPath, heroesUpperBackgroundPath, heroesBottomBackgroundPath,
+          borderBluePlus1Path, borderBluePlus2Path, starIconPath, pedestalPath, starBackgroundPath,
+          expBackgroundPath, pageIconPath, heroUpperBackgroundPath, heroBottomBackgroundPath,
           equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
           skillsIconPath, skillsIconSelectedPath, statsIconPath, statsIconSelectedPath,
           awakenIconPath, awakenIconBackgroundPath, nextGlyphsIconPath, helpIconPath,
           // Heroes
           aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
-          nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath
+          nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
+          // Heroes Stats
+          aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath, leryssaStatsPath,
+          nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath, zayaStatsPath,
+          // ---------------------
+          skillBackgroundPath, skillLabelPath, statsUpperBackgroundPath, statsBottomBackgroundPath,
+          statsGreyLabelPath, statsWhiteLabelPath, statsBackgroundPath
         ])
         .on("progress", loadProgressHandler)
         .load(setup);
@@ -500,6 +528,20 @@ function init() {
       fontSize: 20,
       align: 'right',
       fill: '#ff0000'
+    });
+
+    textStyleHeroStats_28left_black = new TextStyle({
+      fontFamily: myFontFamily,
+      fontSize: 28,
+      align: 'left',
+      fill: '#000'
+    });
+
+    textStyleHeroStatsLevel_32left_white = new TextStyle({
+      fontFamily: myFontFamily,
+      fontSize: 32,
+      align: 'left',
+      fill: '#fff'
     });
 
     // setLoadingContainer();
@@ -720,6 +762,8 @@ function addBanner(spritePath, parent, container) {
 // Add Close icon to the Container
 function addCloseIcon(container, parent) {
   closeIcon = new Sprite(resources[btnClosePath].texture);
+  closeIcon.width = 96;
+  closeIcon.height = 96;
   closeIcon.position.set(
     parent.x+parent.width-closeIcon.width/2-12,
     parent.y-closeIcon.height/2+12
@@ -985,7 +1029,7 @@ function setScrollArrowHeroes(container) {
   let scrollBtn192x72 = new Sprite(resources[scrollBtn192x72Path].texture);
   scrollBtn192x72.position.set(1716, 12);
 
-  let scrollArrow72x36 = new Sprite(resources[scrollArrow72x36Path].texture);
+  scrollArrow72x36 = new Sprite(resources[scrollArrow72x36Path].texture);
   scrollArrow72x36.position.set(1812, 48);
   scrollArrow72x36.anchor.set(0.5);
   scrollArrow72x36.scale.y = -1;
@@ -1023,17 +1067,18 @@ function addBackIconHeroes(container) {
   backIcon.on('pointerup', () => {
     setInteractive(backIcon, false);
     console.log('backIconHeroes clicked');
-      stage.removeChild(container);
-      scrollArrow72x36_mc.scale.y = -1;
-      mainScreenContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-      console.log(stage.children);
-      console.log(stage.children.length);
-      if (stage.children.length === 1) {
-        setTimeout(() => {
-          setInteractive(avatarContainer, true);
-          setInteractive(summonBooks_mac, true);
-        }, LATENCY);
-      }
+    // console.log('before remove', container.children);
+    stage.removeChild(container);
+    scrollArrow72x36_mc.scale.y = -1;
+    mainScreenContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
+    // console.log(stage.children);
+    // console.log(stage.children.length);
+    if (stage.children.length === 1) {
+      setTimeout(() => {
+        setInteractive(avatarContainer, true);
+        setInteractive(summonBooks_mac, true);
+      }, LATENCY);
+    }
   });
 }
 
@@ -1622,6 +1667,7 @@ function setBarContainer(container) {
   barBackgroundEnergy_bc.position.set(472, 36);
 
   let plusBarEnergy_bc = new Sprite(resources[plusIconPath].texture);
+  plusBarEnergy_bc.width = plusBarEnergy_bc.height = 56;
   plusBarEnergy_bc.position.set(728, 36);
 
   let textBarEnergy_bc = new Text('', textStyleLevel_40_white);
@@ -1630,6 +1676,7 @@ function setBarContainer(container) {
   barBackgroundGold_bc.position.set(804, 36);
 
   let plusGold_bc = new Sprite(resources[plusIconPath].texture);
+  plusGold_bc.width = plusGold_bc.height = 56;
   plusGold_bc.position.set(1060, 36);
 
   let goldIcon_bc = new Sprite(resources[goldIconPath].texture);
@@ -1641,6 +1688,7 @@ function setBarContainer(container) {
   barBackgroundDiamond_bc.position.set(1136, 36);
 
   let plusDiamond_bc = new Sprite(resources[plusIconPath].texture);
+  plusDiamond_bc.width = plusDiamond_bc.height = 56;
   plusDiamond_bc.position.set(1392, 36);
 
   let diamondIcon_bc = new Sprite(resources[diamondIconPath].texture);
@@ -1827,11 +1875,15 @@ function setScrollContainer(container) {
     if (heroes_sc.visible) {
       mainScreenContainer.removeChild(scrollContainer);
       mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-      // console.log(stage.children.length);
+      console.log('stage.children.length', stage.children.length);
+      if (stage.children.length === 2) {
+        console.log(heroesContainer.children[heroesContainer.children.length-1]);
+        scrollArrow72x36.scale.y = -1;
+        heroesContainer.removeChild(heroesContainer.children[heroesContainer.children.length-1]);
+      }
       if (stage.children.length === 1) {
         setHeroesContainer();
       }
-      // scrollContainer.visible = false;
     }
   });
 
@@ -2473,8 +2525,11 @@ function setSummonContainer() {
   stage.addChild(summonContainer);
 }
 
-let i = 1;
-let sinNotSummon;
+// let i = 1;
+// let sinNotSummon;
+const portraitsPerPage = 8;
+// let sumPages = 0;
+// let currentPage = 0;
 
 // Setup summonContainer (when player click on 'Summon ×1 (×10)' button this screen is shown)
 function setHeroesContainer() {
@@ -2485,7 +2540,6 @@ function setHeroesContainer() {
   setBookBackground(heroesContainer);
   setBarContainer(heroesContainer);
   setScrollArrowHeroes(heroesContainer);
-  addArrows(heroesContainer);
 
   setInteractive(avatarContainer, false);
   setInteractive(summonBooks_mac, false);
@@ -2499,80 +2553,9 @@ function setHeroesContainer() {
   addBookmark(heroesContainer, 1260, 944, mageIconPath);
   addBookmark(heroesContainer, 1380, 944, supportIconPath);
 
-  socket.on('heroesContainerData', (data) => {
-    console.log('heroesContainerData\n', data);
+  setHeroesPortraitContainer();
 
-    let x = 332;
-    let y = 205;
-    let l = 8;
-    let len = data.heroesMsg.length;
-    console.log(i);
-    let page = 1;
-    let sumPages = 1;
-    let min = 0;
-    let mod = 0;
-
-    let heroesNames = [];
-
-    for (let i = 0; i < len; i++) {
-      // console.log(data.heroesMsg[i].name);
-      heroesNames.push(data.heroesMsg[i].name);
-    }
-    console.log('heroesNames', heroesNames);
-
-    for (let i = 0; i < heroesNames.length; i++) {
-      switch (heroesNames[i]) {
-        case 'Aelois':
-          // console.log(i, heroesNames[i]);
-          addHeroPortrait(heroesContainer, aeloisPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Amara':
-          addHeroPortrait(heroesContainer, amaraPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Crystal':
-          addHeroPortrait(heroesContainer, crystalPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Diu Win':
-          addHeroPortrait(heroesContainer, diuwinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Leona':
-          addHeroPortrait(heroesContainer, leonaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Leryssa':
-          addHeroPortrait(heroesContainer, leryssaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Nadia':
-          addHeroPortrait(heroesContainer, nadiaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Nyx':
-          addHeroPortrait(heroesContainer, nyxPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Sin':
-          addHeroPortrait(heroesContainer, sinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Zalajin':
-          addHeroPortrait(heroesContainer, zalajinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Zaya':
-          addHeroPortrait(heroesContainer, zayaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-      }
-    }
-
-  });
-
-  // heroesContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
+  addArrows(heroesContainer);
 
   addBackIconHeroes(heroesContainer);
 
@@ -2600,50 +2583,346 @@ function setHeroesContainer() {
   console.log('heroes:\n', stage.children);
 }
 
+let numberOfHeroes;
+
+// Setup hero's portraits in heroesContainer
+function setHeroesPortraitContainer() {
+  heroesPortraitContainer = new Container();
+
+  socket.on('heroesContainerData', (data) => {
+    console.log('heroesContainerData\n', data);
+
+    let heroesNames = [];
+    let bookPages = [];
+    let sumPages = 0;
+
+    numberOfHeroes = data.heroesMsg.length;
+
+    for (let i = 0; i < data.heroesMsg.length; i++) {
+      // console.log(data.heroesMsg[i].name);
+      heroesNames.push(data.heroesMsg[i].name);
+      // console.log('i', i);
+      if (i < portraitsPerPage) {
+        bookPages[i] = 0;
+        // console.log('bookPages[i]', i, ':', bookPages[i]);
+      } else if (i > portraitsPerPage-1 && i < 2*portraitsPerPage) {
+        bookPages[i] = 1;
+        sumPages = 1;
+      } else if (i > 2*portraitsPerPage-1 && i < 3*portraitsPerPage) {
+        bookPages[i] = 2;
+        sumPages = 2;
+      }
+    }
+
+    // console.log('heroesNames', heroesNames);
+    // console.log('bookPages', bookPages);
+    // console.log('sumPages', sumPages);
+
+    function heroNotSummon(urlName, i) {
+      const myLoader = PIXI.loader;
+      let heroNotSummonPath = `/images/game/heroes/${urlName}/${urlName}_stats_grey.png`;
+
+      if (heroNotSummonPath in loader.resources) {
+        console.log('already in stage');
+        addHeroPortrait(heroNotSummonPath, i, bookPages[i],
+          data.heroesMsg[i].urlName,
+          data.heroesMsg[i].color,
+          data.heroesMsg[i].stars,
+          data.heroesMsg[i].summoned
+        );
+      } else {
+        loader
+          .add(heroNotSummonPath);
+      }
+
+      loader
+        .on('complete', (loader, resources) => {
+          addHeroPortrait(heroNotSummonPath, i, bookPages[i],
+            data.heroesMsg[i].urlName,
+            data.heroesMsg[i].color,
+            data.heroesMsg[i].stars,
+            data.heroesMsg[i].summoned
+          );
+        });
+      // console.log('resources', loader.resources);
+    }
+
+    for (let i = 0; i < heroesNames.length; i++) {
+      switch (heroesNames[i]) {
+        case 'Aelois':
+          // console.log(i, heroesNames[i]);
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(aeloisStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Amara':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(amaraStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Crystal':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(crystalStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Diu Win':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(diuwinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Leona':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(leonaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Leryssa':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(leryssaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Nadia':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(nadiaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Nyx':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(nyxStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Sin':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(sinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Zalajin':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(zalajinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Zaya':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(zayaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+      }
+    }
+    // socket.removeAllListeners();
+    socket.off('heroesContainerData');
+  });
+
+  // heroesPortraitContainer.position.x = 0;
+  heroesContainer.addChild(heroesPortraitContainer);
+}
+
+let heroIconClicked = 'glyphs';
+
+function selectBorder(border, color) {
+  // let border = new Sprite(resources[borderGreyPath].texture);
+
+  let borderGreen = new Sprite(resources[borderGreenPath].texture);
+  let borderGreenPlus1 = new Sprite(resources[borderGreenPlus1Path].texture);
+  let borderBlue = new Sprite(resources[borderBluePath].texture);
+  let borderBluePlus1 = new Sprite(resources[borderBluePlus1Path].texture);
+  let borderBluePlus2 = new Sprite(resources[borderBluePlus2Path].texture);
+
+  // console.log('color', color);
+
+  switch (color) {
+    case 'Green':
+      border.texture = borderGreen.texture;
+      break;
+    case 'Green +1':
+      border.texture = borderGreenPlus1.texture;
+      break;
+    case 'Blue':
+      border.texture = borderBlue.texture;
+      break;
+    case 'Blue +1':
+      border.texture = borderBluePlus1.texture;
+      break;
+    case 'Blue +2':
+      border.texture = borderBluePlus2.texture;
+      break;
+  }
+}
+
+function selectClass(classIcon, textClass) {
+
+  let tankIcon = new Sprite(resources[tankIconPath].texture);
+  let fighterIcon = new Sprite(resources[fighterIconPath].texture);
+  let marksmanIcon = new Sprite(resources[marksmanIconPath].texture);
+  let mageIcon = new Sprite(resources[mageIconPath].texture);
+  let supportIcon = new Sprite(resources[supportIconPath].texture);
+
+  switch (textClass) {
+    case 'Tank':
+      classIcon.texture = tankIcon.texture;
+      break;
+    case 'Fighter':
+      classIcon.texture = fighterIcon.texture;
+      break;
+    case 'Marksman':
+      classIcon.texture = marksmanIcon.texture;
+      break;
+    case 'Mage':
+      classIcon.texture = mageIcon.texture;
+      break;
+    case 'Support':
+      classIcon.texture = supportIcon.texture;
+      break;
+  }
+}
+
 // Add hero portrait to the 'heroes screen' (after 'Heroes' clicked from scrollmenu)
-function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 332, 205 (195)
-  const l = 8;
+function addHeroPortrait(heroNamePath, i, bPi, urlName, color, starCount, summoned) { // 332, 205 (195)
+
+  let heroPortraitContainer = new Container();
 
   let border = new Sprite(resources[borderGreyPath].texture);
+  selectBorder(border, color);
+
   border.width = 278;
   border.height = 332;
 
-  switch (i%l) {
+  switch (i%portraitsPerPage) {
     case 0:
-      border.position.set(332, 205);
+      border.position.set(1920*bPi+332, 205);
       break;
     case 1:
-      border.position.set(634, 205);
+      border.position.set(1920*bPi+634, 205);
       break;
     case 2:
-      border.position.set(332, 561);
+      border.position.set(1920*bPi+332, 561);
       break;
     case 3:
-    border.position.set(634, 561);
+    border.position.set(1920*bPi+634, 561);
       break;
     case 4:
-      border.position.set(1008, 205);
+      border.position.set(1920*bPi+1008, 205);
       break;
     case 5:
-      border.position.set(1310, 205);
+      border.position.set(1920*bPi+1310, 205);
       break;
     case 6:
-      border.position.set(1008, 561);
+      border.position.set(1920*bPi+1008, 561);
       break;
     case 7:
-      border.position.set(1310, 561);
+      border.position.set(1920*bPi+1310, 561);
       break;
   }
   setInteractive(border, true);
 
+  border.on('pointerup', () => {
+    if (summoned === 'yes') {
+      console.log('you clicked on', urlName, 'portrait');
+      setHeroContainer(urlName, heroIconClicked);
+    } else if (summoned === 'no') {
+      console.log(urlName, 'not summoned yet.');
+    }
+  });
+
   let hero = new Sprite(resources[heroNamePath].texture);
-  // hero.scale.set(0.8);
+  // console.log(heroNamePath);
+  let grey = new RegExp('\_grey');
+  // console.log(grey.test(heroNamePath));
+  if (!grey.test(heroNamePath)) {
+    hero.scale.set(0.5);
+  }
   hero.position.set(
     setMiddlePos(border, hero).x,
     setMiddlePos(border, hero).y
   );
 
-  container.addChild(hero);
+  heroPortraitContainer.addChild(hero);
 
   let banner = new Sprite(resources[banner620x98GreyPath].texture);
   banner.width = 256;
@@ -2653,21 +2932,17 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
     border.y+border.height-116
   );
 
+  // TODO: pridat ikony dle tridy hrdiny (tank, support, ...)
+
   function addGlyphIcon(spritePath, offsetX) {
     let glyph = new Sprite(resources[spritePath].texture);
+    glyph.width = glyph.height = 48;
     glyph.position.set(
       setMiddlePos(border, glyph).x+offsetX,
       border.y+border.height-72
     );
 
-    container.addChild(glyph);
-  }
-
-  if (summoned === 'yes') {
-    addGlyphIcon(noGlyphIconPath, -28);
-    addGlyphIcon(noGlyphIconPath, -84);
-    addGlyphIcon(noGlyphIconPath, 28);
-    addGlyphIcon(noGlyphIconPath, 84);
+    heroPortraitContainer.addChild(glyph);
   }
 
   function addPageCounter() {
@@ -2686,11 +2961,7 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       pageIcon.y
     );
 
-    container.addChild(pageIcon, barBackground);
-  }
-
-  if (summoned === 'no') {
-    addPageCounter();
+    heroPortraitContainer.addChild(pageIcon, barBackground);
   }
 
   function addStarIcon(offsetX) {
@@ -2702,7 +2973,7 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       border.y+border.height-141
     );
 
-    container.addChild(star);
+    heroPortraitContainer.addChild(star);
   }
 
   // let starCounter = starCount;
@@ -2734,18 +3005,1341 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       addStarIcon(0);
   }
 
-  container.addChild(border, banner);
+  if (summoned === 'yes') {
+    addGlyphIcon(noGlyphIconPath, -28);
+    addGlyphIcon(noGlyphIconPath, -84);
+    addGlyphIcon(noGlyphIconPath, 28);
+    addGlyphIcon(noGlyphIconPath, 84);
+  } else if (summoned === 'no') {
+    addPageCounter();
+  }
+
+  heroPortraitContainer.addChild(border, banner);
+  // console.log('delka:', heroesPortraitContainer.children.length);
+  // console.log('i', i);
+  // console.log('numberOfHeroes', numberOfHeroes);
+  if (heroesPortraitContainer.children.length < numberOfHeroes) {
+    heroesPortraitContainer.addChild(heroPortraitContainer);
+  }
+}
+
+function disableHeroPortraitsInteraction() {
+  for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+    let borderIndex = stage.children[1].children[18].children[i].children.length;
+    // console.log('borderIndex', borderIndex);
+    setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+  }
+}
+
+// Add close icon (button) to the heroContainer
+function addHeroBtnClose(container) {
+  let btnClose = new Sprite(resources[btnClosePath].texture);
+  btnClose.position.set(GAME_WIDTH-36-btnClose.width, 36);
+  setInteractive(btnClose, true);
+
+  container.addChild(btnClose);
+
+  btnClose.on('pointerup', () => {
+    console.log('hero close clicked');
+    stage.removeChild(stage.children[stage.children.length-1]);
+    setTimeout(() => {
+      setInteractive(stage.children[1].children[20], true); // rightArrow interactive -> true
+      setInteractive(stage.children[1].children[21], true); // back button interactive -> true
+      setInteractive(scrollArrow72x36, true);
+      for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+        let borderIndex = stage.children[1].children[18].children[i].children.length;
+        // console.log('borderIndex', borderIndex);
+        setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], true);
+      }
+    }, LATENCY);
+  });
+}
+
+// Stats part of Hero screen
+function addStatsContainer(container, heroName) {
+  let statsContainer = new Container();
+  console.log('heroName from statsContainer', heroName);
+
+  socket.emit('heroContainer', heroName);
+
+  let statsBackground = new Sprite(resources[statsBackgroundPath].texture);
+  statsBackground.position.set(1008, 205);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.width = 476;
+  banner.height = 76;
+  banner.position.set(344+(556/2-banner.width/2), 780);
+
+  let textBanner = new Text('', textStyleLevel_40_white);
+
+  let textLevel = new Text('', textStyleHeroStatsLevel_32left_white);
+  textLevel.position.set(452, 794);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  function addHeroSprite(heroSpritePath) {
+    let heroSprite = new Sprite(resources[heroSpritePath].texture);
+    heroSprite.position.set(344, 217);
+
+    statsContainer.addChild(heroSprite, banner, textBanner, textLevel, classIcon);
+  }
+
+  switch (heroName) {
+    case 'aelois':
+      addHeroSprite(aeloisStatsPath);
+      break;
+    case 'amara':
+      addHeroSprite(amaraStatsPath);
+      break;
+    case 'crystal':
+      addHeroSprite(crystalStatsPath);
+      break;
+    case 'diuwin':
+      addHeroSprite(diuwinStatsPath);
+      break;
+    case 'leona':
+      addHeroSprite(leonaStatsPath);
+      break;
+    case 'leryssa':
+      addHeroSprite(leryssaStatsPath);
+      break;
+    case 'nadia':
+      addHeroSprite(nadiaStatsPath);
+      break;
+    case 'nyx':
+      addHeroSprite(nyxStatsPath);
+      break;
+    case 'sin':
+      addHeroSprite(sinStatsPath);
+      break;
+    case 'zalajin':
+      addHeroSprite(zalajinStatsPath);
+      break;
+    case 'zaya':
+      addHeroSprite(zayaStatsPath);
+      break;
+  }
+
+  function addStarIcon(offsetX) {
+    let star = new Sprite(resources[starIconPath].texture);
+    star.position.set(
+      setMiddlePos(banner, star).x+offsetX,
+      736
+    );
+
+    statsContainer.addChild(star);
+  }
+
+  let statsUpperBackground = new Sprite(resources[statsUpperBackgroundPath].texture);
+  statsUpperBackground.position.set(1032, 229);
+
+  let statsBottomBackgroundContainer = new Container();
+  statsBottomBackgroundContainer.x = 1044;
+  statsBottomBackgroundContainer.y = 412;
+  // statsBottomBackgroundContainer.width = 508;
+  // statsBottomBackgroundContainer.height = 254;
+  statsBottomBackgroundContainer.interactive = true;
+  statsBottomBackgroundContainer.buttonMode = true;
+  // statsBottomBackgroundContainer.anchor.set(0.5);
+
+  let statsBottomBackground = new Sprite(resources[statsBottomBackgroundPath].texture);
+  statsBottomBackground.position.set(1032, 399); // 1032, 399
+
+  let textStatsUpperBackground = new Text('', textStyleHeroStats_28left_black);
+
+  // let textStatsBottomBackground = new Text('', textStyleHeroStats_28left_black);
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(statsUpperBackground, textPowerBar).x,
+    692
+  );
+
+  socket.emit('stats', '');
+
+  //
+  function addGreyLabel(i, atribute, value) {
+    let statsLabel;
+    let maxY = statsBottomBackground.y+statsBottomBackground.height;
+
+    if (i%2 === 0) {
+      statsLabel = new Sprite(resources[statsGreyLabelPath].texture);
+    } else if (i%2 === 1) {
+      statsLabel = new Sprite(resources[statsWhiteLabelPath].texture);
+    }
+
+    statsLabel.position.set(0, i*statsLabel.height);
+    // console.log('statsLabel:', statsLabel.x, statsLabel.y);
+
+    statsBottomBackgroundContainer.addChild(statsLabel);
+
+    let textStats = new Text('', textStyleHeroStats_28left_black);
+    let valueStats = new Text('', textStyleHeroStats_28left_black);
+
+    socket.on('statsData', (data) => {
+      // console.log('statsData', data);
+      switch (atribute) {
+        case 'health':
+          textStats.text = data.health;
+          break;
+        case 'attackDamage':
+          textStats.text = data.attackDamage;
+          break;
+        case 'abilityPower':
+          textStats.text = data.abilityPower;
+          break;
+        case 'armor':
+          textStats.text = data.armor;
+          break;
+        case 'magicResist':
+          textStats.text = data.magicResist;
+          break;
+        case 'attackSpeed':
+          textStats.text = data.attackSpeed;
+          break;
+        case 'healthRegen':
+          textStats.text = data.healthRegen;
+          break;
+        case 'energyRegen':
+          textStats.text = data.energyRegen;
+          break;
+        case 'critDamageLevel':
+          textStats.text = data.critDamageLevel;
+          break;
+        case 'critStrikeLevel':
+          textStats.text = data.critStrikeLevel;
+          break;
+        case 'dodgeLevel':
+          textStats.text = data.dodgeLevel;
+          break;
+        case 'lifeStealLevel':
+          textStats.text = data.lifeStealLevel;
+          break;
+        case 'energySteal':
+          textStats.text = data.energySteal;
+          break;
+        case 'energyBoost':
+          textStats.text = data.energyBoost;
+          break;
+        case 'armorPenetration':
+          textStats.text = data.armorPenetration;
+          break;
+        case 'magicPenetration':
+          textStats.text = data.magicPenetration;
+          break;
+        case 'healingEffect':
+          textStats.text = data.healingEffect;
+          break;
+        case 'shieldEffect':
+          textStats.text = data.shieldEffect;
+          break;
+      }
+
+      textStats.position.set(12, i*statsLabel.height);
+
+      valueStats.text = value;
+      valueStats.position.set(
+        statsLabel.x+statsLabel.width-12-valueStats.width,
+        i*statsLabel.height
+      );
+
+      // console.log('valueStats', valueStats.y+statsBottomBackground.y);
+      // console.log(statsBottomBackground.y+statsBottomBackground.height);
+      // if (statsLabel.y+statsBottomBackground.y >= maxY) {
+      //   statsLabel.visible = false;
+      //   textStats.visible = false;
+      //   valueStats.visible = false;
+      // }
+
+      // console.log('text:', textStats.x, textStats.y, textStats.text);
+
+      statsBottomBackgroundContainer.addChild(textStats, valueStats);
+    });
+  }
+
+
+  statsContainer.addChild(statsBottomBackground);
+  statsContainer.addChild(statsBottomBackgroundContainer);
+  statsContainer.addChild(statsUpperBackground, textStatsUpperBackground,
+    textPowerBar, statsBackground);
+  container.addChild(statsContainer);
+
+  console.log('stage', stage.children[2].children[16].children[6].children);
+
+  // Methods for dragging 'statsBottomBackgroundContainer'
+  statsBottomBackgroundContainer
+    .on('pointerdown', onDragStart)
+    .on('pointerup', onDragEnd)
+    .on('pointermove', onDragMoveY);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    let i = 0;
+    for (let item in data) {
+      // console.log(item);
+      if (data[item] > 0) {
+        if (item !== 'stars' && item !== 'currPages' && item !== 'nextPages'
+        && item !== 'level' && item !== 'heroNextLvlExp' && item !== 'heroCurrLvlExp'
+        && item !== 'power' && item !== 'hitLevel' && item !== 'movementSpeed'
+        && item !== 'attackRange') {
+          let grey = new RegExp('Inc');
+          if (!grey.test(item)) {
+            console.log(item,'-', data[item]);
+            addGreyLabel(i, item, data[item]);
+            i++;
+          }
+        }
+      }
+    }
+    console.log('pocet', i);
+
+    textBanner.text = data.name;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      794
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.5);
+    classIcon.position.set(782, 798);
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(statsUpperBackground, textPowerBar).x,
+      692
+    );
+
+    switch (data.stars) {
+      case 2:
+        addStarIcon(-26);
+        addStarIcon(26);
+        break;
+      case 3:
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        break;
+      case 4:
+        addStarIcon(-78);
+        addStarIcon(-26);
+        addStarIcon(26);
+        addStarIcon(78);
+        break;
+      case 5:
+        addStarIcon(-104);
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        addStarIcon(104);
+        break;
+      default:
+        addStarIcon(0);
+    }
+
+    textStatsUpperBackground.text = data.description;
+    textStatsUpperBackground.position.set(1050, 244);
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+}
+
+// Glyph part of Hero screen
+function addGlyphsContainer(container, heroName) {
+  let glyphsContainer = new Container();
+  console.log('heroName from glyphsContainer', heroName);
+
+  socket.emit('heroContainer', heroName);
+  // console.log('glyphsContainer', stage.children);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+  let awakenIconBackground = new Sprite(resources[awakenIconBackgroundPath].texture);
+  awakenIconBackground.position.set(1032, 229);
+
+  let awakenIcon = new Sprite(resources[awakenIconPath].texture);
+  awakenIcon.position.set(1048, 241);
+
+  // TODO: zanest u kazdeho hrdiny tuto informaci o awaken statusu
+  let textAwakenIcon = new Text(`This hero's mysterious
+power has not been
+awakened. Stay tuned!`, textStyle_32left_black);
+  textAwakenIcon.position.set(1192, setMiddlePos(awakenIconBackground, textAwakenIcon).y+4);
+
+  function addGlyphIcon(spritePath, index, equipped) {
+    // console.log(index+' '+spritePath);
+    let glyph = new Sprite(resources[spritePath].texture);
+    // setInteractive(glyph, true);
+    let noGlyphIcon = new Sprite(resources[noGlyphIconPath].texture);
+
+    if (equipped === 'no') {
+      switch (index) {
+        case 0:
+          glyph.position.set(1158, 393);
+          noGlyphIcon.position.set(1158, 393);
+          break;
+        case 1:
+          glyph.position.set(1310, 393);
+          noGlyphIcon.position.set(1310, 393);
+          break;
+        case 2:
+          glyph.position.set(1158, 545);
+          noGlyphIcon.position.set(1158, 545);
+          break;
+        case 3:
+          glyph.position.set(1310, 545);
+          noGlyphIcon.position.set(1310, 545);
+          break;
+      }
+      glyphsContainer.addChild(glyph, noGlyphIcon);
+    } else {
+      switch (index) {
+        case 0:
+          glyph.position.set(1158, 393);
+          break;
+        case 1:
+          glyph.position.set(1310, 393);
+          break;
+        case 2:
+          glyph.position.set(1158, 545);
+          break;
+        case 3:
+          glyph.position.set(1310, 545);
+          break;
+      }
+      glyphsContainer.addChild(glyph);
+    }
+  }
+
+  let border = new Sprite(resources[borderGreyPath].texture);
+  border.position.set(374, 242);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.position.set(312, 204);
+
+  let textBanner = new Text('', textStyleBubble_52_white);
+  let textLevel = new Text('', textStyleLevel_40_white);
+  textLevel.position.set(392, 228);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  let pedestal = new Sprite(resources[pedestalPath].texture);
+
+  let starBackground = new Sprite(resources[starBackgroundPath].texture);
+  starBackground.position.set(394, 752);
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(awakenIconBackground, textPowerBar).x,
+    692
+  );
+
+  //
+  function addStarIcon(offsetX) {
+    let star = new Sprite(resources[starIconPath].texture);
+    star.position.set(
+      setMiddlePos(starBackground, star).x+offsetX,
+      setMiddlePos(starBackground, star).y
+    );
+
+    glyphsContainer.addChild(star);
+  }
+
+  let expBar = new Sprite(resources[expBackgroundPath].texture);
+  expBar.position.set(341, 845);
+
+  let textHeroExpOfLevels = new Text('', textStyleLevel_40_white);
+
+  let pageBar = new Sprite(resources[expBackgroundPath].texture);
+  pageBar.position.set(643, 845);
+
+  let pageIcon = new Sprite(resources[pageIconPath].texture);
+  pageIcon.position.set(pageBar.x, pageBar.y-4);
+
+  let expBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+  expBarPlusIcon.width = expBarPlusIcon.height = 56;
+  expBarPlusIcon.position.set(
+    expBar.x+expBar.width-expBarPlusIcon.width,
+    expBar.y-4
+  );
+
+  let pageBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+  pageBarPlusIcon.width = pageBarPlusIcon.height = 56;
+  pageBarPlusIcon.position.set(
+    pageBar.x+pageBar.width-pageBarPlusIcon.width,
+    pageBar.y-4
+  );
+
+  let textNumberOfPages = new Text('', textStyleLevel_40_white);
+
+  let nextGlyphsIcon = new Sprite(resources[nextGlyphsIconPath].texture);
+  nextGlyphsIcon.position.set(1516, 617);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    selectBorder(border, data.color);
+    border.position.set(374, 242);
+
+    textBanner.text = data.name;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      228
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.6);
+    classIcon.position.set(830, 230);
+
+    pedestal.position.set(
+      setMiddlePos(border, pedestal).x,
+      643
+    );
+
+    switch (data.stars) {
+      case 2:
+        addStarIcon(-26);
+        addStarIcon(26);
+        break;
+      case 3:
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        break;
+      case 4:
+        addStarIcon(-78);
+        addStarIcon(-26);
+        addStarIcon(26);
+        addStarIcon(78);
+        break;
+      case 5:
+        addStarIcon(-104);
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        addStarIcon(104);
+        break;
+      default:
+        addStarIcon(0);
+    }
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(awakenIconBackground, textPowerBar).x,
+      692
+    );
+
+    if (data.nextPages === 0) {
+      textNumberOfPages.text = 'MAX';
+    } else {
+      textNumberOfPages.text = data.currPages+'/'+data.nextPages;
+    }
+    textNumberOfPages.position.set(
+      setMiddlePos(pageBar, textNumberOfPages).x,
+      setMiddlePos(pageBar, textNumberOfPages).y
+    );
+
+    textHeroExpOfLevels.text = data.heroCurrLvlExp+'/'+data.heroNextLvlExp;
+    textHeroExpOfLevels.position.set(
+      setMiddlePos(expBar, textHeroExpOfLevels).x,
+      setMiddlePos(expBar, textHeroExpOfLevels).y
+    );
+
+    for (let i of data.glyphsRarity) {
+      // console.log('i', i);
+      if (i.current_status === data.color) {
+        for (const item of i.glyphs) {
+          let index = i.glyphs.indexOf(item);
+          // console.log(index+': '+item.title+' - '+item.equipped); //i.glyphs., i.glyphs.equipped);
+          let spriteGlyphIconPath;
+          switch (item.title) {
+            case 'Ability Power':
+              spriteGlyphIconPath = abilityPowerIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Armor':
+              spriteGlyphIconPath = armorIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Armor Penetration':
+              spriteGlyphIconPath = armorPenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Attack Damage':
+              spriteGlyphIconPath = attackDamageIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Attack Force':
+              spriteGlyphIconPath = attackForceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Crit Strike':
+              spriteGlyphIconPath = critStrikeIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Double Attack':
+              spriteGlyphIconPath = doubleAttackIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Energy Regen':
+              spriteGlyphIconPath = energyRegenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Hardiness':
+              spriteGlyphIconPath = hardinessIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Health':
+              spriteGlyphIconPath = healthIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Health Regen':
+              spriteGlyphIconPath = healthRegenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Force':
+              spriteGlyphIconPath = magicForceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Penetration':
+              spriteGlyphIconPath = magicPenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Resist':
+              spriteGlyphIconPath = magicResistIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Regenerate':
+              spriteGlyphIconPath = regenerateIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Aggression':
+              spriteGlyphIconPath = aggressionIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Avarice':
+              spriteGlyphIconPath = avariceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Balance':
+              spriteGlyphIconPath = balanceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Bloodthirst':
+              spriteGlyphIconPath = bloodthirstIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Bravery':
+              spriteGlyphIconPath = braveryIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Cardio':
+              spriteGlyphIconPath = cardioIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Chivalry':
+              spriteGlyphIconPath = chivalryIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Defense':
+              spriteGlyphIconPath = defenseIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Divine Power':
+              spriteGlyphIconPath = divinePowerIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Enforcement':
+              spriteGlyphIconPath = enforcementIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Extra Health':
+              spriteGlyphIconPath = extraHealthIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Fortitude':
+              spriteGlyphIconPath = fortitudeIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Illusion':
+              spriteGlyphIconPath = illusionIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Immortality':
+              spriteGlyphIconPath = immortalityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Infinity':
+              spriteGlyphIconPath = infinityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Shield':
+              spriteGlyphIconPath = magicShieldIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Meditation':
+              spriteGlyphIconPath = meditationIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Nature':
+              spriteGlyphIconPath = natureIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Osmosis':
+              spriteGlyphIconPath = osmosisIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Providence':
+              spriteGlyphIconPath = providenceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Prowess':
+              spriteGlyphIconPath = prowessIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Sublimity':
+              spriteGlyphIconPath = sublimityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Valor':
+              spriteGlyphIconPath = valorIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+          }
+        }
+      }
+    }
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+
+  glyphsContainer.addChild(heroUpperBackground, awakenIconBackground, awakenIcon,
+    textAwakenIcon, starBackground, pedestal, textPowerBar,
+    expBar, expBarPlusIcon, textHeroExpOfLevels,
+    pageBar, pageIcon, pageBarPlusIcon, textNumberOfPages,
+    nextGlyphsIcon);
+
+  //
+  function addHero(heroPath) {
+    let hero = new Sprite(resources[heroPath].texture);
+    hero.position.set(
+      setMiddlePos(border, hero).x,
+      667-hero.height
+    );
+    glyphsContainer.addChild(hero);
+  }
+
+  switch (heroName) {
+    case 'aelois':
+      addHero(aeloisPath);
+      // let aelois = new Sprite(resources[aeloisPath].texture);
+      // aelois.position.set(
+      //   setMiddlePos(border, aelois).x,
+      //   667-aelois.height
+      // );
+      // glyphsContainer.addChild(aelois);
+      break;
+    case 'amara':
+      addHero(amaraPath);
+      break;
+    case 'crystal':
+      addHero(crystalPath);
+      break;
+    case 'diuwin':
+      addHero(diuwinPath);
+      break;
+    case 'leona':
+      addHero(leonaPath);
+      break;
+    case 'leryssa':
+      addHero(leryssaPath);
+      break;
+    case 'nadia':
+      addHero(nadiaPath);
+      break;
+    case 'nyx':
+      addHero(nyxPath);
+      break;
+    case 'sin':
+      addHero(sinPath);
+      break;
+    case 'zalajin':
+      addHero(zalajinPath);
+      break;
+    case 'zaya':
+      addHero(zayaPath);
+      break;
+  }
+
+  glyphsContainer.addChild(border, banner, textBanner, textLevel, classIcon);
+  container.addChild(glyphsContainer);
+}
+
+//
+function addSkillsContainer(container, heroName) {
+  let skillsContainer = new Container();
+  console.log('heroName from skillsContainer', heroName);
+
+  console.log(stage.children[1].children[18].children);
+
+  socket.emit('heroContainer', heroName);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.width = 476;
+  banner.height = 76;
+  banner.position.set(1059, 172);
+
+  let textBanner = new Text('', textStyleLevel_40_white);
+
+  function addVideo(videoFilePath) {
+    let video = new Sprite(resources[videoFilePath].texture);
+    video.position.set(1032, 229);
+
+    skillsContainer.addChild(heroUpperBackground, video, banner, textBanner);
+  }
+
+  function loadVideo(heroName, filenamePath) {
+    // const myLoader = PIXI.loader;
+    let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
+
+    if (videoFilePath in loader.resources) {
+      console.log('video already loaded');
+      addVideo(videoFilePath);
+    } else {
+      loader
+        .add(videoFilePath);
+    }
+
+    loader
+      .on('complete', (loader, resources) => {
+        // TODO: video - http://pixijs.io/examples/?v=dev#/basics/video.js
+        // - http://www.html5gamedevs.com/topic/16450-pixi-loading-video-files/
+        addVideo(videoFilePath);
+      });
+  }
+
+  loadVideo(heroName, 'video_1');
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(banner, textPowerBar).x,
+    692
+  );
+  // console.log('power.x', setMiddlePos(banner, textPowerBar).x);
+
+  let textSkill1 = new Text('', textStyle_32left_black);
+  let textSkill2 = new Text('', textStyle_32left_black);
+  let textSkill3 = new Text('', textStyle_32left_black);
+  let textSkill4 = new Text('', textStyle_32left_black);
+
+  let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
+
+  // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
+  // jednotlivych skillu pro dany level skillu
+
+  function loadSkillsIcons(heroName) {
+    let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
+    let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
+    let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
+    let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
+
+    function addSkillBackground(x, y, offsetY) {
+      let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
+      skillBackground.position.set(x, y+offsetY); //136
+
+      let skillLabel = new Sprite(resources[skillLabelPath].texture);
+      skillLabel.position.set(x+128, y+62+offsetY);
+
+      skillsContainer.addChild(skillBackground, skillLabel,
+        textSkill1, textSkill2, textSkill3, textSkill4,
+        textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
+      );
+    }
+
+    function addSkillIcon(spritePath, x, y, offsetY, i) {
+      let skillIcon = new Sprite(resources[spritePath].texture);
+      skillIcon.position.set(x, y+offsetY);
+      setInteractive(skillIcon, true);
+
+      skillIcon.on('pointerup', () => {
+        console.log(`skill ${i} clicked`);
+        // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
+      });
+
+      let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
+      skillPlusIcon.position.set(x+464, y+12+offsetY);
+      setInteractive(skillPlusIcon, true);
+
+      skillPlusIcon.on('pointerup', () => {
+        console.log(`plus for skill ${i} was pressed`);
+      });
+
+      skillsContainer.addChild(skillIcon, skillPlusIcon);
+    }
+
+    function addSkills() {
+      let offsetY = 0;
+      for (let i = 0; i < 4; i++) {
+        addSkillBackground(332, 359, offsetY);
+        switch (i) {
+          case 0:
+            addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
+            break;
+          case 1:
+            addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
+            break;
+          case 2:
+            addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
+            break;
+          case 3:
+            addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
+            break;
+        }
+        offsetY += 136;
+      }
+    }
+
+    if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
+      skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
+      console.log('skill icons already loaded');
+      addSkills();
+    } else {
+      loader
+        .add([
+          skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
+        ]);
+    }
+
+    loader
+      .on('complete', (loader, resources) => {
+        addSkills();
+      });
+  }
+
+  loadSkillsIcons(heroName);
+
+  let skillsBanner = new Sprite(resources[banner620x98Path].texture);
+  skillsBanner.position.set(312, 204);
+
+  let textSkillsBanner = new Text('', textStyleBubble_52_white);
+
+  let textLevel = new Text('', textStyleLevel_40_white);
+  textLevel.position.set(392, 228);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    textBanner.text = data.skills[0].title;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(banner, textPowerBar).x,
+      692
+    );
+
+    textSkillsBanner.text = data.name;
+    textSkillsBanner.position.set(
+      setMiddlePos(skillsBanner, textSkillsBanner).x,
+      setMiddlePos(skillsBanner, textSkillsBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      228
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.6);
+    classIcon.position.set(830, 230);
+
+    textSkill1.text = data.skills[0].title;
+    textSkill1.position.set(460, 384);
+
+    textSkillLevel1.text = textSkillLevel1.text+data.skills[0].skill_level;
+    textSkillLevel1.position.set(734, 428);
+
+    textSkill2.text = data.skills[1].title;
+    textSkill2.position.set(460, 520);
+
+    textSkillLevel2.text = textSkillLevel2.text+data.skills[1].skill_level;
+    textSkillLevel2.position.set(734, 564);
+
+    textSkill3.text = data.skills[2].title;
+    textSkill3.position.set(460, 656);
+
+    textSkillLevel3.text = textSkillLevel3.text+data.skills[2].skill_level;
+    textSkillLevel3.position.set(734, 700);
+
+    textSkill4.text = data.skills[3].title;
+    textSkill4.position.set(460, 792);
+
+    textSkillLevel4.text = textSkillLevel4.text+data.skills[3].skill_level;
+    textSkillLevel4.position.set(734, 836);
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+
+  skillsContainer.addChild(textPowerBar, skillsBanner,
+    textSkillsBanner, textLevel, classIcon);
+  container.addChild(skillsContainer);
+}
+
+//
+function addEquipContainer(container, heroName) {
+  let equipContainer = new Container();
+
+  // console.log('equipContainer', stage.children);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+
+
+  equipContainer.addChild(heroUpperBackground);
+  container.addChild(equipContainer);
+}
+
+//
+function addHeroInfoIcons(container, iconClicked, heroName) {
+  console.log('iconClicked', iconClicked);
+
+  socket.emit('heroInfoIcons', heroName);
+
+  let infoIcon = new Sprite(resources[statsIconPath].texture);
+  let infoIconSelected = new Sprite(resources[statsIconSelectedPath].texture);
+
+  let statsIcon = new Sprite(resources[statsIconPath].texture);
+  statsIcon.position.set(1050, 741);
+  setInteractive(statsIcon, true);
+
+  let textStatsIcon = new Text('', textStyle_32center_black);
+
+  let glyphsIcon = new Sprite(resources[glyphsIconPath].texture);
+  setInteractive(glyphsIcon, true);
+  if (iconClicked === 'glyphs') {
+    glyphsIcon.texture = infoIconSelected.texture;
+    setInteractive(glyphsIcon, false);
+  }
+  glyphsIcon.position.set(1178, 741);
+
+  let textGlyphsIcon = new Text('', textStyle_32center_black);
+
+  let skillsIcon = new Sprite(resources[skillsIconPath].texture);
+  skillsIcon.position.set(1306, 741);
+  setInteractive(skillsIcon, true);
+
+  let textSkillsIcon = new Text('', textStyle_32center_black);
+
+  let equipIcon = new Sprite(resources[equipIconPath].texture);
+  equipIcon.position.set(1434, 741);
+  setInteractive(equipIcon, true);
+
+  let textEquipIcon = new Text('', textStyle_32center_black);
+
+  function setSelectedIcon(selectedIcon, notSelectedIcon) {
+    selectedIcon.texture = infoIcon.texture;
+    notSelectedIcon.texture = infoIconSelected.texture;
+    setInteractive(selectedIcon, true);
+    setInteractive(notSelectedIcon, false);
+  }
+
+  socket.on('heroInfoIconsData', (data) => {
+    console.log('heroInfoIconsData\n', data);
+
+    textStatsIcon.text = data.stats;
+    textStatsIcon.position.set(
+      setMiddlePos(statsIcon, textStatsIcon).x,
+      setMiddlePos(statsIcon, textStatsIcon).y
+    );
+
+    textGlyphsIcon.text = data.glyphs;
+    textGlyphsIcon.position.set(
+      setMiddlePos(glyphsIcon, textGlyphsIcon).x,
+      setMiddlePos(glyphsIcon, textGlyphsIcon).y
+    );
+
+    textSkillsIcon.text = data.skills;
+    textSkillsIcon.position.set(
+      setMiddlePos(skillsIcon, textSkillsIcon).x,
+      setMiddlePos(skillsIcon, textSkillsIcon).y
+    );
+
+    textEquipIcon.text = data.equip;
+    textEquipIcon.position.set(
+      setMiddlePos(equipIcon, textEquipIcon).x,
+      setMiddlePos(equipIcon, textEquipIcon).y
+    );
+
+    socket.off('heroInfoIconsData');
+  });
+
+  statsIcon.on('pointerup', () => {
+    console.log('statsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    // for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+    //   let borderIndex = stage.children[1].children[18].children[i].children.length;
+    //   // console.log('borderIndex', borderIndex);
+    //   setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+    // }
+    switch (iconClicked) {
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, statsIcon);
+        iconClicked = 'stats';
+        // console.log(container.children[15]);
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, statsIcon);
+        iconClicked = 'stats';
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, statsIcon);
+        iconClicked = 'stats';
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  glyphsIcon.on('pointerup', () => {
+    console.log('glyphsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  skillsIcon.on('pointerup', () => {
+    console.log('skillsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  equipIcon.on('pointerup', () => {
+    console.log('equipIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  container.addChild(statsIcon, textStatsIcon, glyphsIcon, textGlyphsIcon,
+    skillsIcon, textSkillsIcon, equipIcon, textEquipIcon);
+}
+
+// Setup the hero screen (after player clicked on specific hero)
+function setHeroContainer(heroName, iconClicked) {
+  let heroContainer = new Container();
+
+  // socket.emit('heroContainer', heroName);
+
+  setBookBackground(heroContainer);
+  setBarContainer(heroContainer);
+  // setScrollArrowHeroes(heroesContainer);
+
+  setInteractive(stage.children[1].children[20], false); // rightArrow interactive -> false
+  setInteractive(stage.children[1].children[21], false); // back button interactive -> false
+  setInteractive(scrollArrow72x36, false);
+  // console.log(stage.children[1].children[18].children.length);
+  disableHeroPortraitsInteraction();
+  // for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+  //   let borderIndex = stage.children[1].children[18].children[i].children.length;
+  //   // console.log('borderIndex', borderIndex);
+  //   setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+  // }
+
+  addHeroBtnClose(heroContainer);
+
+  // TODO: pridat sipky vpravo, vlevo
+
+  // let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  // heroUpperBackground.position.set(1008, 205);
+
+  let heroBottomBackground = new Sprite(resources[heroBottomBackgroundPath].texture);
+  heroBottomBackground.position.set(1008, 713);
+
+  let powerBar = new Sprite(resources[expBackgroundPath].texture);
+  powerBar.position.set(1168, 689);
+
+  let helpIcon = new Sprite(resources[helpIconPath].texture);
+  helpIcon.position.set(powerBar.x+powerBar.width, 689);
+
+  heroContainer.addChild(heroBottomBackground, powerBar,
+    helpIcon);
+  addHeroInfoIcons(heroContainer, iconClicked, heroName);
+
+  if (iconClicked === 'glyphs') {
+    addGlyphsContainer(heroContainer, heroName);
+  }
+
+  // console.log('heroes:\n', stage.children);
+  if (stage.children.length === 2) {
+    stage.addChild(heroContainer);
+  }
+  console.log('heroes2:\n', stage.children);
 }
 
 // Add left and right arrow
 function addArrows(container) {
+  let currentPage = 0;
+  let pages = 1;//sumPages;
+
+  // console.log('currentPage', currentPage, 'pages', pages);
+
   let leftArrow = new Sprite(resources[leftArrowIconPath].texture);
   leftArrow.position.set(36, 640);
-  setInteractive(leftArrow, true);
+  leftArrow.visible = false;
 
   let rightArrow = new Sprite(resources[rightArrowIconPath].texture);
   rightArrow.position.set(1796, 640);
   setInteractive(rightArrow, true);
+
+  // heroesPortraitContainer.position.x = 0;
+  // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+
+  leftArrow.on('pointerup', () => {
+    console.log('leftArrow clicked', currentPage, pages);
+    if (currentPage > 0 && currentPage < pages) {
+      // setTimeout(() => {
+        heroesPortraitContainer.position.x += 1920;
+        // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+        currentPage--;
+        // console.log('currentPage', currentPage);
+      // }, LATENCY);
+    }
+
+    if (currentPage === pages) {
+      // setTimeout(() => {
+        heroesPortraitContainer.position.x += 1920;
+        // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+        currentPage--;
+        // console.log('currentPage', currentPage);
+        if (rightArrow.visible === false) {
+          rightArrow.visible = true;
+          setInteractive(rightArrow, true);
+        }
+        if (leftArrow.visible = false) {
+          leftArrow.visible = false;
+          setInteractive(leftArrow, false);
+        }
+      // }, LATENCY);
+    }
+  });
+
+  rightArrow.on('pointerup', () => {
+    console.log('rightArrow clicked', currentPage, pages);
+    // console.log('heroesPortraitContainer', heroesPortraitContainer.x);
+
+    if (currentPage < pages) {
+      currentPage++;
+      // console.log('currentPage', currentPage);
+      heroesPortraitContainer.position.x -= 1920;
+      // console.log('heroesPortraitContainer', heroesPortraitContainer.x);
+    }
+
+    if (currentPage === pages) {
+      rightArrow.visible = false;
+      setInteractive(rightArrow, false);
+    }
+
+    if (leftArrow.visible === false) {
+      leftArrow.visible = true;
+      setInteractive(leftArrow, true);
+    }
+  });
 
   container.addChild(leftArrow, rightArrow);
 }
@@ -2764,7 +4358,56 @@ function addBookmark(container, posX, posY, bookmarkIcon) {
   container.addChild(bookmark, icon);
 }
 
-},{"pixi.js":139,"webfontloader":186}],2:[function(require,module,exports){
+let mouseYPos = 0;
+let delta = 0;
+let minDrag = 0;
+let maxDrag = 0;
+
+// Dragging functions
+function onDragStart(event) {
+  this.data = event.data;
+  // this.alpha = 0.5;
+  this.dragging = true;
+  mouseYPos = event.data.getLocalPosition(stage).y;
+  delta = mouseYPos-this.y;
+  minDrag = this.y;
+  maxDrag = this.parent.height;
+  // console.log(minDrag, maxDrag);
+  // console.log(this.y, '+', this.height, '=', this.y+this.height);
+  // console.log(stage.children[2].children[10]); //12, 14
+  setInteractive(stage.children[2].children[10], false);
+  setInteractive(stage.children[2].children[12], false);
+  setInteractive(stage.children[2].children[14], false);
+}
+
+function onDragEnd() {
+  // this.alpha = 1;
+  this.dragging = false;
+  // set the interaction data to null
+  this.data = null;
+  setInteractive(stage.children[2].children[10], true);
+  setInteractive(stage.children[2].children[12], true);
+  setInteractive(stage.children[2].children[14], true);
+}
+
+function onDragMoveY() {
+  if (this.dragging) {
+    this.y = this.data.getLocalPosition(this.parent).y-delta;
+    // console.log(this.y, this.height);
+    if (this.y <= 229) { //229 = statsUpperBackground.y
+      this.dragging = false;
+      this.y = maxDrag-this.height-12;
+      onDragEnd;
+    }
+    if (this.y+this.height >= 876) {
+      this.dragging = false;
+      this.y = minDrag;
+      onDragEnd;
+    }
+  }
+}
+
+},{"hammerjs":5,"pixi.js":140,"webfontloader":187}],2:[function(require,module,exports){
 /**
  * Bit twiddling hacks for JavaScript.
  *
@@ -3930,6 +5573,2651 @@ if ('undefined' !== typeof module) {
 }
 
 },{}],5:[function(require,module,exports){
+/*! Hammer.JS - v2.0.7 - 2016-04-22
+ * http://hammerjs.github.io/
+ *
+ * Copyright (c) 2016 Jorik Tangelder;
+ * Licensed under the MIT license */
+(function(window, document, exportName, undefined) {
+  'use strict';
+
+var VENDOR_PREFIXES = ['', 'webkit', 'Moz', 'MS', 'ms', 'o'];
+var TEST_ELEMENT = document.createElement('div');
+
+var TYPE_FUNCTION = 'function';
+
+var round = Math.round;
+var abs = Math.abs;
+var now = Date.now;
+
+/**
+ * set a timeout with a given scope
+ * @param {Function} fn
+ * @param {Number} timeout
+ * @param {Object} context
+ * @returns {number}
+ */
+function setTimeoutContext(fn, timeout, context) {
+    return setTimeout(bindFn(fn, context), timeout);
+}
+
+/**
+ * if the argument is an array, we want to execute the fn on each entry
+ * if it aint an array we don't want to do a thing.
+ * this is used by all the methods that accept a single and array argument.
+ * @param {*|Array} arg
+ * @param {String} fn
+ * @param {Object} [context]
+ * @returns {Boolean}
+ */
+function invokeArrayArg(arg, fn, context) {
+    if (Array.isArray(arg)) {
+        each(arg, context[fn], context);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * walk objects and arrays
+ * @param {Object} obj
+ * @param {Function} iterator
+ * @param {Object} context
+ */
+function each(obj, iterator, context) {
+    var i;
+
+    if (!obj) {
+        return;
+    }
+
+    if (obj.forEach) {
+        obj.forEach(iterator, context);
+    } else if (obj.length !== undefined) {
+        i = 0;
+        while (i < obj.length) {
+            iterator.call(context, obj[i], i, obj);
+            i++;
+        }
+    } else {
+        for (i in obj) {
+            obj.hasOwnProperty(i) && iterator.call(context, obj[i], i, obj);
+        }
+    }
+}
+
+/**
+ * wrap a method with a deprecation warning and stack trace
+ * @param {Function} method
+ * @param {String} name
+ * @param {String} message
+ * @returns {Function} A new function wrapping the supplied method.
+ */
+function deprecate(method, name, message) {
+    var deprecationMessage = 'DEPRECATED METHOD: ' + name + '\n' + message + ' AT \n';
+    return function() {
+        var e = new Error('get-stack-trace');
+        var stack = e && e.stack ? e.stack.replace(/^[^\(]+?[\n$]/gm, '')
+            .replace(/^\s+at\s+/gm, '')
+            .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@') : 'Unknown Stack Trace';
+
+        var log = window.console && (window.console.warn || window.console.log);
+        if (log) {
+            log.call(window.console, deprecationMessage, stack);
+        }
+        return method.apply(this, arguments);
+    };
+}
+
+/**
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} target
+ * @param {...Object} objects_to_assign
+ * @returns {Object} target
+ */
+var assign;
+if (typeof Object.assign !== 'function') {
+    assign = function assign(target) {
+        if (target === undefined || target === null) {
+            throw new TypeError('Cannot convert undefined or null to object');
+        }
+
+        var output = Object(target);
+        for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index];
+            if (source !== undefined && source !== null) {
+                for (var nextKey in source) {
+                    if (source.hasOwnProperty(nextKey)) {
+                        output[nextKey] = source[nextKey];
+                    }
+                }
+            }
+        }
+        return output;
+    };
+} else {
+    assign = Object.assign;
+}
+
+/**
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} dest
+ * @param {Object} src
+ * @param {Boolean} [merge=false]
+ * @returns {Object} dest
+ */
+var extend = deprecate(function extend(dest, src, merge) {
+    var keys = Object.keys(src);
+    var i = 0;
+    while (i < keys.length) {
+        if (!merge || (merge && dest[keys[i]] === undefined)) {
+            dest[keys[i]] = src[keys[i]];
+        }
+        i++;
+    }
+    return dest;
+}, 'extend', 'Use `assign`.');
+
+/**
+ * merge the values from src in the dest.
+ * means that properties that exist in dest will not be overwritten by src
+ * @param {Object} dest
+ * @param {Object} src
+ * @returns {Object} dest
+ */
+var merge = deprecate(function merge(dest, src) {
+    return extend(dest, src, true);
+}, 'merge', 'Use `assign`.');
+
+/**
+ * simple class inheritance
+ * @param {Function} child
+ * @param {Function} base
+ * @param {Object} [properties]
+ */
+function inherit(child, base, properties) {
+    var baseP = base.prototype,
+        childP;
+
+    childP = child.prototype = Object.create(baseP);
+    childP.constructor = child;
+    childP._super = baseP;
+
+    if (properties) {
+        assign(childP, properties);
+    }
+}
+
+/**
+ * simple function bind
+ * @param {Function} fn
+ * @param {Object} context
+ * @returns {Function}
+ */
+function bindFn(fn, context) {
+    return function boundFn() {
+        return fn.apply(context, arguments);
+    };
+}
+
+/**
+ * let a boolean value also be a function that must return a boolean
+ * this first item in args will be used as the context
+ * @param {Boolean|Function} val
+ * @param {Array} [args]
+ * @returns {Boolean}
+ */
+function boolOrFn(val, args) {
+    if (typeof val == TYPE_FUNCTION) {
+        return val.apply(args ? args[0] || undefined : undefined, args);
+    }
+    return val;
+}
+
+/**
+ * use the val2 when val1 is undefined
+ * @param {*} val1
+ * @param {*} val2
+ * @returns {*}
+ */
+function ifUndefined(val1, val2) {
+    return (val1 === undefined) ? val2 : val1;
+}
+
+/**
+ * addEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+function addEventListeners(target, types, handler) {
+    each(splitStr(types), function(type) {
+        target.addEventListener(type, handler, false);
+    });
+}
+
+/**
+ * removeEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+function removeEventListeners(target, types, handler) {
+    each(splitStr(types), function(type) {
+        target.removeEventListener(type, handler, false);
+    });
+}
+
+/**
+ * find if a node is in the given parent
+ * @method hasParent
+ * @param {HTMLElement} node
+ * @param {HTMLElement} parent
+ * @return {Boolean} found
+ */
+function hasParent(node, parent) {
+    while (node) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+/**
+ * small indexOf wrapper
+ * @param {String} str
+ * @param {String} find
+ * @returns {Boolean} found
+ */
+function inStr(str, find) {
+    return str.indexOf(find) > -1;
+}
+
+/**
+ * split string on whitespace
+ * @param {String} str
+ * @returns {Array} words
+ */
+function splitStr(str) {
+    return str.trim().split(/\s+/g);
+}
+
+/**
+ * find if a array contains the object using indexOf or a simple polyFill
+ * @param {Array} src
+ * @param {String} find
+ * @param {String} [findByKey]
+ * @return {Boolean|Number} false when not found, or the index
+ */
+function inArray(src, find, findByKey) {
+    if (src.indexOf && !findByKey) {
+        return src.indexOf(find);
+    } else {
+        var i = 0;
+        while (i < src.length) {
+            if ((findByKey && src[i][findByKey] == find) || (!findByKey && src[i] === find)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+}
+
+/**
+ * convert array-like objects to real arrays
+ * @param {Object} obj
+ * @returns {Array}
+ */
+function toArray(obj) {
+    return Array.prototype.slice.call(obj, 0);
+}
+
+/**
+ * unique array with objects based on a key (like 'id') or just by the array's value
+ * @param {Array} src [{id:1},{id:2},{id:1}]
+ * @param {String} [key]
+ * @param {Boolean} [sort=False]
+ * @returns {Array} [{id:1},{id:2}]
+ */
+function uniqueArray(src, key, sort) {
+    var results = [];
+    var values = [];
+    var i = 0;
+
+    while (i < src.length) {
+        var val = key ? src[i][key] : src[i];
+        if (inArray(values, val) < 0) {
+            results.push(src[i]);
+        }
+        values[i] = val;
+        i++;
+    }
+
+    if (sort) {
+        if (!key) {
+            results = results.sort();
+        } else {
+            results = results.sort(function sortUniqueArray(a, b) {
+                return a[key] > b[key];
+            });
+        }
+    }
+
+    return results;
+}
+
+/**
+ * get the prefixed property
+ * @param {Object} obj
+ * @param {String} property
+ * @returns {String|Undefined} prefixed
+ */
+function prefixed(obj, property) {
+    var prefix, prop;
+    var camelProp = property[0].toUpperCase() + property.slice(1);
+
+    var i = 0;
+    while (i < VENDOR_PREFIXES.length) {
+        prefix = VENDOR_PREFIXES[i];
+        prop = (prefix) ? prefix + camelProp : property;
+
+        if (prop in obj) {
+            return prop;
+        }
+        i++;
+    }
+    return undefined;
+}
+
+/**
+ * get a unique id
+ * @returns {number} uniqueId
+ */
+var _uniqueId = 1;
+function uniqueId() {
+    return _uniqueId++;
+}
+
+/**
+ * get the window object of an element
+ * @param {HTMLElement} element
+ * @returns {DocumentView|Window}
+ */
+function getWindowForElement(element) {
+    var doc = element.ownerDocument || element;
+    return (doc.defaultView || doc.parentWindow || window);
+}
+
+var MOBILE_REGEX = /mobile|tablet|ip(ad|hone|od)|android/i;
+
+var SUPPORT_TOUCH = ('ontouchstart' in window);
+var SUPPORT_POINTER_EVENTS = prefixed(window, 'PointerEvent') !== undefined;
+var SUPPORT_ONLY_TOUCH = SUPPORT_TOUCH && MOBILE_REGEX.test(navigator.userAgent);
+
+var INPUT_TYPE_TOUCH = 'touch';
+var INPUT_TYPE_PEN = 'pen';
+var INPUT_TYPE_MOUSE = 'mouse';
+var INPUT_TYPE_KINECT = 'kinect';
+
+var COMPUTE_INTERVAL = 25;
+
+var INPUT_START = 1;
+var INPUT_MOVE = 2;
+var INPUT_END = 4;
+var INPUT_CANCEL = 8;
+
+var DIRECTION_NONE = 1;
+var DIRECTION_LEFT = 2;
+var DIRECTION_RIGHT = 4;
+var DIRECTION_UP = 8;
+var DIRECTION_DOWN = 16;
+
+var DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
+var DIRECTION_VERTICAL = DIRECTION_UP | DIRECTION_DOWN;
+var DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+
+var PROPS_XY = ['x', 'y'];
+var PROPS_CLIENT_XY = ['clientX', 'clientY'];
+
+/**
+ * create new input type manager
+ * @param {Manager} manager
+ * @param {Function} callback
+ * @returns {Input}
+ * @constructor
+ */
+function Input(manager, callback) {
+    var self = this;
+    this.manager = manager;
+    this.callback = callback;
+    this.element = manager.element;
+    this.target = manager.options.inputTarget;
+
+    // smaller wrapper around the handler, for the scope and the enabled state of the manager,
+    // so when disabled the input events are completely bypassed.
+    this.domHandler = function(ev) {
+        if (boolOrFn(manager.options.enable, [manager])) {
+            self.handler(ev);
+        }
+    };
+
+    this.init();
+
+}
+
+Input.prototype = {
+    /**
+     * should handle the inputEvent data and trigger the callback
+     * @virtual
+     */
+    handler: function() { },
+
+    /**
+     * bind the events
+     */
+    init: function() {
+        this.evEl && addEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && addEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && addEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+    },
+
+    /**
+     * unbind the events
+     */
+    destroy: function() {
+        this.evEl && removeEventListeners(this.element, this.evEl, this.domHandler);
+        this.evTarget && removeEventListeners(this.target, this.evTarget, this.domHandler);
+        this.evWin && removeEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+    }
+};
+
+/**
+ * create new input type manager
+ * called by the Manager constructor
+ * @param {Hammer} manager
+ * @returns {Input}
+ */
+function createInputInstance(manager) {
+    var Type;
+    var inputClass = manager.options.inputClass;
+
+    if (inputClass) {
+        Type = inputClass;
+    } else if (SUPPORT_POINTER_EVENTS) {
+        Type = PointerEventInput;
+    } else if (SUPPORT_ONLY_TOUCH) {
+        Type = TouchInput;
+    } else if (!SUPPORT_TOUCH) {
+        Type = MouseInput;
+    } else {
+        Type = TouchMouseInput;
+    }
+    return new (Type)(manager, inputHandler);
+}
+
+/**
+ * handle input events
+ * @param {Manager} manager
+ * @param {String} eventType
+ * @param {Object} input
+ */
+function inputHandler(manager, eventType, input) {
+    var pointersLen = input.pointers.length;
+    var changedPointersLen = input.changedPointers.length;
+    var isFirst = (eventType & INPUT_START && (pointersLen - changedPointersLen === 0));
+    var isFinal = (eventType & (INPUT_END | INPUT_CANCEL) && (pointersLen - changedPointersLen === 0));
+
+    input.isFirst = !!isFirst;
+    input.isFinal = !!isFinal;
+
+    if (isFirst) {
+        manager.session = {};
+    }
+
+    // source event is the normalized value of the domEvents
+    // like 'touchstart, mouseup, pointerdown'
+    input.eventType = eventType;
+
+    // compute scale, rotation etc
+    computeInputData(manager, input);
+
+    // emit secret event
+    manager.emit('hammer.input', input);
+
+    manager.recognize(input);
+    manager.session.prevInput = input;
+}
+
+/**
+ * extend the data with some usable properties like scale, rotate, velocity etc
+ * @param {Object} manager
+ * @param {Object} input
+ */
+function computeInputData(manager, input) {
+    var session = manager.session;
+    var pointers = input.pointers;
+    var pointersLength = pointers.length;
+
+    // store the first input to calculate the distance and direction
+    if (!session.firstInput) {
+        session.firstInput = simpleCloneInputData(input);
+    }
+
+    // to compute scale and rotation we need to store the multiple touches
+    if (pointersLength > 1 && !session.firstMultiple) {
+        session.firstMultiple = simpleCloneInputData(input);
+    } else if (pointersLength === 1) {
+        session.firstMultiple = false;
+    }
+
+    var firstInput = session.firstInput;
+    var firstMultiple = session.firstMultiple;
+    var offsetCenter = firstMultiple ? firstMultiple.center : firstInput.center;
+
+    var center = input.center = getCenter(pointers);
+    input.timeStamp = now();
+    input.deltaTime = input.timeStamp - firstInput.timeStamp;
+
+    input.angle = getAngle(offsetCenter, center);
+    input.distance = getDistance(offsetCenter, center);
+
+    computeDeltaXY(session, input);
+    input.offsetDirection = getDirection(input.deltaX, input.deltaY);
+
+    var overallVelocity = getVelocity(input.deltaTime, input.deltaX, input.deltaY);
+    input.overallVelocityX = overallVelocity.x;
+    input.overallVelocityY = overallVelocity.y;
+    input.overallVelocity = (abs(overallVelocity.x) > abs(overallVelocity.y)) ? overallVelocity.x : overallVelocity.y;
+
+    input.scale = firstMultiple ? getScale(firstMultiple.pointers, pointers) : 1;
+    input.rotation = firstMultiple ? getRotation(firstMultiple.pointers, pointers) : 0;
+
+    input.maxPointers = !session.prevInput ? input.pointers.length : ((input.pointers.length >
+        session.prevInput.maxPointers) ? input.pointers.length : session.prevInput.maxPointers);
+
+    computeIntervalInputData(session, input);
+
+    // find the correct target
+    var target = manager.element;
+    if (hasParent(input.srcEvent.target, target)) {
+        target = input.srcEvent.target;
+    }
+    input.target = target;
+}
+
+function computeDeltaXY(session, input) {
+    var center = input.center;
+    var offset = session.offsetDelta || {};
+    var prevDelta = session.prevDelta || {};
+    var prevInput = session.prevInput || {};
+
+    if (input.eventType === INPUT_START || prevInput.eventType === INPUT_END) {
+        prevDelta = session.prevDelta = {
+            x: prevInput.deltaX || 0,
+            y: prevInput.deltaY || 0
+        };
+
+        offset = session.offsetDelta = {
+            x: center.x,
+            y: center.y
+        };
+    }
+
+    input.deltaX = prevDelta.x + (center.x - offset.x);
+    input.deltaY = prevDelta.y + (center.y - offset.y);
+}
+
+/**
+ * velocity is calculated every x ms
+ * @param {Object} session
+ * @param {Object} input
+ */
+function computeIntervalInputData(session, input) {
+    var last = session.lastInterval || input,
+        deltaTime = input.timeStamp - last.timeStamp,
+        velocity, velocityX, velocityY, direction;
+
+    if (input.eventType != INPUT_CANCEL && (deltaTime > COMPUTE_INTERVAL || last.velocity === undefined)) {
+        var deltaX = input.deltaX - last.deltaX;
+        var deltaY = input.deltaY - last.deltaY;
+
+        var v = getVelocity(deltaTime, deltaX, deltaY);
+        velocityX = v.x;
+        velocityY = v.y;
+        velocity = (abs(v.x) > abs(v.y)) ? v.x : v.y;
+        direction = getDirection(deltaX, deltaY);
+
+        session.lastInterval = input;
+    } else {
+        // use latest velocity info if it doesn't overtake a minimum period
+        velocity = last.velocity;
+        velocityX = last.velocityX;
+        velocityY = last.velocityY;
+        direction = last.direction;
+    }
+
+    input.velocity = velocity;
+    input.velocityX = velocityX;
+    input.velocityY = velocityY;
+    input.direction = direction;
+}
+
+/**
+ * create a simple clone from the input used for storage of firstInput and firstMultiple
+ * @param {Object} input
+ * @returns {Object} clonedInputData
+ */
+function simpleCloneInputData(input) {
+    // make a simple copy of the pointers because we will get a reference if we don't
+    // we only need clientXY for the calculations
+    var pointers = [];
+    var i = 0;
+    while (i < input.pointers.length) {
+        pointers[i] = {
+            clientX: round(input.pointers[i].clientX),
+            clientY: round(input.pointers[i].clientY)
+        };
+        i++;
+    }
+
+    return {
+        timeStamp: now(),
+        pointers: pointers,
+        center: getCenter(pointers),
+        deltaX: input.deltaX,
+        deltaY: input.deltaY
+    };
+}
+
+/**
+ * get the center of all the pointers
+ * @param {Array} pointers
+ * @return {Object} center contains `x` and `y` properties
+ */
+function getCenter(pointers) {
+    var pointersLength = pointers.length;
+
+    // no need to loop when only one touch
+    if (pointersLength === 1) {
+        return {
+            x: round(pointers[0].clientX),
+            y: round(pointers[0].clientY)
+        };
+    }
+
+    var x = 0, y = 0, i = 0;
+    while (i < pointersLength) {
+        x += pointers[i].clientX;
+        y += pointers[i].clientY;
+        i++;
+    }
+
+    return {
+        x: round(x / pointersLength),
+        y: round(y / pointersLength)
+    };
+}
+
+/**
+ * calculate the velocity between two points. unit is in px per ms.
+ * @param {Number} deltaTime
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Object} velocity `x` and `y`
+ */
+function getVelocity(deltaTime, x, y) {
+    return {
+        x: x / deltaTime || 0,
+        y: y / deltaTime || 0
+    };
+}
+
+/**
+ * get the direction between two points
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Number} direction
+ */
+function getDirection(x, y) {
+    if (x === y) {
+        return DIRECTION_NONE;
+    }
+
+    if (abs(x) >= abs(y)) {
+        return x < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+    }
+    return y < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+}
+
+/**
+ * calculate the absolute distance between two points
+ * @param {Object} p1 {x, y}
+ * @param {Object} p2 {x, y}
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} distance
+ */
+function getDistance(p1, p2, props) {
+    if (!props) {
+        props = PROPS_XY;
+    }
+    var x = p2[props[0]] - p1[props[0]],
+        y = p2[props[1]] - p1[props[1]];
+
+    return Math.sqrt((x * x) + (y * y));
+}
+
+/**
+ * calculate the angle between two coordinates
+ * @param {Object} p1
+ * @param {Object} p2
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} angle
+ */
+function getAngle(p1, p2, props) {
+    if (!props) {
+        props = PROPS_XY;
+    }
+    var x = p2[props[0]] - p1[props[0]],
+        y = p2[props[1]] - p1[props[1]];
+    return Math.atan2(y, x) * 180 / Math.PI;
+}
+
+/**
+ * calculate the rotation degrees between two pointersets
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} rotation
+ */
+function getRotation(start, end) {
+    return getAngle(end[1], end[0], PROPS_CLIENT_XY) + getAngle(start[1], start[0], PROPS_CLIENT_XY);
+}
+
+/**
+ * calculate the scale factor between two pointersets
+ * no scale is 1, and goes down to 0 when pinched together, and bigger when pinched out
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} scale
+ */
+function getScale(start, end) {
+    return getDistance(end[0], end[1], PROPS_CLIENT_XY) / getDistance(start[0], start[1], PROPS_CLIENT_XY);
+}
+
+var MOUSE_INPUT_MAP = {
+    mousedown: INPUT_START,
+    mousemove: INPUT_MOVE,
+    mouseup: INPUT_END
+};
+
+var MOUSE_ELEMENT_EVENTS = 'mousedown';
+var MOUSE_WINDOW_EVENTS = 'mousemove mouseup';
+
+/**
+ * Mouse events input
+ * @constructor
+ * @extends Input
+ */
+function MouseInput() {
+    this.evEl = MOUSE_ELEMENT_EVENTS;
+    this.evWin = MOUSE_WINDOW_EVENTS;
+
+    this.pressed = false; // mousedown state
+
+    Input.apply(this, arguments);
+}
+
+inherit(MouseInput, Input, {
+    /**
+     * handle mouse events
+     * @param {Object} ev
+     */
+    handler: function MEhandler(ev) {
+        var eventType = MOUSE_INPUT_MAP[ev.type];
+
+        // on start we want to have the left mouse button down
+        if (eventType & INPUT_START && ev.button === 0) {
+            this.pressed = true;
+        }
+
+        if (eventType & INPUT_MOVE && ev.which !== 1) {
+            eventType = INPUT_END;
+        }
+
+        // mouse must be down
+        if (!this.pressed) {
+            return;
+        }
+
+        if (eventType & INPUT_END) {
+            this.pressed = false;
+        }
+
+        this.callback(this.manager, eventType, {
+            pointers: [ev],
+            changedPointers: [ev],
+            pointerType: INPUT_TYPE_MOUSE,
+            srcEvent: ev
+        });
+    }
+});
+
+var POINTER_INPUT_MAP = {
+    pointerdown: INPUT_START,
+    pointermove: INPUT_MOVE,
+    pointerup: INPUT_END,
+    pointercancel: INPUT_CANCEL,
+    pointerout: INPUT_CANCEL
+};
+
+// in IE10 the pointer types is defined as an enum
+var IE10_POINTER_TYPE_ENUM = {
+    2: INPUT_TYPE_TOUCH,
+    3: INPUT_TYPE_PEN,
+    4: INPUT_TYPE_MOUSE,
+    5: INPUT_TYPE_KINECT // see https://twitter.com/jacobrossi/status/480596438489890816
+};
+
+var POINTER_ELEMENT_EVENTS = 'pointerdown';
+var POINTER_WINDOW_EVENTS = 'pointermove pointerup pointercancel';
+
+// IE10 has prefixed support, and case-sensitive
+if (window.MSPointerEvent && !window.PointerEvent) {
+    POINTER_ELEMENT_EVENTS = 'MSPointerDown';
+    POINTER_WINDOW_EVENTS = 'MSPointerMove MSPointerUp MSPointerCancel';
+}
+
+/**
+ * Pointer events input
+ * @constructor
+ * @extends Input
+ */
+function PointerEventInput() {
+    this.evEl = POINTER_ELEMENT_EVENTS;
+    this.evWin = POINTER_WINDOW_EVENTS;
+
+    Input.apply(this, arguments);
+
+    this.store = (this.manager.session.pointerEvents = []);
+}
+
+inherit(PointerEventInput, Input, {
+    /**
+     * handle mouse events
+     * @param {Object} ev
+     */
+    handler: function PEhandler(ev) {
+        var store = this.store;
+        var removePointer = false;
+
+        var eventTypeNormalized = ev.type.toLowerCase().replace('ms', '');
+        var eventType = POINTER_INPUT_MAP[eventTypeNormalized];
+        var pointerType = IE10_POINTER_TYPE_ENUM[ev.pointerType] || ev.pointerType;
+
+        var isTouch = (pointerType == INPUT_TYPE_TOUCH);
+
+        // get index of the event in the store
+        var storeIndex = inArray(store, ev.pointerId, 'pointerId');
+
+        // start and mouse must be down
+        if (eventType & INPUT_START && (ev.button === 0 || isTouch)) {
+            if (storeIndex < 0) {
+                store.push(ev);
+                storeIndex = store.length - 1;
+            }
+        } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+            removePointer = true;
+        }
+
+        // it not found, so the pointer hasn't been down (so it's probably a hover)
+        if (storeIndex < 0) {
+            return;
+        }
+
+        // update the event in the store
+        store[storeIndex] = ev;
+
+        this.callback(this.manager, eventType, {
+            pointers: store,
+            changedPointers: [ev],
+            pointerType: pointerType,
+            srcEvent: ev
+        });
+
+        if (removePointer) {
+            // remove from the store
+            store.splice(storeIndex, 1);
+        }
+    }
+});
+
+var SINGLE_TOUCH_INPUT_MAP = {
+    touchstart: INPUT_START,
+    touchmove: INPUT_MOVE,
+    touchend: INPUT_END,
+    touchcancel: INPUT_CANCEL
+};
+
+var SINGLE_TOUCH_TARGET_EVENTS = 'touchstart';
+var SINGLE_TOUCH_WINDOW_EVENTS = 'touchstart touchmove touchend touchcancel';
+
+/**
+ * Touch events input
+ * @constructor
+ * @extends Input
+ */
+function SingleTouchInput() {
+    this.evTarget = SINGLE_TOUCH_TARGET_EVENTS;
+    this.evWin = SINGLE_TOUCH_WINDOW_EVENTS;
+    this.started = false;
+
+    Input.apply(this, arguments);
+}
+
+inherit(SingleTouchInput, Input, {
+    handler: function TEhandler(ev) {
+        var type = SINGLE_TOUCH_INPUT_MAP[ev.type];
+
+        // should we handle the touch events?
+        if (type === INPUT_START) {
+            this.started = true;
+        }
+
+        if (!this.started) {
+            return;
+        }
+
+        var touches = normalizeSingleTouches.call(this, ev, type);
+
+        // when done, reset the started state
+        if (type & (INPUT_END | INPUT_CANCEL) && touches[0].length - touches[1].length === 0) {
+            this.started = false;
+        }
+
+        this.callback(this.manager, type, {
+            pointers: touches[0],
+            changedPointers: touches[1],
+            pointerType: INPUT_TYPE_TOUCH,
+            srcEvent: ev
+        });
+    }
+});
+
+/**
+ * @this {TouchInput}
+ * @param {Object} ev
+ * @param {Number} type flag
+ * @returns {undefined|Array} [all, changed]
+ */
+function normalizeSingleTouches(ev, type) {
+    var all = toArray(ev.touches);
+    var changed = toArray(ev.changedTouches);
+
+    if (type & (INPUT_END | INPUT_CANCEL)) {
+        all = uniqueArray(all.concat(changed), 'identifier', true);
+    }
+
+    return [all, changed];
+}
+
+var TOUCH_INPUT_MAP = {
+    touchstart: INPUT_START,
+    touchmove: INPUT_MOVE,
+    touchend: INPUT_END,
+    touchcancel: INPUT_CANCEL
+};
+
+var TOUCH_TARGET_EVENTS = 'touchstart touchmove touchend touchcancel';
+
+/**
+ * Multi-user touch events input
+ * @constructor
+ * @extends Input
+ */
+function TouchInput() {
+    this.evTarget = TOUCH_TARGET_EVENTS;
+    this.targetIds = {};
+
+    Input.apply(this, arguments);
+}
+
+inherit(TouchInput, Input, {
+    handler: function MTEhandler(ev) {
+        var type = TOUCH_INPUT_MAP[ev.type];
+        var touches = getTouches.call(this, ev, type);
+        if (!touches) {
+            return;
+        }
+
+        this.callback(this.manager, type, {
+            pointers: touches[0],
+            changedPointers: touches[1],
+            pointerType: INPUT_TYPE_TOUCH,
+            srcEvent: ev
+        });
+    }
+});
+
+/**
+ * @this {TouchInput}
+ * @param {Object} ev
+ * @param {Number} type flag
+ * @returns {undefined|Array} [all, changed]
+ */
+function getTouches(ev, type) {
+    var allTouches = toArray(ev.touches);
+    var targetIds = this.targetIds;
+
+    // when there is only one touch, the process can be simplified
+    if (type & (INPUT_START | INPUT_MOVE) && allTouches.length === 1) {
+        targetIds[allTouches[0].identifier] = true;
+        return [allTouches, allTouches];
+    }
+
+    var i,
+        targetTouches,
+        changedTouches = toArray(ev.changedTouches),
+        changedTargetTouches = [],
+        target = this.target;
+
+    // get target touches from touches
+    targetTouches = allTouches.filter(function(touch) {
+        return hasParent(touch.target, target);
+    });
+
+    // collect touches
+    if (type === INPUT_START) {
+        i = 0;
+        while (i < targetTouches.length) {
+            targetIds[targetTouches[i].identifier] = true;
+            i++;
+        }
+    }
+
+    // filter changed touches to only contain touches that exist in the collected target ids
+    i = 0;
+    while (i < changedTouches.length) {
+        if (targetIds[changedTouches[i].identifier]) {
+            changedTargetTouches.push(changedTouches[i]);
+        }
+
+        // cleanup removed touches
+        if (type & (INPUT_END | INPUT_CANCEL)) {
+            delete targetIds[changedTouches[i].identifier];
+        }
+        i++;
+    }
+
+    if (!changedTargetTouches.length) {
+        return;
+    }
+
+    return [
+        // merge targetTouches with changedTargetTouches so it contains ALL touches, including 'end' and 'cancel'
+        uniqueArray(targetTouches.concat(changedTargetTouches), 'identifier', true),
+        changedTargetTouches
+    ];
+}
+
+/**
+ * Combined touch and mouse input
+ *
+ * Touch has a higher priority then mouse, and while touching no mouse events are allowed.
+ * This because touch devices also emit mouse events while doing a touch.
+ *
+ * @constructor
+ * @extends Input
+ */
+
+var DEDUP_TIMEOUT = 2500;
+var DEDUP_DISTANCE = 25;
+
+function TouchMouseInput() {
+    Input.apply(this, arguments);
+
+    var handler = bindFn(this.handler, this);
+    this.touch = new TouchInput(this.manager, handler);
+    this.mouse = new MouseInput(this.manager, handler);
+
+    this.primaryTouch = null;
+    this.lastTouches = [];
+}
+
+inherit(TouchMouseInput, Input, {
+    /**
+     * handle mouse and touch events
+     * @param {Hammer} manager
+     * @param {String} inputEvent
+     * @param {Object} inputData
+     */
+    handler: function TMEhandler(manager, inputEvent, inputData) {
+        var isTouch = (inputData.pointerType == INPUT_TYPE_TOUCH),
+            isMouse = (inputData.pointerType == INPUT_TYPE_MOUSE);
+
+        if (isMouse && inputData.sourceCapabilities && inputData.sourceCapabilities.firesTouchEvents) {
+            return;
+        }
+
+        // when we're in a touch event, record touches to  de-dupe synthetic mouse event
+        if (isTouch) {
+            recordTouches.call(this, inputEvent, inputData);
+        } else if (isMouse && isSyntheticEvent.call(this, inputData)) {
+            return;
+        }
+
+        this.callback(manager, inputEvent, inputData);
+    },
+
+    /**
+     * remove the event listeners
+     */
+    destroy: function destroy() {
+        this.touch.destroy();
+        this.mouse.destroy();
+    }
+});
+
+function recordTouches(eventType, eventData) {
+    if (eventType & INPUT_START) {
+        this.primaryTouch = eventData.changedPointers[0].identifier;
+        setLastTouch.call(this, eventData);
+    } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+        setLastTouch.call(this, eventData);
+    }
+}
+
+function setLastTouch(eventData) {
+    var touch = eventData.changedPointers[0];
+
+    if (touch.identifier === this.primaryTouch) {
+        var lastTouch = {x: touch.clientX, y: touch.clientY};
+        this.lastTouches.push(lastTouch);
+        var lts = this.lastTouches;
+        var removeLastTouch = function() {
+            var i = lts.indexOf(lastTouch);
+            if (i > -1) {
+                lts.splice(i, 1);
+            }
+        };
+        setTimeout(removeLastTouch, DEDUP_TIMEOUT);
+    }
+}
+
+function isSyntheticEvent(eventData) {
+    var x = eventData.srcEvent.clientX, y = eventData.srcEvent.clientY;
+    for (var i = 0; i < this.lastTouches.length; i++) {
+        var t = this.lastTouches[i];
+        var dx = Math.abs(x - t.x), dy = Math.abs(y - t.y);
+        if (dx <= DEDUP_DISTANCE && dy <= DEDUP_DISTANCE) {
+            return true;
+        }
+    }
+    return false;
+}
+
+var PREFIXED_TOUCH_ACTION = prefixed(TEST_ELEMENT.style, 'touchAction');
+var NATIVE_TOUCH_ACTION = PREFIXED_TOUCH_ACTION !== undefined;
+
+// magical touchAction value
+var TOUCH_ACTION_COMPUTE = 'compute';
+var TOUCH_ACTION_AUTO = 'auto';
+var TOUCH_ACTION_MANIPULATION = 'manipulation'; // not implemented
+var TOUCH_ACTION_NONE = 'none';
+var TOUCH_ACTION_PAN_X = 'pan-x';
+var TOUCH_ACTION_PAN_Y = 'pan-y';
+var TOUCH_ACTION_MAP = getTouchActionProps();
+
+/**
+ * Touch Action
+ * sets the touchAction property or uses the js alternative
+ * @param {Manager} manager
+ * @param {String} value
+ * @constructor
+ */
+function TouchAction(manager, value) {
+    this.manager = manager;
+    this.set(value);
+}
+
+TouchAction.prototype = {
+    /**
+     * set the touchAction value on the element or enable the polyfill
+     * @param {String} value
+     */
+    set: function(value) {
+        // find out the touch-action by the event handlers
+        if (value == TOUCH_ACTION_COMPUTE) {
+            value = this.compute();
+        }
+
+        if (NATIVE_TOUCH_ACTION && this.manager.element.style && TOUCH_ACTION_MAP[value]) {
+            this.manager.element.style[PREFIXED_TOUCH_ACTION] = value;
+        }
+        this.actions = value.toLowerCase().trim();
+    },
+
+    /**
+     * just re-set the touchAction value
+     */
+    update: function() {
+        this.set(this.manager.options.touchAction);
+    },
+
+    /**
+     * compute the value for the touchAction property based on the recognizer's settings
+     * @returns {String} value
+     */
+    compute: function() {
+        var actions = [];
+        each(this.manager.recognizers, function(recognizer) {
+            if (boolOrFn(recognizer.options.enable, [recognizer])) {
+                actions = actions.concat(recognizer.getTouchAction());
+            }
+        });
+        return cleanTouchActions(actions.join(' '));
+    },
+
+    /**
+     * this method is called on each input cycle and provides the preventing of the browser behavior
+     * @param {Object} input
+     */
+    preventDefaults: function(input) {
+        var srcEvent = input.srcEvent;
+        var direction = input.offsetDirection;
+
+        // if the touch action did prevented once this session
+        if (this.manager.session.prevented) {
+            srcEvent.preventDefault();
+            return;
+        }
+
+        var actions = this.actions;
+        var hasNone = inStr(actions, TOUCH_ACTION_NONE) && !TOUCH_ACTION_MAP[TOUCH_ACTION_NONE];
+        var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_Y];
+        var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_X];
+
+        if (hasNone) {
+            //do not prevent defaults if this is a tap gesture
+
+            var isTapPointer = input.pointers.length === 1;
+            var isTapMovement = input.distance < 2;
+            var isTapTouchTime = input.deltaTime < 250;
+
+            if (isTapPointer && isTapMovement && isTapTouchTime) {
+                return;
+            }
+        }
+
+        if (hasPanX && hasPanY) {
+            // `pan-x pan-y` means browser handles all scrolling/panning, do not prevent
+            return;
+        }
+
+        if (hasNone ||
+            (hasPanY && direction & DIRECTION_HORIZONTAL) ||
+            (hasPanX && direction & DIRECTION_VERTICAL)) {
+            return this.preventSrc(srcEvent);
+        }
+    },
+
+    /**
+     * call preventDefault to prevent the browser's default behavior (scrolling in most cases)
+     * @param {Object} srcEvent
+     */
+    preventSrc: function(srcEvent) {
+        this.manager.session.prevented = true;
+        srcEvent.preventDefault();
+    }
+};
+
+/**
+ * when the touchActions are collected they are not a valid value, so we need to clean things up. *
+ * @param {String} actions
+ * @returns {*}
+ */
+function cleanTouchActions(actions) {
+    // none
+    if (inStr(actions, TOUCH_ACTION_NONE)) {
+        return TOUCH_ACTION_NONE;
+    }
+
+    var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+    var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y);
+
+    // if both pan-x and pan-y are set (different recognizers
+    // for different directions, e.g. horizontal pan but vertical swipe?)
+    // we need none (as otherwise with pan-x pan-y combined none of these
+    // recognizers will work, since the browser would handle all panning
+    if (hasPanX && hasPanY) {
+        return TOUCH_ACTION_NONE;
+    }
+
+    // pan-x OR pan-y
+    if (hasPanX || hasPanY) {
+        return hasPanX ? TOUCH_ACTION_PAN_X : TOUCH_ACTION_PAN_Y;
+    }
+
+    // manipulation
+    if (inStr(actions, TOUCH_ACTION_MANIPULATION)) {
+        return TOUCH_ACTION_MANIPULATION;
+    }
+
+    return TOUCH_ACTION_AUTO;
+}
+
+function getTouchActionProps() {
+    if (!NATIVE_TOUCH_ACTION) {
+        return false;
+    }
+    var touchMap = {};
+    var cssSupports = window.CSS && window.CSS.supports;
+    ['auto', 'manipulation', 'pan-y', 'pan-x', 'pan-x pan-y', 'none'].forEach(function(val) {
+
+        // If css.supports is not supported but there is native touch-action assume it supports
+        // all values. This is the case for IE 10 and 11.
+        touchMap[val] = cssSupports ? window.CSS.supports('touch-action', val) : true;
+    });
+    return touchMap;
+}
+
+/**
+ * Recognizer flow explained; *
+ * All recognizers have the initial state of POSSIBLE when a input session starts.
+ * The definition of a input session is from the first input until the last input, with all it's movement in it. *
+ * Example session for mouse-input: mousedown -> mousemove -> mouseup
+ *
+ * On each recognizing cycle (see Manager.recognize) the .recognize() method is executed
+ * which determines with state it should be.
+ *
+ * If the recognizer has the state FAILED, CANCELLED or RECOGNIZED (equals ENDED), it is reset to
+ * POSSIBLE to give it another change on the next cycle.
+ *
+ *               Possible
+ *                  |
+ *            +-----+---------------+
+ *            |                     |
+ *      +-----+-----+               |
+ *      |           |               |
+ *   Failed      Cancelled          |
+ *                          +-------+------+
+ *                          |              |
+ *                      Recognized       Began
+ *                                         |
+ *                                      Changed
+ *                                         |
+ *                                  Ended/Recognized
+ */
+var STATE_POSSIBLE = 1;
+var STATE_BEGAN = 2;
+var STATE_CHANGED = 4;
+var STATE_ENDED = 8;
+var STATE_RECOGNIZED = STATE_ENDED;
+var STATE_CANCELLED = 16;
+var STATE_FAILED = 32;
+
+/**
+ * Recognizer
+ * Every recognizer needs to extend from this class.
+ * @constructor
+ * @param {Object} options
+ */
+function Recognizer(options) {
+    this.options = assign({}, this.defaults, options || {});
+
+    this.id = uniqueId();
+
+    this.manager = null;
+
+    // default is enable true
+    this.options.enable = ifUndefined(this.options.enable, true);
+
+    this.state = STATE_POSSIBLE;
+
+    this.simultaneous = {};
+    this.requireFail = [];
+}
+
+Recognizer.prototype = {
+    /**
+     * @virtual
+     * @type {Object}
+     */
+    defaults: {},
+
+    /**
+     * set options
+     * @param {Object} options
+     * @return {Recognizer}
+     */
+    set: function(options) {
+        assign(this.options, options);
+
+        // also update the touchAction, in case something changed about the directions/enabled state
+        this.manager && this.manager.touchAction.update();
+        return this;
+    },
+
+    /**
+     * recognize simultaneous with an other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    recognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'recognizeWith', this)) {
+            return this;
+        }
+
+        var simultaneous = this.simultaneous;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (!simultaneous[otherRecognizer.id]) {
+            simultaneous[otherRecognizer.id] = otherRecognizer;
+            otherRecognizer.recognizeWith(this);
+        }
+        return this;
+    },
+
+    /**
+     * drop the simultaneous link. it doesnt remove the link on the other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    dropRecognizeWith: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'dropRecognizeWith', this)) {
+            return this;
+        }
+
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        delete this.simultaneous[otherRecognizer.id];
+        return this;
+    },
+
+    /**
+     * recognizer can only run when an other is failing
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    requireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'requireFailure', this)) {
+            return this;
+        }
+
+        var requireFail = this.requireFail;
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        if (inArray(requireFail, otherRecognizer) === -1) {
+            requireFail.push(otherRecognizer);
+            otherRecognizer.requireFailure(this);
+        }
+        return this;
+    },
+
+    /**
+     * drop the requireFailure link. it does not remove the link on the other recognizer.
+     * @param {Recognizer} otherRecognizer
+     * @returns {Recognizer} this
+     */
+    dropRequireFailure: function(otherRecognizer) {
+        if (invokeArrayArg(otherRecognizer, 'dropRequireFailure', this)) {
+            return this;
+        }
+
+        otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+        var index = inArray(this.requireFail, otherRecognizer);
+        if (index > -1) {
+            this.requireFail.splice(index, 1);
+        }
+        return this;
+    },
+
+    /**
+     * has require failures boolean
+     * @returns {boolean}
+     */
+    hasRequireFailures: function() {
+        return this.requireFail.length > 0;
+    },
+
+    /**
+     * if the recognizer can recognize simultaneous with an other recognizer
+     * @param {Recognizer} otherRecognizer
+     * @returns {Boolean}
+     */
+    canRecognizeWith: function(otherRecognizer) {
+        return !!this.simultaneous[otherRecognizer.id];
+    },
+
+    /**
+     * You should use `tryEmit` instead of `emit` directly to check
+     * that all the needed recognizers has failed before emitting.
+     * @param {Object} input
+     */
+    emit: function(input) {
+        var self = this;
+        var state = this.state;
+
+        function emit(event) {
+            self.manager.emit(event, input);
+        }
+
+        // 'panstart' and 'panmove'
+        if (state < STATE_ENDED) {
+            emit(self.options.event + stateStr(state));
+        }
+
+        emit(self.options.event); // simple 'eventName' events
+
+        if (input.additionalEvent) { // additional event(panleft, panright, pinchin, pinchout...)
+            emit(input.additionalEvent);
+        }
+
+        // panend and pancancel
+        if (state >= STATE_ENDED) {
+            emit(self.options.event + stateStr(state));
+        }
+    },
+
+    /**
+     * Check that all the require failure recognizers has failed,
+     * if true, it emits a gesture event,
+     * otherwise, setup the state to FAILED.
+     * @param {Object} input
+     */
+    tryEmit: function(input) {
+        if (this.canEmit()) {
+            return this.emit(input);
+        }
+        // it's failing anyway
+        this.state = STATE_FAILED;
+    },
+
+    /**
+     * can we emit?
+     * @returns {boolean}
+     */
+    canEmit: function() {
+        var i = 0;
+        while (i < this.requireFail.length) {
+            if (!(this.requireFail[i].state & (STATE_FAILED | STATE_POSSIBLE))) {
+                return false;
+            }
+            i++;
+        }
+        return true;
+    },
+
+    /**
+     * update the recognizer
+     * @param {Object} inputData
+     */
+    recognize: function(inputData) {
+        // make a new copy of the inputData
+        // so we can change the inputData without messing up the other recognizers
+        var inputDataClone = assign({}, inputData);
+
+        // is is enabled and allow recognizing?
+        if (!boolOrFn(this.options.enable, [this, inputDataClone])) {
+            this.reset();
+            this.state = STATE_FAILED;
+            return;
+        }
+
+        // reset when we've reached the end
+        if (this.state & (STATE_RECOGNIZED | STATE_CANCELLED | STATE_FAILED)) {
+            this.state = STATE_POSSIBLE;
+        }
+
+        this.state = this.process(inputDataClone);
+
+        // the recognizer has recognized a gesture
+        // so trigger an event
+        if (this.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED | STATE_CANCELLED)) {
+            this.tryEmit(inputDataClone);
+        }
+    },
+
+    /**
+     * return the state of the recognizer
+     * the actual recognizing happens in this method
+     * @virtual
+     * @param {Object} inputData
+     * @returns {Const} STATE
+     */
+    process: function(inputData) { }, // jshint ignore:line
+
+    /**
+     * return the preferred touch-action
+     * @virtual
+     * @returns {Array}
+     */
+    getTouchAction: function() { },
+
+    /**
+     * called when the gesture isn't allowed to recognize
+     * like when another is being recognized or it is disabled
+     * @virtual
+     */
+    reset: function() { }
+};
+
+/**
+ * get a usable string, used as event postfix
+ * @param {Const} state
+ * @returns {String} state
+ */
+function stateStr(state) {
+    if (state & STATE_CANCELLED) {
+        return 'cancel';
+    } else if (state & STATE_ENDED) {
+        return 'end';
+    } else if (state & STATE_CHANGED) {
+        return 'move';
+    } else if (state & STATE_BEGAN) {
+        return 'start';
+    }
+    return '';
+}
+
+/**
+ * direction cons to string
+ * @param {Const} direction
+ * @returns {String}
+ */
+function directionStr(direction) {
+    if (direction == DIRECTION_DOWN) {
+        return 'down';
+    } else if (direction == DIRECTION_UP) {
+        return 'up';
+    } else if (direction == DIRECTION_LEFT) {
+        return 'left';
+    } else if (direction == DIRECTION_RIGHT) {
+        return 'right';
+    }
+    return '';
+}
+
+/**
+ * get a recognizer by name if it is bound to a manager
+ * @param {Recognizer|String} otherRecognizer
+ * @param {Recognizer} recognizer
+ * @returns {Recognizer}
+ */
+function getRecognizerByNameIfManager(otherRecognizer, recognizer) {
+    var manager = recognizer.manager;
+    if (manager) {
+        return manager.get(otherRecognizer);
+    }
+    return otherRecognizer;
+}
+
+/**
+ * This recognizer is just used as a base for the simple attribute recognizers.
+ * @constructor
+ * @extends Recognizer
+ */
+function AttrRecognizer() {
+    Recognizer.apply(this, arguments);
+}
+
+inherit(AttrRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof AttrRecognizer
+     */
+    defaults: {
+        /**
+         * @type {Number}
+         * @default 1
+         */
+        pointers: 1
+    },
+
+    /**
+     * Used to check if it the recognizer receives valid input, like input.distance > 10.
+     * @memberof AttrRecognizer
+     * @param {Object} input
+     * @returns {Boolean} recognized
+     */
+    attrTest: function(input) {
+        var optionPointers = this.options.pointers;
+        return optionPointers === 0 || input.pointers.length === optionPointers;
+    },
+
+    /**
+     * Process the input and return the state for the recognizer
+     * @memberof AttrRecognizer
+     * @param {Object} input
+     * @returns {*} State
+     */
+    process: function(input) {
+        var state = this.state;
+        var eventType = input.eventType;
+
+        var isRecognized = state & (STATE_BEGAN | STATE_CHANGED);
+        var isValid = this.attrTest(input);
+
+        // on cancel input and we've recognized before, return STATE_CANCELLED
+        if (isRecognized && (eventType & INPUT_CANCEL || !isValid)) {
+            return state | STATE_CANCELLED;
+        } else if (isRecognized || isValid) {
+            if (eventType & INPUT_END) {
+                return state | STATE_ENDED;
+            } else if (!(state & STATE_BEGAN)) {
+                return STATE_BEGAN;
+            }
+            return state | STATE_CHANGED;
+        }
+        return STATE_FAILED;
+    }
+});
+
+/**
+ * Pan
+ * Recognized when the pointer is down and moved in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function PanRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+
+    this.pX = null;
+    this.pY = null;
+}
+
+inherit(PanRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof PanRecognizer
+     */
+    defaults: {
+        event: 'pan',
+        threshold: 10,
+        pointers: 1,
+        direction: DIRECTION_ALL
+    },
+
+    getTouchAction: function() {
+        var direction = this.options.direction;
+        var actions = [];
+        if (direction & DIRECTION_HORIZONTAL) {
+            actions.push(TOUCH_ACTION_PAN_Y);
+        }
+        if (direction & DIRECTION_VERTICAL) {
+            actions.push(TOUCH_ACTION_PAN_X);
+        }
+        return actions;
+    },
+
+    directionTest: function(input) {
+        var options = this.options;
+        var hasMoved = true;
+        var distance = input.distance;
+        var direction = input.direction;
+        var x = input.deltaX;
+        var y = input.deltaY;
+
+        // lock to axis?
+        if (!(direction & options.direction)) {
+            if (options.direction & DIRECTION_HORIZONTAL) {
+                direction = (x === 0) ? DIRECTION_NONE : (x < 0) ? DIRECTION_LEFT : DIRECTION_RIGHT;
+                hasMoved = x != this.pX;
+                distance = Math.abs(input.deltaX);
+            } else {
+                direction = (y === 0) ? DIRECTION_NONE : (y < 0) ? DIRECTION_UP : DIRECTION_DOWN;
+                hasMoved = y != this.pY;
+                distance = Math.abs(input.deltaY);
+            }
+        }
+        input.direction = direction;
+        return hasMoved && distance > options.threshold && direction & options.direction;
+    },
+
+    attrTest: function(input) {
+        return AttrRecognizer.prototype.attrTest.call(this, input) &&
+            (this.state & STATE_BEGAN || (!(this.state & STATE_BEGAN) && this.directionTest(input)));
+    },
+
+    emit: function(input) {
+
+        this.pX = input.deltaX;
+        this.pY = input.deltaY;
+
+        var direction = directionStr(input.direction);
+
+        if (direction) {
+            input.additionalEvent = this.options.event + direction;
+        }
+        this._super.emit.call(this, input);
+    }
+});
+
+/**
+ * Pinch
+ * Recognized when two or more pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function PinchRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(PinchRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof PinchRecognizer
+     */
+    defaults: {
+        event: 'pinch',
+        threshold: 0,
+        pointers: 2
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+    },
+
+    attrTest: function(input) {
+        return this._super.attrTest.call(this, input) &&
+            (Math.abs(input.scale - 1) > this.options.threshold || this.state & STATE_BEGAN);
+    },
+
+    emit: function(input) {
+        if (input.scale !== 1) {
+            var inOut = input.scale < 1 ? 'in' : 'out';
+            input.additionalEvent = this.options.event + inOut;
+        }
+        this._super.emit.call(this, input);
+    }
+});
+
+/**
+ * Press
+ * Recognized when the pointer is down for x ms without any movement.
+ * @constructor
+ * @extends Recognizer
+ */
+function PressRecognizer() {
+    Recognizer.apply(this, arguments);
+
+    this._timer = null;
+    this._input = null;
+}
+
+inherit(PressRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof PressRecognizer
+     */
+    defaults: {
+        event: 'press',
+        pointers: 1,
+        time: 251, // minimal time of the pointer to be pressed
+        threshold: 9 // a minimal movement is ok, but keep it low
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_AUTO];
+    },
+
+    process: function(input) {
+        var options = this.options;
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTime = input.deltaTime > options.time;
+
+        this._input = input;
+
+        // we only allow little movement
+        // and we've reached an end event, so a tap is possible
+        if (!validMovement || !validPointers || (input.eventType & (INPUT_END | INPUT_CANCEL) && !validTime)) {
+            this.reset();
+        } else if (input.eventType & INPUT_START) {
+            this.reset();
+            this._timer = setTimeoutContext(function() {
+                this.state = STATE_RECOGNIZED;
+                this.tryEmit();
+            }, options.time, this);
+        } else if (input.eventType & INPUT_END) {
+            return STATE_RECOGNIZED;
+        }
+        return STATE_FAILED;
+    },
+
+    reset: function() {
+        clearTimeout(this._timer);
+    },
+
+    emit: function(input) {
+        if (this.state !== STATE_RECOGNIZED) {
+            return;
+        }
+
+        if (input && (input.eventType & INPUT_END)) {
+            this.manager.emit(this.options.event + 'up', input);
+        } else {
+            this._input.timeStamp = now();
+            this.manager.emit(this.options.event, this._input);
+        }
+    }
+});
+
+/**
+ * Rotate
+ * Recognized when two or more pointer are moving in a circular motion.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function RotateRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(RotateRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof RotateRecognizer
+     */
+    defaults: {
+        event: 'rotate',
+        threshold: 0,
+        pointers: 2
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_NONE];
+    },
+
+    attrTest: function(input) {
+        return this._super.attrTest.call(this, input) &&
+            (Math.abs(input.rotation) > this.options.threshold || this.state & STATE_BEGAN);
+    }
+});
+
+/**
+ * Swipe
+ * Recognized when the pointer is moving fast (velocity), with enough distance in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+function SwipeRecognizer() {
+    AttrRecognizer.apply(this, arguments);
+}
+
+inherit(SwipeRecognizer, AttrRecognizer, {
+    /**
+     * @namespace
+     * @memberof SwipeRecognizer
+     */
+    defaults: {
+        event: 'swipe',
+        threshold: 10,
+        velocity: 0.3,
+        direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
+        pointers: 1
+    },
+
+    getTouchAction: function() {
+        return PanRecognizer.prototype.getTouchAction.call(this);
+    },
+
+    attrTest: function(input) {
+        var direction = this.options.direction;
+        var velocity;
+
+        if (direction & (DIRECTION_HORIZONTAL | DIRECTION_VERTICAL)) {
+            velocity = input.overallVelocity;
+        } else if (direction & DIRECTION_HORIZONTAL) {
+            velocity = input.overallVelocityX;
+        } else if (direction & DIRECTION_VERTICAL) {
+            velocity = input.overallVelocityY;
+        }
+
+        return this._super.attrTest.call(this, input) &&
+            direction & input.offsetDirection &&
+            input.distance > this.options.threshold &&
+            input.maxPointers == this.options.pointers &&
+            abs(velocity) > this.options.velocity && input.eventType & INPUT_END;
+    },
+
+    emit: function(input) {
+        var direction = directionStr(input.offsetDirection);
+        if (direction) {
+            this.manager.emit(this.options.event + direction, input);
+        }
+
+        this.manager.emit(this.options.event, input);
+    }
+});
+
+/**
+ * A tap is ecognized when the pointer is doing a small tap/click. Multiple taps are recognized if they occur
+ * between the given interval and position. The delay option can be used to recognize multi-taps without firing
+ * a single tap.
+ *
+ * The eventData from the emitted event contains the property `tapCount`, which contains the amount of
+ * multi-taps being recognized.
+ * @constructor
+ * @extends Recognizer
+ */
+function TapRecognizer() {
+    Recognizer.apply(this, arguments);
+
+    // previous time and center,
+    // used for tap counting
+    this.pTime = false;
+    this.pCenter = false;
+
+    this._timer = null;
+    this._input = null;
+    this.count = 0;
+}
+
+inherit(TapRecognizer, Recognizer, {
+    /**
+     * @namespace
+     * @memberof PinchRecognizer
+     */
+    defaults: {
+        event: 'tap',
+        pointers: 1,
+        taps: 1,
+        interval: 300, // max time between the multi-tap taps
+        time: 250, // max time of the pointer to be down (like finger on the screen)
+        threshold: 9, // a minimal movement is ok, but keep it low
+        posThreshold: 10 // a multi-tap can be a bit off the initial position
+    },
+
+    getTouchAction: function() {
+        return [TOUCH_ACTION_MANIPULATION];
+    },
+
+    process: function(input) {
+        var options = this.options;
+
+        var validPointers = input.pointers.length === options.pointers;
+        var validMovement = input.distance < options.threshold;
+        var validTouchTime = input.deltaTime < options.time;
+
+        this.reset();
+
+        if ((input.eventType & INPUT_START) && (this.count === 0)) {
+            return this.failTimeout();
+        }
+
+        // we only allow little movement
+        // and we've reached an end event, so a tap is possible
+        if (validMovement && validTouchTime && validPointers) {
+            if (input.eventType != INPUT_END) {
+                return this.failTimeout();
+            }
+
+            var validInterval = this.pTime ? (input.timeStamp - this.pTime < options.interval) : true;
+            var validMultiTap = !this.pCenter || getDistance(this.pCenter, input.center) < options.posThreshold;
+
+            this.pTime = input.timeStamp;
+            this.pCenter = input.center;
+
+            if (!validMultiTap || !validInterval) {
+                this.count = 1;
+            } else {
+                this.count += 1;
+            }
+
+            this._input = input;
+
+            // if tap count matches we have recognized it,
+            // else it has began recognizing...
+            var tapCount = this.count % options.taps;
+            if (tapCount === 0) {
+                // no failing requirements, immediately trigger the tap event
+                // or wait as long as the multitap interval to trigger
+                if (!this.hasRequireFailures()) {
+                    return STATE_RECOGNIZED;
+                } else {
+                    this._timer = setTimeoutContext(function() {
+                        this.state = STATE_RECOGNIZED;
+                        this.tryEmit();
+                    }, options.interval, this);
+                    return STATE_BEGAN;
+                }
+            }
+        }
+        return STATE_FAILED;
+    },
+
+    failTimeout: function() {
+        this._timer = setTimeoutContext(function() {
+            this.state = STATE_FAILED;
+        }, this.options.interval, this);
+        return STATE_FAILED;
+    },
+
+    reset: function() {
+        clearTimeout(this._timer);
+    },
+
+    emit: function() {
+        if (this.state == STATE_RECOGNIZED) {
+            this._input.tapCount = this.count;
+            this.manager.emit(this.options.event, this._input);
+        }
+    }
+});
+
+/**
+ * Simple way to create a manager with a default set of recognizers.
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+function Hammer(element, options) {
+    options = options || {};
+    options.recognizers = ifUndefined(options.recognizers, Hammer.defaults.preset);
+    return new Manager(element, options);
+}
+
+/**
+ * @const {string}
+ */
+Hammer.VERSION = '2.0.7';
+
+/**
+ * default settings
+ * @namespace
+ */
+Hammer.defaults = {
+    /**
+     * set if DOM events are being triggered.
+     * But this is slower and unused by simple implementations, so disabled by default.
+     * @type {Boolean}
+     * @default false
+     */
+    domEvents: false,
+
+    /**
+     * The value for the touchAction property/fallback.
+     * When set to `compute` it will magically set the correct value based on the added recognizers.
+     * @type {String}
+     * @default compute
+     */
+    touchAction: TOUCH_ACTION_COMPUTE,
+
+    /**
+     * @type {Boolean}
+     * @default true
+     */
+    enable: true,
+
+    /**
+     * EXPERIMENTAL FEATURE -- can be removed/changed
+     * Change the parent input target element.
+     * If Null, then it is being set the to main element.
+     * @type {Null|EventTarget}
+     * @default null
+     */
+    inputTarget: null,
+
+    /**
+     * force an input class
+     * @type {Null|Function}
+     * @default null
+     */
+    inputClass: null,
+
+    /**
+     * Default recognizer setup when calling `Hammer()`
+     * When creating a new Manager these will be skipped.
+     * @type {Array}
+     */
+    preset: [
+        // RecognizerClass, options, [recognizeWith, ...], [requireFailure, ...]
+        [RotateRecognizer, {enable: false}],
+        [PinchRecognizer, {enable: false}, ['rotate']],
+        [SwipeRecognizer, {direction: DIRECTION_HORIZONTAL}],
+        [PanRecognizer, {direction: DIRECTION_HORIZONTAL}, ['swipe']],
+        [TapRecognizer],
+        [TapRecognizer, {event: 'doubletap', taps: 2}, ['tap']],
+        [PressRecognizer]
+    ],
+
+    /**
+     * Some CSS properties can be used to improve the working of Hammer.
+     * Add them to this method and they will be set when creating a new Manager.
+     * @namespace
+     */
+    cssProps: {
+        /**
+         * Disables text selection to improve the dragging gesture. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userSelect: 'none',
+
+        /**
+         * Disable the Windows Phone grippers when pressing an element.
+         * @type {String}
+         * @default 'none'
+         */
+        touchSelect: 'none',
+
+        /**
+         * Disables the default callout shown when you touch and hold a touch target.
+         * On iOS, when you touch and hold a touch target such as a link, Safari displays
+         * a callout containing information about the link. This property allows you to disable that callout.
+         * @type {String}
+         * @default 'none'
+         */
+        touchCallout: 'none',
+
+        /**
+         * Specifies whether zooming is enabled. Used by IE10>
+         * @type {String}
+         * @default 'none'
+         */
+        contentZooming: 'none',
+
+        /**
+         * Specifies that an entire element should be draggable instead of its contents. Mainly for desktop browsers.
+         * @type {String}
+         * @default 'none'
+         */
+        userDrag: 'none',
+
+        /**
+         * Overrides the highlight color shown when the user taps a link or a JavaScript
+         * clickable element in iOS. This property obeys the alpha value, if specified.
+         * @type {String}
+         * @default 'rgba(0,0,0,0)'
+         */
+        tapHighlightColor: 'rgba(0,0,0,0)'
+    }
+};
+
+var STOP = 1;
+var FORCED_STOP = 2;
+
+/**
+ * Manager
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+function Manager(element, options) {
+    this.options = assign({}, Hammer.defaults, options || {});
+
+    this.options.inputTarget = this.options.inputTarget || element;
+
+    this.handlers = {};
+    this.session = {};
+    this.recognizers = [];
+    this.oldCssProps = {};
+
+    this.element = element;
+    this.input = createInputInstance(this);
+    this.touchAction = new TouchAction(this, this.options.touchAction);
+
+    toggleCssProps(this, true);
+
+    each(this.options.recognizers, function(item) {
+        var recognizer = this.add(new (item[0])(item[1]));
+        item[2] && recognizer.recognizeWith(item[2]);
+        item[3] && recognizer.requireFailure(item[3]);
+    }, this);
+}
+
+Manager.prototype = {
+    /**
+     * set options
+     * @param {Object} options
+     * @returns {Manager}
+     */
+    set: function(options) {
+        assign(this.options, options);
+
+        // Options that need a little more setup
+        if (options.touchAction) {
+            this.touchAction.update();
+        }
+        if (options.inputTarget) {
+            // Clean up existing event listeners and reinitialize
+            this.input.destroy();
+            this.input.target = options.inputTarget;
+            this.input.init();
+        }
+        return this;
+    },
+
+    /**
+     * stop recognizing for this session.
+     * This session will be discarded, when a new [input]start event is fired.
+     * When forced, the recognizer cycle is stopped immediately.
+     * @param {Boolean} [force]
+     */
+    stop: function(force) {
+        this.session.stopped = force ? FORCED_STOP : STOP;
+    },
+
+    /**
+     * run the recognizers!
+     * called by the inputHandler function on every movement of the pointers (touches)
+     * it walks through all the recognizers and tries to detect the gesture that is being made
+     * @param {Object} inputData
+     */
+    recognize: function(inputData) {
+        var session = this.session;
+        if (session.stopped) {
+            return;
+        }
+
+        // run the touch-action polyfill
+        this.touchAction.preventDefaults(inputData);
+
+        var recognizer;
+        var recognizers = this.recognizers;
+
+        // this holds the recognizer that is being recognized.
+        // so the recognizer's state needs to be BEGAN, CHANGED, ENDED or RECOGNIZED
+        // if no recognizer is detecting a thing, it is set to `null`
+        var curRecognizer = session.curRecognizer;
+
+        // reset when the last recognizer is recognized
+        // or when we're in a new session
+        if (!curRecognizer || (curRecognizer && curRecognizer.state & STATE_RECOGNIZED)) {
+            curRecognizer = session.curRecognizer = null;
+        }
+
+        var i = 0;
+        while (i < recognizers.length) {
+            recognizer = recognizers[i];
+
+            // find out if we are allowed try to recognize the input for this one.
+            // 1.   allow if the session is NOT forced stopped (see the .stop() method)
+            // 2.   allow if we still haven't recognized a gesture in this session, or the this recognizer is the one
+            //      that is being recognized.
+            // 3.   allow if the recognizer is allowed to run simultaneous with the current recognized recognizer.
+            //      this can be setup with the `recognizeWith()` method on the recognizer.
+            if (session.stopped !== FORCED_STOP && ( // 1
+                    !curRecognizer || recognizer == curRecognizer || // 2
+                    recognizer.canRecognizeWith(curRecognizer))) { // 3
+                recognizer.recognize(inputData);
+            } else {
+                recognizer.reset();
+            }
+
+            // if the recognizer has been recognizing the input as a valid gesture, we want to store this one as the
+            // current active recognizer. but only if we don't already have an active recognizer
+            if (!curRecognizer && recognizer.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED)) {
+                curRecognizer = session.curRecognizer = recognizer;
+            }
+            i++;
+        }
+    },
+
+    /**
+     * get a recognizer by its event name.
+     * @param {Recognizer|String} recognizer
+     * @returns {Recognizer|Null}
+     */
+    get: function(recognizer) {
+        if (recognizer instanceof Recognizer) {
+            return recognizer;
+        }
+
+        var recognizers = this.recognizers;
+        for (var i = 0; i < recognizers.length; i++) {
+            if (recognizers[i].options.event == recognizer) {
+                return recognizers[i];
+            }
+        }
+        return null;
+    },
+
+    /**
+     * add a recognizer to the manager
+     * existing recognizers with the same event name will be removed
+     * @param {Recognizer} recognizer
+     * @returns {Recognizer|Manager}
+     */
+    add: function(recognizer) {
+        if (invokeArrayArg(recognizer, 'add', this)) {
+            return this;
+        }
+
+        // remove existing
+        var existing = this.get(recognizer.options.event);
+        if (existing) {
+            this.remove(existing);
+        }
+
+        this.recognizers.push(recognizer);
+        recognizer.manager = this;
+
+        this.touchAction.update();
+        return recognizer;
+    },
+
+    /**
+     * remove a recognizer by name or instance
+     * @param {Recognizer|String} recognizer
+     * @returns {Manager}
+     */
+    remove: function(recognizer) {
+        if (invokeArrayArg(recognizer, 'remove', this)) {
+            return this;
+        }
+
+        recognizer = this.get(recognizer);
+
+        // let's make sure this recognizer exists
+        if (recognizer) {
+            var recognizers = this.recognizers;
+            var index = inArray(recognizers, recognizer);
+
+            if (index !== -1) {
+                recognizers.splice(index, 1);
+                this.touchAction.update();
+            }
+        }
+
+        return this;
+    },
+
+    /**
+     * bind event
+     * @param {String} events
+     * @param {Function} handler
+     * @returns {EventEmitter} this
+     */
+    on: function(events, handler) {
+        if (events === undefined) {
+            return;
+        }
+        if (handler === undefined) {
+            return;
+        }
+
+        var handlers = this.handlers;
+        each(splitStr(events), function(event) {
+            handlers[event] = handlers[event] || [];
+            handlers[event].push(handler);
+        });
+        return this;
+    },
+
+    /**
+     * unbind event, leave emit blank to remove all handlers
+     * @param {String} events
+     * @param {Function} [handler]
+     * @returns {EventEmitter} this
+     */
+    off: function(events, handler) {
+        if (events === undefined) {
+            return;
+        }
+
+        var handlers = this.handlers;
+        each(splitStr(events), function(event) {
+            if (!handler) {
+                delete handlers[event];
+            } else {
+                handlers[event] && handlers[event].splice(inArray(handlers[event], handler), 1);
+            }
+        });
+        return this;
+    },
+
+    /**
+     * emit event to the listeners
+     * @param {String} event
+     * @param {Object} data
+     */
+    emit: function(event, data) {
+        // we also want to trigger dom events
+        if (this.options.domEvents) {
+            triggerDomEvent(event, data);
+        }
+
+        // no handlers, so skip it all
+        var handlers = this.handlers[event] && this.handlers[event].slice();
+        if (!handlers || !handlers.length) {
+            return;
+        }
+
+        data.type = event;
+        data.preventDefault = function() {
+            data.srcEvent.preventDefault();
+        };
+
+        var i = 0;
+        while (i < handlers.length) {
+            handlers[i](data);
+            i++;
+        }
+    },
+
+    /**
+     * destroy the manager and unbinds all events
+     * it doesn't unbind dom events, that is the user own responsibility
+     */
+    destroy: function() {
+        this.element && toggleCssProps(this, false);
+
+        this.handlers = {};
+        this.session = {};
+        this.input.destroy();
+        this.element = null;
+    }
+};
+
+/**
+ * add/remove the css properties as defined in manager.options.cssProps
+ * @param {Manager} manager
+ * @param {Boolean} add
+ */
+function toggleCssProps(manager, add) {
+    var element = manager.element;
+    if (!element.style) {
+        return;
+    }
+    var prop;
+    each(manager.options.cssProps, function(value, name) {
+        prop = prefixed(element.style, name);
+        if (add) {
+            manager.oldCssProps[prop] = element.style[prop];
+            element.style[prop] = value;
+        } else {
+            element.style[prop] = manager.oldCssProps[prop] || '';
+        }
+    });
+    if (!add) {
+        manager.oldCssProps = {};
+    }
+}
+
+/**
+ * trigger dom event
+ * @param {String} event
+ * @param {Object} data
+ */
+function triggerDomEvent(event, data) {
+    var gestureEvent = document.createEvent('Event');
+    gestureEvent.initEvent(event, true, true);
+    gestureEvent.gesture = data;
+    data.target.dispatchEvent(gestureEvent);
+}
+
+assign(Hammer, {
+    INPUT_START: INPUT_START,
+    INPUT_MOVE: INPUT_MOVE,
+    INPUT_END: INPUT_END,
+    INPUT_CANCEL: INPUT_CANCEL,
+
+    STATE_POSSIBLE: STATE_POSSIBLE,
+    STATE_BEGAN: STATE_BEGAN,
+    STATE_CHANGED: STATE_CHANGED,
+    STATE_ENDED: STATE_ENDED,
+    STATE_RECOGNIZED: STATE_RECOGNIZED,
+    STATE_CANCELLED: STATE_CANCELLED,
+    STATE_FAILED: STATE_FAILED,
+
+    DIRECTION_NONE: DIRECTION_NONE,
+    DIRECTION_LEFT: DIRECTION_LEFT,
+    DIRECTION_RIGHT: DIRECTION_RIGHT,
+    DIRECTION_UP: DIRECTION_UP,
+    DIRECTION_DOWN: DIRECTION_DOWN,
+    DIRECTION_HORIZONTAL: DIRECTION_HORIZONTAL,
+    DIRECTION_VERTICAL: DIRECTION_VERTICAL,
+    DIRECTION_ALL: DIRECTION_ALL,
+
+    Manager: Manager,
+    Input: Input,
+    TouchAction: TouchAction,
+
+    TouchInput: TouchInput,
+    MouseInput: MouseInput,
+    PointerEventInput: PointerEventInput,
+    TouchMouseInput: TouchMouseInput,
+    SingleTouchInput: SingleTouchInput,
+
+    Recognizer: Recognizer,
+    AttrRecognizer: AttrRecognizer,
+    Tap: TapRecognizer,
+    Pan: PanRecognizer,
+    Swipe: SwipeRecognizer,
+    Pinch: PinchRecognizer,
+    Rotate: RotateRecognizer,
+    Press: PressRecognizer,
+
+    on: addEventListeners,
+    off: removeEventListeners,
+    each: each,
+    merge: merge,
+    extend: extend,
+    assign: assign,
+    inherit: inherit,
+    bindFn: bindFn,
+    prefixed: prefixed
+});
+
+// this prevents errors when Hammer is loaded in the presence of an AMD
+//  style loader but by script tag, not by the loader.
+var freeGlobal = (typeof window !== 'undefined' ? window : (typeof self !== 'undefined' ? self : {})); // jshint ignore:line
+freeGlobal.Hammer = Hammer;
+
+if (typeof define === 'function' && define.amd) {
+    define(function() {
+        return Hammer;
+    });
+} else if (typeof module != 'undefined' && module.exports) {
+    module.exports = Hammer;
+} else {
+    window[exportName] = Hammer;
+}
+
+})(window, document, 'Hammer');
+
+},{}],6:[function(require,module,exports){
 /**
  * isMobile.js v0.4.0
  *
@@ -4068,7 +8356,7 @@ if ('undefined' !== typeof module) {
 
 })(this);
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4235,7 +8523,7 @@ MiniSignal.MiniSignalBinding = MiniSignalBinding;
 exports['default'] = MiniSignal;
 module.exports = exports['default'];
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -4327,7 +8615,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict'
 
 module.exports = function parseURI (str, opts) {
@@ -4359,7 +8647,7 @@ module.exports = function parseURI (str, opts) {
   return uri
 }
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -4587,7 +8875,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":173}],10:[function(require,module,exports){
+},{"_process":174}],11:[function(require,module,exports){
 var EMPTY_ARRAY_BUFFER = new ArrayBuffer(0);
 
 /**
@@ -4708,7 +8996,7 @@ Buffer.prototype.destroy = function(){
 
 module.exports = Buffer;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 var Texture = require('./GLTexture');
 
@@ -4935,7 +9223,7 @@ Framebuffer.createFloat32 = function(gl, width, height, data)
 
 module.exports = Framebuffer;
 
-},{"./GLTexture":13}],12:[function(require,module,exports){
+},{"./GLTexture":14}],13:[function(require,module,exports){
 
 var compileProgram = require('./shader/compileProgram'),
 	extractAttributes = require('./shader/extractAttributes'),
@@ -5028,7 +9316,7 @@ Shader.prototype.destroy = function()
 
 module.exports = Shader;
 
-},{"./shader/compileProgram":18,"./shader/extractAttributes":20,"./shader/extractUniforms":21,"./shader/generateUniformAccessObject":22,"./shader/setPrecision":26}],13:[function(require,module,exports){
+},{"./shader/compileProgram":19,"./shader/extractAttributes":21,"./shader/extractUniforms":22,"./shader/generateUniformAccessObject":23,"./shader/setPrecision":27}],14:[function(require,module,exports){
 
 /**
  * Helper class to create a WebGL Texture
@@ -5363,7 +9651,7 @@ Texture.fromData = function(gl, data, width, height)
 
 module.exports = Texture;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 // state object//
 var setVertexAttribArrays = require( './setVertexAttribArrays' );
@@ -5627,7 +9915,7 @@ VertexArrayObject.prototype.getSize = function()
     return attrib.buffer.data.length / (( attrib.stride/4 ) || attrib.attribute.size);
 };
 
-},{"./setVertexAttribArrays":17}],15:[function(require,module,exports){
+},{"./setVertexAttribArrays":18}],16:[function(require,module,exports){
 
 /**
  * Helper class to create a webGL Context
@@ -5655,7 +9943,7 @@ var createContext = function(canvas, options)
 
 module.exports = createContext;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var gl = {
     createContext:          require('./createContext'),
     setVertexAttribArrays:  require('./setVertexAttribArrays'),
@@ -5682,7 +9970,7 @@ if (typeof window !== 'undefined')
     window.PIXI.glCore = gl;
 }
 
-},{"./GLBuffer":10,"./GLFramebuffer":11,"./GLShader":12,"./GLTexture":13,"./VertexArrayObject":14,"./createContext":15,"./setVertexAttribArrays":17,"./shader":23}],17:[function(require,module,exports){
+},{"./GLBuffer":11,"./GLFramebuffer":12,"./GLShader":13,"./GLTexture":14,"./VertexArrayObject":15,"./createContext":16,"./setVertexAttribArrays":18,"./shader":24}],18:[function(require,module,exports){
 // var GL_MAP = {};
 
 /**
@@ -5739,7 +10027,7 @@ var setVertexAttribArrays = function (gl, attribs, state)
 
 module.exports = setVertexAttribArrays;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 
 /**
  * @class
@@ -5821,7 +10109,7 @@ var compileShader = function (gl, type, src)
 
 module.exports = compileProgram;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * @class
  * @memberof PIXI.glCore.shader
@@ -5901,7 +10189,7 @@ var booleanArray = function(size)
 
 module.exports = defaultValue;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 var mapType = require('./mapType');
 var mapSize = require('./mapSize');
@@ -5944,7 +10232,7 @@ var pointer = function(type, normalized, stride, start){
 
 module.exports = extractAttributes;
 
-},{"./mapSize":24,"./mapType":25}],21:[function(require,module,exports){
+},{"./mapSize":25,"./mapType":26}],22:[function(require,module,exports){
 var mapType = require('./mapType');
 var defaultValue = require('./defaultValue');
 
@@ -5981,7 +10269,7 @@ var extractUniforms = function(gl, program)
 
 module.exports = extractUniforms;
 
-},{"./defaultValue":19,"./mapType":25}],22:[function(require,module,exports){
+},{"./defaultValue":20,"./mapType":26}],23:[function(require,module,exports){
 /**
  * Extracts the attributes
  * @class
@@ -6124,7 +10412,7 @@ var GLSL_TO_ARRAY_SETTERS = {
 
 module.exports = generateUniformAccessObject;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = {
     compileProgram: require('./compileProgram'),
     defaultValue: require('./defaultValue'),
@@ -6135,7 +10423,7 @@ module.exports = {
     mapSize: require('./mapSize'),
     mapType: require('./mapType')
 };
-},{"./compileProgram":18,"./defaultValue":19,"./extractAttributes":20,"./extractUniforms":21,"./generateUniformAccessObject":22,"./mapSize":24,"./mapType":25,"./setPrecision":26}],24:[function(require,module,exports){
+},{"./compileProgram":19,"./defaultValue":20,"./extractAttributes":21,"./extractUniforms":22,"./generateUniformAccessObject":23,"./mapSize":25,"./mapType":26,"./setPrecision":27}],25:[function(require,module,exports){
 /**
  * @class
  * @memberof PIXI.glCore.shader
@@ -6173,7 +10461,7 @@ var GLSL_TO_SIZE = {
 
 module.exports = mapSize;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 
 
 var mapSize = function(gl, type) 
@@ -6221,7 +10509,7 @@ var GL_TO_GLSL_TYPES = {
 
 module.exports = mapSize;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * Sets the float precision on the shader. If the precision is already present this function will do nothing
  * @param {string} src       the shader source
@@ -6241,7 +10529,7 @@ var setPrecision = function(src, precision)
 
 module.exports = setPrecision;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6735,7 +11023,7 @@ exports.default = AccessibilityManager;
 core.WebGLRenderer.registerPlugin('accessibility', AccessibilityManager);
 core.CanvasRenderer.registerPlugin('accessibility', AccessibilityManager);
 
-},{"../core":52,"./accessibleTarget":28,"ismobilejs":5}],28:[function(require,module,exports){
+},{"../core":53,"./accessibleTarget":29,"ismobilejs":6}],29:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -6793,7 +11081,7 @@ exports.default = {
   _accessibleDiv: false
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6818,7 +11106,7 @@ Object.defineProperty(exports, 'AccessibilityManager', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./AccessibilityManager":27,"./accessibleTarget":28}],30:[function(require,module,exports){
+},{"./AccessibilityManager":28,"./accessibleTarget":29}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6993,7 +11281,7 @@ var Application = function () {
 
 exports.default = Application;
 
-},{"./autoDetectRenderer":32,"./display/Container":35,"./ticker":105}],31:[function(require,module,exports){
+},{"./autoDetectRenderer":33,"./display/Container":36,"./ticker":106}],32:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7057,7 +11345,7 @@ var Shader = function (_GLShader) {
 
 exports.default = Shader;
 
-},{"./settings":88,"pixi-gl-core":16}],32:[function(require,module,exports){
+},{"./settings":89,"pixi-gl-core":17}],33:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7111,7 +11399,7 @@ function autoDetectRenderer() {
     return new _CanvasRenderer2.default(width, height, options);
 }
 
-},{"./renderers/canvas/CanvasRenderer":64,"./renderers/webgl/WebGLRenderer":71,"./utils":109}],33:[function(require,module,exports){
+},{"./renderers/canvas/CanvasRenderer":65,"./renderers/webgl/WebGLRenderer":72,"./utils":110}],34:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7427,7 +11715,7 @@ var TEXT_GRADIENT = exports.TEXT_GRADIENT = {
   LINEAR_HORIZONTAL: 1
 };
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7770,7 +12058,7 @@ var Bounds = function () {
 
 exports.default = Bounds;
 
-},{"../math":57}],35:[function(require,module,exports){
+},{"../math":58}],36:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8388,7 +12676,7 @@ var Container = function (_DisplayObject) {
 exports.default = Container;
 Container.prototype.containerUpdateTransform = Container.prototype.updateTransform;
 
-},{"../utils":109,"./DisplayObject":36}],36:[function(require,module,exports){
+},{"../utils":110,"./DisplayObject":37}],37:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9067,7 +13355,7 @@ var DisplayObject = function (_EventEmitter) {
 exports.default = DisplayObject;
 DisplayObject.prototype.displayObjectUpdateTransform = DisplayObject.prototype.updateTransform;
 
-},{"../const":33,"../math":57,"../settings":88,"./Bounds":34,"./Transform":37,"./TransformStatic":39,"eventemitter3":4}],37:[function(require,module,exports){
+},{"../const":34,"../math":58,"../settings":89,"./Bounds":35,"./Transform":38,"./TransformStatic":40,"eventemitter3":4}],38:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9248,7 +13536,7 @@ var Transform = function (_TransformBase) {
 
 exports.default = Transform;
 
-},{"../math":57,"./TransformBase":38}],38:[function(require,module,exports){
+},{"../math":58,"./TransformBase":39}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9335,7 +13623,7 @@ TransformBase.prototype.updateWorldTransform = TransformBase.prototype.updateTra
 
 TransformBase.IDENTITY = new TransformBase();
 
-},{"../math":57}],39:[function(require,module,exports){
+},{"../math":58}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9545,7 +13833,7 @@ var TransformStatic = function (_TransformBase) {
 
 exports.default = TransformStatic;
 
-},{"../math":57,"./TransformBase":38}],40:[function(require,module,exports){
+},{"../math":58,"./TransformBase":39}],41:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10707,7 +14995,7 @@ exports.default = Graphics;
 
 Graphics._SPRITE_TEXTURE = null;
 
-},{"../const":33,"../display/Bounds":34,"../display/Container":35,"../math":57,"../renderers/canvas/CanvasRenderer":64,"../sprites/Sprite":89,"../textures/RenderTexture":99,"../textures/Texture":101,"../utils":109,"./GraphicsData":41,"./utils/bezierCurveTo":43}],41:[function(require,module,exports){
+},{"../const":34,"../display/Bounds":35,"../display/Container":36,"../math":58,"../renderers/canvas/CanvasRenderer":65,"../sprites/Sprite":90,"../textures/RenderTexture":100,"../textures/Texture":102,"../utils":110,"./GraphicsData":42,"./utils/bezierCurveTo":44}],42:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -10829,7 +15117,7 @@ var GraphicsData = function () {
 
 exports.default = GraphicsData;
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11098,7 +15386,7 @@ exports.default = CanvasGraphicsRenderer;
 
 _CanvasRenderer2.default.registerPlugin('graphics', CanvasGraphicsRenderer);
 
-},{"../../const":33,"../../renderers/canvas/CanvasRenderer":64}],43:[function(require,module,exports){
+},{"../../const":34,"../../renderers/canvas/CanvasRenderer":65}],44:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -11148,7 +15436,7 @@ function bezierCurveTo(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY) {
     return path;
 }
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11406,7 +15694,7 @@ exports.default = GraphicsRenderer;
 
 _WebGLRenderer2.default.registerPlugin('graphics', GraphicsRenderer);
 
-},{"../../const":33,"../../renderers/webgl/WebGLRenderer":71,"../../renderers/webgl/utils/ObjectRenderer":81,"../../utils":109,"./WebGLGraphicsData":45,"./shaders/PrimitiveShader":46,"./utils/buildCircle":47,"./utils/buildPoly":49,"./utils/buildRectangle":50,"./utils/buildRoundedRectangle":51}],45:[function(require,module,exports){
+},{"../../const":34,"../../renderers/webgl/WebGLRenderer":72,"../../renderers/webgl/utils/ObjectRenderer":82,"../../utils":110,"./WebGLGraphicsData":46,"./shaders/PrimitiveShader":47,"./utils/buildCircle":48,"./utils/buildPoly":50,"./utils/buildRectangle":51,"./utils/buildRoundedRectangle":52}],46:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11543,7 +15831,7 @@ var WebGLGraphicsData = function () {
 
 exports.default = WebGLGraphicsData;
 
-},{"pixi-gl-core":16}],46:[function(require,module,exports){
+},{"pixi-gl-core":17}],47:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11588,7 +15876,7 @@ var PrimitiveShader = function (_Shader) {
 
 exports.default = PrimitiveShader;
 
-},{"../../../Shader":31}],47:[function(require,module,exports){
+},{"../../../Shader":32}],48:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11680,7 +15968,7 @@ function buildCircle(graphicsData, webGLData) {
     }
 }
 
-},{"../../../const":33,"../../../utils":109,"./buildLine":48}],48:[function(require,module,exports){
+},{"../../../const":34,"../../../utils":110,"./buildLine":49}],49:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -11949,7 +16237,7 @@ function buildNativeLine(graphicsData, webGLData) {
     }
 }
 
-},{"../../../math":57,"../../../utils":109}],49:[function(require,module,exports){
+},{"../../../math":58,"../../../utils":110}],50:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -12034,7 +16322,7 @@ function buildPoly(graphicsData, webGLData) {
     }
 }
 
-},{"../../../utils":109,"./buildLine":48,"earcut":3}],50:[function(require,module,exports){
+},{"../../../utils":110,"./buildLine":49,"earcut":3}],51:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -12109,7 +16397,7 @@ function buildRectangle(graphicsData, webGLData) {
     }
 }
 
-},{"../../../utils":109,"./buildLine":48}],51:[function(require,module,exports){
+},{"../../../utils":110,"./buildLine":49}],52:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -12264,7 +16552,7 @@ function quadraticBezierCurve(fromX, fromY, cpX, cpY, toX, toY) {
     return points;
 }
 
-},{"../../../utils":109,"./buildLine":48,"earcut":3}],52:[function(require,module,exports){
+},{"../../../utils":110,"./buildLine":49,"earcut":3}],53:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -12632,7 +16920,7 @@ exports.WebGLRenderer = _WebGLRenderer2.default; /**
                                                   * @namespace PIXI
                                                   */
 
-},{"./Application":30,"./Shader":31,"./autoDetectRenderer":32,"./const":33,"./display/Bounds":34,"./display/Container":35,"./display/DisplayObject":36,"./display/Transform":37,"./display/TransformBase":38,"./display/TransformStatic":39,"./graphics/Graphics":40,"./graphics/GraphicsData":41,"./graphics/canvas/CanvasGraphicsRenderer":42,"./graphics/webgl/GraphicsRenderer":44,"./math":57,"./renderers/canvas/CanvasRenderer":64,"./renderers/canvas/utils/CanvasRenderTarget":66,"./renderers/webgl/WebGLRenderer":71,"./renderers/webgl/filters/Filter":73,"./renderers/webgl/filters/spriteMask/SpriteMaskFilter":76,"./renderers/webgl/managers/WebGLManager":80,"./renderers/webgl/utils/ObjectRenderer":81,"./renderers/webgl/utils/Quad":82,"./renderers/webgl/utils/RenderTarget":83,"./settings":88,"./sprites/Sprite":89,"./sprites/canvas/CanvasSpriteRenderer":90,"./sprites/canvas/CanvasTinter":91,"./sprites/webgl/SpriteRenderer":93,"./text/Text":95,"./text/TextStyle":96,"./textures/BaseRenderTexture":97,"./textures/BaseTexture":98,"./textures/RenderTexture":99,"./textures/Spritesheet":100,"./textures/Texture":101,"./textures/TextureUvs":102,"./textures/VideoBaseTexture":103,"./ticker":105,"./utils":109,"pixi-gl-core":16}],53:[function(require,module,exports){
+},{"./Application":31,"./Shader":32,"./autoDetectRenderer":33,"./const":34,"./display/Bounds":35,"./display/Container":36,"./display/DisplayObject":37,"./display/Transform":38,"./display/TransformBase":39,"./display/TransformStatic":40,"./graphics/Graphics":41,"./graphics/GraphicsData":42,"./graphics/canvas/CanvasGraphicsRenderer":43,"./graphics/webgl/GraphicsRenderer":45,"./math":58,"./renderers/canvas/CanvasRenderer":65,"./renderers/canvas/utils/CanvasRenderTarget":67,"./renderers/webgl/WebGLRenderer":72,"./renderers/webgl/filters/Filter":74,"./renderers/webgl/filters/spriteMask/SpriteMaskFilter":77,"./renderers/webgl/managers/WebGLManager":81,"./renderers/webgl/utils/ObjectRenderer":82,"./renderers/webgl/utils/Quad":83,"./renderers/webgl/utils/RenderTarget":84,"./settings":89,"./sprites/Sprite":90,"./sprites/canvas/CanvasSpriteRenderer":91,"./sprites/canvas/CanvasTinter":92,"./sprites/webgl/SpriteRenderer":94,"./text/Text":96,"./text/TextStyle":97,"./textures/BaseRenderTexture":98,"./textures/BaseTexture":99,"./textures/RenderTexture":100,"./textures/Spritesheet":101,"./textures/Texture":102,"./textures/TextureUvs":103,"./textures/VideoBaseTexture":104,"./ticker":106,"./utils":110,"pixi-gl-core":17}],54:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -12824,7 +17112,7 @@ var GroupD8 = {
 
 exports.default = GroupD8;
 
-},{"./Matrix":54}],54:[function(require,module,exports){
+},{"./Matrix":55}],55:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -13355,7 +17643,7 @@ var Matrix = function () {
 
 exports.default = Matrix;
 
-},{"./Point":56}],55:[function(require,module,exports){
+},{"./Point":57}],56:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -13472,7 +17760,7 @@ var ObservablePoint = function () {
 
 exports.default = ObservablePoint;
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -13563,7 +17851,7 @@ var Point = function () {
 
 exports.default = Point;
 
-},{}],57:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -13651,7 +17939,7 @@ Object.defineProperty(exports, 'RoundedRectangle', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./GroupD8":53,"./Matrix":54,"./ObservablePoint":55,"./Point":56,"./shapes/Circle":58,"./shapes/Ellipse":59,"./shapes/Polygon":60,"./shapes/Rectangle":61,"./shapes/RoundedRectangle":62}],58:[function(require,module,exports){
+},{"./GroupD8":54,"./Matrix":55,"./ObservablePoint":56,"./Point":57,"./shapes/Circle":59,"./shapes/Ellipse":60,"./shapes/Polygon":61,"./shapes/Rectangle":62,"./shapes/RoundedRectangle":63}],59:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -13765,7 +18053,7 @@ var Circle = function () {
 
 exports.default = Circle;
 
-},{"../../const":33,"./Rectangle":61}],59:[function(require,module,exports){
+},{"../../const":34,"./Rectangle":62}],60:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -13887,7 +18175,7 @@ var Ellipse = function () {
 
 exports.default = Ellipse;
 
-},{"../../const":33,"./Rectangle":61}],60:[function(require,module,exports){
+},{"../../const":34,"./Rectangle":62}],61:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -14018,7 +18306,7 @@ var Polygon = function () {
 
 exports.default = Polygon;
 
-},{"../../const":33,"../Point":56}],61:[function(require,module,exports){
+},{"../../const":34,"../Point":57}],62:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -14281,7 +18569,7 @@ var Rectangle = function () {
 
 exports.default = Rectangle;
 
-},{"../../const":33}],62:[function(require,module,exports){
+},{"../../const":34}],63:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -14414,7 +18702,7 @@ var RoundedRectangle = function () {
 
 exports.default = RoundedRectangle;
 
-},{"../../const":33}],63:[function(require,module,exports){
+},{"../../const":34}],64:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -14765,7 +19053,7 @@ var SystemRenderer = function (_EventEmitter) {
 
 exports.default = SystemRenderer;
 
-},{"../const":33,"../display/Container":35,"../math":57,"../settings":88,"../textures/RenderTexture":99,"../utils":109,"eventemitter3":4}],64:[function(require,module,exports){
+},{"../const":34,"../display/Container":36,"../math":58,"../settings":89,"../textures/RenderTexture":100,"../utils":110,"eventemitter3":4}],65:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15079,7 +19367,7 @@ exports.default = CanvasRenderer;
 
 _utils.pluginTarget.mixin(CanvasRenderer);
 
-},{"../../const":33,"../../settings":88,"../../utils":109,"../SystemRenderer":63,"./utils/CanvasMaskManager":65,"./utils/CanvasRenderTarget":66,"./utils/mapCanvasBlendModesToPixi":68}],65:[function(require,module,exports){
+},{"../../const":34,"../../settings":89,"../../utils":110,"../SystemRenderer":64,"./utils/CanvasMaskManager":66,"./utils/CanvasRenderTarget":67,"./utils/mapCanvasBlendModesToPixi":69}],66:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15247,7 +19535,7 @@ var CanvasMaskManager = function () {
 
 exports.default = CanvasMaskManager;
 
-},{"../../../const":33}],66:[function(require,module,exports){
+},{"../../../const":34}],67:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15371,7 +19659,7 @@ var CanvasRenderTarget = function () {
 
 exports.default = CanvasRenderTarget;
 
-},{"../../../settings":88}],67:[function(require,module,exports){
+},{"../../../settings":89}],68:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15432,7 +19720,7 @@ function canUseNewCanvasBlendModes() {
     return data[0] === 255 && data[1] === 0 && data[2] === 0;
 }
 
-},{}],68:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15500,7 +19788,7 @@ function mapCanvasBlendModesToPixi() {
     return array;
 }
 
-},{"../../../const":33,"./canUseNewCanvasBlendModes":67}],69:[function(require,module,exports){
+},{"../../../const":34,"./canUseNewCanvasBlendModes":68}],70:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15620,7 +19908,7 @@ var TextureGarbageCollector = function () {
 
 exports.default = TextureGarbageCollector;
 
-},{"../../const":33,"../../settings":88}],70:[function(require,module,exports){
+},{"../../const":34,"../../settings":89}],71:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -15867,7 +20155,7 @@ var TextureManager = function () {
 
 exports.default = TextureManager;
 
-},{"../../const":33,"../../utils":109,"./utils/RenderTarget":83,"pixi-gl-core":16}],71:[function(require,module,exports){
+},{"../../const":34,"../../utils":110,"./utils/RenderTarget":84,"pixi-gl-core":17}],72:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -16625,7 +20913,7 @@ exports.default = WebGLRenderer;
 
 _utils.pluginTarget.mixin(WebGLRenderer);
 
-},{"../../const":33,"../../textures/BaseTexture":98,"../../utils":109,"../SystemRenderer":63,"./TextureGarbageCollector":69,"./TextureManager":70,"./WebGLState":72,"./managers/FilterManager":77,"./managers/MaskManager":78,"./managers/StencilManager":79,"./utils/ObjectRenderer":81,"./utils/RenderTarget":83,"./utils/mapWebGLDrawModesToPixi":86,"./utils/validateContext":87,"pixi-gl-core":16}],72:[function(require,module,exports){
+},{"../../const":34,"../../textures/BaseTexture":99,"../../utils":110,"../SystemRenderer":64,"./TextureGarbageCollector":70,"./TextureManager":71,"./WebGLState":73,"./managers/FilterManager":78,"./managers/MaskManager":79,"./managers/StencilManager":80,"./utils/ObjectRenderer":82,"./utils/RenderTarget":84,"./utils/mapWebGLDrawModesToPixi":87,"./utils/validateContext":88,"pixi-gl-core":17}],73:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -16899,7 +21187,7 @@ var WebGLState = function () {
 
 exports.default = WebGLState;
 
-},{"./utils/mapWebGLBlendModesToPixi":85}],73:[function(require,module,exports){
+},{"./utils/mapWebGLBlendModesToPixi":86}],74:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -17067,7 +21355,7 @@ var Filter = function () {
 
 exports.default = Filter;
 
-},{"../../../const":33,"../../../settings":88,"../../../utils":109,"./extractUniformsFromSrc":74}],74:[function(require,module,exports){
+},{"../../../const":34,"../../../settings":89,"../../../utils":110,"./extractUniformsFromSrc":75}],75:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -17129,7 +21417,7 @@ function extractUniformsFromString(string) {
     return uniforms;
 }
 
-},{"pixi-gl-core":16}],75:[function(require,module,exports){
+},{"pixi-gl-core":17}],76:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -17211,7 +21499,7 @@ function calculateSpriteMatrix(outputMatrix, filterArea, textureSize, sprite) {
     return mappedMatrix;
 }
 
-},{"../../../math":57}],76:[function(require,module,exports){
+},{"../../../math":58}],77:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -17283,7 +21571,7 @@ var SpriteMaskFilter = function (_Filter) {
 
 exports.default = SpriteMaskFilter;
 
-},{"../../../../math":57,"../Filter":73,"path":9}],77:[function(require,module,exports){
+},{"../../../../math":58,"../Filter":74,"path":10}],78:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -17853,7 +22141,7 @@ var FilterManager = function (_WebGLManager) {
 
 exports.default = FilterManager;
 
-},{"../../../Shader":31,"../../../math":57,"../filters/filterTransforms":75,"../utils/Quad":82,"../utils/RenderTarget":83,"./WebGLManager":80,"bit-twiddle":2}],78:[function(require,module,exports){
+},{"../../../Shader":32,"../../../math":58,"../filters/filterTransforms":76,"../utils/Quad":83,"../utils/RenderTarget":84,"./WebGLManager":81,"bit-twiddle":2}],79:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18063,7 +22351,7 @@ var MaskManager = function (_WebGLManager) {
 
 exports.default = MaskManager;
 
-},{"../filters/spriteMask/SpriteMaskFilter":76,"./WebGLManager":80}],79:[function(require,module,exports){
+},{"../filters/spriteMask/SpriteMaskFilter":77,"./WebGLManager":81}],80:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18197,7 +22485,7 @@ var StencilManager = function (_WebGLManager) {
 
 exports.default = StencilManager;
 
-},{"./WebGLManager":80}],80:[function(require,module,exports){
+},{"./WebGLManager":81}],81:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18252,7 +22540,7 @@ var WebGLManager = function () {
 
 exports.default = WebGLManager;
 
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18330,7 +22618,7 @@ var ObjectRenderer = function (_WebGLManager) {
 
 exports.default = ObjectRenderer;
 
-},{"../managers/WebGLManager":80}],82:[function(require,module,exports){
+},{"../managers/WebGLManager":81}],83:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18503,7 +22791,7 @@ var Quad = function () {
 
 exports.default = Quad;
 
-},{"../../../utils/createIndicesForQuads":107,"pixi-gl-core":16}],83:[function(require,module,exports){
+},{"../../../utils/createIndicesForQuads":108,"pixi-gl-core":17}],84:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18830,7 +23118,7 @@ var RenderTarget = function () {
 
 exports.default = RenderTarget;
 
-},{"../../../const":33,"../../../math":57,"../../../settings":88,"pixi-gl-core":16}],84:[function(require,module,exports){
+},{"../../../const":34,"../../../math":58,"../../../settings":89,"pixi-gl-core":17}],85:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18905,7 +23193,7 @@ function generateIfTestSrc(maxIfs) {
     return src;
 }
 
-},{"pixi-gl-core":16}],85:[function(require,module,exports){
+},{"pixi-gl-core":17}],86:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18949,7 +23237,7 @@ function mapWebGLBlendModesToPixi(gl) {
     return array;
 }
 
-},{"../../../const":33}],86:[function(require,module,exports){
+},{"../../../const":34}],87:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18981,7 +23269,7 @@ function mapWebGLDrawModesToPixi(gl) {
   return object;
 }
 
-},{"../../../const":33}],87:[function(require,module,exports){
+},{"../../../const":34}],88:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -18997,7 +23285,7 @@ function validateContext(gl) {
     }
 }
 
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -19217,7 +23505,7 @@ exports.default = {
 
 };
 
-},{"./utils/canUploadSameBuffer":106,"./utils/maxRecommendedTextures":110}],89:[function(require,module,exports){
+},{"./utils/canUploadSameBuffer":107,"./utils/maxRecommendedTextures":111}],90:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -19839,7 +24127,7 @@ var Sprite = function (_Container) {
 
 exports.default = Sprite;
 
-},{"../const":33,"../display/Container":35,"../math":57,"../textures/Texture":101,"../utils":109}],90:[function(require,module,exports){
+},{"../const":34,"../display/Container":36,"../math":58,"../textures/Texture":102,"../utils":110}],91:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -19992,7 +24280,7 @@ exports.default = CanvasSpriteRenderer;
 
 _CanvasRenderer2.default.registerPlugin('sprite', CanvasSpriteRenderer);
 
-},{"../../const":33,"../../math":57,"../../renderers/canvas/CanvasRenderer":64,"./CanvasTinter":91}],91:[function(require,module,exports){
+},{"../../const":34,"../../math":58,"../../renderers/canvas/CanvasRenderer":65,"./CanvasTinter":92}],92:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20229,7 +24517,7 @@ CanvasTinter.tintMethod = CanvasTinter.canUseMultiply ? CanvasTinter.tintWithMul
 
 exports.default = CanvasTinter;
 
-},{"../../renderers/canvas/utils/canUseNewCanvasBlendModes":67,"../../utils":109}],92:[function(require,module,exports){
+},{"../../renderers/canvas/utils/canUseNewCanvasBlendModes":68,"../../utils":110}],93:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -20282,7 +24570,7 @@ var Buffer = function () {
 
 exports.default = Buffer;
 
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20813,7 +25101,7 @@ exports.default = SpriteRenderer;
 
 _WebGLRenderer2.default.registerPlugin('sprite', SpriteRenderer);
 
-},{"../../renderers/webgl/WebGLRenderer":71,"../../renderers/webgl/utils/ObjectRenderer":81,"../../renderers/webgl/utils/checkMaxIfStatmentsInShader":84,"../../settings":88,"../../utils/createIndicesForQuads":107,"./BatchBuffer":92,"./generateMultiTextureShader":94,"bit-twiddle":2,"pixi-gl-core":16}],94:[function(require,module,exports){
+},{"../../renderers/webgl/WebGLRenderer":72,"../../renderers/webgl/utils/ObjectRenderer":82,"../../renderers/webgl/utils/checkMaxIfStatmentsInShader":85,"../../settings":89,"../../utils/createIndicesForQuads":108,"./BatchBuffer":93,"./generateMultiTextureShader":95,"bit-twiddle":2,"pixi-gl-core":17}],95:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -20876,7 +25164,7 @@ function generateSampleSrc(maxTextures) {
     return src;
 }
 
-},{"../../Shader":31,"path":9}],95:[function(require,module,exports){
+},{"../../Shader":32,"path":10}],96:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -21755,7 +26043,7 @@ Text.fontPropertiesCache = {};
 Text.fontPropertiesCanvas = document.createElement('canvas');
 Text.fontPropertiesContext = Text.fontPropertiesCanvas.getContext('2d');
 
-},{"../const":33,"../math":57,"../settings":88,"../sprites/Sprite":89,"../textures/Texture":101,"../utils":109,"../utils/trimCanvas":113,"./TextStyle":96}],96:[function(require,module,exports){
+},{"../const":34,"../math":58,"../settings":89,"../sprites/Sprite":90,"../textures/Texture":102,"../utils":110,"../utils/trimCanvas":114,"./TextStyle":97}],97:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22258,7 +26546,7 @@ function areArraysEqual(array1, array2) {
     return true;
 }
 
-},{"../const":33,"../utils":109}],97:[function(require,module,exports){
+},{"../const":34,"../utils":110}],98:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -22417,7 +26705,7 @@ var BaseRenderTexture = function (_BaseTexture) {
 
 exports.default = BaseRenderTexture;
 
-},{"../settings":88,"./BaseTexture":98}],98:[function(require,module,exports){
+},{"../settings":89,"./BaseTexture":99}],99:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -23168,7 +27456,7 @@ var BaseTexture = function (_EventEmitter) {
 
 exports.default = BaseTexture;
 
-},{"../settings":88,"../utils":109,"../utils/determineCrossOrigin":108,"bit-twiddle":2,"eventemitter3":4}],99:[function(require,module,exports){
+},{"../settings":89,"../utils":110,"../utils/determineCrossOrigin":109,"bit-twiddle":2,"eventemitter3":4}],100:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -23319,7 +27607,7 @@ var RenderTexture = function (_Texture) {
 
 exports.default = RenderTexture;
 
-},{"./BaseRenderTexture":97,"./Texture":101}],100:[function(require,module,exports){
+},{"./BaseRenderTexture":98,"./Texture":102}],101:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -23580,7 +27868,7 @@ var Spritesheet = function () {
 
 exports.default = Spritesheet;
 
-},{"../":52,"../utils":109}],101:[function(require,module,exports){
+},{"../":53,"../utils":110}],102:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24204,7 +28492,7 @@ removeAllHandlers(Texture.EMPTY);
 Texture.WHITE = createWhiteTexture();
 removeAllHandlers(Texture.WHITE);
 
-},{"../math":57,"../utils":109,"./BaseTexture":98,"./TextureUvs":102,"./VideoBaseTexture":103,"eventemitter3":4}],102:[function(require,module,exports){
+},{"../math":58,"../utils":110,"./BaseTexture":99,"./TextureUvs":103,"./VideoBaseTexture":104,"eventemitter3":4}],103:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24309,7 +28597,7 @@ var TextureUvs = function () {
 
 exports.default = TextureUvs;
 
-},{"../math/GroupD8":53}],103:[function(require,module,exports){
+},{"../math/GroupD8":54}],104:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -24636,7 +28924,7 @@ function createSource(path, type) {
     return source;
 }
 
-},{"../ticker":105,"../utils":109,"./BaseTexture":98}],104:[function(require,module,exports){
+},{"../ticker":106,"../utils":110,"./BaseTexture":99}],105:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25033,7 +29321,7 @@ var Ticker = function () {
 
 exports.default = Ticker;
 
-},{"../settings":88,"eventemitter3":4}],105:[function(require,module,exports){
+},{"../settings":89,"eventemitter3":4}],106:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25097,7 +29385,7 @@ shared.autoStart = true;
 exports.shared = shared;
 exports.Ticker = _Ticker2.default;
 
-},{"./Ticker":104}],106:[function(require,module,exports){
+},{"./Ticker":105}],107:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -25111,7 +29399,7 @@ function canUploadSameBuffer() {
 	return !ios;
 }
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -25145,7 +29433,7 @@ function createIndicesForQuads(size) {
     return indices;
 }
 
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25201,7 +29489,7 @@ function determineCrossOrigin(url) {
     return '';
 }
 
-},{"url":184}],109:[function(require,module,exports){
+},{"url":185}],110:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25580,7 +29868,7 @@ function clearTextureCache() {
     }
 }
 
-},{"../const":33,"../settings":88,"./mixin":111,"./pluginTarget":112,"eventemitter3":4,"ismobilejs":5}],110:[function(require,module,exports){
+},{"../const":34,"../settings":89,"./mixin":112,"./pluginTarget":113,"eventemitter3":4,"ismobilejs":6}],111:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25602,7 +29890,7 @@ function maxRecommendedTextures(max) {
     return max;
 }
 
-},{"ismobilejs":5}],111:[function(require,module,exports){
+},{"ismobilejs":6}],112:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -25664,7 +29952,7 @@ function performMixins() {
     mixins.length = 0;
 }
 
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -25730,7 +30018,7 @@ exports.default = {
     }
 };
 
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25806,7 +30094,7 @@ function trimCanvas(canvas) {
     };
 }
 
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 'use strict';
 
 var _core = require('./core');
@@ -26812,7 +31100,7 @@ Object.defineProperty(interaction.InteractionManager, 'currentCursorStyle', {
     }
 });
 
-},{"./core":52,"./extras":125,"./filters":136,"./interaction":144,"./loaders":147,"./mesh":156,"./particles":159,"./prepare":169}],115:[function(require,module,exports){
+},{"./core":53,"./extras":126,"./filters":137,"./interaction":145,"./loaders":148,"./mesh":157,"./particles":160,"./prepare":170}],116:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -26992,7 +31280,7 @@ exports.default = CanvasExtract;
 
 core.CanvasRenderer.registerPlugin('extract', CanvasExtract);
 
-},{"../../core":52}],116:[function(require,module,exports){
+},{"../../core":53}],117:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -27017,7 +31305,7 @@ Object.defineProperty(exports, 'canvas', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./canvas/CanvasExtract":115,"./webgl/WebGLExtract":117}],117:[function(require,module,exports){
+},{"./canvas/CanvasExtract":116,"./webgl/WebGLExtract":118}],118:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -27240,7 +31528,7 @@ exports.default = WebGLExtract;
 
 core.WebGLRenderer.registerPlugin('extract', WebGLExtract);
 
-},{"../../core":52}],118:[function(require,module,exports){
+},{"../../core":53}],119:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -27625,7 +31913,7 @@ var AnimatedSprite = function (_core$Sprite) {
 
 exports.default = AnimatedSprite;
 
-},{"../core":52}],119:[function(require,module,exports){
+},{"../core":53}],120:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28166,7 +32454,7 @@ exports.default = BitmapText;
 
 BitmapText.fonts = {};
 
-},{"../core":52,"../core/math/ObservablePoint":55}],120:[function(require,module,exports){
+},{"../core":53,"../core/math/ObservablePoint":56}],121:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28296,7 +32584,7 @@ var TextureTransform = function () {
 
 exports.default = TextureTransform;
 
-},{"../core/math/Matrix":54}],121:[function(require,module,exports){
+},{"../core/math/Matrix":55}],122:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -28742,7 +33030,7 @@ var TilingSprite = function (_core$Sprite) {
 
 exports.default = TilingSprite;
 
-},{"../core":52,"../core/sprites/canvas/CanvasTinter":91,"./TextureTransform":120}],122:[function(require,module,exports){
+},{"../core":53,"../core/sprites/canvas/CanvasTinter":92,"./TextureTransform":121}],123:[function(require,module,exports){
 'use strict';
 
 var _core = require('../core');
@@ -29100,7 +33388,7 @@ DisplayObject.prototype._cacheAsBitmapDestroy = function _cacheAsBitmapDestroy(o
     this.destroy(options);
 };
 
-},{"../core":52}],123:[function(require,module,exports){
+},{"../core":53}],124:[function(require,module,exports){
 'use strict';
 
 var _core = require('../core');
@@ -29134,7 +33422,7 @@ core.Container.prototype.getChildByName = function getChildByName(name) {
     return null;
 };
 
-},{"../core":52}],124:[function(require,module,exports){
+},{"../core":53}],125:[function(require,module,exports){
 'use strict';
 
 var _core = require('../core');
@@ -29167,7 +33455,7 @@ core.DisplayObject.prototype.getGlobalPosition = function getGlobalPosition() {
     return point;
 };
 
-},{"../core":52}],125:[function(require,module,exports){
+},{"../core":53}],126:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29228,7 +33516,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // imported for side effect of extending the prototype only, contains no exports
 
-},{"./AnimatedSprite":118,"./BitmapText":119,"./TextureTransform":120,"./TilingSprite":121,"./cacheAsBitmap":122,"./getChildByName":123,"./getGlobalPosition":124,"./webgl/TilingSpriteRenderer":126}],126:[function(require,module,exports){
+},{"./AnimatedSprite":119,"./BitmapText":120,"./TextureTransform":121,"./TilingSprite":122,"./cacheAsBitmap":123,"./getChildByName":124,"./getGlobalPosition":125,"./webgl/TilingSpriteRenderer":127}],127:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29396,7 +33684,7 @@ exports.default = TilingSpriteRenderer;
 
 core.WebGLRenderer.registerPlugin('tilingSprite', TilingSpriteRenderer);
 
-},{"../../core":52,"../../core/const":33,"path":9}],127:[function(require,module,exports){
+},{"../../core":53,"../../core/const":34,"path":10}],128:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29553,7 +33841,7 @@ var BlurFilter = function (_core$Filter) {
 
 exports.default = BlurFilter;
 
-},{"../../core":52,"./BlurXFilter":128,"./BlurYFilter":129}],128:[function(require,module,exports){
+},{"../../core":53,"./BlurXFilter":129,"./BlurYFilter":130}],129:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29719,7 +34007,7 @@ var BlurXFilter = function (_core$Filter) {
 
 exports.default = BlurXFilter;
 
-},{"../../core":52,"./generateBlurFragSource":130,"./generateBlurVertSource":131,"./getMaxBlurKernelSize":132}],129:[function(require,module,exports){
+},{"../../core":53,"./generateBlurFragSource":131,"./generateBlurVertSource":132,"./getMaxBlurKernelSize":133}],130:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29884,7 +34172,7 @@ var BlurYFilter = function (_core$Filter) {
 
 exports.default = BlurYFilter;
 
-},{"../../core":52,"./generateBlurFragSource":130,"./generateBlurVertSource":131,"./getMaxBlurKernelSize":132}],130:[function(require,module,exports){
+},{"../../core":53,"./generateBlurFragSource":131,"./generateBlurVertSource":132,"./getMaxBlurKernelSize":133}],131:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29931,7 +34219,7 @@ function generateFragBlurSource(kernelSize) {
     return fragSource;
 }
 
-},{}],131:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -29975,7 +34263,7 @@ function generateVertBlurSource(kernelSize, x) {
     return vertSource;
 }
 
-},{}],132:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -29991,7 +34279,7 @@ function getMaxKernelSize(gl) {
     return kernelSize;
 }
 
-},{}],133:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30519,7 +34807,7 @@ var ColorMatrixFilter = function (_core$Filter) {
 exports.default = ColorMatrixFilter;
 ColorMatrixFilter.prototype.grayscale = ColorMatrixFilter.prototype.greyscale;
 
-},{"../../core":52,"path":9}],134:[function(require,module,exports){
+},{"../../core":53,"path":10}],135:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30629,7 +34917,7 @@ var DisplacementFilter = function (_core$Filter) {
 
 exports.default = DisplacementFilter;
 
-},{"../../core":52,"path":9}],135:[function(require,module,exports){
+},{"../../core":53,"path":10}],136:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30683,7 +34971,7 @@ var FXAAFilter = function (_core$Filter) {
 
 exports.default = FXAAFilter;
 
-},{"../../core":52,"path":9}],136:[function(require,module,exports){
+},{"../../core":53,"path":10}],137:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30762,7 +35050,7 @@ Object.defineProperty(exports, 'VoidFilter', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./blur/BlurFilter":127,"./blur/BlurXFilter":128,"./blur/BlurYFilter":129,"./colormatrix/ColorMatrixFilter":133,"./displacement/DisplacementFilter":134,"./fxaa/FXAAFilter":135,"./noise/NoiseFilter":137,"./void/VoidFilter":138}],137:[function(require,module,exports){
+},{"./blur/BlurFilter":128,"./blur/BlurXFilter":129,"./blur/BlurYFilter":130,"./colormatrix/ColorMatrixFilter":134,"./displacement/DisplacementFilter":135,"./fxaa/FXAAFilter":136,"./noise/NoiseFilter":138,"./void/VoidFilter":139}],138:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30838,7 +35126,7 @@ var NoiseFilter = function (_core$Filter) {
 
 exports.default = NoiseFilter;
 
-},{"../../core":52,"path":9}],138:[function(require,module,exports){
+},{"../../core":53,"path":10}],139:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -30888,7 +35176,7 @@ var VoidFilter = function (_core$Filter) {
 
 exports.default = VoidFilter;
 
-},{"../../core":52,"path":9}],139:[function(require,module,exports){
+},{"../../core":53,"path":10}],140:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -31004,7 +35292,7 @@ exports.loader = loader;
 global.PIXI = exports; // eslint-disable-line
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./accessibility":29,"./core":52,"./deprecation":114,"./extract":116,"./extras":125,"./filters":136,"./interaction":144,"./loaders":147,"./mesh":156,"./particles":159,"./polyfill":165,"./prepare":169}],140:[function(require,module,exports){
+},{"./accessibility":30,"./core":53,"./deprecation":115,"./extract":117,"./extras":126,"./filters":137,"./interaction":145,"./loaders":148,"./mesh":157,"./particles":160,"./polyfill":166,"./prepare":170}],141:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -31082,7 +35370,7 @@ var InteractionData = function () {
 
 exports.default = InteractionData;
 
-},{"../core":52}],141:[function(require,module,exports){
+},{"../core":53}],142:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -31167,7 +35455,7 @@ var InteractionEvent = function () {
 
 exports.default = InteractionEvent;
 
-},{}],142:[function(require,module,exports){
+},{}],143:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -32663,7 +36951,7 @@ exports.default = InteractionManager;
 core.WebGLRenderer.registerPlugin('interaction', InteractionManager);
 core.CanvasRenderer.registerPlugin('interaction', InteractionManager);
 
-},{"../core":52,"./InteractionData":140,"./InteractionEvent":141,"./InteractionTrackingData":143,"./interactiveTarget":145,"eventemitter3":4}],143:[function(require,module,exports){
+},{"../core":53,"./InteractionData":141,"./InteractionEvent":142,"./InteractionTrackingData":144,"./interactiveTarget":146,"eventemitter3":4}],144:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -32837,7 +37125,7 @@ InteractionTrackingData.FLAGS = Object.freeze({
     RIGHT_DOWN: 1 << 2
 });
 
-},{}],144:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -32871,7 +37159,7 @@ Object.defineProperty(exports, 'interactiveTarget', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./InteractionData":140,"./InteractionManager":142,"./interactiveTarget":145}],145:[function(require,module,exports){
+},{"./InteractionData":141,"./InteractionManager":143,"./interactiveTarget":146}],146:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -32963,7 +37251,7 @@ exports.default = {
   _trackedPointers: undefined
 };
 
-},{}],146:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33055,7 +37343,7 @@ function parse(resource, texture) {
     resource.bitmapFont = _extras.BitmapText.registerFont(resource.data, texture);
 }
 
-},{"../core":52,"../extras":125,"path":9,"resource-loader":182}],147:[function(require,module,exports){
+},{"../core":53,"../extras":126,"path":10,"resource-loader":183}],148:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33113,7 +37401,7 @@ Object.defineProperty(exports, 'Resource', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./bitmapFontParser":146,"./loader":148,"./spritesheetParser":149,"./textureParser":150,"resource-loader":182}],148:[function(require,module,exports){
+},{"./bitmapFontParser":147,"./loader":149,"./spritesheetParser":150,"./textureParser":151,"resource-loader":183}],149:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33274,7 +37562,7 @@ var Resource = _resourceLoader2.default.Resource;
 
 Resource.setExtensionXhrType('fnt', Resource.XHR_RESPONSE_TYPE.DOCUMENT);
 
-},{"./bitmapFontParser":146,"./spritesheetParser":149,"./textureParser":150,"eventemitter3":4,"resource-loader":182,"resource-loader/lib/middlewares/parsing/blob":183}],149:[function(require,module,exports){
+},{"./bitmapFontParser":147,"./spritesheetParser":150,"./textureParser":151,"eventemitter3":4,"resource-loader":183,"resource-loader/lib/middlewares/parsing/blob":184}],150:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33328,7 +37616,7 @@ var _core = require('../core');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../core":52,"path":9,"resource-loader":182}],150:[function(require,module,exports){
+},{"../core":53,"path":10,"resource-loader":183}],151:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33351,7 +37639,7 @@ var _Texture2 = _interopRequireDefault(_Texture);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"../core/textures/Texture":101,"resource-loader":182}],151:[function(require,module,exports){
+},{"../core/textures/Texture":102,"resource-loader":183}],152:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -33656,7 +37944,7 @@ Mesh.DRAW_MODES = {
   TRIANGLES: 1
 };
 
-},{"../core":52}],152:[function(require,module,exports){
+},{"../core":53}],153:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34048,7 +38336,7 @@ var NineSlicePlane = function (_Plane) {
 
 exports.default = NineSlicePlane;
 
-},{"./Plane":153}],153:[function(require,module,exports){
+},{"./Plane":154}],154:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34191,7 +38479,7 @@ var Plane = function (_Mesh) {
 
 exports.default = Plane;
 
-},{"./Mesh":151}],154:[function(require,module,exports){
+},{"./Mesh":152}],155:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34432,7 +38720,7 @@ var Rope = function (_Mesh) {
 
 exports.default = Rope;
 
-},{"../core":52,"./Mesh":151}],155:[function(require,module,exports){
+},{"../core":53,"./Mesh":152}],156:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34696,7 +38984,7 @@ exports.default = MeshSpriteRenderer;
 
 core.CanvasRenderer.registerPlugin('mesh', MeshSpriteRenderer);
 
-},{"../../core":52,"../Mesh":151}],156:[function(require,module,exports){
+},{"../../core":53,"../Mesh":152}],157:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34757,7 +39045,7 @@ Object.defineProperty(exports, 'Rope', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./Mesh":151,"./NineSlicePlane":152,"./Plane":153,"./Rope":154,"./canvas/CanvasMeshRenderer":155,"./webgl/MeshRenderer":157}],157:[function(require,module,exports){
+},{"./Mesh":152,"./NineSlicePlane":153,"./Plane":154,"./Rope":155,"./canvas/CanvasMeshRenderer":156,"./webgl/MeshRenderer":158}],158:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -34898,7 +39186,7 @@ exports.default = MeshRenderer;
 
 core.WebGLRenderer.registerPlugin('mesh', MeshRenderer);
 
-},{"../../core":52,"../Mesh":151,"path":9,"pixi-gl-core":16}],158:[function(require,module,exports){
+},{"../../core":53,"../Mesh":152,"path":10,"pixi-gl-core":17}],159:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -35234,7 +39522,7 @@ var ParticleContainer = function (_core$Container) {
 
 exports.default = ParticleContainer;
 
-},{"../core":52}],159:[function(require,module,exports){
+},{"../core":53}],160:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -35259,7 +39547,7 @@ Object.defineProperty(exports, 'ParticleRenderer', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./ParticleContainer":158,"./webgl/ParticleRenderer":161}],160:[function(require,module,exports){
+},{"./ParticleContainer":159,"./webgl/ParticleRenderer":162}],161:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -35499,7 +39787,7 @@ var ParticleBuffer = function () {
 
 exports.default = ParticleBuffer;
 
-},{"../../core/utils/createIndicesForQuads":107,"pixi-gl-core":16}],161:[function(require,module,exports){
+},{"../../core/utils/createIndicesForQuads":108,"pixi-gl-core":17}],162:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -35943,7 +40231,7 @@ exports.default = ParticleRenderer;
 
 core.WebGLRenderer.registerPlugin('particle', ParticleRenderer);
 
-},{"../../core":52,"./ParticleBuffer":160,"./ParticleShader":162}],162:[function(require,module,exports){
+},{"../../core":53,"./ParticleBuffer":161,"./ParticleShader":163}],163:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -35986,7 +40274,7 @@ var ParticleShader = function (_Shader) {
 
 exports.default = ParticleShader;
 
-},{"../../core/Shader":31}],163:[function(require,module,exports){
+},{"../../core/Shader":32}],164:[function(require,module,exports){
 "use strict";
 
 // References:
@@ -36004,7 +40292,7 @@ if (!Math.sign) {
     };
 }
 
-},{}],164:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 var _objectAssign = require('object-assign');
@@ -36019,7 +40307,7 @@ if (!Object.assign) {
 // https://github.com/sindresorhus/object-assign
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
-},{"object-assign":7}],165:[function(require,module,exports){
+},{"object-assign":8}],166:[function(require,module,exports){
 'use strict';
 
 require('./Object.assign');
@@ -36044,7 +40332,7 @@ if (!window.Uint16Array) {
     window.Uint16Array = Array;
 }
 
-},{"./Math.sign":163,"./Object.assign":164,"./requestAnimationFrame":166}],166:[function(require,module,exports){
+},{"./Math.sign":164,"./Object.assign":165,"./requestAnimationFrame":167}],167:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -36121,7 +40409,7 @@ if (!global.cancelAnimationFrame) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],167:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -36509,7 +40797,7 @@ function findTextStyle(item, queue) {
     return false;
 }
 
-},{"../core":52,"./limiters/CountLimiter":170}],168:[function(require,module,exports){
+},{"../core":53,"./limiters/CountLimiter":171}],169:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -36658,7 +40946,7 @@ function findBaseTextures(item, queue) {
 
 core.CanvasRenderer.registerPlugin('prepare', CanvasPrepare);
 
-},{"../../core":52,"../BasePrepare":167}],169:[function(require,module,exports){
+},{"../../core":53,"../BasePrepare":168}],170:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -36710,7 +40998,7 @@ Object.defineProperty(exports, 'TimeLimiter', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./BasePrepare":167,"./canvas/CanvasPrepare":168,"./limiters/CountLimiter":170,"./limiters/TimeLimiter":171,"./webgl/WebGLPrepare":172}],170:[function(require,module,exports){
+},{"./BasePrepare":168,"./canvas/CanvasPrepare":169,"./limiters/CountLimiter":171,"./limiters/TimeLimiter":172,"./webgl/WebGLPrepare":173}],171:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -36768,7 +41056,7 @@ var CountLimiter = function () {
 
 exports.default = CountLimiter;
 
-},{}],171:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -36826,7 +41114,7 @@ var TimeLimiter = function () {
 
 exports.default = TimeLimiter;
 
-},{}],172:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -36976,7 +41264,7 @@ function findGraphics(item, queue) {
 
 core.WebGLRenderer.registerPlugin('prepare', WebGLPrepare);
 
-},{"../../core":52,"../BasePrepare":167}],173:[function(require,module,exports){
+},{"../../core":53,"../BasePrepare":168}],174:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -37158,7 +41446,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],174:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -37695,7 +41983,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],175:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -37781,7 +42069,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -37868,13 +42156,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],177:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":175,"./encode":176}],178:[function(require,module,exports){
+},{"./decode":176,"./encode":177}],179:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -38492,7 +42780,7 @@ var Loader = function () {
 
 exports.default = Loader;
 
-},{"./Resource":179,"./async":180,"mini-signals":6,"parse-uri":8}],179:[function(require,module,exports){
+},{"./Resource":180,"./async":181,"mini-signals":7,"parse-uri":9}],180:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -39642,7 +43930,7 @@ function reqType(xhr) {
     return xhr.toString().replace('object ', '');
 }
 
-},{"mini-signals":6,"parse-uri":8}],180:[function(require,module,exports){
+},{"mini-signals":7,"parse-uri":9}],181:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -39844,7 +44132,7 @@ function queue(worker, concurrency) {
     return q;
 }
 
-},{}],181:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -39912,7 +44200,7 @@ function encodeBinary(input) {
     return output;
 }
 
-},{}],182:[function(require,module,exports){
+},{}],183:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -39945,7 +44233,7 @@ _Loader2.default.base64 = b64;
 module.exports = _Loader2.default; // eslint-disable-line no-undef
 exports.default = _Loader2.default;
 
-},{"./Loader":178,"./Resource":179,"./async":180,"./b64":181}],183:[function(require,module,exports){
+},{"./Loader":179,"./Resource":180,"./async":181,"./b64":182}],184:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -40033,7 +44321,7 @@ function blobMiddlewareFactory() {
     };
 }
 
-},{"../../Resource":179,"../../b64":181}],184:[function(require,module,exports){
+},{"../../Resource":180,"../../b64":182}],185:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -40767,7 +45055,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":185,"punycode":174,"querystring":177}],185:[function(require,module,exports){
+},{"./util":186,"punycode":175,"querystring":178}],186:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40785,7 +45073,7 @@ module.exports = {
   }
 };
 
-},{}],186:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 /* Web Font Loader v1.6.28 - (c) Adobe Systems, Google. License: Apache 2.0 */(function(){function aa(a,b,c){return a.call.apply(a.bind,arguments)}function ba(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function p(a,b,c){p=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?aa:ba;return p.apply(null,arguments)}var q=Date.now||function(){return+new Date};function ca(a,b){this.a=a;this.o=b||a;this.c=this.o.document}var da=!!window.FontFace;function t(a,b,c,d){b=a.c.createElement(b);if(c)for(var e in c)c.hasOwnProperty(e)&&("style"==e?b.style.cssText=c[e]:b.setAttribute(e,c[e]));d&&b.appendChild(a.c.createTextNode(d));return b}function u(a,b,c){a=a.c.getElementsByTagName(b)[0];a||(a=document.documentElement);a.insertBefore(c,a.lastChild)}function v(a){a.parentNode&&a.parentNode.removeChild(a)}
 function w(a,b,c){b=b||[];c=c||[];for(var d=a.className.split(/\s+/),e=0;e<b.length;e+=1){for(var f=!1,g=0;g<d.length;g+=1)if(b[e]===d[g]){f=!0;break}f||d.push(b[e])}b=[];for(e=0;e<d.length;e+=1){f=!1;for(g=0;g<c.length;g+=1)if(d[e]===c[g]){f=!0;break}f||b.push(d[e])}a.className=b.join(" ").replace(/\s+/g," ").replace(/^\s+|\s+$/,"")}function y(a,b){for(var c=a.className.split(/\s+/),d=0,e=c.length;d<e;d++)if(c[d]==b)return!0;return!1}
 function ea(a){return a.o.location.hostname||a.a.location.hostname}function z(a,b,c){function d(){m&&e&&f&&(m(g),m=null)}b=t(a,"link",{rel:"stylesheet",href:b,media:"all"});var e=!1,f=!0,g=null,m=c||null;da?(b.onload=function(){e=!0;d()},b.onerror=function(){e=!0;g=Error("Stylesheet failed to load");d()}):setTimeout(function(){e=!0;d()},0);u(a,"head",b)}

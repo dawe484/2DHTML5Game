@@ -20,11 +20,13 @@ const AvatarSchema = new Schema({
   gold: { type: Number, required: true },
   diamond: { type: Number, required: true },
   language: { type: String, default: 'english' },
-  mainScreenIconsTitle: [String],
-  scrollIconsTitle: [String],
-  bannersTitle: [String],
-  buttonsTitle: [String],
-  labelsTitle: [String]
+  mainScreenIconsTitle: [ String ],
+  scrollIconsTitle: [ String ],
+  bannersTitle: [ String ],
+  buttonsTitle: [ String ],
+  labelsTitle: [ String ],
+  heroInfoIconsTitle: [ String ],
+  heroStatsTitle: [ String ]
 });
 
 let Avatar = module.exports = mongoose.model('Avatar', AvatarSchema);

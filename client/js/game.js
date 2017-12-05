@@ -2,6 +2,7 @@
 
 const WebFont = require('webfontloader');
 const PIXI = require('pixi.js');
+const Hammer = require('hammerjs');
 
 let fontsLoaded = false;
 
@@ -63,7 +64,7 @@ const GAME_WIDTH = 1920,
       avatarLevelBluePath = `${iconsFolderPath}avatar_level_blue_icon${png}`,
       avatarFieldPath = `${labelsFolderPath}avatar_field_label${png}`,
       barBackgroundPath = `${backgroundsFolderPath}bar_background${png}`,
-      plusIconPath = `${iconsFolderPath}bar_plus_icon${png}`,
+      plusIconPath = `${iconsFolderPath}plus_icon${png}`,
       goldIconPath = `${iconsFolderPath}gold_icon${png}`,
       diamondIconPath = `${iconsFolderPath}diamond_icon${png}`,
       handIconPath = `${iconsFolderPath}hand_icon${png}`,
@@ -149,11 +150,11 @@ const GAME_WIDTH = 1920,
       borderBluePlus2Path = `${heroesFolderPath}border_blue+2${png}`,
       starIconPath = `${iconsFolderPath}star_icon${png}`,
       pedestalPath = `${heroesFolderPath}pedestal${png}`,
-      starBackgrounPath = `${backgroundsFolderPath}star_background${png}`,
+      starBackgroundPath = `${backgroundsFolderPath}star_background${png}`,
       expBackgroundPath = `${backgroundsFolderPath}exp_pages_power_background${png}`,
       pageIconPath = `${iconsFolderPath}page_icon${png}`,
-      heroesUpperBackgroundPath = `${backgroundsFolderPath}heroes_upper_background${png}`,
-      heroesBottomBackgroundPath = `${backgroundsFolderPath}heroes_bottom_background${png}`,
+      heroUpperBackgroundPath = `${backgroundsFolderPath}hero_upper_background${png}`,
+      heroBottomBackgroundPath = `${backgroundsFolderPath}hero_bottom_background${png}`,
       equipIconPath = `${iconsFolderPath}equip_icon${png}`,
       equipIconSelectedPath = `${iconsFolderPath}equip_icon_s${png}`,
       glyphsIconPath = `${iconsFolderPath}glyphs_icon${png}`,
@@ -167,20 +168,39 @@ const GAME_WIDTH = 1920,
       nextGlyphsIconPath = `${iconsFolderPath}next_glyphs_icon${png}`,
       helpIconPath = `${iconsFolderPath}help_icon${png}`, // ? mark on btn
       // ------------------------ Heroes ---------------------------------------
-      aeloisPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
-      amaraPath = `${heroesFolderPath}amara/amara_stats${png}`,
-      crystalPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
-      diuwinPath = `${heroesFolderPath}diu_win/diu_win_stats${png}`,
-      leonaPath = `${heroesFolderPath}leona/leona_stats${png}`,
-      leryssaPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
-      nadiaPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
-      nyxPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
-      sinPath = `${heroesFolderPath}sin/sin_stats${png}`,
-      zalajinPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
-      zayaPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
+      aeloisPath = `${heroesFolderPath}aelois/aelois${png}`,
+      amaraPath = `${heroesFolderPath}amara/amara${png}`,
+      crystalPath = `${heroesFolderPath}crystal/crystal${png}`,
+      diuwinPath = `${heroesFolderPath}diuwin/diuwin${png}`,
+      leonaPath = `${heroesFolderPath}leona/leona${png}`,
+      leryssaPath = `${heroesFolderPath}leryssa/leryssa${png}`,
+      nadiaPath = `${heroesFolderPath}nadia/nadia${png}`,
+      nyxPath = `${heroesFolderPath}nyx/nyx${png}`,
+      sinPath = `${heroesFolderPath}sin/sin${png}`,
+      zalajinPath = `${heroesFolderPath}zalajin/zalajin${png}`,
+      zayaPath = `${heroesFolderPath}zaya/zaya${png}`,
+      // ------------------------ Heroes Stats ---------------------------------
+      aeloisStatsPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
+      amaraStatsPath = `${heroesFolderPath}amara/amara_stats${png}`,
+      crystalStatsPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
+      diuwinStatsPath = `${heroesFolderPath}diuwin/diuwin_stats${png}`,
+      leonaStatsPath = `${heroesFolderPath}leona/leona_stats${png}`,
+      leryssaStatsPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
+      nadiaStatsPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
+      nyxStatsPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
+      sinStatsPath = `${heroesFolderPath}sin/sin_stats${png}`,
+      zalajinStatsPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
+      zayaStatsPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
       // -----------------------------------------------------------------------
       plusGreenIconPath = `${iconsFolderPath}plus_green_icon${png}`,
-      plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`
+      plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`,
+      skillBackgroundPath = `${backgroundsFolderPath}skill_background${png}`,
+      skillLabelPath = `${labelsFolderPath}skill_label${png}`,
+      statsUpperBackgroundPath = `${backgroundsFolderPath}stats_upper_background${png}`,
+      statsBottomBackgroundPath = `${backgroundsFolderPath}stats_bottom_background${png}`,
+      statsGreyLabelPath = `${labelsFolderPath}stats_grey_label${png}`,
+      statsWhiteLabelPath = `${labelsFolderPath}stats_white_label${png}`,
+      statsBackgroundPath = `${backgroundsFolderPath}stats_background${png}`
       ;
 
 // Global variables
@@ -191,14 +211,15 @@ let renderer, stage, stats,
     avatarContainer, avatarScreenContainer, avatarChangeNameContainer,
     scrollContainer, battleContainer, marketsContainer,
     summonBooksContainer, summonContainer,
-    heroesContainer;
+    heroesContainer, heroesPortraitContainer;
 
 let freeCounter;
 
 // Define Textstyle variables
 let textStyleBtn80_48_black, textStyleBubble_52_white, textStyle144_40_black,
   textStyleLevel_40_white, textStyleAvatar_28, textStyle_32left_black, textStyle_32center_black,
-  textStyle_32right_black, textStyle10pOff;
+  textStyle_32right_black, textStyle10pOff, textStyleHeroStats_28left_black,
+  textStyleHeroStatsLevel_32left_white;
 
 let closeIcon;
 
@@ -273,6 +294,7 @@ let backgroundEmpty_mc,
   ;
 
 // Heroes variables
+let scrollArrow72x36;
 
 // Inventory variables
 
@@ -380,14 +402,20 @@ function init() {
           leftArrowIconPath, rightArrowIconPath, bookmarkIconPath, allIconPath,
           fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
           tankIconPath, borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
-          borderBluePlus1Path, borderBluePlus2Path, starIconPath, pedestalPath, starBackgrounPath,
-          expBackgroundPath, pageIconPath, heroesUpperBackgroundPath, heroesBottomBackgroundPath,
+          borderBluePlus1Path, borderBluePlus2Path, starIconPath, pedestalPath, starBackgroundPath,
+          expBackgroundPath, pageIconPath, heroUpperBackgroundPath, heroBottomBackgroundPath,
           equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
           skillsIconPath, skillsIconSelectedPath, statsIconPath, statsIconSelectedPath,
           awakenIconPath, awakenIconBackgroundPath, nextGlyphsIconPath, helpIconPath,
           // Heroes
           aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
-          nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath
+          nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
+          // Heroes Stats
+          aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath, leryssaStatsPath,
+          nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath, zayaStatsPath,
+          // ---------------------
+          skillBackgroundPath, skillLabelPath, statsUpperBackgroundPath, statsBottomBackgroundPath,
+          statsGreyLabelPath, statsWhiteLabelPath, statsBackgroundPath
         ])
         .on("progress", loadProgressHandler)
         .load(setup);
@@ -499,6 +527,20 @@ function init() {
       fontSize: 20,
       align: 'right',
       fill: '#ff0000'
+    });
+
+    textStyleHeroStats_28left_black = new TextStyle({
+      fontFamily: myFontFamily,
+      fontSize: 28,
+      align: 'left',
+      fill: '#000'
+    });
+
+    textStyleHeroStatsLevel_32left_white = new TextStyle({
+      fontFamily: myFontFamily,
+      fontSize: 32,
+      align: 'left',
+      fill: '#fff'
     });
 
     // setLoadingContainer();
@@ -719,6 +761,8 @@ function addBanner(spritePath, parent, container) {
 // Add Close icon to the Container
 function addCloseIcon(container, parent) {
   closeIcon = new Sprite(resources[btnClosePath].texture);
+  closeIcon.width = 96;
+  closeIcon.height = 96;
   closeIcon.position.set(
     parent.x+parent.width-closeIcon.width/2-12,
     parent.y-closeIcon.height/2+12
@@ -984,7 +1028,7 @@ function setScrollArrowHeroes(container) {
   let scrollBtn192x72 = new Sprite(resources[scrollBtn192x72Path].texture);
   scrollBtn192x72.position.set(1716, 12);
 
-  let scrollArrow72x36 = new Sprite(resources[scrollArrow72x36Path].texture);
+  scrollArrow72x36 = new Sprite(resources[scrollArrow72x36Path].texture);
   scrollArrow72x36.position.set(1812, 48);
   scrollArrow72x36.anchor.set(0.5);
   scrollArrow72x36.scale.y = -1;
@@ -1022,17 +1066,18 @@ function addBackIconHeroes(container) {
   backIcon.on('pointerup', () => {
     setInteractive(backIcon, false);
     console.log('backIconHeroes clicked');
-      stage.removeChild(container);
-      scrollArrow72x36_mc.scale.y = -1;
-      mainScreenContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-      console.log(stage.children);
-      console.log(stage.children.length);
-      if (stage.children.length === 1) {
-        setTimeout(() => {
-          setInteractive(avatarContainer, true);
-          setInteractive(summonBooks_mac, true);
-        }, LATENCY);
-      }
+    // console.log('before remove', container.children);
+    stage.removeChild(container);
+    scrollArrow72x36_mc.scale.y = -1;
+    mainScreenContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
+    // console.log(stage.children);
+    // console.log(stage.children.length);
+    if (stage.children.length === 1) {
+      setTimeout(() => {
+        setInteractive(avatarContainer, true);
+        setInteractive(summonBooks_mac, true);
+      }, LATENCY);
+    }
   });
 }
 
@@ -1621,6 +1666,7 @@ function setBarContainer(container) {
   barBackgroundEnergy_bc.position.set(472, 36);
 
   let plusBarEnergy_bc = new Sprite(resources[plusIconPath].texture);
+  plusBarEnergy_bc.width = plusBarEnergy_bc.height = 56;
   plusBarEnergy_bc.position.set(728, 36);
 
   let textBarEnergy_bc = new Text('', textStyleLevel_40_white);
@@ -1629,6 +1675,7 @@ function setBarContainer(container) {
   barBackgroundGold_bc.position.set(804, 36);
 
   let plusGold_bc = new Sprite(resources[plusIconPath].texture);
+  plusGold_bc.width = plusGold_bc.height = 56;
   plusGold_bc.position.set(1060, 36);
 
   let goldIcon_bc = new Sprite(resources[goldIconPath].texture);
@@ -1640,6 +1687,7 @@ function setBarContainer(container) {
   barBackgroundDiamond_bc.position.set(1136, 36);
 
   let plusDiamond_bc = new Sprite(resources[plusIconPath].texture);
+  plusDiamond_bc.width = plusDiamond_bc.height = 56;
   plusDiamond_bc.position.set(1392, 36);
 
   let diamondIcon_bc = new Sprite(resources[diamondIconPath].texture);
@@ -1826,11 +1874,15 @@ function setScrollContainer(container) {
     if (heroes_sc.visible) {
       mainScreenContainer.removeChild(scrollContainer);
       mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-      // console.log(stage.children.length);
+      console.log('stage.children.length', stage.children.length);
+      if (stage.children.length === 2) {
+        console.log(heroesContainer.children[heroesContainer.children.length-1]);
+        scrollArrow72x36.scale.y = -1;
+        heroesContainer.removeChild(heroesContainer.children[heroesContainer.children.length-1]);
+      }
       if (stage.children.length === 1) {
         setHeroesContainer();
       }
-      // scrollContainer.visible = false;
     }
   });
 
@@ -2472,8 +2524,11 @@ function setSummonContainer() {
   stage.addChild(summonContainer);
 }
 
-let i = 1;
-let sinNotSummon;
+// let i = 1;
+// let sinNotSummon;
+const portraitsPerPage = 8;
+// let sumPages = 0;
+// let currentPage = 0;
 
 // Setup summonContainer (when player click on 'Summon ×1 (×10)' button this screen is shown)
 function setHeroesContainer() {
@@ -2484,7 +2539,6 @@ function setHeroesContainer() {
   setBookBackground(heroesContainer);
   setBarContainer(heroesContainer);
   setScrollArrowHeroes(heroesContainer);
-  addArrows(heroesContainer);
 
   setInteractive(avatarContainer, false);
   setInteractive(summonBooks_mac, false);
@@ -2498,80 +2552,9 @@ function setHeroesContainer() {
   addBookmark(heroesContainer, 1260, 944, mageIconPath);
   addBookmark(heroesContainer, 1380, 944, supportIconPath);
 
-  socket.on('heroesContainerData', (data) => {
-    console.log('heroesContainerData\n', data);
+  setHeroesPortraitContainer();
 
-    let x = 332;
-    let y = 205;
-    let l = 8;
-    let len = data.heroesMsg.length;
-    console.log(i);
-    let page = 1;
-    let sumPages = 1;
-    let min = 0;
-    let mod = 0;
-
-    let heroesNames = [];
-
-    for (let i = 0; i < len; i++) {
-      // console.log(data.heroesMsg[i].name);
-      heroesNames.push(data.heroesMsg[i].name);
-    }
-    console.log('heroesNames', heroesNames);
-
-    for (let i = 0; i < heroesNames.length; i++) {
-      switch (heroesNames[i]) {
-        case 'Aelois':
-          // console.log(i, heroesNames[i]);
-          addHeroPortrait(heroesContainer, aeloisPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Amara':
-          addHeroPortrait(heroesContainer, amaraPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Crystal':
-          addHeroPortrait(heroesContainer, crystalPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Diu Win':
-          addHeroPortrait(heroesContainer, diuwinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Leona':
-          addHeroPortrait(heroesContainer, leonaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Leryssa':
-          addHeroPortrait(heroesContainer, leryssaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Nadia':
-          addHeroPortrait(heroesContainer, nadiaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Nyx':
-          addHeroPortrait(heroesContainer, nyxPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Sin':
-          addHeroPortrait(heroesContainer, sinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Zalajin':
-          addHeroPortrait(heroesContainer, zalajinPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-        case 'Zaya':
-          addHeroPortrait(heroesContainer, zayaPath, i, data.heroesMsg[i].stars,
-            data.heroesMsg[i].summoned);
-          break;
-      }
-    }
-
-  });
-
-  // heroesContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
+  addArrows(heroesContainer);
 
   addBackIconHeroes(heroesContainer);
 
@@ -2599,50 +2582,346 @@ function setHeroesContainer() {
   console.log('heroes:\n', stage.children);
 }
 
+let numberOfHeroes;
+
+// Setup hero's portraits in heroesContainer
+function setHeroesPortraitContainer() {
+  heroesPortraitContainer = new Container();
+
+  socket.on('heroesContainerData', (data) => {
+    console.log('heroesContainerData\n', data);
+
+    let heroesNames = [];
+    let bookPages = [];
+    let sumPages = 0;
+
+    numberOfHeroes = data.heroesMsg.length;
+
+    for (let i = 0; i < data.heroesMsg.length; i++) {
+      // console.log(data.heroesMsg[i].name);
+      heroesNames.push(data.heroesMsg[i].name);
+      // console.log('i', i);
+      if (i < portraitsPerPage) {
+        bookPages[i] = 0;
+        // console.log('bookPages[i]', i, ':', bookPages[i]);
+      } else if (i > portraitsPerPage-1 && i < 2*portraitsPerPage) {
+        bookPages[i] = 1;
+        sumPages = 1;
+      } else if (i > 2*portraitsPerPage-1 && i < 3*portraitsPerPage) {
+        bookPages[i] = 2;
+        sumPages = 2;
+      }
+    }
+
+    // console.log('heroesNames', heroesNames);
+    // console.log('bookPages', bookPages);
+    // console.log('sumPages', sumPages);
+
+    function heroNotSummon(urlName, i) {
+      const myLoader = PIXI.loader;
+      let heroNotSummonPath = `/images/game/heroes/${urlName}/${urlName}_stats_grey.png`;
+
+      if (heroNotSummonPath in loader.resources) {
+        console.log('already in stage');
+        addHeroPortrait(heroNotSummonPath, i, bookPages[i],
+          data.heroesMsg[i].urlName,
+          data.heroesMsg[i].color,
+          data.heroesMsg[i].stars,
+          data.heroesMsg[i].summoned
+        );
+      } else {
+        loader
+          .add(heroNotSummonPath);
+      }
+
+      loader
+        .on('complete', (loader, resources) => {
+          addHeroPortrait(heroNotSummonPath, i, bookPages[i],
+            data.heroesMsg[i].urlName,
+            data.heroesMsg[i].color,
+            data.heroesMsg[i].stars,
+            data.heroesMsg[i].summoned
+          );
+        });
+      // console.log('resources', loader.resources);
+    }
+
+    for (let i = 0; i < heroesNames.length; i++) {
+      switch (heroesNames[i]) {
+        case 'Aelois':
+          // console.log(i, heroesNames[i]);
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(aeloisStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Amara':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(amaraStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Crystal':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(crystalStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Diu Win':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(diuwinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Leona':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(leonaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Leryssa':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(leryssaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Nadia':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(nadiaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Nyx':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(nyxStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Sin':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(sinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Zalajin':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(zalajinStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+        case 'Zaya':
+          if (data.heroesMsg[i].summoned === 'no') {
+            heroNotSummon(data.heroesMsg[i].urlName, i);
+          }
+          if (data.heroesMsg[i].summoned === 'yes') {
+            addHeroPortrait(zayaStatsPath, i, bookPages[i],
+              data.heroesMsg[i].urlName,
+              data.heroesMsg[i].color,
+              data.heroesMsg[i].stars,
+              data.heroesMsg[i].summoned
+            );
+          }
+          break;
+      }
+    }
+    // socket.removeAllListeners();
+    socket.off('heroesContainerData');
+  });
+
+  // heroesPortraitContainer.position.x = 0;
+  heroesContainer.addChild(heroesPortraitContainer);
+}
+
+let heroIconClicked = 'glyphs';
+
+function selectBorder(border, color) {
+  // let border = new Sprite(resources[borderGreyPath].texture);
+
+  let borderGreen = new Sprite(resources[borderGreenPath].texture);
+  let borderGreenPlus1 = new Sprite(resources[borderGreenPlus1Path].texture);
+  let borderBlue = new Sprite(resources[borderBluePath].texture);
+  let borderBluePlus1 = new Sprite(resources[borderBluePlus1Path].texture);
+  let borderBluePlus2 = new Sprite(resources[borderBluePlus2Path].texture);
+
+  // console.log('color', color);
+
+  switch (color) {
+    case 'Green':
+      border.texture = borderGreen.texture;
+      break;
+    case 'Green +1':
+      border.texture = borderGreenPlus1.texture;
+      break;
+    case 'Blue':
+      border.texture = borderBlue.texture;
+      break;
+    case 'Blue +1':
+      border.texture = borderBluePlus1.texture;
+      break;
+    case 'Blue +2':
+      border.texture = borderBluePlus2.texture;
+      break;
+  }
+}
+
+function selectClass(classIcon, textClass) {
+
+  let tankIcon = new Sprite(resources[tankIconPath].texture);
+  let fighterIcon = new Sprite(resources[fighterIconPath].texture);
+  let marksmanIcon = new Sprite(resources[marksmanIconPath].texture);
+  let mageIcon = new Sprite(resources[mageIconPath].texture);
+  let supportIcon = new Sprite(resources[supportIconPath].texture);
+
+  switch (textClass) {
+    case 'Tank':
+      classIcon.texture = tankIcon.texture;
+      break;
+    case 'Fighter':
+      classIcon.texture = fighterIcon.texture;
+      break;
+    case 'Marksman':
+      classIcon.texture = marksmanIcon.texture;
+      break;
+    case 'Mage':
+      classIcon.texture = mageIcon.texture;
+      break;
+    case 'Support':
+      classIcon.texture = supportIcon.texture;
+      break;
+  }
+}
+
 // Add hero portrait to the 'heroes screen' (after 'Heroes' clicked from scrollmenu)
-function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 332, 205 (195)
-  const l = 8;
+function addHeroPortrait(heroNamePath, i, bPi, urlName, color, starCount, summoned) { // 332, 205 (195)
+
+  let heroPortraitContainer = new Container();
 
   let border = new Sprite(resources[borderGreyPath].texture);
+  selectBorder(border, color);
+
   border.width = 278;
   border.height = 332;
 
-  switch (i%l) {
+  switch (i%portraitsPerPage) {
     case 0:
-      border.position.set(332, 205);
+      border.position.set(1920*bPi+332, 205);
       break;
     case 1:
-      border.position.set(634, 205);
+      border.position.set(1920*bPi+634, 205);
       break;
     case 2:
-      border.position.set(332, 561);
+      border.position.set(1920*bPi+332, 561);
       break;
     case 3:
-    border.position.set(634, 561);
+    border.position.set(1920*bPi+634, 561);
       break;
     case 4:
-      border.position.set(1008, 205);
+      border.position.set(1920*bPi+1008, 205);
       break;
     case 5:
-      border.position.set(1310, 205);
+      border.position.set(1920*bPi+1310, 205);
       break;
     case 6:
-      border.position.set(1008, 561);
+      border.position.set(1920*bPi+1008, 561);
       break;
     case 7:
-      border.position.set(1310, 561);
+      border.position.set(1920*bPi+1310, 561);
       break;
   }
   setInteractive(border, true);
 
+  border.on('pointerup', () => {
+    if (summoned === 'yes') {
+      console.log('you clicked on', urlName, 'portrait');
+      setHeroContainer(urlName, heroIconClicked);
+    } else if (summoned === 'no') {
+      console.log(urlName, 'not summoned yet.');
+    }
+  });
+
   let hero = new Sprite(resources[heroNamePath].texture);
-  // hero.scale.set(0.8);
+  // console.log(heroNamePath);
+  let grey = new RegExp('\_grey');
+  // console.log(grey.test(heroNamePath));
+  if (!grey.test(heroNamePath)) {
+    hero.scale.set(0.5);
+  }
   hero.position.set(
     setMiddlePos(border, hero).x,
     setMiddlePos(border, hero).y
   );
 
-  container.addChild(hero);
+  heroPortraitContainer.addChild(hero);
 
   let banner = new Sprite(resources[banner620x98GreyPath].texture);
   banner.width = 256;
@@ -2652,21 +2931,17 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
     border.y+border.height-116
   );
 
+  // TODO: pridat ikony dle tridy hrdiny (tank, support, ...)
+
   function addGlyphIcon(spritePath, offsetX) {
     let glyph = new Sprite(resources[spritePath].texture);
+    glyph.width = glyph.height = 48;
     glyph.position.set(
       setMiddlePos(border, glyph).x+offsetX,
       border.y+border.height-72
     );
 
-    container.addChild(glyph);
-  }
-
-  if (summoned === 'yes') {
-    addGlyphIcon(noGlyphIconPath, -28);
-    addGlyphIcon(noGlyphIconPath, -84);
-    addGlyphIcon(noGlyphIconPath, 28);
-    addGlyphIcon(noGlyphIconPath, 84);
+    heroPortraitContainer.addChild(glyph);
   }
 
   function addPageCounter() {
@@ -2685,11 +2960,7 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       pageIcon.y
     );
 
-    container.addChild(pageIcon, barBackground);
-  }
-
-  if (summoned === 'no') {
-    addPageCounter();
+    heroPortraitContainer.addChild(pageIcon, barBackground);
   }
 
   function addStarIcon(offsetX) {
@@ -2701,7 +2972,7 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       border.y+border.height-141
     );
 
-    container.addChild(star);
+    heroPortraitContainer.addChild(star);
   }
 
   // let starCounter = starCount;
@@ -2733,18 +3004,1341 @@ function addHeroPortrait(container, heroNamePath, i, starCount, summoned) { // 3
       addStarIcon(0);
   }
 
-  container.addChild(border, banner);
+  if (summoned === 'yes') {
+    addGlyphIcon(noGlyphIconPath, -28);
+    addGlyphIcon(noGlyphIconPath, -84);
+    addGlyphIcon(noGlyphIconPath, 28);
+    addGlyphIcon(noGlyphIconPath, 84);
+  } else if (summoned === 'no') {
+    addPageCounter();
+  }
+
+  heroPortraitContainer.addChild(border, banner);
+  // console.log('delka:', heroesPortraitContainer.children.length);
+  // console.log('i', i);
+  // console.log('numberOfHeroes', numberOfHeroes);
+  if (heroesPortraitContainer.children.length < numberOfHeroes) {
+    heroesPortraitContainer.addChild(heroPortraitContainer);
+  }
+}
+
+function disableHeroPortraitsInteraction() {
+  for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+    let borderIndex = stage.children[1].children[18].children[i].children.length;
+    // console.log('borderIndex', borderIndex);
+    setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+  }
+}
+
+// Add close icon (button) to the heroContainer
+function addHeroBtnClose(container) {
+  let btnClose = new Sprite(resources[btnClosePath].texture);
+  btnClose.position.set(GAME_WIDTH-36-btnClose.width, 36);
+  setInteractive(btnClose, true);
+
+  container.addChild(btnClose);
+
+  btnClose.on('pointerup', () => {
+    console.log('hero close clicked');
+    stage.removeChild(stage.children[stage.children.length-1]);
+    setTimeout(() => {
+      setInteractive(stage.children[1].children[20], true); // rightArrow interactive -> true
+      setInteractive(stage.children[1].children[21], true); // back button interactive -> true
+      setInteractive(scrollArrow72x36, true);
+      for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+        let borderIndex = stage.children[1].children[18].children[i].children.length;
+        // console.log('borderIndex', borderIndex);
+        setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], true);
+      }
+    }, LATENCY);
+  });
+}
+
+// Stats part of Hero screen
+function addStatsContainer(container, heroName) {
+  let statsContainer = new Container();
+  console.log('heroName from statsContainer', heroName);
+
+  socket.emit('heroContainer', heroName);
+
+  let statsBackground = new Sprite(resources[statsBackgroundPath].texture);
+  statsBackground.position.set(1008, 205);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.width = 476;
+  banner.height = 76;
+  banner.position.set(344+(556/2-banner.width/2), 780);
+
+  let textBanner = new Text('', textStyleLevel_40_white);
+
+  let textLevel = new Text('', textStyleHeroStatsLevel_32left_white);
+  textLevel.position.set(452, 794);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  function addHeroSprite(heroSpritePath) {
+    let heroSprite = new Sprite(resources[heroSpritePath].texture);
+    heroSprite.position.set(344, 217);
+
+    statsContainer.addChild(heroSprite, banner, textBanner, textLevel, classIcon);
+  }
+
+  switch (heroName) {
+    case 'aelois':
+      addHeroSprite(aeloisStatsPath);
+      break;
+    case 'amara':
+      addHeroSprite(amaraStatsPath);
+      break;
+    case 'crystal':
+      addHeroSprite(crystalStatsPath);
+      break;
+    case 'diuwin':
+      addHeroSprite(diuwinStatsPath);
+      break;
+    case 'leona':
+      addHeroSprite(leonaStatsPath);
+      break;
+    case 'leryssa':
+      addHeroSprite(leryssaStatsPath);
+      break;
+    case 'nadia':
+      addHeroSprite(nadiaStatsPath);
+      break;
+    case 'nyx':
+      addHeroSprite(nyxStatsPath);
+      break;
+    case 'sin':
+      addHeroSprite(sinStatsPath);
+      break;
+    case 'zalajin':
+      addHeroSprite(zalajinStatsPath);
+      break;
+    case 'zaya':
+      addHeroSprite(zayaStatsPath);
+      break;
+  }
+
+  function addStarIcon(offsetX) {
+    let star = new Sprite(resources[starIconPath].texture);
+    star.position.set(
+      setMiddlePos(banner, star).x+offsetX,
+      736
+    );
+
+    statsContainer.addChild(star);
+  }
+
+  let statsUpperBackground = new Sprite(resources[statsUpperBackgroundPath].texture);
+  statsUpperBackground.position.set(1032, 229);
+
+  let statsBottomBackgroundContainer = new Container();
+  statsBottomBackgroundContainer.x = 1044;
+  statsBottomBackgroundContainer.y = 412;
+  // statsBottomBackgroundContainer.width = 508;
+  // statsBottomBackgroundContainer.height = 254;
+  statsBottomBackgroundContainer.interactive = true;
+  statsBottomBackgroundContainer.buttonMode = true;
+  // statsBottomBackgroundContainer.anchor.set(0.5);
+
+  let statsBottomBackground = new Sprite(resources[statsBottomBackgroundPath].texture);
+  statsBottomBackground.position.set(1032, 399); // 1032, 399
+
+  let textStatsUpperBackground = new Text('', textStyleHeroStats_28left_black);
+
+  // let textStatsBottomBackground = new Text('', textStyleHeroStats_28left_black);
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(statsUpperBackground, textPowerBar).x,
+    692
+  );
+
+  socket.emit('stats', '');
+
+  //
+  function addGreyLabel(i, atribute, value) {
+    let statsLabel;
+    let maxY = statsBottomBackground.y+statsBottomBackground.height;
+
+    if (i%2 === 0) {
+      statsLabel = new Sprite(resources[statsGreyLabelPath].texture);
+    } else if (i%2 === 1) {
+      statsLabel = new Sprite(resources[statsWhiteLabelPath].texture);
+    }
+
+    statsLabel.position.set(0, i*statsLabel.height);
+    // console.log('statsLabel:', statsLabel.x, statsLabel.y);
+
+    statsBottomBackgroundContainer.addChild(statsLabel);
+
+    let textStats = new Text('', textStyleHeroStats_28left_black);
+    let valueStats = new Text('', textStyleHeroStats_28left_black);
+
+    socket.on('statsData', (data) => {
+      // console.log('statsData', data);
+      switch (atribute) {
+        case 'health':
+          textStats.text = data.health;
+          break;
+        case 'attackDamage':
+          textStats.text = data.attackDamage;
+          break;
+        case 'abilityPower':
+          textStats.text = data.abilityPower;
+          break;
+        case 'armor':
+          textStats.text = data.armor;
+          break;
+        case 'magicResist':
+          textStats.text = data.magicResist;
+          break;
+        case 'attackSpeed':
+          textStats.text = data.attackSpeed;
+          break;
+        case 'healthRegen':
+          textStats.text = data.healthRegen;
+          break;
+        case 'energyRegen':
+          textStats.text = data.energyRegen;
+          break;
+        case 'critDamageLevel':
+          textStats.text = data.critDamageLevel;
+          break;
+        case 'critStrikeLevel':
+          textStats.text = data.critStrikeLevel;
+          break;
+        case 'dodgeLevel':
+          textStats.text = data.dodgeLevel;
+          break;
+        case 'lifeStealLevel':
+          textStats.text = data.lifeStealLevel;
+          break;
+        case 'energySteal':
+          textStats.text = data.energySteal;
+          break;
+        case 'energyBoost':
+          textStats.text = data.energyBoost;
+          break;
+        case 'armorPenetration':
+          textStats.text = data.armorPenetration;
+          break;
+        case 'magicPenetration':
+          textStats.text = data.magicPenetration;
+          break;
+        case 'healingEffect':
+          textStats.text = data.healingEffect;
+          break;
+        case 'shieldEffect':
+          textStats.text = data.shieldEffect;
+          break;
+      }
+
+      textStats.position.set(12, i*statsLabel.height);
+
+      valueStats.text = value;
+      valueStats.position.set(
+        statsLabel.x+statsLabel.width-12-valueStats.width,
+        i*statsLabel.height
+      );
+
+      // console.log('valueStats', valueStats.y+statsBottomBackground.y);
+      // console.log(statsBottomBackground.y+statsBottomBackground.height);
+      // if (statsLabel.y+statsBottomBackground.y >= maxY) {
+      //   statsLabel.visible = false;
+      //   textStats.visible = false;
+      //   valueStats.visible = false;
+      // }
+
+      // console.log('text:', textStats.x, textStats.y, textStats.text);
+
+      statsBottomBackgroundContainer.addChild(textStats, valueStats);
+    });
+  }
+
+
+  statsContainer.addChild(statsBottomBackground);
+  statsContainer.addChild(statsBottomBackgroundContainer);
+  statsContainer.addChild(statsUpperBackground, textStatsUpperBackground,
+    textPowerBar, statsBackground);
+  container.addChild(statsContainer);
+
+  console.log('stage', stage.children[2].children[16].children[6].children);
+
+  // Methods for dragging 'statsBottomBackgroundContainer'
+  statsBottomBackgroundContainer
+    .on('pointerdown', onDragStart)
+    .on('pointerup', onDragEnd)
+    .on('pointermove', onDragMoveY);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    let i = 0;
+    for (let item in data) {
+      // console.log(item);
+      if (data[item] > 0) {
+        if (item !== 'stars' && item !== 'currPages' && item !== 'nextPages'
+        && item !== 'level' && item !== 'heroNextLvlExp' && item !== 'heroCurrLvlExp'
+        && item !== 'power' && item !== 'hitLevel' && item !== 'movementSpeed'
+        && item !== 'attackRange') {
+          let grey = new RegExp('Inc');
+          if (!grey.test(item)) {
+            console.log(item,'-', data[item]);
+            addGreyLabel(i, item, data[item]);
+            i++;
+          }
+        }
+      }
+    }
+    console.log('pocet', i);
+
+    textBanner.text = data.name;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      794
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.5);
+    classIcon.position.set(782, 798);
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(statsUpperBackground, textPowerBar).x,
+      692
+    );
+
+    switch (data.stars) {
+      case 2:
+        addStarIcon(-26);
+        addStarIcon(26);
+        break;
+      case 3:
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        break;
+      case 4:
+        addStarIcon(-78);
+        addStarIcon(-26);
+        addStarIcon(26);
+        addStarIcon(78);
+        break;
+      case 5:
+        addStarIcon(-104);
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        addStarIcon(104);
+        break;
+      default:
+        addStarIcon(0);
+    }
+
+    textStatsUpperBackground.text = data.description;
+    textStatsUpperBackground.position.set(1050, 244);
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+}
+
+// Glyph part of Hero screen
+function addGlyphsContainer(container, heroName) {
+  let glyphsContainer = new Container();
+  console.log('heroName from glyphsContainer', heroName);
+
+  socket.emit('heroContainer', heroName);
+  // console.log('glyphsContainer', stage.children);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+  let awakenIconBackground = new Sprite(resources[awakenIconBackgroundPath].texture);
+  awakenIconBackground.position.set(1032, 229);
+
+  let awakenIcon = new Sprite(resources[awakenIconPath].texture);
+  awakenIcon.position.set(1048, 241);
+
+  // TODO: zanest u kazdeho hrdiny tuto informaci o awaken statusu
+  let textAwakenIcon = new Text(`This hero's mysterious
+power has not been
+awakened. Stay tuned!`, textStyle_32left_black);
+  textAwakenIcon.position.set(1192, setMiddlePos(awakenIconBackground, textAwakenIcon).y+4);
+
+  function addGlyphIcon(spritePath, index, equipped) {
+    // console.log(index+' '+spritePath);
+    let glyph = new Sprite(resources[spritePath].texture);
+    // setInteractive(glyph, true);
+    let noGlyphIcon = new Sprite(resources[noGlyphIconPath].texture);
+
+    if (equipped === 'no') {
+      switch (index) {
+        case 0:
+          glyph.position.set(1158, 393);
+          noGlyphIcon.position.set(1158, 393);
+          break;
+        case 1:
+          glyph.position.set(1310, 393);
+          noGlyphIcon.position.set(1310, 393);
+          break;
+        case 2:
+          glyph.position.set(1158, 545);
+          noGlyphIcon.position.set(1158, 545);
+          break;
+        case 3:
+          glyph.position.set(1310, 545);
+          noGlyphIcon.position.set(1310, 545);
+          break;
+      }
+      glyphsContainer.addChild(glyph, noGlyphIcon);
+    } else {
+      switch (index) {
+        case 0:
+          glyph.position.set(1158, 393);
+          break;
+        case 1:
+          glyph.position.set(1310, 393);
+          break;
+        case 2:
+          glyph.position.set(1158, 545);
+          break;
+        case 3:
+          glyph.position.set(1310, 545);
+          break;
+      }
+      glyphsContainer.addChild(glyph);
+    }
+  }
+
+  let border = new Sprite(resources[borderGreyPath].texture);
+  border.position.set(374, 242);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.position.set(312, 204);
+
+  let textBanner = new Text('', textStyleBubble_52_white);
+  let textLevel = new Text('', textStyleLevel_40_white);
+  textLevel.position.set(392, 228);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  let pedestal = new Sprite(resources[pedestalPath].texture);
+
+  let starBackground = new Sprite(resources[starBackgroundPath].texture);
+  starBackground.position.set(394, 752);
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(awakenIconBackground, textPowerBar).x,
+    692
+  );
+
+  //
+  function addStarIcon(offsetX) {
+    let star = new Sprite(resources[starIconPath].texture);
+    star.position.set(
+      setMiddlePos(starBackground, star).x+offsetX,
+      setMiddlePos(starBackground, star).y
+    );
+
+    glyphsContainer.addChild(star);
+  }
+
+  let expBar = new Sprite(resources[expBackgroundPath].texture);
+  expBar.position.set(341, 845);
+
+  let textHeroExpOfLevels = new Text('', textStyleLevel_40_white);
+
+  let pageBar = new Sprite(resources[expBackgroundPath].texture);
+  pageBar.position.set(643, 845);
+
+  let pageIcon = new Sprite(resources[pageIconPath].texture);
+  pageIcon.position.set(pageBar.x, pageBar.y-4);
+
+  let expBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+  expBarPlusIcon.width = expBarPlusIcon.height = 56;
+  expBarPlusIcon.position.set(
+    expBar.x+expBar.width-expBarPlusIcon.width,
+    expBar.y-4
+  );
+
+  let pageBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+  pageBarPlusIcon.width = pageBarPlusIcon.height = 56;
+  pageBarPlusIcon.position.set(
+    pageBar.x+pageBar.width-pageBarPlusIcon.width,
+    pageBar.y-4
+  );
+
+  let textNumberOfPages = new Text('', textStyleLevel_40_white);
+
+  let nextGlyphsIcon = new Sprite(resources[nextGlyphsIconPath].texture);
+  nextGlyphsIcon.position.set(1516, 617);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    selectBorder(border, data.color);
+    border.position.set(374, 242);
+
+    textBanner.text = data.name;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      228
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.6);
+    classIcon.position.set(830, 230);
+
+    pedestal.position.set(
+      setMiddlePos(border, pedestal).x,
+      643
+    );
+
+    switch (data.stars) {
+      case 2:
+        addStarIcon(-26);
+        addStarIcon(26);
+        break;
+      case 3:
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        break;
+      case 4:
+        addStarIcon(-78);
+        addStarIcon(-26);
+        addStarIcon(26);
+        addStarIcon(78);
+        break;
+      case 5:
+        addStarIcon(-104);
+        addStarIcon(-52);
+        addStarIcon(0);
+        addStarIcon(52);
+        addStarIcon(104);
+        break;
+      default:
+        addStarIcon(0);
+    }
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(awakenIconBackground, textPowerBar).x,
+      692
+    );
+
+    if (data.nextPages === 0) {
+      textNumberOfPages.text = 'MAX';
+    } else {
+      textNumberOfPages.text = data.currPages+'/'+data.nextPages;
+    }
+    textNumberOfPages.position.set(
+      setMiddlePos(pageBar, textNumberOfPages).x,
+      setMiddlePos(pageBar, textNumberOfPages).y
+    );
+
+    textHeroExpOfLevels.text = data.heroCurrLvlExp+'/'+data.heroNextLvlExp;
+    textHeroExpOfLevels.position.set(
+      setMiddlePos(expBar, textHeroExpOfLevels).x,
+      setMiddlePos(expBar, textHeroExpOfLevels).y
+    );
+
+    for (let i of data.glyphsRarity) {
+      // console.log('i', i);
+      if (i.current_status === data.color) {
+        for (const item of i.glyphs) {
+          let index = i.glyphs.indexOf(item);
+          // console.log(index+': '+item.title+' - '+item.equipped); //i.glyphs., i.glyphs.equipped);
+          let spriteGlyphIconPath;
+          switch (item.title) {
+            case 'Ability Power':
+              spriteGlyphIconPath = abilityPowerIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Armor':
+              spriteGlyphIconPath = armorIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Armor Penetration':
+              spriteGlyphIconPath = armorPenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Attack Damage':
+              spriteGlyphIconPath = attackDamageIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Attack Force':
+              spriteGlyphIconPath = attackForceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Crit Strike':
+              spriteGlyphIconPath = critStrikeIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Double Attack':
+              spriteGlyphIconPath = doubleAttackIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Energy Regen':
+              spriteGlyphIconPath = energyRegenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Hardiness':
+              spriteGlyphIconPath = hardinessIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Health':
+              spriteGlyphIconPath = healthIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Health Regen':
+              spriteGlyphIconPath = healthRegenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Force':
+              spriteGlyphIconPath = magicForceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Penetration':
+              spriteGlyphIconPath = magicPenIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Resist':
+              spriteGlyphIconPath = magicResistIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Regenerate':
+              spriteGlyphIconPath = regenerateIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Aggression':
+              spriteGlyphIconPath = aggressionIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Avarice':
+              spriteGlyphIconPath = avariceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Balance':
+              spriteGlyphIconPath = balanceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Bloodthirst':
+              spriteGlyphIconPath = bloodthirstIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Bravery':
+              spriteGlyphIconPath = braveryIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Cardio':
+              spriteGlyphIconPath = cardioIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Chivalry':
+              spriteGlyphIconPath = chivalryIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Defense':
+              spriteGlyphIconPath = defenseIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Divine Power':
+              spriteGlyphIconPath = divinePowerIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Enforcement':
+              spriteGlyphIconPath = enforcementIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Extra Health':
+              spriteGlyphIconPath = extraHealthIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Fortitude':
+              spriteGlyphIconPath = fortitudeIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Illusion':
+              spriteGlyphIconPath = illusionIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Immortality':
+              spriteGlyphIconPath = immortalityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Infinity':
+              spriteGlyphIconPath = infinityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Magic Shield':
+              spriteGlyphIconPath = magicShieldIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Meditation':
+              spriteGlyphIconPath = meditationIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Nature':
+              spriteGlyphIconPath = natureIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Osmosis':
+              spriteGlyphIconPath = osmosisIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Providence':
+              spriteGlyphIconPath = providenceIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Prowess':
+              spriteGlyphIconPath = prowessIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Sublimity':
+              spriteGlyphIconPath = sublimityIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+            case 'Valor':
+              spriteGlyphIconPath = valorIconPath;
+              addGlyphIcon(spriteGlyphIconPath, index, item.equipped);
+              break;
+          }
+        }
+      }
+    }
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+
+  glyphsContainer.addChild(heroUpperBackground, awakenIconBackground, awakenIcon,
+    textAwakenIcon, starBackground, pedestal, textPowerBar,
+    expBar, expBarPlusIcon, textHeroExpOfLevels,
+    pageBar, pageIcon, pageBarPlusIcon, textNumberOfPages,
+    nextGlyphsIcon);
+
+  //
+  function addHero(heroPath) {
+    let hero = new Sprite(resources[heroPath].texture);
+    hero.position.set(
+      setMiddlePos(border, hero).x,
+      667-hero.height
+    );
+    glyphsContainer.addChild(hero);
+  }
+
+  switch (heroName) {
+    case 'aelois':
+      addHero(aeloisPath);
+      // let aelois = new Sprite(resources[aeloisPath].texture);
+      // aelois.position.set(
+      //   setMiddlePos(border, aelois).x,
+      //   667-aelois.height
+      // );
+      // glyphsContainer.addChild(aelois);
+      break;
+    case 'amara':
+      addHero(amaraPath);
+      break;
+    case 'crystal':
+      addHero(crystalPath);
+      break;
+    case 'diuwin':
+      addHero(diuwinPath);
+      break;
+    case 'leona':
+      addHero(leonaPath);
+      break;
+    case 'leryssa':
+      addHero(leryssaPath);
+      break;
+    case 'nadia':
+      addHero(nadiaPath);
+      break;
+    case 'nyx':
+      addHero(nyxPath);
+      break;
+    case 'sin':
+      addHero(sinPath);
+      break;
+    case 'zalajin':
+      addHero(zalajinPath);
+      break;
+    case 'zaya':
+      addHero(zayaPath);
+      break;
+  }
+
+  glyphsContainer.addChild(border, banner, textBanner, textLevel, classIcon);
+  container.addChild(glyphsContainer);
+}
+
+//
+function addSkillsContainer(container, heroName) {
+  let skillsContainer = new Container();
+  console.log('heroName from skillsContainer', heroName);
+
+  console.log(stage.children[1].children[18].children);
+
+  socket.emit('heroContainer', heroName);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+  let banner = new Sprite(resources[banner620x98Path].texture);
+  banner.width = 476;
+  banner.height = 76;
+  banner.position.set(1059, 172);
+
+  let textBanner = new Text('', textStyleLevel_40_white);
+
+  function addVideo(videoFilePath) {
+    let video = new Sprite(resources[videoFilePath].texture);
+    video.position.set(1032, 229);
+
+    skillsContainer.addChild(heroUpperBackground, video, banner, textBanner);
+  }
+
+  function loadVideo(heroName, filenamePath) {
+    // const myLoader = PIXI.loader;
+    let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
+
+    if (videoFilePath in loader.resources) {
+      console.log('video already loaded');
+      addVideo(videoFilePath);
+    } else {
+      loader
+        .add(videoFilePath);
+    }
+
+    loader
+      .on('complete', (loader, resources) => {
+        // TODO: video - http://pixijs.io/examples/?v=dev#/basics/video.js
+        // - http://www.html5gamedevs.com/topic/16450-pixi-loading-video-files/
+        addVideo(videoFilePath);
+      });
+  }
+
+  loadVideo(heroName, 'video_1');
+
+  let textPowerBar = new Text('Power: ', textStyleLevel_40_white);
+  textPowerBar.position.set(
+    setMiddlePos(banner, textPowerBar).x,
+    692
+  );
+  // console.log('power.x', setMiddlePos(banner, textPowerBar).x);
+
+  let textSkill1 = new Text('', textStyle_32left_black);
+  let textSkill2 = new Text('', textStyle_32left_black);
+  let textSkill3 = new Text('', textStyle_32left_black);
+  let textSkill4 = new Text('', textStyle_32left_black);
+
+  let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
+  let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
+
+  // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
+  // jednotlivych skillu pro dany level skillu
+
+  function loadSkillsIcons(heroName) {
+    let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
+    let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
+    let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
+    let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
+
+    function addSkillBackground(x, y, offsetY) {
+      let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
+      skillBackground.position.set(x, y+offsetY); //136
+
+      let skillLabel = new Sprite(resources[skillLabelPath].texture);
+      skillLabel.position.set(x+128, y+62+offsetY);
+
+      skillsContainer.addChild(skillBackground, skillLabel,
+        textSkill1, textSkill2, textSkill3, textSkill4,
+        textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
+      );
+    }
+
+    function addSkillIcon(spritePath, x, y, offsetY, i) {
+      let skillIcon = new Sprite(resources[spritePath].texture);
+      skillIcon.position.set(x, y+offsetY);
+      setInteractive(skillIcon, true);
+
+      skillIcon.on('pointerup', () => {
+        console.log(`skill ${i} clicked`);
+        // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
+      });
+
+      let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
+      skillPlusIcon.position.set(x+464, y+12+offsetY);
+      setInteractive(skillPlusIcon, true);
+
+      skillPlusIcon.on('pointerup', () => {
+        console.log(`plus for skill ${i} was pressed`);
+      });
+
+      skillsContainer.addChild(skillIcon, skillPlusIcon);
+    }
+
+    function addSkills() {
+      let offsetY = 0;
+      for (let i = 0; i < 4; i++) {
+        addSkillBackground(332, 359, offsetY);
+        switch (i) {
+          case 0:
+            addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
+            break;
+          case 1:
+            addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
+            break;
+          case 2:
+            addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
+            break;
+          case 3:
+            addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
+            break;
+        }
+        offsetY += 136;
+      }
+    }
+
+    if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
+      skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
+      console.log('skill icons already loaded');
+      addSkills();
+    } else {
+      loader
+        .add([
+          skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
+        ]);
+    }
+
+    loader
+      .on('complete', (loader, resources) => {
+        addSkills();
+      });
+  }
+
+  loadSkillsIcons(heroName);
+
+  let skillsBanner = new Sprite(resources[banner620x98Path].texture);
+  skillsBanner.position.set(312, 204);
+
+  let textSkillsBanner = new Text('', textStyleBubble_52_white);
+
+  let textLevel = new Text('', textStyleLevel_40_white);
+  textLevel.position.set(392, 228);
+
+  let classIcon = new Sprite(resources[allIconPath].texture);
+
+  socket.on('heroContainerData', (data) => {
+    console.log('heroContainerData\n', data);
+
+    textBanner.text = data.skills[0].title;
+    textBanner.position.set(
+      setMiddlePos(banner, textBanner).x,
+      setMiddlePos(banner, textBanner).y-4
+    );
+
+    textPowerBar.text = textPowerBar.text+data.power;
+    textPowerBar.position.set(
+      setMiddlePos(banner, textPowerBar).x,
+      692
+    );
+
+    textSkillsBanner.text = data.name;
+    textSkillsBanner.position.set(
+      setMiddlePos(skillsBanner, textSkillsBanner).x,
+      setMiddlePos(skillsBanner, textSkillsBanner).y-4
+    );
+
+    textLevel.text = data.level;
+    textLevel.position.set(
+      textLevel.x-textLevel.width/2,
+      228
+    );
+
+    selectClass(classIcon, data.class);
+    classIcon.scale.set(0.6);
+    classIcon.position.set(830, 230);
+
+    textSkill1.text = data.skills[0].title;
+    textSkill1.position.set(460, 384);
+
+    textSkillLevel1.text = textSkillLevel1.text+data.skills[0].skill_level;
+    textSkillLevel1.position.set(734, 428);
+
+    textSkill2.text = data.skills[1].title;
+    textSkill2.position.set(460, 520);
+
+    textSkillLevel2.text = textSkillLevel2.text+data.skills[1].skill_level;
+    textSkillLevel2.position.set(734, 564);
+
+    textSkill3.text = data.skills[2].title;
+    textSkill3.position.set(460, 656);
+
+    textSkillLevel3.text = textSkillLevel3.text+data.skills[2].skill_level;
+    textSkillLevel3.position.set(734, 700);
+
+    textSkill4.text = data.skills[3].title;
+    textSkill4.position.set(460, 792);
+
+    textSkillLevel4.text = textSkillLevel4.text+data.skills[3].skill_level;
+    textSkillLevel4.position.set(734, 836);
+
+    // socket.removeAllListeners();
+    socket.off('heroContainerData');
+  });
+
+  skillsContainer.addChild(textPowerBar, skillsBanner,
+    textSkillsBanner, textLevel, classIcon);
+  container.addChild(skillsContainer);
+}
+
+//
+function addEquipContainer(container, heroName) {
+  let equipContainer = new Container();
+
+  // console.log('equipContainer', stage.children);
+
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  heroUpperBackground.position.set(1008, 205);
+
+
+
+  equipContainer.addChild(heroUpperBackground);
+  container.addChild(equipContainer);
+}
+
+//
+function addHeroInfoIcons(container, iconClicked, heroName) {
+  console.log('iconClicked', iconClicked);
+
+  socket.emit('heroInfoIcons', heroName);
+
+  let infoIcon = new Sprite(resources[statsIconPath].texture);
+  let infoIconSelected = new Sprite(resources[statsIconSelectedPath].texture);
+
+  let statsIcon = new Sprite(resources[statsIconPath].texture);
+  statsIcon.position.set(1050, 741);
+  setInteractive(statsIcon, true);
+
+  let textStatsIcon = new Text('', textStyle_32center_black);
+
+  let glyphsIcon = new Sprite(resources[glyphsIconPath].texture);
+  setInteractive(glyphsIcon, true);
+  if (iconClicked === 'glyphs') {
+    glyphsIcon.texture = infoIconSelected.texture;
+    setInteractive(glyphsIcon, false);
+  }
+  glyphsIcon.position.set(1178, 741);
+
+  let textGlyphsIcon = new Text('', textStyle_32center_black);
+
+  let skillsIcon = new Sprite(resources[skillsIconPath].texture);
+  skillsIcon.position.set(1306, 741);
+  setInteractive(skillsIcon, true);
+
+  let textSkillsIcon = new Text('', textStyle_32center_black);
+
+  let equipIcon = new Sprite(resources[equipIconPath].texture);
+  equipIcon.position.set(1434, 741);
+  setInteractive(equipIcon, true);
+
+  let textEquipIcon = new Text('', textStyle_32center_black);
+
+  function setSelectedIcon(selectedIcon, notSelectedIcon) {
+    selectedIcon.texture = infoIcon.texture;
+    notSelectedIcon.texture = infoIconSelected.texture;
+    setInteractive(selectedIcon, true);
+    setInteractive(notSelectedIcon, false);
+  }
+
+  socket.on('heroInfoIconsData', (data) => {
+    console.log('heroInfoIconsData\n', data);
+
+    textStatsIcon.text = data.stats;
+    textStatsIcon.position.set(
+      setMiddlePos(statsIcon, textStatsIcon).x,
+      setMiddlePos(statsIcon, textStatsIcon).y
+    );
+
+    textGlyphsIcon.text = data.glyphs;
+    textGlyphsIcon.position.set(
+      setMiddlePos(glyphsIcon, textGlyphsIcon).x,
+      setMiddlePos(glyphsIcon, textGlyphsIcon).y
+    );
+
+    textSkillsIcon.text = data.skills;
+    textSkillsIcon.position.set(
+      setMiddlePos(skillsIcon, textSkillsIcon).x,
+      setMiddlePos(skillsIcon, textSkillsIcon).y
+    );
+
+    textEquipIcon.text = data.equip;
+    textEquipIcon.position.set(
+      setMiddlePos(equipIcon, textEquipIcon).x,
+      setMiddlePos(equipIcon, textEquipIcon).y
+    );
+
+    socket.off('heroInfoIconsData');
+  });
+
+  statsIcon.on('pointerup', () => {
+    console.log('statsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    // for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+    //   let borderIndex = stage.children[1].children[18].children[i].children.length;
+    //   // console.log('borderIndex', borderIndex);
+    //   setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+    // }
+    switch (iconClicked) {
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, statsIcon);
+        iconClicked = 'stats';
+        // console.log(container.children[15]);
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, statsIcon);
+        iconClicked = 'stats';
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, statsIcon);
+        iconClicked = 'stats';
+        container.removeChild(container.children[container.children.length-1]);
+        addStatsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  glyphsIcon.on('pointerup', () => {
+    console.log('glyphsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, glyphsIcon);
+        iconClicked = 'glyphs';
+        container.removeChild(container.children[container.children.length-1]);
+        addGlyphsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  skillsIcon.on('pointerup', () => {
+    console.log('skillsIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+      case 'equip':
+        setSelectedIcon(equipIcon, skillsIcon);
+        iconClicked = 'skills';
+        container.removeChild(container.children[container.children.length-1]);
+        addSkillsContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  equipIcon.on('pointerup', () => {
+    console.log('equipIcon clicked');
+    console.log('iconClicked', iconClicked);
+    console.log(stage.children[1].children[18].children);
+    switch (iconClicked) {
+      case 'stats':
+        setSelectedIcon(statsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+      case 'glyphs':
+        setSelectedIcon(glyphsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+      case 'skills':
+        setSelectedIcon(skillsIcon, equipIcon);
+        iconClicked = 'equip';
+        container.removeChild(container.children[container.children.length-1]);
+        addEquipContainer(container, heroName);
+        break;
+    }
+    // console.log('after iconClicked', iconClicked);
+  });
+
+  container.addChild(statsIcon, textStatsIcon, glyphsIcon, textGlyphsIcon,
+    skillsIcon, textSkillsIcon, equipIcon, textEquipIcon);
+}
+
+// Setup the hero screen (after player clicked on specific hero)
+function setHeroContainer(heroName, iconClicked) {
+  let heroContainer = new Container();
+
+  // socket.emit('heroContainer', heroName);
+
+  setBookBackground(heroContainer);
+  setBarContainer(heroContainer);
+  // setScrollArrowHeroes(heroesContainer);
+
+  setInteractive(stage.children[1].children[20], false); // rightArrow interactive -> false
+  setInteractive(stage.children[1].children[21], false); // back button interactive -> false
+  setInteractive(scrollArrow72x36, false);
+  // console.log(stage.children[1].children[18].children.length);
+  disableHeroPortraitsInteraction();
+  // for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
+  //   let borderIndex = stage.children[1].children[18].children[i].children.length;
+  //   // console.log('borderIndex', borderIndex);
+  //   setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
+  // }
+
+  addHeroBtnClose(heroContainer);
+
+  // TODO: pridat sipky vpravo, vlevo
+
+  // let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  // heroUpperBackground.position.set(1008, 205);
+
+  let heroBottomBackground = new Sprite(resources[heroBottomBackgroundPath].texture);
+  heroBottomBackground.position.set(1008, 713);
+
+  let powerBar = new Sprite(resources[expBackgroundPath].texture);
+  powerBar.position.set(1168, 689);
+
+  let helpIcon = new Sprite(resources[helpIconPath].texture);
+  helpIcon.position.set(powerBar.x+powerBar.width, 689);
+
+  heroContainer.addChild(heroBottomBackground, powerBar,
+    helpIcon);
+  addHeroInfoIcons(heroContainer, iconClicked, heroName);
+
+  if (iconClicked === 'glyphs') {
+    addGlyphsContainer(heroContainer, heroName);
+  }
+
+  // console.log('heroes:\n', stage.children);
+  if (stage.children.length === 2) {
+    stage.addChild(heroContainer);
+  }
+  console.log('heroes2:\n', stage.children);
 }
 
 // Add left and right arrow
 function addArrows(container) {
+  let currentPage = 0;
+  let pages = 1;//sumPages;
+
+  // console.log('currentPage', currentPage, 'pages', pages);
+
   let leftArrow = new Sprite(resources[leftArrowIconPath].texture);
   leftArrow.position.set(36, 640);
-  setInteractive(leftArrow, true);
+  leftArrow.visible = false;
 
   let rightArrow = new Sprite(resources[rightArrowIconPath].texture);
   rightArrow.position.set(1796, 640);
   setInteractive(rightArrow, true);
+
+  // heroesPortraitContainer.position.x = 0;
+  // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+
+  leftArrow.on('pointerup', () => {
+    console.log('leftArrow clicked', currentPage, pages);
+    if (currentPage > 0 && currentPage < pages) {
+      // setTimeout(() => {
+        heroesPortraitContainer.position.x += 1920;
+        // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+        currentPage--;
+        // console.log('currentPage', currentPage);
+      // }, LATENCY);
+    }
+
+    if (currentPage === pages) {
+      // setTimeout(() => {
+        heroesPortraitContainer.position.x += 1920;
+        // console.log('heroPortraitContainer', heroesPortraitContainer.x);
+        currentPage--;
+        // console.log('currentPage', currentPage);
+        if (rightArrow.visible === false) {
+          rightArrow.visible = true;
+          setInteractive(rightArrow, true);
+        }
+        if (leftArrow.visible = false) {
+          leftArrow.visible = false;
+          setInteractive(leftArrow, false);
+        }
+      // }, LATENCY);
+    }
+  });
+
+  rightArrow.on('pointerup', () => {
+    console.log('rightArrow clicked', currentPage, pages);
+    // console.log('heroesPortraitContainer', heroesPortraitContainer.x);
+
+    if (currentPage < pages) {
+      currentPage++;
+      // console.log('currentPage', currentPage);
+      heroesPortraitContainer.position.x -= 1920;
+      // console.log('heroesPortraitContainer', heroesPortraitContainer.x);
+    }
+
+    if (currentPage === pages) {
+      rightArrow.visible = false;
+      setInteractive(rightArrow, false);
+    }
+
+    if (leftArrow.visible === false) {
+      leftArrow.visible = true;
+      setInteractive(leftArrow, true);
+    }
+  });
 
   container.addChild(leftArrow, rightArrow);
 }
@@ -2761,4 +4355,53 @@ function addBookmark(container, posX, posY, bookmarkIcon) {
   );
 
   container.addChild(bookmark, icon);
+}
+
+let mouseYPos = 0;
+let delta = 0;
+let minDrag = 0;
+let maxDrag = 0;
+
+// Dragging functions
+function onDragStart(event) {
+  this.data = event.data;
+  // this.alpha = 0.5;
+  this.dragging = true;
+  mouseYPos = event.data.getLocalPosition(stage).y;
+  delta = mouseYPos-this.y;
+  minDrag = this.y;
+  maxDrag = this.parent.height;
+  // console.log(minDrag, maxDrag);
+  // console.log(this.y, '+', this.height, '=', this.y+this.height);
+  // console.log(stage.children[2].children[10]); //12, 14
+  setInteractive(stage.children[2].children[10], false);
+  setInteractive(stage.children[2].children[12], false);
+  setInteractive(stage.children[2].children[14], false);
+}
+
+function onDragEnd() {
+  // this.alpha = 1;
+  this.dragging = false;
+  // set the interaction data to null
+  this.data = null;
+  setInteractive(stage.children[2].children[10], true);
+  setInteractive(stage.children[2].children[12], true);
+  setInteractive(stage.children[2].children[14], true);
+}
+
+function onDragMoveY() {
+  if (this.dragging) {
+    this.y = this.data.getLocalPosition(this.parent).y-delta;
+    // console.log(this.y, this.height);
+    if (this.y <= 229) { //229 = statsUpperBackground.y
+      this.dragging = false;
+      this.y = maxDrag-this.height-12;
+      onDragEnd;
+    }
+    if (this.y+this.height >= 876) {
+      this.dragging = false;
+      this.y = minDrag;
+      onDragEnd;
+    }
+  }
 }

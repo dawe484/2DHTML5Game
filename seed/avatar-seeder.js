@@ -54,7 +54,13 @@ let avatars = [
       'Summon ×10', '1 More', '10 More'],
     labelsTitle: ['Level', 'Present Exp', 'Max Hero Level', 'Account ID', 'Free',
       'Free Times ', 'Free Time', 'Free after ', '/5', '10000', '90000', '288',
-      '2592', '10% OFF']
+      '2592', '10% OFF'],
+    heroInfoIconsTitle: ['Stats', 'Glyphs', 'Skills', 'Equip', "This hero's mysterious\n"+
+      "power has not been\nawakened. Stay tuned!", 'Base Stat', ' +Equipment'],
+    heroStatsTitle: ['Health', 'Attack Damage', 'Ability Power', 'Armor', 'Magic Resist',
+      'Armor Penetration', 'Magic Penetration', 'Attack Speed', 'Critical Damage',
+      'Critikal Strike', 'Dodge', 'Energy Boost', 'Energy Regeneration', 'Energy Steal',
+      'Healing Effect', 'Health Regeneration', 'Life Steal', 'Shield Effect']
   }),
 ];
 

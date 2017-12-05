@@ -578,16 +578,188 @@ io.on('connection', (socket) => {
 
       socket.on('heroesContainer', () => {
         User.find({username: playerName}, {
-          _id: 0, 'heroes.summoned': 1, 'heroes.name': 1, 'heroes.stars': 1,
-          'heroes.class': 1, 'heroes.level': 1, 'heroes.color': 1, 'heroes.color_number': 1,
-          'heroes.glyphs_rarity': 1,
+          _id: 0, heroes: 1
+          // 'heroes.summoned': 1, 'heroes.name': 1, 'heroes.urlName': 1,
+          // 'heroes.stars': 1, 'heroes.class': 1, 'heroes.level': 1, 'heroes.color': 1,
+          // 'heroes.color_number': 1, 'heroes.glyphs_rarity': 1,
         }, (err, data) => {
           if (err) throw err;
           socket.emit('heroesContainerData', {
             heroesMsg: data[0].heroes
+            // name: data[0].heroes[0].name,
+            // stars: data[0].heroes[0].stars,
+            // class: data[0].heroes[0].class,
+            // position: data[0].heroes[0].position,
+            // description: data[0].heroes[0].description,
+            // basicAttackType: data[0].heroes[0].basic_atk_type,
+            // level: data[0].heroes[0].level,
+            // color: data[0].heroes[0].color,
+            // colorNumber: data[0].heroes[0].color_number,
+            // attackRange: data[0].heroes[0].attack_range,
+            // power: data[0].heroes[0].power,
+            // powerInc: data[0].heroes[0].power_inc,
+            // health: data[0].heroes[0].health,
+            // healthInc: data[0].heroes[0].health_inc,
+            // attackDamage: data[0].heroes[0].attack_damage,
+            // attackDamageInc: data[0].heroes[0].attack_damage_inc,
+            // abilityPower: data[0].heroes[0].ability_power,
+            // abilityPowerInc: data[0].heroes[0].ability_power_inc,
+            // armor: data[0].heroes[0].armor,
+            // armorInc: data[0].heroes[0].armor_inc,
+            // magicResist: data[0].heroes[0].magic_resist,
+            // magicResistInc: data[0].heroes[0].magic_resist_inc,
+            // attackSpeed: data[0].heroes[0].attack_speed,
+            // attackSpeedInc: data[0].heroes[0].attack_speed_inc,
+            // healthRegen: data[0].heroes[0].health_regen,
+            // healthRegenInc: data[0].heroes[0].health_regen_inc,
+            // movementSpeed: data[0].heroes[0].movement_speed,
+            // energyRegen: data[0].heroes[0].energy_regen,
+            // critDamageLevel: data[0].heroes[0].crit_damage_lvl,
+            // critStrikeLevel: data[0].heroes[0].crit_strike_lvl,
+            // hitLevel: data[0].heroes[0].hit_lvl,
+            // dodgeLevel: data[0].heroes[0].dodge_lvl,
+            // lifeStealLevel: data[0].heroes[0].life_steal_lvl,
+            // energySteal: data[0].heroes[0].energy_steal,
+            // energyBoost: data[0].heroes[0].energy_boost,
+            // armorPenetration: data[0].heroes[0].armor_pen,
+            // magicPenetration: data[0].heroes[0].magic_pen,
+            // healingEffect: data[0].heroes[0].healing_effect,
+            // shieldEffect: data[0].heroes[0].shield_effect,
+            // skills: data[0].heroes[0].skills,
+            // glyphsRarity: data[0].heroes[0].glyphs_rarity
           });
         });
       });
+
+      socket.on('heroInfoIcons', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('heroInfoIconsData', {
+            stats: data[0].avatar[0].heroInfoIconsTitle[0],
+            glyphs: data[0].avatar[0].heroInfoIconsTitle[1],
+            skills: data[0].avatar[0].heroInfoIconsTitle[2],
+            equip: data[0].avatar[0].heroInfoIconsTitle[3],
+            baseStat: data[0].avatar[0].heroInfoIconsTitle[4],
+            plusEquip: data[0].avatar[0].heroInfoIconsTitle[5]
+          });
+        });
+      });
+
+      // socket.on('heroBaseStatPlusEquip', () => {
+      //   User.find({username: playerName}, {
+      //     _id: 0, 'avatar': 1
+      //   }, (err, data) => {
+      //     if (err) throw err;
+      //     console.log(data[0].avatar[0].heroInfoIconsTitle[4],data[0].avatar[0].heroInfoIconsTitle[5]);
+      //     socket.emit('heroBaseStatPlusEquipData', {
+      //       baseStat: data[0].avatar[0].heroInfoIconsTitle[4],
+      //       plusEquip: data[0].avatar[0].heroInfoIconsTitle[5]
+      //     });
+      //   });
+      // });
+
+      socket.on('stats', () => {
+        User.find({username: playerName}, {
+          _id: 0, 'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          console.log(data[0].avatar[0].heroStatsTitle);
+          socket.emit('statsData', {
+            health: data[0].avatar[0].heroStatsTitle[0],
+            attackDamage: data[0].avatar[0].heroStatsTitle[1],
+            abilityPower: data[0].avatar[0].heroStatsTitle[2],
+            armor: data[0].avatar[0].heroStatsTitle[3],
+            magicResist: data[0].avatar[0].heroStatsTitle[4],
+            armorPenetration: data[0].avatar[0].heroStatsTitle[5],
+            magicPenetration: data[0].avatar[0].heroStatsTitle[6],
+            attackSpeed: data[0].avatar[0].heroStatsTitle[7],
+            critDamageLevel: data[0].avatar[0].heroStatsTitle[8],
+            critStrikeLevel: data[0].avatar[0].heroStatsTitle[9],
+            dodgeLevel: data[0].avatar[0].heroStatsTitle[10],
+            energyBoost: data[0].avatar[0].heroStatsTitle[11],
+            energyRegen: data[0].avatar[0].heroStatsTitle[12],
+            energySteal: data[0].avatar[0].heroStatsTitle[13],
+            healingEffect: data[0].avatar[0].heroStatsTitle[14],
+            healthRegen: data[0].avatar[0].heroStatsTitle[15],
+            lifeStealLevel: data[0].avatar[0].heroStatsTitle[16],
+            shieldEffect: data[0].avatar[0].heroStatsTitle[17]
+          });
+        });
+      });
+
+      // socket.emit('glyphsContainer', heroName);
+      socket.on('heroContainer', (heroName) => {
+        // console.log('heroName', heroName);
+        User.find({username: playerName, 'heroes.urlName': heroName}, {
+          '_id': 0, 'heroes.$': 1
+        }, (err, data) => {
+          if (err) throw err;
+          // console.log('sending data:', data[0].heroes[0].name, data[0].heroes[0].class);
+          socket.emit('heroContainerData', {
+            // urlName: data[0].heroes[0].urlName,
+            currPages: data[0].heroes[0].curr_pages,
+            nextPages: data[0].heroes[0].next_pages,
+            name: data[0].heroes[0].name,
+            stars: data[0].heroes[0].stars,
+            class: data[0].heroes[0].class,
+            position: data[0].heroes[0].position,
+            description: data[0].heroes[0].description,
+            basicAttackType: data[0].heroes[0].basic_atk_type,
+            level: data[0].heroes[0].level,
+            heroCurrLvlExp: data[0].heroes[0].hero_curr_lvl_exp,
+            heroNextLvlExp: data[0].heroes[0].hero_next_lvl_exp,
+            color: data[0].heroes[0].color,
+            // colorNumber: data[0].heroes[0].color_number,
+            attackRange: data[0].heroes[0].attack_range,
+            power: data[0].heroes[0].power,
+            powerInc: data[0].heroes[0].power_inc,
+            health: data[0].heroes[0].health,
+            healthInc: data[0].heroes[0].health_inc,
+            attackDamage: data[0].heroes[0].attack_damage,
+            attackDamageInc: data[0].heroes[0].attack_damage_inc,
+            abilityPower: data[0].heroes[0].ability_power,
+            abilityPowerInc: data[0].heroes[0].ability_power_inc,
+            armor: data[0].heroes[0].armor,
+            armorInc: data[0].heroes[0].armor_inc,
+            magicResist: data[0].heroes[0].magic_resist,
+            magicResistInc: data[0].heroes[0].magic_resist_inc,
+            attackSpeed: data[0].heroes[0].attack_speed,
+            attackSpeedInc: data[0].heroes[0].attack_speed_inc,
+            healthRegen: data[0].heroes[0].health_regen,
+            healthRegenInc: data[0].heroes[0].health_regen_inc,
+            movementSpeed: data[0].heroes[0].movement_speed,
+            energyRegen: data[0].heroes[0].energy_regen,
+            critDamageLevel: data[0].heroes[0].crit_damage_lvl,
+            critStrikeLevel: data[0].heroes[0].crit_strike_lvl,
+            hitLevel: data[0].heroes[0].hit_lvl,
+            dodgeLevel: data[0].heroes[0].dodge_lvl,
+            lifeStealLevel: data[0].heroes[0].life_steal_lvl,
+            energySteal: data[0].heroes[0].energy_steal,
+            energyBoost: data[0].heroes[0].energy_boost,
+            armorPenetration: data[0].heroes[0].armor_pen,
+            magicPenetration: data[0].heroes[0].magic_pen,
+            healingEffect: data[0].heroes[0].healing_effect,
+            shieldEffect: data[0].heroes[0].shield_effect,
+            skills: data[0].heroes[0].skills,
+            glyphsRarity: data[0].heroes[0].glyphs_rarity
+          });
+        });
+      });
+
+      // socket.on('heroSkills', (heroName) => {
+      //   User.find({username: playerName, 'heroes.urlName': heroName}, {
+      //     '_id': 0, 'heroes.skills': 1
+      //   }, (err, data) => {
+      //     if (err) throw err;
+      //     console.log(data);
+      //     // socket.emit('heroSkillsData', {
+      //     //
+      //     // });
+      //   });
+      // });
+
     }
   });
   // socket.on('mouse', mouseMsg);
