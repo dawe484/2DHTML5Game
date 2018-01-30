@@ -19,6 +19,7 @@ const AttributesSchema = new Schema({
 const GlyphSchema = new Schema({
   date_added: { type: Date, default: Date.now },
   image_path: { type: String, required: true },
+  icon_path: { type: String, required: true },
   title: { type: String, required: true },
   rarity: { type: String, required: true },
   level_req: { type: Number, required: true },
@@ -29,4 +30,4 @@ const GlyphSchema = new Schema({
   {versionKey: '_documentVersion'}
 );
 
-module.exports = mongoose.model('Glyph', GlyphSchema);
+let Glyph = module.exports = mongoose.model('Glyph', GlyphSchema);

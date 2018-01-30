@@ -10,6 +10,7 @@ let glyphs = [
   // Ability Power
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/ability_power_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/ability_power_icon.png',
     title: 'Ability Power',
     rarity: 'Grey',
     level_req: 2,
@@ -26,6 +27,7 @@ let glyphs = [
   // Armor
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/armor_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/armor_icon.png',
     title: 'Armor',
     rarity: 'Grey',
     level_req: 2,
@@ -43,6 +45,7 @@ let glyphs = [
   // Armor Penetration
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/armor_pen_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/armor_pen_icon.png',
     title: 'Armor Penetration',
     rarity: 'Grey',
     level_req: 2,
@@ -58,6 +61,7 @@ let glyphs = [
   // Attack Damage
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/attack_damage_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/attack_damage_icon.png',
     title: 'Attack Damage',
     rarity: 'Grey',
     level_req: 1,
@@ -75,6 +79,7 @@ let glyphs = [
   // Attack Force
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/attack_force_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/attack_force_icon.png',
     title: 'Attack Force',
     rarity: 'Grey',
     level_req: 2,
@@ -91,6 +96,7 @@ let glyphs = [
   // Crit Strike
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/crit_strike_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/crit_strike_icon.png',
     title: 'Crit Strike',
     rarity: 'Grey',
     level_req: 2,
@@ -106,6 +112,7 @@ let glyphs = [
   // Double Attack
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/double_attack_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/double_attack_icon.png',
     title: 'Double Attack',
     rarity: 'Grey',
     level_req: 2,
@@ -132,6 +139,7 @@ let glyphs = [
   // Energy Regen
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/energy_regen_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/energy_regen_icon.png',
     title: 'Energy Regen',
     rarity: 'Grey',
     level_req: 2,
@@ -147,6 +155,7 @@ let glyphs = [
   // Hardiness
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/hardiness_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/hardiness_icon.png',
     title: 'Hardiness',
     rarity: 'Grey',
     level_req: 2,
@@ -163,6 +172,7 @@ let glyphs = [
   // Health
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/health_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/health_icon.png',
     title: 'Health',
     rarity: 'Grey',
     level_req: 1,
@@ -179,6 +189,7 @@ let glyphs = [
   // Health Regen
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/health_regen_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/health_regen_icon.png',
     title: 'Health Regen',
     rarity: 'Grey',
     level_req: 2,
@@ -195,6 +206,7 @@ let glyphs = [
   // Magic Force
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_force_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/magic_force_icon.png',
     title: 'Magic Force',
     rarity: 'Grey',
     level_req: 2,
@@ -211,6 +223,7 @@ let glyphs = [
     // Magic Penetration
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_pen_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/magic_pen_icon.png',
     title: 'Magic Penetration',
     rarity: 'Grey',
     level_req: 2,
@@ -227,6 +240,7 @@ let glyphs = [
   // Magic Resist
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/magic_resist_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/magic_resist_icon.png',
     title: 'Magic Resist',
     rarity: 'Grey',
     level_req: 2,
@@ -243,6 +257,7 @@ let glyphs = [
   // Regenerate
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/grey/regenerate_icon.png',
+    icon_path: '/images/game/icons/glyphs/grey/regenerate_icon.png',
     title: 'Regenerate',
     rarity: 'Grey',
     level_req: 2,
@@ -261,6 +276,7 @@ let glyphs = [
   // Aggression
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/aggression_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/aggression_icon.png',
     title: 'Aggression',
     rarity: 'Green',
     level_req: 9,
@@ -278,6 +294,7 @@ let glyphs = [
   // Avarice
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/avarice_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/avarice_icon.png',
     title: 'Avarice',
     rarity: 'Green',
     level_req: 10,
@@ -293,6 +310,7 @@ let glyphs = [
   // Balance
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/balance_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/balance_icon.png',
     title: 'Balance',
     rarity: 'Green',
     level_req: 15,
@@ -309,6 +327,7 @@ let glyphs = [
   // Bloodthirst
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/bloodthirst_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/bloodthirst_icon.png',
     title: 'Bloodthirst',
     rarity: 'Green',
     level_req: 10,
@@ -325,6 +344,7 @@ let glyphs = [
   // Bravery
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/bravery_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/bravery_icon.png',
     title: 'Bravery',
     rarity: 'Green',
     level_req: 11,
@@ -340,6 +360,7 @@ let glyphs = [
   // Cardio
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/cardio_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/cardio_icon.png',
     title: 'Cardio',
     rarity: 'Green',
     level_req: 9,
@@ -355,6 +376,7 @@ let glyphs = [
   // Chivalry
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/chivalry_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/chivalry_icon.png',
     title: 'Chivalry',
     rarity: 'Green',
     level_req: 16,
@@ -370,6 +392,7 @@ let glyphs = [
   // Defense
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/defense_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/defense_icon.png',
     title: 'Defense',
     rarity: 'Green',
     level_req: 15,
@@ -386,6 +409,7 @@ let glyphs = [
   // Divine Power
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/divine_power_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/divine_power_icon.png',
     title: 'Divine Power',
     rarity: 'Green',
     level_req: 11,
@@ -402,6 +426,7 @@ let glyphs = [
   // Enforcement
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/enforcement_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/enforcement_icon.png',
     title: 'Enforcement',
     rarity: 'Green',
     level_req: 18 ,
@@ -418,6 +443,7 @@ let glyphs = [
   // Extra Health
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/extra_health_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/extra_health_icon.png',
     title: 'Extra Health',
     rarity: 'Green',
     level_req: 8,
@@ -434,6 +460,7 @@ let glyphs = [
   // Fortitude
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/fortitude_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/fortitude_icon.png',
     title: 'Fortitude',
     rarity: 'Green',
     level_req: 8,
@@ -450,6 +477,7 @@ let glyphs = [
   // Illusion
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/illusion_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/illusion_icon.png',
     title: 'Illusion',
     rarity: 'Green',
     level_req: 18,
@@ -465,6 +493,7 @@ let glyphs = [
   // Immortality
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/immortality_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/immortality_icon.png',
     title: 'Immortality',
     rarity: 'Green',
     level_req: 12,
@@ -479,6 +508,7 @@ let glyphs = [
   // Infinity
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/infinity_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/infinity_icon.png',
     title: 'Infinity',
     rarity: 'Green',
     level_req: 17,
@@ -494,6 +524,7 @@ let glyphs = [
   // Magic Shield
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/magic_shield_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/magic_shield_icon.png',
     title: 'Magic Shield',
     rarity: 'Green',
     level_req: 15,
@@ -509,6 +540,7 @@ let glyphs = [
   // Meditation
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/meditation_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/meditation_icon.png',
     title: 'Meditation',
     rarity: 'Green',
     level_req: 7,
@@ -526,6 +558,7 @@ let glyphs = [
   // Nature
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/nature_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/nature_icon.png',
     title: 'Nature',
     rarity: 'Green',
     level_req: 10,
@@ -541,6 +574,7 @@ let glyphs = [
   // Osmosis
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/osmosis_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/osmosis_icon.png',
     title: 'Osmosis',
     rarity: 'Green',
     level_req: 16,
@@ -557,6 +591,7 @@ let glyphs = [
   // Providence
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/providence_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/providence_icon.png',
     title: 'Providence',
     rarity: 'Green',
     level_req: 7,
@@ -572,6 +607,7 @@ let glyphs = [
   // Prowess
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/prowess_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/prowess_icon.png',
     title: 'Prowess',
     rarity: 'Green',
     level_req: 7,
@@ -587,6 +623,7 @@ let glyphs = [
   // Sublimity
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/sublimity_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/sublimity_icon.png',
     title: 'Sublimity',
     rarity: 'Green',
     level_req: 16,
@@ -603,6 +640,7 @@ let glyphs = [
   // Valor
   new Glyph({
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/glyphs/green/valor_icon.png',
+    icon_path: '/images/game/icons/glyphs/green/valor_icon.png',
     title: 'Valor',
     rarity: 'Green',
     level_req: 12,

@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Hero Schema
+// HeroExpByLevelSchema Schema
 const HeroExpByLevelSchema = new Schema({
   hero_curr_lvl: { type: Number, required: true },
   hero_next_lvl: { type: Number, required: true },

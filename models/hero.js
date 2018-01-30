@@ -19,7 +19,8 @@ const SkillSchema = new Schema({
 const GlyphSchema = new Schema({
   number: { type: Number, required: true },
   title: { type: String, required: true },
-  equipped: { type: String, default: 'no' }
+  equipped: { type: String, default: 'no' },
+  icon_path: { type: String, required: true }
 });
 
 // Hero Schema
@@ -27,6 +28,7 @@ const HeroSchema = new Schema({
   date_added: { type: Date, default: Date.now },
   summoned: { type: String, default: 'no' },
   icon_path: { type: String, required: true },
+  icon_selected_path: { type: String, required: true },
   web_image_path: { type: String, required: true },
   image_path: { type: String, required: true },
   curr_pages: { type: Number, required: true },
@@ -36,6 +38,7 @@ const HeroSchema = new Schema({
   stars: { type: Number, required: true },
   class: { type: String, required: true },
   position: { type: String, required: true },
+  position_number: { type: Number, required: true },
   description: { type: String, required: true },
   basic_atk_type: { type: String, required: true },
   level: { type: Number, default: 1 },

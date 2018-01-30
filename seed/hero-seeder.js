@@ -9,6 +9,7 @@ let heroes = [
   // Leryssa
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/leryssa-icon.png',
+    icon_selected_path: '/images/game/heroes/leryssa/leryssa_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/leryssa-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/leryssa.png',
     curr_pages: 0,
@@ -18,6 +19,7 @@ let heroes = [
     stars: 1,
     class: 'Tank',
     position: 'Front',
+    position_number: 15,
     description: 'Front row tank. Physical basic attack.\nA veteran pirate that can tank for her\nteam.',
     basic_atk_type: 'physical',
     // level: 1,
@@ -103,10 +105,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Armor' },
-          { number: 1, title: 'Health Regen' },
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Attack Damage' }
+          { number: 1, title: 'Armor', icon_path: 'armor_icon' },
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' }
         ]
       },
       // Green -> Green +1
@@ -114,10 +116,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Health' },
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Aggression' },
-          { number: 1, title: 'Immortality' }
+          { number: 1, title: 'Health', icon_path: 'health_icon' },
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Aggression', icon_path: 'aggression_icon' },
+          { number: 1, title: 'Immortality', icon_path: 'immortality_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -125,10 +127,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Fortitude' },
-          { number: 1, title: 'Aggression' },
-          { number: 1, title: 'Defense' },
-          { number: 1, title: 'Enforcement' }
+          { number: 1, title: 'Fortitude', icon_path: 'fortitude_icon' },
+          { number: 1, title: 'Aggression', icon_path: 'aggression_icon' },
+          { number: 1, title: 'Defense', icon_path: 'defense_icon' },
+          { number: 1, title: 'Enforcement', icon_path: 'enforcement_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -143,6 +145,7 @@ let heroes = [
   // Diu Win
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/diuwin/diu_win-icon.png',
+    icon_selected_path: '/images/game/heroes/diuwin/diuwin_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/diuwin/diu_win-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/diuwin/diu_win.png',
     curr_pages: 0,
@@ -152,6 +155,7 @@ let heroes = [
     stars: 1,
     class: 'Fighter',
     position: 'Front',
+    position_number: 27,
     description: 'Front row fighter. Physical basic attack. Can run around freely amidst the enemy.',
     basic_atk_type: 'physical',
     // level: 1,
@@ -235,10 +239,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Armor' },
-          { number: 1, title: 'Attack Force' },
-          { number: 1, title: 'Attack Force' }
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Armor', icon_path: 'armor_icon' },
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' },
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' }
         ]
       },
       // Green -> Green +1
@@ -246,10 +250,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Fortitude' },
-          { number: 1, title: 'Bravery' }
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Fortitude', icon_path: 'fortitude_icon' },
+          { number: 1, title: 'Bravery', icon_path: 'bravery_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -257,10 +261,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Magic Resist' },
-          { number: 1, title: 'Aggression' },
-          { number: 1, title: 'Bloodthirst' },
-          { number: 1, title: 'Defense' }
+          { number: 1, title: 'Magic Resist', icon_path: 'magic_resist_icon' },
+          { number: 1, title: 'Aggression', icon_path: 'aggression_icon' },
+          { number: 1, title: 'Bloodthirst', icon_path: 'bloodthirst_icon' },
+          { number: 1, title: 'Defense', icon_path: 'defense_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -275,6 +279,7 @@ let heroes = [
   // Crystal
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/crystal/crystal-icon.png',
+    icon_selected_path: '/images/game/heroes/crystal/crystal_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/crystal/crystal-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/crystal/crystal.png',
     curr_pages: 0,
@@ -284,6 +289,7 @@ let heroes = [
     stars: 1,
     class: 'Mage',
     position: 'Middle',
+    position_number: 57,
     description: 'Mid row mage. Magic basic attack. Her ultimate can deal tons of damage.',
     basic_atk_type: 'magic',
     // level: 1,
@@ -367,10 +373,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Magic Penetration' },
-          { number: 1, title: 'Magic Penetration' },
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Hardiness' }
+          { number: 1, title: 'Magic Penetration', icon_path: 'magic_pen_icon' },
+          { number: 1, title: 'Magic Penetration', icon_path: 'magic_pen_icon' },
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' }
         ]
       },
       // Green -> Green +1
@@ -378,10 +384,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Prowess' },
-          { number: 1, title: 'Meditation' },
-          { number: 1, title: 'Meditation' },
-          { number: 1, title: 'Providence' }
+          { number: 1, title: 'Prowess', icon_path: 'prowess_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' },
+          { number: 1, title: 'Providence', icon_path: 'providence_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -389,10 +395,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Regenerate' },
-          { number: 1, title: 'Divine Power' },
-          { number: 1, title: 'Magic Shield' },
-          { number: 1, title: 'Magic Shield' }
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' },
+          { number: 1, title: 'Divine Power', icon_path: 'divine_power_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -407,6 +413,7 @@ let heroes = [
   // Sin
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/sin/sin-icon.png',
+    icon_selected_path: '/images/game/heroes/sin/sin_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/sin/sin-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/sin/sin.png',
     curr_pages: 0,
@@ -416,6 +423,7 @@ let heroes = [
     stars: 1,
     class: 'Marksman',
     position: 'Middle',
+    position_number: 70,
     description: 'Mid row marksman. Physical basic attack.',
     basic_atk_type: 'physical',
     // level: 1,
@@ -499,10 +507,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Attack Force' },
-          { number: 1, title: 'Attack Force' },
-          { number: 1, title: 'Regenerate' },
-          { number: 1, title: 'Attack Damage' }
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' },
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' },
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' }
         ]
       },
       // Green -> Green +1
@@ -510,10 +518,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Health' },
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Providence' },
-          { number: 1, title: 'Fortitude' }
+          { number: 1, title: 'Health', icon_path: 'health_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Providence', icon_path: 'providence_icon' },
+          { number: 1, title: 'Fortitude', icon_path: 'fortitude_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -521,10 +529,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Health Regen' },
-          { number: 1, title: 'Regenerate' },
-          { number: 1, title: 'Defense' },
-          { number: 1, title: 'Osmosis' }
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' },
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' },
+          { number: 1, title: 'Defense', icon_path: 'defense_icon' },
+          { number: 1, title: 'Osmosis', icon_path: 'osmosis_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -539,6 +547,7 @@ let heroes = [
   // Leona
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leona/leona-icon.png',
+    icon_selected_path: '/images/game/heroes/leona/leona_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leona/leona-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leona/leona.png',
     curr_pages: 0,
@@ -548,6 +557,7 @@ let heroes = [
     stars: 2,
     class: 'Support',
     position: 'Back',
+    position_number: 116,
     description: 'Back row support. Magic basic attack.',
     basic_atk_type: 'magic',
     // level: 1,
@@ -631,10 +641,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Magic Resist' },
-          { number: 1, title: 'Magic Resist' }
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Magic Resist', icon_path: 'magic_resist_icon' },
+          { number: 1, title: 'Magic Resist', icon_path: 'magic_resist_icon' }
         ]
       },
       // Green -> Green +1
@@ -642,10 +652,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Prowess' },
-          { number: 1, title: 'Meditation' }
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Prowess', icon_path: 'prowess_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -653,10 +663,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Energy Regen' },
-          { number: 1, title: 'Magic Shield' },
-          { number: 1, title: 'Magic Shield' }
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Energy Regen', icon_path: 'energy_regen_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -671,6 +681,7 @@ let heroes = [
   // Aelois
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois-icon.png',
+    icon_selected_path: '/images/game/heroes/aelois/aelois_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/aelois/aelois.png',
     curr_pages: 0,
@@ -680,6 +691,7 @@ let heroes = [
     stars: 1,
     class: 'Marksman',
     position: 'Back',
+    position_number: 88,
     description: ' ',
     basic_atk_type: 'physical',
     // level: 1,
@@ -763,10 +775,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Health' },
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Regenerate' }
+          { number: 1, title: 'Health', icon_path: 'health_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' }
         ]
       },
       // Green -> Green +1
@@ -774,10 +786,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Armor Penetration' },
-          { number: 1, title: 'Attack Force' },
-          { number: 1, title: 'Fortitude' },
-          { number: 1, title: 'Bravery' }
+          { number: 1, title: 'Armor Penetration', icon_path: 'armor_pen_icon' },
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' },
+          { number: 1, title: 'Fortitude', icon_path: 'fortitude_icon' },
+          { number: 1, title: 'Bravery', icon_path: 'bravery_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -785,10 +797,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Attack Damage' },
-          { number: 1, title: 'Fortitude' },
-          { number: 1, title: 'Extra Health' },
-          { number: 1, title: 'Defense' }
+          { number: 1, title: 'Attack Damage', icon_path: 'attack_damage_icon' },
+          { number: 1, title: 'Fortitude', icon_path: 'fortitude_icon' },
+          { number: 1, title: 'Extra Health', icon_path: 'extra_health_icon' },
+          { number: 1, title: 'Defense', icon_path: 'defense_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -803,6 +815,7 @@ let heroes = [
   // Amara
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara-icon.png',
+    icon_selected_path: '/images/game/heroes/amara/amara_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/amara/amara.png',
     curr_pages: 0,
@@ -812,6 +825,7 @@ let heroes = [
     stars: 1,
     class: 'Support',
     position: 'Back',
+    position_number: 103,
     description: ' ',
     basic_atk_type: 'magic',
     // level: 1,
@@ -895,10 +909,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Energy Regen' },
-          { number: 1, title: 'Armor' }
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Energy Regen', icon_path: 'energy_regen_icon' },
+          { number: 1, title: 'Armor', icon_path: 'armor_icon' }
         ]
       },
       // Green -> Green +1
@@ -906,10 +920,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Health' },
-          { number: 1, title: 'Valor' },
-          { number: 1, title: 'Meditation' },
-          { number: 1, title: 'Extra Health' }
+          { number: 1, title: 'Health', icon_path: 'health_icon' },
+          { number: 1, title: 'Valor', icon_path: 'valor_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' },
+          { number: 1, title: 'Extra Health', icon_path: 'extra_health_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -917,10 +931,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Energy Regen' },
-          { number: 1, title: 'Prowess' },
-          { number: 1, title: 'Nature' },
-          { number: 1, title: 'Sublimity' }
+          { number: 1, title: 'Energy Regen', icon_path: 'energy_regen_icon' },
+          { number: 1, title: 'Prowess', icon_path: 'prowess_icon' },
+          { number: 1, title: 'Nature', icon_path: 'nature_icon' },
+          { number: 1, title: 'Sublimity', icon_path: 'sublimity_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -935,6 +949,7 @@ let heroes = [
   // Nadia
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia-icon.png',
+    icon_selected_path: '/images/game/heroes/nadia/nadia_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nadia/nadia.png',
     curr_pages: 0,
@@ -944,6 +959,7 @@ let heroes = [
     stars: 1,
     class: 'Mage',
     position: 'Middle',
+    position_number: 64,
     description: ' ',
     basic_atk_type: 'magic',
     // level: 1,
@@ -1027,10 +1043,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Health' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Health Regen' }
+          { number: 1, title: 'Health', icon_path: 'health_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' }
         ]
       },
       // Green -> Green +1
@@ -1038,10 +1054,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Prowess' },
-          { number: 1, title: 'Meditation' }
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Prowess', icon_path: 'prowess_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -1049,10 +1065,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Health Regen' },
-          { number: 1, title: 'Nature' },
-          { number: 1, title: 'Magic Shield' }
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' },
+          { number: 1, title: 'Nature', icon_path: 'nature_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -1067,6 +1083,7 @@ let heroes = [
   // Nyx
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx-icon.png',
+    icon_selected_path: '/images/game/heroes/nyx/nyx_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/nyx/nyx.png',
     curr_pages: 0,
@@ -1076,6 +1093,7 @@ let heroes = [
     stars: 1,
     class: 'Mage',
     position: 'Back',
+    position_number: 84,
     description: ' ',
     basic_atk_type: 'magic',
     // level: 1,
@@ -1159,10 +1177,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Magic Force' },
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Energy Regen' }
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' },
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Energy Regen', icon_path: 'energy_regen_icon' }
         ]
       },
       // Green -> Green +1
@@ -1170,10 +1188,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Regenerate' },
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Providence' },
-          { number: 1, title: 'Meditation' }
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' },
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Providence', icon_path: 'providence_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -1181,10 +1199,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Valor' },
-          { number: 1, title: 'Extra Health' },
-          { number: 1, title: 'Magic Shield' }
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Valor', icon_path: 'valor_icon' },
+          { number: 1, title: 'Extra Health', icon_path: 'extra_health_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -1199,6 +1217,7 @@ let heroes = [
   // Zalajin
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin-icon.png',
+    icon_selected_path: '/images/game/heroes/zalajin/zalajin_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zalajin/zalajin.png',
     curr_pages: 0,
@@ -1206,8 +1225,9 @@ let heroes = [
     urlName: 'zalajin',
     name: 'Zalajin',
     stars: 1,
-    class: 'Mage/Support',
+    class: 'Support',
     position: 'Middle',
+    position_number: 43,
     description: ' ',
     basic_atk_type: 'magic',
     // level: 1,
@@ -1291,10 +1311,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Health Regen' },
-          { number: 1, title: 'Regenerate' },
-          { number: 1, title: 'Magic Force' }
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' },
+          { number: 1, title: 'Regenerate', icon_path: 'regenerate_icon' },
+          { number: 1, title: 'Magic Force', icon_path: 'magic_force_icon' }
         ]
       },
       // Green -> Green +1
@@ -1302,10 +1322,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Hardiness' },
-          { number: 1, title: 'Prowess' },
-          { number: 1, title: 'Nature' }
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Hardiness', icon_path: 'hardiness_icon' },
+          { number: 1, title: 'Prowess', icon_path: 'prowess_icon' },
+          { number: 1, title: 'Nature', icon_path: 'nature_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -1313,10 +1333,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Ability Power' },
-          { number: 1, title: 'Meditation' },
-          { number: 1, title: 'Nature' },
-          { number: 1, title: 'Magic Shield' }
+          { number: 1, title: 'Ability Power', icon_path: 'ability_power_icon' },
+          { number: 1, title: 'Meditation', icon_path: 'meditation_icon' },
+          { number: 1, title: 'Nature', icon_path: 'nature_icon' },
+          { number: 1, title: 'Magic Shield', icon_path: 'magic_shield_icon' }
         ]
       },
       // Blue -> Blue +1
@@ -1331,6 +1351,7 @@ let heroes = [
   // Zaya
   new Hero({
     icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya-icon.png',
+    icon_selected_path: '/images/game/heroes/zaya/zaya_icon_selected.png',
     web_image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya-web.png',
     image_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/zaya/zaya.png',
     curr_pages: 0,
@@ -1340,6 +1361,7 @@ let heroes = [
     stars: 1,
     class: 'Fighter',
     position: 'Back',
+    position_number: 86,
     description: ' ',
     basic_atk_type: 'physical',
     // level: 1,
@@ -1423,10 +1445,10 @@ let heroes = [
         current_status: 'Grey',
         next_status: 'Green',
         glyphs: [
-          { number: 1, title: 'Attack Force' },
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Health Regen' }
+          { number: 1, title: 'Attack Force', icon_path: 'attack_force_icon' },
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Health Regen', icon_path: 'health_regen_icon' }
         ]
       },
       // Green -> Green +1
@@ -1434,10 +1456,10 @@ let heroes = [
         current_status: 'Green',
         next_status: 'Green +1',
         glyphs: [
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Immortality' },
-          { number: 1, title: 'Osmosis' }
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Immortality', icon_path: 'immortality_icon' },
+          { number: 1, title: 'Osmosis', icon_path: 'osmosis_icon' }
         ]
       },
       // Green +1 -> Blue
@@ -1445,10 +1467,10 @@ let heroes = [
         current_status: 'Green +1',
         next_status: 'Blue',
         glyphs: [
-          { number: 1, title: 'Double Attack' },
-          { number: 1, title: 'Immortality' },
-          { number: 1, title: 'Osmosis' },
-          { number: 1, title: 'Osmosis' }
+          { number: 1, title: 'Double Attack', icon_path: 'double_attack_icon' },
+          { number: 1, title: 'Immortality', icon_path: 'immortality_icon' },
+          { number: 1, title: 'Osmosis', icon_path: 'osmosis_icon' },
+          { number: 1, title: 'Osmosis', icon_path: 'osmosis_icon' }
         ]
       },
       // Blue -> Blue +1

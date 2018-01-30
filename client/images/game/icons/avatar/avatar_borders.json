@@ -1,0 +1,20 @@
+{"frames": {
+
+"avatar_border_wood.png":
+{
+	"frame": {"x":0,"y":0,"w":680,"h":272},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":680,"h":272},
+	"sourceSize": {"w":680,"h":272}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "avatar_borders.png",
+	"format": "RGBA8888",
+	"size": {"w":680,"h":272},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c9da809de251a2664f70675441ce8e63:06c94edcf970bd0c53ecc6f4edb0f61e:0d76ab6347f639d9e60b4ce737e75bd1$"
+}
+}
