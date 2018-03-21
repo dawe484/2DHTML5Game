@@ -10,6 +10,7 @@ const ProgressSchema = new Schema({
   opened: { type: String, required: true },
   text: { type: String, required: true },
   chapter: { type: String, required: true },
+  selected: { type: Boolean, required: true },
   // paragraphNumber: { type: Number, required: true }
   // numberOfStars: { type: Number, default: 0 },
   // maxNumberOfStars: { type: Number, default: 3}

@@ -59,7 +59,7 @@ mongoose.connect('mongodb://localhost:27017/2DHTML5Game', databaseOption)
   .then(() => {
     console.log('Database successfully connected.\n---------------------------------------');
   }, (err) => {
-    console.error('Database not connected.\n'+err.message);
+    console.error('Database not connected.\n' + err.message);
     process.exit();
   });
 
@@ -70,7 +70,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', expressHandlebars({
   defaultLayout: 'layout',
   helpers: {
-    toLowerCase: function (str) {
+    toLowerCase: function(str) {
       return str.toLowerCase();
     }
   }
@@ -117,7 +117,7 @@ function getDirectives() {
     childSrc: [none],
     connectSrc: [self, 'ws://localhost:2000'],
     //sandbox: ['allow-forms', 'allow-scripts'],
-    upgradeInsecureRequests: false,//true, pro https:// na live serveru
+    upgradeInsecureRequests: false, //true, pro https:// na live serveru
     reportUri: '/api/csp-report'
     //objectSrc: [], // An empty array allows nothing through
   }
@@ -131,11 +131,10 @@ app.use(helmet());
 // CSP
 app.use(generateNonce);
 app.use(helmet.contentSecurityPolicy({
-  directives:
-    getDirectives(),
-    reportOnly: true,
-    browserSniff: false,
-    disableAndroid: true
+  directives: getDirectives(),
+  reportOnly: true,
+  browserSniff: false,
+  disableAndroid: true
 }));
 
 // CSP violations
@@ -155,7 +154,9 @@ app.post('/api/csp-report', (req, res) => {
 })
 
 // X-Frame - protect from clickjacking attacks
-app.use(helmet.frameguard({ action: 'deny'}));
+app.use(helmet.frameguard({
+  action: 'deny'
+}));
 
 // HTTP Strict Transport Security (HSTS) - Implement Strict-Transport-Security
 app.use(helmet.hsts({
@@ -176,7 +177,9 @@ app.use(morgan('dev'));
 
 // BodyParser Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 // Express Validator
 app.use(expressValidator({
@@ -269,7 +272,9 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { title: 'Magical Heroes'})
+  res.render('error', {
+    title: 'Magical Heroes'
+  })
 });
 
 // app.get('/', (req, res) => {
@@ -281,10 +286,10 @@ app.use((err, req, res, next) => {
 // Set Port
 app.set('port', (process.env.PORT || 2000));
 let server = app.listen(app.get('port'), () => {
-  console.log("---------------------------------------\n"
-    + colors.green("Web server is running... ") + "on port " + app.get('port')
-    + "\nPress " + colors.red("Ctrl-C") + " to terminate.");
-    // + "\n---------------------------------------");
+  console.log("---------------------------------------\n" +
+    colors.green("Web server is running... ") + "on port " + app.get('port') +
+    "\nPress " + colors.red("Ctrl-C") + " to terminate.");
+  // + "\n---------------------------------------");
 });
 
 let SOCKET_LIST = {};
@@ -372,7 +377,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('storyTutorial', () => {
-        StoryTutorial.find({}, {_id: 0, speaker: 1, text: 1}, (err, data) => {
+        StoryTutorial.find({}, {
+          _id: 0,
+          speaker: 1,
+          text: 1
+        }, (err, data) => {
           console.log('hi');
           if (err) throw err;
           socket.emit('storyTutorialData', {
@@ -398,8 +407,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('avatarContainer', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('avatarContainerData', {
@@ -415,8 +427,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('avatarScreen', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('avatarScreenData', {
@@ -443,8 +458,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('avatarChangeName', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('avatarChangeNameData', {
@@ -457,8 +475,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('barContainer', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           console.log('Loading barContainer data from DB.');
@@ -474,13 +495,22 @@ io.on('connection', (socket) => {
       let goldValue, goldPrice;
 
       socket.on('goldScreen', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar.player_lvl': 1, 'avatar.labelsTitle': 1, 'avatar.buttonsTitle': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.player_lvl': 1,
+          'avatar.labelsTitle': 1,
+          'avatar.buttonsTitle': 1
         }, (err, data) => {
           if (err) throw err;
           const playerLvl = data[0].avatar[0].player_lvl;
-          GoldPlusByLevels.find({ 'avatar_curr_lvl': playerLvl }, {
-            _id: 0, 'gold_plus': 1, 'price_in_diamond': 1
+          GoldPlusByLevels.find({
+            'avatar_curr_lvl': playerLvl
+          }, {
+            _id: 0,
+            'gold_plus': 1,
+            'price_in_diamond': 1
           }, (error, goldData) => {
             if (error) throw error;
             goldValue = goldData[0].gold_plus;
@@ -498,14 +528,22 @@ io.on('connection', (socket) => {
       });
 
       socket.on('sendBuyGold', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar.diamond': 1, 'avatar.gold': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.diamond': 1,
+          'avatar.gold': 1
         }, (err, data) => {
           const diamond = data[0].avatar[0].diamond;
           const gold = data[0].avatar[0].gold;
           if (diamond < goldPrice) {
-            User.find({username: playerName}, {
-              _id: 0, 'avatar.backgroundTitle': 1, 'avatar.buttonsTitle': 1
+            User.find({
+              username: playerName
+            }, {
+              _id: 0,
+              'avatar.backgroundTitle': 1,
+              'avatar.buttonsTitle': 1
             }, (err, data) => {
               if (err) throw err;
               console.log('Low diamonds in DB. Please buy someone :).');
@@ -515,19 +553,23 @@ io.on('connection', (socket) => {
               });
             });
           } else {
-            const resultDiamond = diamond-goldPrice;
+            const resultDiamond = diamond - goldPrice;
             console.log(`${diamond} - ${goldPrice} = ${resultDiamond}`);
-            const resultGold = gold+goldValue;
+            const resultGold = gold + goldValue;
             console.log(`${gold} + ${goldValue} = ${resultGold}`);
             if (err) throw err;
             user.avatar[0].gold = resultGold;
             user.avatar[0].diamond = resultDiamond;
             user.save()
-            .then(price => {
-              console.log(`Save ${resultDiamond} and ${resultGold} to the DB.`);
-              // socket.on('barContainerDiamond', () => {
-                User.find({username: playerName}, {
-                  _id: 0, 'avatar.diamond': 1, 'avatar.gold': 1
+              .then(price => {
+                console.log(`Save ${resultDiamond} and ${resultGold} to the DB.`);
+                // socket.on('barContainerDiamond', () => {
+                User.find({
+                  username: playerName
+                }, {
+                  _id: 0,
+                  'avatar.diamond': 1,
+                  'avatar.gold': 1
                 }, (err, data) => {
                   if (err) throw err;
                   console.log('Loading barContainer after save = barContainerDiamondData');
@@ -538,33 +580,65 @@ io.on('connection', (socket) => {
                     diamond: data[0].avatar[0].diamond
                   });
                 });
-              // });
-            })
-            .catch(error => {
-              console.log(`Something goes wrong. Cannot save ${resultDiamond} to the DB.`);
-            });
+                // });
+              })
+              .catch(error => {
+                console.log(`Something goes wrong. Cannot save ${resultDiamond} to the DB.`);
+              });
           }
         });
       });
 
       socket.on('heroesContainer', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'heroes.name': 1, 'heroes.urlName': 1, 'heroes.stars': 1, 'heroes.class': 1,
-          'heroes.position': 1, 'heroes.description': 1, 'heroes.basic_atk_type': 1,
-          'heroes.power': 1, 'heroes.health': 1, 'heroes.attack_damage': 1,
-          'heroes.ability_power': 1, 'heroes.armor': 1, 'heroes.magic_resist': 1,
-          'heroes.attack_speed': 1, 'heroes.health_regen': 1, 'heroes.movement_speed': 1,
-          'heroes.energy_regen': 1, 'heroes.crit_damage_lvl': 1, 'heroes.crit_strike_lvl': 1,
-          'heroes.hit_lvl': 1, 'heroes.dodge_lvl': 1, 'heroes.life_steal_lvl': 1,
-          'heroes.energy_steal': 1, 'heroes.energy_boost': 1, 'heroes.armor_pen': 1,
-          'heroes.magic_pen': 1, 'heroes.healing_effect': 1, 'heroes.shield_effect': 1,
-          'heroes.summoned': 1, 'heroes.level': 1, 'heroes.hero_curr_lvl_exp': 1,
-          'heroes.hero_next_lvl_exp': 1, 'heroes.color': 1, 'heroes.skills.title': 1,
-          'heroes.skills.description': 1, 'heroes.skills.skill_type': 1,
-          'heroes.skills.skill_level': 1, 'heroes.skills.flat_dmg': 1, 'heroes.skills.skill_power': 1,
-          'heroes.glyphs_rarity.current_status': 1, 'heroes.glyphs_rarity.next_status': 1,
-          'heroes.glyphs_rarity.glyphs.number': 1, 'heroes.glyphs_rarity.glyphs.title': 1,
-          'heroes.glyphs_rarity.glyphs.equipped': 1, 'heroes.glyphs_rarity.glyphs.icon_path': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'heroes.name': 1,
+          'heroes.urlName': 1,
+          'heroes.stars': 1,
+          'heroes.class': 1,
+          'heroes.position': 1,
+          'heroes.description': 1,
+          'heroes.basic_atk_type': 1,
+          'heroes.power': 1,
+          'heroes.health': 1,
+          'heroes.attack_damage': 1,
+          'heroes.ability_power': 1,
+          'heroes.armor': 1,
+          'heroes.magic_resist': 1,
+          'heroes.attack_speed': 1,
+          'heroes.health_regen': 1,
+          'heroes.movement_speed': 1,
+          'heroes.energy_regen': 1,
+          'heroes.crit_damage_lvl': 1,
+          'heroes.crit_strike_lvl': 1,
+          'heroes.hit_lvl': 1,
+          'heroes.dodge_lvl': 1,
+          'heroes.life_steal_lvl': 1,
+          'heroes.energy_steal': 1,
+          'heroes.energy_boost': 1,
+          'heroes.armor_pen': 1,
+          'heroes.magic_pen': 1,
+          'heroes.healing_effect': 1,
+          'heroes.shield_effect': 1,
+          'heroes.summoned': 1,
+          'heroes.level': 1,
+          'heroes.hero_curr_lvl_exp': 1,
+          'heroes.hero_next_lvl_exp': 1,
+          'heroes.color': 1,
+          'heroes.skills.title': 1,
+          'heroes.skills.description': 1,
+          'heroes.skills.skill_type': 1,
+          'heroes.skills.skill_level': 1,
+          'heroes.skills.flat_dmg': 1,
+          'heroes.skills.skill_power': 1,
+          'heroes.glyphs_rarity.current_status': 1,
+          'heroes.glyphs_rarity.next_status': 1,
+          'heroes.glyphs_rarity.glyphs.number': 1,
+          'heroes.glyphs_rarity.glyphs.title': 1,
+          'heroes.glyphs_rarity.glyphs.equipped': 1,
+          'heroes.glyphs_rarity.glyphs.icon_path': 1
         }, (err, data) => {
           if (err) throw err;
           // console.log(data[0].heroes);
@@ -575,8 +649,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('heroInfoIcons', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('heroInfoIconsData', {
@@ -589,8 +666,13 @@ io.on('connection', (socket) => {
       });
 
       socket.on('statsContainer', (heroName) => {
-        User.find({username: playerName, 'heroes.urlName': heroName}, {
-          '_id': 0, 'heroes.$': 1, 'avatar': 1
+        User.find({
+          username: playerName,
+          'heroes.urlName': heroName
+        }, {
+          '_id': 0,
+          'heroes.$': 1,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           // console.log(data[0].avatar[0].heroStatsTitle);
@@ -669,32 +751,53 @@ io.on('connection', (socket) => {
       });
 
       socket.on('glyphsContainer', (heroName) => {
-        let currentGlyphJson = {"currentGlyphs": [
-          { "number": 0, "title": "", "equipped": "", "icon_path": "" },
-          { "number": 0, "title": "", "equipped": "", "icon_path": "" },
-          { "number": 0, "title": "", "equipped": "", "icon_path": "" },
-          { "number": 0, "title": "", "equipped": "", "icon_path": "" }
-        ]};
-        User.find({username: playerName, 'heroes.urlName': heroName}, {
-          '_id': 0, 'heroes.$': 1, 'avatar': 1
+        let currentGlyphJson = {
+          "currentGlyphs": [{
+              "number": 0,
+              "title": "",
+              "equipped": "",
+              "icon_path": ""
+            },
+            {
+              "number": 0,
+              "title": "",
+              "equipped": "",
+              "icon_path": ""
+            },
+            {
+              "number": 0,
+              "title": "",
+              "equipped": "",
+              "icon_path": ""
+            },
+            {
+              "number": 0,
+              "title": "",
+              "equipped": "",
+              "icon_path": ""
+            }
+          ]
+        };
+        User.find({
+          username: playerName,
+          'heroes.urlName': heroName
+        }, {
+          '_id': 0,
+          'heroes.$': 1,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
-          // console.log(data[0].avatar[0]);
           for (let glyphStatus of data[0].heroes[0].glyphs_rarity) {
             if (data[0].heroes[0].color === glyphStatus.current_status) {
               for (let glyph of glyphStatus.glyphs) {
-                // console.log(glyphStatus.glyphs.indexOf(glyph));
                 let index = glyphStatus.glyphs.indexOf(glyph);
                 currentGlyphJson.currentGlyphs[index].number = glyph.number;
                 currentGlyphJson.currentGlyphs[index].title = glyph.title;
                 currentGlyphJson.currentGlyphs[index].equipped = glyph.equipped;
                 currentGlyphJson.currentGlyphs[index].icon_path = glyph.icon_path;
               }
-              // console.log(currentGlyphJson.currentGlyphs);
-              // console.log('glyphStatus:', glyphStatus.current_status, glyphStatus.next_status);
             }
           }
-          // console.log(currentGlyphsArray);
           socket.emit('glyphsContainerData', {
             awakenText: data[0].avatar[0].heroInfoIconsTitle[4],
             powerText: data[0].avatar[0].labelsTitle[24],
@@ -717,18 +820,46 @@ io.on('connection', (socket) => {
       });
 
       socket.on('skillsContainer', (heroName) => {
-        let skillsJson = [
-          { "title": "", "description": "", "skill_type": "", "skill_level": 0,
-            "flat_dmg": 0, "skill_power": 0 },
-          { "title": "", "description": "", "skill_type": "", "skill_level": 0,
-            "flat_dmg": 0, "skill_power": 0 },
-          { "title": "", "description": "", "skill_type": "", "skill_level": 0,
-            "flat_dmg": 0, "skill_power": 0 },
-          { "title": "", "description": "", "skill_type": "", "skill_level": 0,
-            "flat_dmg": 0, "skill_power": 0 }
+        let skillsJson = [{
+            "title": "",
+            "description": "",
+            "skill_type": "",
+            "skill_level": 0,
+            "flat_dmg": 0,
+            "skill_power": 0
+          },
+          {
+            "title": "",
+            "description": "",
+            "skill_type": "",
+            "skill_level": 0,
+            "flat_dmg": 0,
+            "skill_power": 0
+          },
+          {
+            "title": "",
+            "description": "",
+            "skill_type": "",
+            "skill_level": 0,
+            "flat_dmg": 0,
+            "skill_power": 0
+          },
+          {
+            "title": "",
+            "description": "",
+            "skill_type": "",
+            "skill_level": 0,
+            "flat_dmg": 0,
+            "skill_power": 0
+          }
         ];
-        User.find({username: playerName, 'heroes.urlName': heroName}, {
-          '_id': 0, 'heroes.$': 1, 'avatar': 1
+        User.find({
+          username: playerName,
+          'heroes.urlName': heroName
+        }, {
+          '_id': 0,
+          'heroes.$': 1,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           for (let skill of data[0].heroes[0].skills) {
@@ -741,7 +872,6 @@ io.on('connection', (socket) => {
             skillsJson[index].flat_dmg = skill.flat_dmg;
             skillsJson[index].skill_power = skill.skill_power;
           }
-          // console.log('sending data:', data[0].heroes[0].name, data[0].heroes[0].class);
           socket.emit('skillsContainerData', {
             name: data[0].heroes[0].name,
             class: data[0].heroes[0].class,
@@ -755,16 +885,297 @@ io.on('connection', (socket) => {
       });
 
 
+      socket.on('progress', () => {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.progress': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('progressData', {
+            progress: data[0].avatar[0].progress
+          });
+        });
+      });
+
+      socket.on('paragraphs', () => {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('paragraphsData', {
+            // paragraphsMsg: data[0].avatar
+            paragraphs: data[0].avatar[0].paragraphs,
+            consume: data[0].avatar[0].labelsTitle[14],
+            enemiesPower: data[0].avatar[0].labelsTitle[15],
+            enemies: data[0].avatar[0].labelsTitle[16],
+            possibleRewards: data[0].avatar[0].labelsTitle[17],
+            sweep: data[0].avatar[0].buttonsTitle[13],
+            sweepx10: data[0].avatar[0].buttonsTitle[14],
+            start: data[0].avatar[0].buttonsTitle[15]
+          });
+        });
+      });
+
+      socket.on('selectedParagraph', (difficulty, chapter) => {
+        // console.log('difficulty', difficulty, chapter);
+        Enemies.find({
+          'map_location': {
+            $elemMatch: {
+              'type_location': difficulty,
+              'chapter': chapter
+            }
+          }
+        }, {
+          '_id': 0,
+          'icon_path': 1,
+          'image_path': 1,
+          'name': 1,
+          'class': 1,
+          'position': 1,
+          'description': 1,
+          'basic_atk_type': 1,
+          'attack_range': 1,
+          'power': 1,
+          'health': 1,
+          'attack_damage': 1,
+          'ability_power': 1,
+          'armor': 1,
+          'magic_resist': 1,
+          'movement_speed': 1,
+          'level': 1,
+          'map_location.$': 1
+        }, (err, dataEnemies) => {
+          // console.log(data);
+          if (err) throw err;
+          Glyphs.find({
+            'map_location': {
+              $elemMatch: {
+                'type_location': difficulty,
+                'chapter': chapter
+              }
+            }
+          }, {
+            '_id': 0,
+            'icon_path': 1,
+            'title': 1,
+            'map_location.$': 1
+          }, (err, dataPossibleRewards) => {
+            // console.log(data);
+            // console.log(dataEnemies);
+            // console.log(dataGlyphs);
+            if (err) throw err;
+            socket.emit('selectedParagraphData', {
+              enemiesData: dataEnemies,
+              possibleRewardsData: dataPossibleRewards
+            });
+            // socket.emit('possibleRewardsData', {
+            //   possibleRewardsData: data
+            // });
+          });
+          // socket.emit('enemiesData', {
+          //   enemiesData: dataEnemies
+          // });
+        });
+      });
+
+      socket.on('selectedHeroes', () => {
+        let summonedHeroes = [];
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'heroes.summoned': 1,
+          'heroes.name': 1,
+          'heroes.stars': 1,
+          'heroes.class': 1,
+          'heroes.level': 1,
+          'heroes.color': 1,
+          'heroes.icon_selected_path': 1,
+          'heroes.power': 1,
+          'heroes.position_number': 1,
+          'avatar.labelsTitle': 1,
+          'avatar.buttonsTitle': 1,
+          'avatar.bannersTitle': 1
+        }, (err, data) => {
+          if (err) throw err;
+          // console.log(data[0].avatar[0].buttonsTitle);
+          for (let item of data[0].heroes) {
+            if (item.summoned === 'yes') {
+              summonedHeroes.push(item);
+            }
+          }
+          // console.log(summonedHeroes);
+          socket.emit('selectedHeroesData', {
+            // heroesMsg: data[0].heroes
+            heroes: summonedHeroes,
+            attack: data[0].avatar[0].buttonsTitle[16],
+            textPower: data[0].avatar[0].labelsTitle[24],
+            selectHeroes: data[0].avatar[0].bannersTitle[3]
+            // name: data[0].heroes[0].name,
+            // stars: data[0].heroes[0].stars,
+            // class: data[0].heroes[0].class,  //dodelat dotaz, v DB dopsat icon_selected_path
+          });
+        });
+      });
+
+      socket.on('battle', () => {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.buttonsTitle': 1
+        }, (err, data) => {
+          if (err) throw err;
+          socket.emit('battleData', {
+            auto: data[0].avatar[0].buttonsTitle[17]
+          });
+        });
+        countdownTimer(20, 'battleTimerStarted', 'battleTimerEnded');
+      });
+
+      let battleHeroesArray = [];
+      const battleHeroesCoordinationArray = [
+        [826, 624],
+        [654, 462],
+        [482, 624],
+        [310, 462],
+        [138, 624]
+      ];
+      const battleEnemiesCoordinationArray = [
+        [1098, 624],
+        [1278, 462],
+        [1458, 624],
+        [1638, 462],
+        [1818, 624]
+      ];
+
+      socket.on('battleHeroes', (selectedHeroList, difficulty, chapter) => {
+        async function findHero(heroName) {
+          User.find({
+            username: playerName,
+            'heroes.name': heroName
+          }, {
+            '_id': 0,
+            'heroes.$': 1
+          }, (err, data) => {
+            if (err) throw err;
+            // console.log(data[0].heroes[0].name);
+            battleHeroesArray.push({
+              name: data[0].heroes[0].name,
+              basicAttackType: data[0].heroes[0].basic_atk_type,
+              attackRange: data[0].heroes[0].attack_range,
+              power: data[0].heroes[0].power,
+              health: data[0].heroes[0].health,
+              attackDamage: data[0].heroes[0].attack_damage,
+              abilityPower: data[0].heroes[0].ability_power,
+              armor: data[0].heroes[0].armor,
+              magicResist: data[0].heroes[0].magic_resist,
+              attackSpeed: data[0].heroes[0].attack_speed,
+              healthRegen: data[0].heroes[0].health_regen,
+              movementSpeed: data[0].heroes[0].movement_speed,
+              energyRegen: data[0].heroes[0].energy_regen,
+              critDamageLevel: data[0].heroes[0].crit_damage_lvl,
+              critStrikeLevel: data[0].heroes[0].crit_strike_lvl,
+              hitLevel: data[0].heroes[0].hit_lvl,
+              dodgeLevel: data[0].heroes[0].dodge_lvl,
+              lifeStealLevel: data[0].heroes[0].life_steal_lvl,
+              energySteal: data[0].heroes[0].energy_steal,
+              energyBoost: data[0].heroes[0].energy_boost,
+              armorPenetration: data[0].heroes[0].armor_pen,
+              magicPenetration: data[0].heroes[0].magic_pen,
+              healingEffect: data[0].heroes[0].healing_effect,
+              shieldEffect: data[0].heroes[0].shield_effect
+            });
+            // battleHeroesArray.push(hero);
+            // console.log('heroName:', heroName);
+            if (battleHeroesArray.length === selectedHeroList.length) {
+              Enemies.find({
+                'map_location': {
+                  $elemMatch: {
+                    'type_location': difficulty,
+                    'chapter': chapter
+                  }
+                }
+              }, {
+                '_id': 0,
+                'image_path': 1,
+                'name': 1,
+                'class': 1,
+                'position': 1,
+                'basic_atk_type': 1,
+                'attack_range': 1,
+                'power': 1,
+                'health': 1,
+                'attack_damage': 1,
+                'ability_power': 1,
+                'armor': 1,
+                'magic_resist': 1,
+                'level': 1,
+                'map_location.$': 1
+              }, (err, dataEnemies) => {
+                // console.log(data);
+                if (err) throw err;
+                // console.log(battleHeroesArray);
+                socket.emit('battleHeroesData', {
+                  heroArray: battleHeroesArray,
+                  heroesBattleCoordination: battleHeroesCoordinationArray,
+                  enemiesBattleCoordination: battleEnemiesCoordinationArray,
+                  enemiesArray: dataEnemies
+                });
+              });
+            }
+          });
+        }
+
+        async function processArray(array) {
+          // map array to promises
+          const promises = array.map(findHero);
+          // wait until all promises are resolved
+          await Promise.all(promises);
+          // for (const heroName of array) {
+          //   await findHero(heroName);
+          // }
+          // console.log('Done!');
+        }
+
+        processArray(selectedHeroList).then(() => {
+          console.log('Done!');
+          // console.log(difficulty, chapter);
+        });
+
+      });
+
+
+
+
+
+      // for (const heroName of selectedHeroList) {
+      //   console.log(selectedHeroList.indexOf(heroName), heroName);
+      //   await findHero(heroName);
+      // }
+      //
+
+
+
 
 
 
       socket.on('btnSummonx1BoMMsg', (data) => {
-        User.find({username: playerName}, {
-          _id: 0, 'heroes': {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'heroes': {
             $elemMatch: {
               'name': 'Leryssa'
             }
-          }, 'heroes.urlName': 1
+          },
+          'heroes.urlName': 1
         }, (err, heroes) => {
           if (err) throw err;
           socket.emit('summonLeryssa', {
@@ -775,12 +1186,16 @@ io.on('connection', (socket) => {
       });
 
       socket.on('btnSummonx1GBoMMsg', (data) => {
-        User.find({username: playerName}, {
-          _id: 0, 'heroes': {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'heroes': {
             $elemMatch: {
               'name': 'Leona'
             }
-          }, 'heroes.urlName': 1
+          },
+          'heroes.urlName': 1
         }, (err, heroes) => {
           if (err) throw err;
           socket.emit('summonLeona', {
@@ -789,21 +1204,6 @@ io.on('connection', (socket) => {
         });
         countdownTimer(30, 'timer46hoursStarted', 'timer46hoursEnded');
       });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       // socket.on('btnSkipMsg', (data) => {
       //   storyTutorialNotDone = false;
@@ -846,8 +1246,11 @@ io.on('connection', (socket) => {
       // });
 
       socket.on('summonBooks', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('summonBooksData', {
@@ -870,8 +1273,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('summonx1BoM', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('summonx1BoMData', {
@@ -885,8 +1291,11 @@ io.on('connection', (socket) => {
       });
 
       socket.on('summonx1GBoM', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar': 1
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar': 1
         }, (err, data) => {
           if (err) throw err;
           socket.emit('summonx1GBoMData', {
@@ -900,114 +1309,6 @@ io.on('connection', (socket) => {
       });
 
 
-
-
-
-
-
-
-
-      socket.on('progress', () => {
-        User.find({username: playerName}, {
-          _id: 0, 'avatar.progress': 1
-        }, (err, data) => {
-          if (err) throw err;
-          // console.log(data[0].avatar[0].heroStatsTitle);
-          socket.emit('progressData', {
-            progress: data[0].avatar[0].progress
-          });
-        });
-      });
-
-      socket.on('paragraphs', () => {
-        User.find({username: playerName}, {
-          _id:0, 'avatar': 1
-        }, (err, data) => {
-          if (err) throw err;
-          // console.log(data[0].avatar);
-          socket.emit('paragraphsData', {
-            // paragraphsMsg: data[0].avatar
-            paragraphs: data[0].avatar[0].paragraphs,
-            consume: data[0].avatar[0].labelsTitle[14],
-            enemiesPower: data[0].avatar[0].labelsTitle[15],
-            enemies: data[0].avatar[0].labelsTitle[16],
-            possibleRewards: data[0].avatar[0].labelsTitle[17],
-            sweep: data[0].avatar[0].buttonsTitle[13],
-            sweepx10: data[0].avatar[0].buttonsTitle[14],
-            start: data[0].avatar[0].buttonsTitle[15]
-          });
-        });
-      });
-
-      socket.on('icons', (difficulty, chapter) => {
-        // console.log('difficulty', difficulty, chapter);
-        Enemies.find({ 'map_location.type_location': difficulty, 'map_location.chapter': chapter }, {
-          _id: 0, 'icon_path': 1, 'name': 1, 'class': 1, 'position': 1, 'description': 1,
-          'basic_atk_type': 1, 'attack_range': 1, 'power': 1, 'health': 1, 'attack_damage': 1,
-          'ability_power': 1, 'armor': 1, 'magic_resist': 1, 'movement_speed': 1,
-          'level': 1, 'map_location.$': 1
-        }, (err, dataEnemies) => {
-          // console.log(data);
-          if (err) throw err;
-          Glyphs.find({ 'map_location.type_location': difficulty, 'map_location.chapter': chapter}, {
-            _id: 0, 'icon_path': 1, 'title': 1, 'map_location.$': 1
-          }, (err, dataPossibleRewards) => {
-            // console.log(data);
-            // console.log(dataEnemies);
-            // console.log(dataGlyphs);
-            if (err) throw err;
-            socket.emit('eprData', {
-              enemiesData: dataEnemies,
-              possibleRewardsData: dataPossibleRewards
-            });
-            // socket.emit('possibleRewardsData', {
-            //   possibleRewardsData: data
-            // });
-          });
-          // socket.emit('enemiesData', {
-          //   enemiesData: dataEnemies
-          // });
-        });
-        // Glyphs.find({ 'map_location.type_location': difficulty, 'map_location.chapter': chapter}, {
-        //   _id: 0, 'icon_path': 1, 'title': 1, 'map_location.$': 1
-        // }, (err, dataPossibleRewards) => {
-        //   // console.log(dataPossibleRewards);
-        //   if (err) throw err;
-        //   socket.emit('possibleRewardsData', {
-        //     possibleRewardsData: dataPossibleRewards
-        //   });
-        // });
-      });
-
-      socket.on('selectedHeroes', () => {
-        let summonedHeroes = [];
-        User.find({username: playerName}, {
-          _id: 0,
-          'heroes.summoned': 1, 'heroes.name': 1, 'heroes.stars': 1, 'heroes.class': 1,
-          'heroes.level': 1, 'heroes.color': 1, 'heroes.icon_selected_path': 1,
-          'heroes.power': 1, 'heroes.position_number': 1,
-          'avatar.buttonsTitle': 1, 'avatar.bannersTitle': 1
-        }, (err, data) => {
-          if (err) throw err;
-          // console.log(data[0].avatar[0].buttonsTitle);
-          for (let item of data[0].heroes) {
-            if (item.summoned === 'yes') {
-              summonedHeroes.push(item);
-            }
-          }
-          // console.log(summonedHeroes);
-          socket.emit('selectedHeroesData', {
-            // heroesMsg: data[0].heroes
-            heroes: summonedHeroes,
-            attack: data[0].avatar[0].buttonsTitle[15],
-            textPower: data[0].avatar[0].bannersTitle[3],
-            selectHeroes: data[0].avatar[0].bannersTitle[4]
-            // name: data[0].heroes[0].name,
-            // stars: data[0].heroes[0].stars,
-            // class: data[0].heroes[0].class,  //dodelat dotaz, v DB dopsat icon_selected_path
-          });
-        });
-      });
 
     }
   });

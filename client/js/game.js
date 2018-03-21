@@ -11,259 +11,243 @@ WebFont.load({
   google: {
     families: ['Josefin Sans:semi-bold']
   },
-  loading: function() { console.log('Font(s) Loading'); },
-  active: function() { console.log('Font(s) Loaded'); fontsLoaded = true; },
-  inactive: function() { console.log('Font(s) Failure'); }
+  loading: function() {
+    console.log('Font(s) Loading');
+  },
+  active: function() {
+    console.log('Font(s) Loaded');
+    fontsLoaded = true;
+  },
+  inactive: function() {
+    console.log('Font(s) Failure');
+  }
 });
 
 // Aliases
 const Container = PIXI.Container,
-      autoDetectRenderer = PIXI.autoDetectRenderer,
-      loader = PIXI.loader,
-      resources = PIXI.loader.resources,
-      TextureCache = PIXI.utils.TextureCache,
-      Sprite = PIXI.Sprite,
-      Text = PIXI.Text,
-      TextStyle = PIXI.TextStyle;
+  autoDetectRenderer = PIXI.autoDetectRenderer,
+  loader = PIXI.loader,
+  resources = PIXI.loader.resources,
+  TextureCache = PIXI.utils.TextureCache,
+  Sprite = PIXI.Sprite,
+  Text = PIXI.Text,
+  TextStyle = PIXI.TextStyle;
 
 // Define globals here
 const GAME_WIDTH = 1920,
-      GAME_HEIGHT = 1080,
-      LATENCY = 500,
-      png = '.png',
-      // jpg = '.jpg',
-      // loadingScreenPath = '/images/game/loading_screen'+jpg,
-      // -------------------------- FOLDERS PATHS --------------------------
-      backgroundsFolderPath = '/images/game/backgrounds/',
-      buttonsFolderPath = '/images/game/buttons/',
-      heroesFolderPath = '/images/game/heroes/',
-      iconsFolderPath = '/images/game/icons/',
-      glyphsFolderPath = '/images/game/icons/glyphs/',
-      labelsFolderPath = '/images/game/labels/',
-      mainscreenFolderPath = '/images/game/mainscreen/',
-      tutorialFolderPath = '/images/game/tutorial/',
-      enemiesFolderPath = '/images/game/enemies/',
-      // -----------------------------------------------------------------------
-      loadingBackgroundPath = `${backgroundsFolderPath}loading_background${png}`,
-      backgroundEmptyPath = `${backgroundsFolderPath}background_empty${png}`,
-      backgroundEmptyBlurPath = `${backgroundsFolderPath}background_empty_blur${png}`,
-      backgroundDarkerPath = `${backgroundsFolderPath}background_darker${png}`,
-      // ----------
-      apprenticePath = `${tutorialFolderPath}apprentice${png}`,
-      playerPath = `${tutorialFolderPath}player${png}`,
-      masterPath = `${tutorialFolderPath}master${png}`,
-      bubblePath = `${tutorialFolderPath}bubble${png}`,
-      arrowDown120x48Path = `${tutorialFolderPath}arrow_down${png}`,
-      // ----------
-      btn144x144Path = `${buttonsFolderPath}btn_144x144${png}`,
-      btn144x72Path = `${buttonsFolderPath}btn_144x72${png}`,
-      btn96x144Path = `${buttonsFolderPath}btn_96x144${png}`,
-      avatarScreenBackgroundPath = `${backgroundsFolderPath}avatar_screen_background${png}`,
-      helpIconPath = `${iconsFolderPath}help_icon${png}`, // ? mark on btn
-      btnBackPath = `${buttonsFolderPath}btn_back${png}`,
-      btnGreen260x72Path = `${buttonsFolderPath}btn_green_260x72${png}`,
-      btnGreen248x60Path = `${buttonsFolderPath}btn_green_248x60${png}`,
-      avatarChangeNameBackgroundPath = `${backgroundsFolderPath}avatar_changename_background${png}`,
-      avatarChangeNameNamefieldPath = `${labelsFolderPath}avatar_changename_namefield_label${png}`,
-      dicePath = `${iconsFolderPath}dice_icon${png}`,
-      banner620x98Path = `${iconsFolderPath}banner_620x98${png}`,
-      avatarImageJsonPath = `${iconsFolderPath}avatar/avatar_images.json`,
-      avatarBorderJsonPath = `${iconsFolderPath}avatar/avatar_borders.json`,
-      avatarLevelJsonPath = `${iconsFolderPath}avatar/avatar_levels.json`,
-      barBackgroundPath = `${backgroundsFolderPath}bar_background${png}`,
-      plusIconPath = `${iconsFolderPath}plus_icon${png}`,
-      goldIconPath = `${iconsFolderPath}gold_icon${png}`,
-      diamondIconPath = `${iconsFolderPath}diamond_icon${png}`,
-      plusBarBackgroundPath = `${backgroundsFolderPath}plus_bar_background${png}`,
-      btnClosePath = `${buttonsFolderPath}btn_close${png}`,
-      scrollBtn192x72Path = `${mainscreenFolderPath}scroll_btn_192x72${png}`,
-      scrollArrow72x36Path = `${mainscreenFolderPath}scroll_arrow_72x36${png}`,
-      scroll192x1068Path = `${mainscreenFolderPath}scroll_192x1068${png}`,
-      scrollBtn192x48Path = `${mainscreenFolderPath}scroll_btn_192x48${png}`,
-      scroll312x192Path = `${mainscreenFolderPath}scroll_312x192${png}`,
-      scroll936x192Path = `${mainscreenFolderPath}scroll_936x192${png}`,
-      backgroundBookPath = `${backgroundsFolderPath}background_book${png}`,
-      banner620x98GreyPath = `${iconsFolderPath}banner_620x98_grey${png}`,
-      starIconPath = `${iconsFolderPath}star_icon${png}`,
-      glyphsPath = `${glyphsFolderPath}glyphs.json`,
-      glyphsNoPath = `${glyphsFolderPath}glyphs_no.json`,
-      pageIconPath = `${iconsFolderPath}page_icon${png}`,
-      expBackgroundPath = `${backgroundsFolderPath}exp_pages_power_background${png}`,
-      leftArrowIconPath = `${iconsFolderPath}left_arrow_icon${png}`,
-      rightArrowIconPath = `${iconsFolderPath}right_arrow_icon${png}`,
-      heroUpperBackgroundPath = `${backgroundsFolderPath}hero_upper_background${png}`,
-      heroBottomBackgroundPath = `${backgroundsFolderPath}hero_bottom_background${png}`,
-      infoIconsPath = `${iconsFolderPath}info_icons.json`,
-      awakenIconPath = `${iconsFolderPath}awaken_icon${png}`,
-      awakenIconBackgroundPath = `${backgroundsFolderPath}awaken_icon_background${png}`,
-      nextGlyphsIconPath = `${iconsFolderPath}next_glyphs_icon${png}`,
-      starBackgroundPath = `${backgroundsFolderPath}star_background${png}`,
-      pedestalPath = `${heroesFolderPath}pedestal${png}`,
-      statsUpperBackgroundPath = `${backgroundsFolderPath}stats_upper_background${png}`,
-      statsBottomBackgroundPath = `${backgroundsFolderPath}stats_bottom_background${png}`,
-      statsGreyLabelPath = `${labelsFolderPath}stats_grey_label${png}`,
-      statsWhiteLabelPath = `${labelsFolderPath}stats_white_label${png}`,
-      skillBackgroundPath = `${backgroundsFolderPath}skill_background${png}`,
-      skillLabelPath = `${labelsFolderPath}skill_label${png}`,
-      // avatarBorderPath = `${iconsFolderPath}avatar_border_wood${png}`,
-      // avatarImagePath = `${iconsFolderPath}avatar_icon${png}`,
-      // avatarLevelBluePath = `${iconsFolderPath}avatar_level_blue_icon${png}`,
-      // avatarFieldPath = `${labelsFolderPath}avatar_field_label${png}`,
-      handIconPath = `${iconsFolderPath}hand_icon${png}`,
-      summonBooksBackgroundPath = `${backgroundsFolderPath}summon_books_background${png}`,
-      lblSummonPath = `${labelsFolderPath}summon_label${png}`,
-      bookOfMagicPath = `${iconsFolderPath}book_of_magic${png}`,
-      grandBookOfMagicPath = `${iconsFolderPath}grand_book_of_magic${png}`,
-      summoningBookPath = `${iconsFolderPath}summoning_book${png}`,
-      leryssaSummonIconPath = `${heroesFolderPath}leryssa/leryssa_summon_icon${png}`,
-      leonaSummonIconPath = `${heroesFolderPath}leona/leona_summon_icon${png}`,
-      // noGlyphIconPath = `${glyphsFolderPath}no_glyph_icon${png}`,
-      // // grey glyphs
-      // abilityPowerIconPath = `${glyphsFolderPath}grey/ability_power_icon${png}`,
-      // armorIconPath = `${glyphsFolderPath}grey/armor_icon${png}`,
-      // armorPenIconPath = `${glyphsFolderPath}grey/armor_pen_icon${png}`,
-      // attackDamageIconPath = `${glyphsFolderPath}grey/attack_damage_icon${png}`,
-      // attackForceIconPath = `${glyphsFolderPath}grey/attack_force_icon${png}`,
-      // critStrikeIconPath = `${glyphsFolderPath}grey/crit_strike_icon${png}`,
-      // doubleAttackIconPath = `${glyphsFolderPath}grey/double_attack_icon${png}`,
-      // energyRegenIconPath = `${glyphsFolderPath}grey/energy_regen_icon${png}`,
-      // hardinessIconPath = `${glyphsFolderPath}grey/hardiness_icon${png}`,
-      // healthIconPath = `${glyphsFolderPath}grey/health_icon${png}`,
-      // healthRegenIconPath = `${glyphsFolderPath}grey/health_regen_icon${png}`,
-      // magicForceIconPath = `${glyphsFolderPath}grey/magic_force_icon${png}`,
-      // magicPenIconPath = `${glyphsFolderPath}grey/magic_pen_icon${png}`,
-      // magicResistIconPath = `${glyphsFolderPath}grey/magic_resist_icon${png}`,
-      // regenerateIconPath = `${glyphsFolderPath}grey/regenerate_icon${png}`,
-      // // // green glyphs
-      // aggressionIconPath = `${glyphsFolderPath}green/aggression_icon${png}`,
-      // avariceIconPath = `${glyphsFolderPath}green/avarice_icon${png}`,
-      // balanceIconPath = `${glyphsFolderPath}green/balance_icon${png}`,
-      // bloodthirstIconPath = `${glyphsFolderPath}green/bloodthirst_icon${png}`,
-      // braveryIconPath = `${glyphsFolderPath}green/bravery_icon${png}`,
-      // cardioIconPath = `${glyphsFolderPath}green/cardio_icon${png}`,
-      // defenseIconPath = `${glyphsFolderPath}green/defense_icon${png}`,
-      // divinePowerIconPath = `${glyphsFolderPath}green/divine_power_icon${png}`,
-      // enforcementIconPath = `${glyphsFolderPath}green/enforcement_icon${png}`,
-      // extraHealthIconPath = `${glyphsFolderPath}green/extra_health_icon${png}`,
-      // fortitudeIconPath = `${glyphsFolderPath}green/fortitude_icon${png}`,
-      // chivalryIconPath = `${glyphsFolderPath}green/chivalry_icon${png}`,
-      // illusionIconPath = `${glyphsFolderPath}green/illusion_icon${png}`,
-      // immortalityIconPath = `${glyphsFolderPath}green/immortality_icon${png}`,
-      // infinityIconPath = `${glyphsFolderPath}green/infinity_icon${png}`,
-      // magicShieldIconPath = `${glyphsFolderPath}green/magic_shield_icon${png}`,
-      // meditationIconPath = `${glyphsFolderPath}green/meditation_icon${png}`,
-      // natureIconPath = `${glyphsFolderPath}green/nature_icon${png}`,
-      // osmosisIconPath = `${glyphsFolderPath}green/osmosis_icon${png}`,
-      // providenceIconPath = `${glyphsFolderPath}green/providence_icon${png}`,
-      // prowessIconPath = `${glyphsFolderPath}green/prowess_icon${png}`,
-      // sublimityIconPath = `${glyphsFolderPath}green/sublimity_icon${png}`,
-      // valorIconPath = `${glyphsFolderPath}green/valor_icon${png}`,
-      // blue glyphs
-      // purple glyphs
-      // orange glyphs
-      // -----------------------------------------------------------------------
-      // bookmarkIconPath = `${iconsFolderPath}bookmarks/bookmark_icon${png}`,
-      // allIconPath = `${iconsFolderPath}bookmarks/all_icon${png}`,
-      // fighterIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`,
-      // mageIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`,
-      // marksmanIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`,
-      // supportIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`,
-      // tankIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`,
-      // borderGreyPath = `${heroesFolderPath}border_grey${png}`,
-      // borderGreenPath = `${heroesFolderPath}border_green${png}`,
-      // borderGreenPlus1Path = `${heroesFolderPath}border_green+1${png}`,
-      // borderBluePath = `${heroesFolderPath}border_blue${png}`,
-      // borderBluePlus1Path = `${heroesFolderPath}border_blue+1${png}`,
-      // borderBluePlus2Path = `${heroesFolderPath}border_blue+2${png}`,
-      // equipIconPath = `${iconsFolderPath}equip_icon${png}`,
-      // equipIconSelectedPath = `${iconsFolderPath}equip_icon_s${png}`,
-      // glyphsIconPath = `${iconsFolderPath}glyphs_icon${png}`,
-      // glyphsIconSelectedPath = `${iconsFolderPath}glyphs_icon_s${png}`,
-      // skillsIconPath = `${iconsFolderPath}skills_icon${png}`,
-      // skillsIconSelectedPath = `${iconsFolderPath}skills_icon_s${png}`,
-      // statsIconPath = `${iconsFolderPath}stats_icon${png}`,
-      // statsIconSelectedPath = `${iconsFolderPath}stats_icon_s${png}`,
-      // ------------------------ Heroes ---------------------------------------
-      aeloisPath = `${heroesFolderPath}aelois/aelois${png}`,
-      amaraPath = `${heroesFolderPath}amara/amara${png}`,
-      crystalPath = `${heroesFolderPath}crystal/crystal${png}`,
-      diuwinPath = `${heroesFolderPath}diuwin/diuwin${png}`,
-      leonaPath = `${heroesFolderPath}leona/leona${png}`,
-      leryssaPath = `${heroesFolderPath}leryssa/leryssa${png}`,
-      nadiaPath = `${heroesFolderPath}nadia/nadia${png}`,
-      nyxPath = `${heroesFolderPath}nyx/nyx${png}`,
-      sinPath = `${heroesFolderPath}sin/sin${png}`,
-      zalajinPath = `${heroesFolderPath}zalajin/zalajin${png}`,
-      zayaPath = `${heroesFolderPath}zaya/zaya${png}`,
-      // ------------------------
-      aeloisGoldPath = `${heroesFolderPath}aelois/aelois_gold${png}`,
-      amaraGoldPath = `${heroesFolderPath}amara/amara_gold${png}`,
-      crystalGoldPath = `${heroesFolderPath}crystal/crystal_gold${png}`,
-      diuwinGoldPath = `${heroesFolderPath}diuwin/diuwin_gold${png}`,
-      leonaGoldPath = `${heroesFolderPath}leona/leona_gold${png}`,
-      leryssaGoldPath = `${heroesFolderPath}leryssa/leryssa_gold${png}`,
-      nadiaGoldPath = `${heroesFolderPath}nadia/nadia_gold${png}`,
-      nyxGoldPath = `${heroesFolderPath}nyx/nyx_gold${png}`,
-      sinGoldPath = `${heroesFolderPath}sin/sin_gold${png}`,
-      zalajinGoldPath = `${heroesFolderPath}zalajin/zalajin_gold${png}`,
-      zayaGoldPath = `${heroesFolderPath}zaya/zaya_gold${png}`,
-      // ------------------------ Heroes Stats ---------------------------------
-      aeloisStatsPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
-      amaraStatsPath = `${heroesFolderPath}amara/amara_stats${png}`,
-      crystalStatsPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
-      diuwinStatsPath = `${heroesFolderPath}diuwin/diuwin_stats${png}`,
-      leonaStatsPath = `${heroesFolderPath}leona/leona_stats${png}`,
-      leryssaStatsPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
-      nadiaStatsPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
-      nyxStatsPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
-      sinStatsPath = `${heroesFolderPath}sin/sin_stats${png}`,
-      zalajinStatsPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
-      zayaStatsPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
-      // ------------------------ Heroes Icons ---------------------------------
-      aeloisIconSPath = `${heroesFolderPath}aelois/aelois_icon_selected${png}`,
-      amaraIconSPath = `${heroesFolderPath}amara/amara_icon_selected${png}`,
-      crystalIconSPath = `${heroesFolderPath}crystal/crystal_icon_selected${png}`,
-      diuwinIconSPath = `${heroesFolderPath}diuwin/diuwin_icon_selected${png}`,
-      leonaIconSPath = `${heroesFolderPath}leona/leona_icon_selected${png}`,
-      leryssaIconSPath = `${heroesFolderPath}leryssa/leryssa_icon_selected${png}`,
-      nadiaIconSPath = `${heroesFolderPath}nadia/nadia_icon_selected${png}`,
-      nyxIconSPath = `${heroesFolderPath}nyx/nyx_icon_selected${png}`,
-      sinIconSPath = `${heroesFolderPath}sin/sin_icon_selected${png}`,
-      zalajinIconSPath = `${heroesFolderPath}zalajin/zalajin_icon_selected${png}`,
-      zayaIconSPath = `${heroesFolderPath}zaya/zaya_icon_selected${png}`,
-      // -----------------------------------------------------------------------
-      // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
-      plusGreenIconPath = `${iconsFolderPath}plus_green_icon${png}`,
-      plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`,
-      // statsBackgroundPath = `${backgroundsFolderPath}stats_background${png}`,
-      mapBackgroundPath = `${backgroundsFolderPath}map_background${png}`,
-      mapPath = `${backgroundsFolderPath}map${png}`,
-      difficultyIconBackgroundPath = `${backgroundsFolderPath}difficulty_icon_background${png}`,
-      normalDifficultyIconPath = `${iconsFolderPath}normal_difficulty_icon${png}`,
-      eliteDifficultyIconPath = `${iconsFolderPath}elite_difficulty_icon${png}`,
-      legendDifficultyIconPath = `${iconsFolderPath}legend_difficulty_icon${png}`,
-      // stageNoIconPath = `${iconsFolderPath}stage_icon_no${png}`,
-      enemy01Path = `${enemiesFolderPath}enemy_01/enemy_01_icon${png}`,
-      enemy02Path = `${enemiesFolderPath}enemy_02/enemy_02_icon${png}`,
-      pauseIconPath = `${iconsFolderPath}pause_icon${png}`
-      ;
+  GAME_HEIGHT = 1080,
+  LATENCY = 500,
+  png = '.png',
+  // -------------------------- FOLDERS PATHS --------------------------
+  backgroundsFolderPath = '/images/game/backgrounds/',
+  buttonsFolderPath = '/images/game/buttons/',
+  heroesFolderPath = '/images/game/heroes/',
+  iconsFolderPath = '/images/game/icons/',
+  glyphsFolderPath = '/images/game/icons/glyphs/',
+  labelsFolderPath = '/images/game/labels/',
+  mainscreenFolderPath = '/images/game/mainscreen/',
+  tutorialFolderPath = '/images/game/tutorial/',
+  enemiesFolderPath = '/images/game/enemies/',
+  // -----------------------------------------------------------------------
+  loadingBackgroundPath = `${backgroundsFolderPath}loading_background${png}`,
+  backgroundEmptyPath = `${backgroundsFolderPath}background_empty${png}`,
+  backgroundEmptyBlurPath = `${backgroundsFolderPath}background_empty_blur${png}`,
+  backgroundDarkerPath = `${backgroundsFolderPath}background_darker${png}`,
+  // ----------
+  apprenticePath = `${tutorialFolderPath}apprentice${png}`,
+  playerPath = `${tutorialFolderPath}player${png}`,
+  masterPath = `${tutorialFolderPath}master${png}`,
+  bubblePath = `${tutorialFolderPath}bubble${png}`,
+  arrowDown120x48Path = `${tutorialFolderPath}arrow_down${png}`,
+  // ----------
+  btn144x144Path = `${buttonsFolderPath}btn_144x144${png}`,
+  btn144x72Path = `${buttonsFolderPath}btn_144x72${png}`,
+  btn96x144Path = `${buttonsFolderPath}btn_96x144${png}`,
+  avatarScreenBackgroundPath = `${backgroundsFolderPath}avatar_screen_background${png}`,
+  helpIconPath = `${iconsFolderPath}help_icon${png}`, // ? mark on btn
+  btnBackPath = `${buttonsFolderPath}btn_back${png}`,
+  btnGreen260x72Path = `${buttonsFolderPath}btn_green_260x72${png}`,
+  btnGreen248x60Path = `${buttonsFolderPath}btn_green_248x60${png}`,
+  avatarChangeNameBackgroundPath = `${backgroundsFolderPath}avatar_changename_background${png}`,
+  avatarChangeNameNamefieldPath = `${labelsFolderPath}avatar_changename_namefield_label${png}`,
+  dicePath = `${iconsFolderPath}dice_icon${png}`,
+  banner620x98Path = `${iconsFolderPath}banner_620x98${png}`,
+  avatarImageJsonPath = `${iconsFolderPath}avatar/avatar_images.json`,
+  avatarBorderJsonPath = `${iconsFolderPath}avatar/avatar_borders.json`,
+  avatarLevelJsonPath = `${iconsFolderPath}avatar/avatar_levels.json`,
+  barBackgroundPath = `${backgroundsFolderPath}bar_background${png}`,
+  plusIconPath = `${iconsFolderPath}plus_icon${png}`,
+  goldIconPath = `${iconsFolderPath}gold_icon${png}`,
+  diamondIconPath = `${iconsFolderPath}diamond_icon${png}`,
+  plusBarBackgroundPath = `${backgroundsFolderPath}plus_bar_background${png}`,
+  btnClosePath = `${buttonsFolderPath}btn_close${png}`,
+  scrollBtn192x72Path = `${mainscreenFolderPath}scroll_btn_192x72${png}`,
+  scrollArrow72x36Path = `${mainscreenFolderPath}scroll_arrow_72x36${png}`,
+  scroll192x1068Path = `${mainscreenFolderPath}scroll_192x1068${png}`,
+  scrollBtn192x48Path = `${mainscreenFolderPath}scroll_btn_192x48${png}`,
+  scroll312x192Path = `${mainscreenFolderPath}scroll_312x192${png}`,
+  scroll936x192Path = `${mainscreenFolderPath}scroll_936x192${png}`,
+  backgroundBookPath = `${backgroundsFolderPath}background_book${png}`,
+  banner620x98GreyPath = `${iconsFolderPath}banner_620x98_grey${png}`,
+  starIconPath = `${iconsFolderPath}star_icon${png}`,
+  glyphsPath = `${glyphsFolderPath}glyphs.json`,
+  glyphsNoPath = `${glyphsFolderPath}glyphs_no.json`,
+  pageIconPath = `${iconsFolderPath}page_icon${png}`,
+  expBackgroundPath = `${backgroundsFolderPath}exp_pages_power_background${png}`,
+  leftArrowIconPath = `${iconsFolderPath}left_arrow_icon${png}`,
+  rightArrowIconPath = `${iconsFolderPath}right_arrow_icon${png}`,
+  heroUpperBackgroundPath = `${backgroundsFolderPath}hero_upper_background${png}`,
+  heroBottomBackgroundPath = `${backgroundsFolderPath}hero_bottom_background${png}`,
+  infoIconsPath = `${iconsFolderPath}info_icons.json`,
+  awakenIconPath = `${iconsFolderPath}awaken_icon${png}`,
+  awakenIconBackgroundPath = `${backgroundsFolderPath}awaken_icon_background${png}`,
+  nextGlyphsIconPath = `${iconsFolderPath}next_glyphs_icon${png}`,
+  starBackgroundPath = `${backgroundsFolderPath}star_background${png}`,
+  pedestalPath = `${heroesFolderPath}pedestal${png}`,
+  statsUpperBackgroundPath = `${backgroundsFolderPath}stats_upper_background${png}`,
+  statsBottomBackgroundPath = `${backgroundsFolderPath}stats_bottom_background${png}`,
+  statsGreyLabelPath = `${labelsFolderPath}stats_grey_label${png}`,
+  statsWhiteLabelPath = `${labelsFolderPath}stats_white_label${png}`,
+  skillBackgroundPath = `${backgroundsFolderPath}skill_background${png}`,
+  skillLabelPath = `${labelsFolderPath}skill_label${png}`,
+  // handIconPath = `${iconsFolderPath}hand_icon${png}`,
+  // summonBooksBackgroundPath = `${backgroundsFolderPath}summon_books_background${png}`,
+  // lblSummonPath = `${labelsFolderPath}summon_label${png}`,
+  // bookOfMagicPath = `${iconsFolderPath}book_of_magic${png}`,
+  // grandBookOfMagicPath = `${iconsFolderPath}grand_book_of_magic${png}`,
+  // summoningBookPath = `${iconsFolderPath}summoning_book${png}`,
+  // leryssaSummonIconPath = `${heroesFolderPath}leryssa/leryssa_summon_icon${png}`,
+  // leonaSummonIconPath = `${heroesFolderPath}leona/leona_summon_icon${png}`,
+  // -----------------------------------------------------------------------
+  // bookmarkIconPath = `${iconsFolderPath}bookmarks/bookmark_icon${png}`,
+  // allIconPath = `${iconsFolderPath}bookmarks/all_icon${png}`,
+  // fighterIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`,
+  // mageIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`,
+  // marksmanIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`,
+  // supportIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`,
+  // tankIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`,
+  // borderGreyPath = `${heroesFolderPath}border_grey${png}`,
+  // borderGreenPath = `${heroesFolderPath}border_green${png}`,
+  // borderGreenPlus1Path = `${heroesFolderPath}border_green+1${png}`,
+  // borderBluePath = `${heroesFolderPath}border_blue${png}`,
+  // borderBluePlus1Path = `${heroesFolderPath}border_blue+1${png}`,
+  // borderBluePlus2Path = `${heroesFolderPath}border_blue+2${png}`,
+  // equipIconPath = `${iconsFolderPath}equip_icon${png}`,
+  // equipIconSelectedPath = `${iconsFolderPath}equip_icon_s${png}`,
+  // glyphsIconPath = `${iconsFolderPath}glyphs_icon${png}`,
+  // glyphsIconSelectedPath = `${iconsFolderPath}glyphs_icon_s${png}`,
+  // skillsIconPath = `${iconsFolderPath}skills_icon${png}`,
+  // skillsIconSelectedPath = `${iconsFolderPath}skills_icon_s${png}`,
+  // statsIconPath = `${iconsFolderPath}stats_icon${png}`,
+  // statsIconSelectedPath = `${iconsFolderPath}stats_icon_s${png}`,
+  // ------------------------ Heroes ---------------------------------------
+  aeloisPath = `${heroesFolderPath}aelois/aelois${png}`,
+  amaraPath = `${heroesFolderPath}amara/amara${png}`,
+  crystalPath = `${heroesFolderPath}crystal/crystal${png}`,
+  diuwinPath = `${heroesFolderPath}diuwin/diuwin${png}`,
+  leonaPath = `${heroesFolderPath}leona/leona${png}`,
+  leryssaPath = `${heroesFolderPath}leryssa/leryssa${png}`,
+  nadiaPath = `${heroesFolderPath}nadia/nadia${png}`,
+  nyxPath = `${heroesFolderPath}nyx/nyx${png}`,
+  sinPath = `${heroesFolderPath}sin/sin${png}`,
+  zalajinPath = `${heroesFolderPath}zalajin/zalajin${png}`,
+  zayaPath = `${heroesFolderPath}zaya/zaya${png}`,
+  // ------------------------
+  aeloisGoldPath = `${heroesFolderPath}aelois/aelois_gold${png}`,
+  amaraGoldPath = `${heroesFolderPath}amara/amara_gold${png}`,
+  crystalGoldPath = `${heroesFolderPath}crystal/crystal_gold${png}`,
+  diuwinGoldPath = `${heroesFolderPath}diuwin/diuwin_gold${png}`,
+  leonaGoldPath = `${heroesFolderPath}leona/leona_gold${png}`,
+  leryssaGoldPath = `${heroesFolderPath}leryssa/leryssa_gold${png}`,
+  nadiaGoldPath = `${heroesFolderPath}nadia/nadia_gold${png}`,
+  nyxGoldPath = `${heroesFolderPath}nyx/nyx_gold${png}`,
+  sinGoldPath = `${heroesFolderPath}sin/sin_gold${png}`,
+  zalajinGoldPath = `${heroesFolderPath}zalajin/zalajin_gold${png}`,
+  zayaGoldPath = `${heroesFolderPath}zaya/zaya_gold${png}`,
+  // ------------------------ Heroes Stats ---------------------------------
+  aeloisStatsPath = `${heroesFolderPath}aelois/aelois_stats${png}`,
+  amaraStatsPath = `${heroesFolderPath}amara/amara_stats${png}`,
+  crystalStatsPath = `${heroesFolderPath}crystal/crystal_stats${png}`,
+  diuwinStatsPath = `${heroesFolderPath}diuwin/diuwin_stats${png}`,
+  leonaStatsPath = `${heroesFolderPath}leona/leona_stats${png}`,
+  leryssaStatsPath = `${heroesFolderPath}leryssa/leryssa_stats${png}`,
+  nadiaStatsPath = `${heroesFolderPath}nadia/nadia_stats${png}`,
+  nyxStatsPath = `${heroesFolderPath}nyx/nyx_stats${png}`,
+  sinStatsPath = `${heroesFolderPath}sin/sin_stats${png}`,
+  zalajinStatsPath = `${heroesFolderPath}zalajin/zalajin_stats${png}`,
+  zayaStatsPath = `${heroesFolderPath}zaya/zaya_stats${png}`,
+  // ------------------------ Heroes Icons ---------------------------------
+  aeloisIconSPath = `${heroesFolderPath}aelois/aelois_icon_selected${png}`,
+  amaraIconSPath = `${heroesFolderPath}amara/amara_icon_selected${png}`,
+  crystalIconSPath = `${heroesFolderPath}crystal/crystal_icon_selected${png}`,
+  diuwinIconSPath = `${heroesFolderPath}diuwin/diuwin_icon_selected${png}`,
+  leonaIconSPath = `${heroesFolderPath}leona/leona_icon_selected${png}`,
+  leryssaIconSPath = `${heroesFolderPath}leryssa/leryssa_icon_selected${png}`,
+  nadiaIconSPath = `${heroesFolderPath}nadia/nadia_icon_selected${png}`,
+  nyxIconSPath = `${heroesFolderPath}nyx/nyx_icon_selected${png}`,
+  sinIconSPath = `${heroesFolderPath}sin/sin_icon_selected${png}`,
+  zalajinIconSPath = `${heroesFolderPath}zalajin/zalajin_icon_selected${png}`,
+  zayaIconSPath = `${heroesFolderPath}zaya/zaya_icon_selected${png}`,
+  // -----------------------------------------------------------------------
+  // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
+  // plusGreenIconPath = `${iconsFolderPath}plus_green_icon${png}`,
+  // plusOrangeIconPath = `${iconsFolderPath}plus_orange_icon${png}`,
+  // // statsBackgroundPath = `${backgroundsFolderPath}stats_background${png}`,
+  mapBackgroundPath = `${backgroundsFolderPath}map_background${png}`,
+  mapPath = `${backgroundsFolderPath}map${png}`,
+  lockIconPath = `${iconsFolderPath}lock_icon${png}`,
+  difficultyIconBackgroundPath = `${backgroundsFolderPath}difficulty_icon_background${png}`,
+  difficultySelectedPath = `${backgroundsFolderPath}difficulty_selected${png}`,
+  normalDifficultyIconPath = `${iconsFolderPath}normal_difficulty_icon${png}`,
+  eliteDifficultyIconPath = `${iconsFolderPath}elite_difficulty_icon${png}`,
+  legendDifficultyIconPath = `${iconsFolderPath}legend_difficulty_icon${png}`,
+  stageIconPath = `${iconsFolderPath}stage_icon${png}`,
+  stageNumberIconPath = `${iconsFolderPath}stage_number${png}`,
+  paragraphBackgroundPath = `${backgroundsFolderPath}paragraph_background${png}`,
+  btnSweepPath = `${buttonsFolderPath}btn_sweep${png}`,
+  btnSweepNoPath = `${buttonsFolderPath}btn_sweep_no${png}`,
+  btnStartPath = `${buttonsFolderPath}btn_start${png}`,
+  selectUpperBackgroundPath = `${backgroundsFolderPath}select_upper_background${png}`,
+  selectBottomBackgroundPath = `${backgroundsFolderPath}select_bottom_background${png}`,
+  btnAttackPath = `${buttonsFolderPath}btn_attack${png}`,
+  selectNameLabelPath = `${labelsFolderPath}select_name_label${png}`,
+  selectLevelLabelPath = `${labelsFolderPath}select_level_label${png}`,
+  selectIconLockedPath = `${iconsFolderPath}select_icon_locked${png}`,
+  selectHeroIconPath = `${iconsFolderPath}select_hero_icon${png}`,
+  yesIconPath = `${iconsFolderPath}yes_icon${png}`,
+  backgroundPath = `${backgroundsFolderPath}attack_screen_background${png}`,
+  timerBackgroundPath = `${backgroundsFolderPath}timer_background${png}`,
+  btnAutoPath = `${buttonsFolderPath}btn_auto${png}`,
+  btnAutoNoPath = `${buttonsFolderPath}btn_auto_no${png}`,
+  pauseIconPath = `${iconsFolderPath}pause_icon${png}`,
+  hpBarPath = `${iconsFolderPath}hp_bar${png}`,
+  mpBarPath = `${iconsFolderPath}mp_bar${png}`,
+  timerIconPath = `${iconsFolderPath}timer_icon${png}`,
+  // itemUseBackgroundPath = `${backgroundsFolderPath}item_use_background${png}`
+  // // stageNoIconPath = `${iconsFolderPath}stage_icon_no${png}`,
+  enemy01Path = `${enemiesFolderPath}enemy_01/enemy_01${png}`,
+  enemy02Path = `${enemiesFolderPath}enemy_02/enemy_02${png}`,
+  enemy03Path = `${enemiesFolderPath}enemy_03/enemy_03${png}`,
+  enemy04Path = `${enemiesFolderPath}enemy_04/enemy_04${png}`,
+  enemy05Path = `${enemiesFolderPath}enemy_05/enemy_05${png}`,
+  enemy06Path = `${enemiesFolderPath}enemy_06/enemy_06${png}`;
 
 // Global variables
 let renderer, stage, stats,
-    // btnPurple248x80,
-    storyTutorialContainer,
-    tutorialContainer,
-    mainScreenContainer, //mainScreenIconsContainer,
-    avatarContainer, avatarScreenContainer,
-    barContainer,
-    // avatarChangeNameContainer,
-    scrollContainer, // battleContainer, marketsContainer,
-    summonBooksContainer, summonContainer,
-    heroesContainer, // heroesPortraitContainer,
-    statsContainer, glyphsContainer, skillsContainer, equipContainer,
-    mapContainer;
+  // btnPurple248x80,
+  storyTutorialContainer,
+  tutorialContainer,
+  mainScreenContainer, //mainScreenIconsContainer,
+  avatarContainer, avatarScreenContainer,
+  barContainer,
+  // avatarChangeNameContainer,
+  scrollContainer, // battleContainer, marketsContainer,
+  summonBooksContainer, summonContainer,
+  heroesContainer, // heroesPortraitContainer,
+  statsContainer, glyphsContainer, skillsContainer, equipContainer,
+  mapContainer;
 
-let freeCounter;
+let freeCounter, battleTimerCounter;
 
 // Define Textstyle variables
 let textStyleBtn60_44_black, textStyleBubble_52left_white, textStyle144_40center_black,
@@ -276,15 +260,19 @@ let textStyleBtn60_44_black, textStyleBubble_52left_white, textStyle144_40center
   textStyleHeroesLevel_16center_white, textStyleText_40left_black, textStyleHero_48center_white,
   textStyleExpPagesBar_30center_white;
 
-let interactiveMainScreenArray = [], interactiveScrollArray = [];
+let interMainScreenArray = [],
+  interScrollArray = [],
+  interParagraphsArray = [],
+  interBtnBackStartArray = [],
+  interSelectHeroesArray = [];
 
 // Story Tutorial variables (stc = storyTutorialContainer)
-// let
+let
   // backgroundEmpty_stc,
   // spriteApprentice, spritePlayer, spriteBubble,
   // textSpriteBubble,
   // spriteMaster,
-  // spriteArrowDown;
+  spriteArrowDown;
 
 // Tutorial variables (tc = tutorialContainer)
 let
@@ -314,12 +302,12 @@ let scrollBtn192x72_mc,
   // plusBarGold, goldIcon,
   // plusBarDiamond;
   // Scroll (in Mainscreen) variables in scrollContainer (sc = scrollContainer)
-// let scrollBackground, scrollBottom,
+  // let scrollBackground, scrollBottom,
   // btnHeroes, //textBtnHeroes,
   // btnInventory, textBtnInventory, btnTasks, textBtnTasks,
   // btnTrials, textBtnTrials, btnBattle, textBtnBattle, btnMarkets, textBtnMarkets;
 
-// Summoning Books variables (sbc = summonBooksContainer)
+  // Summoning Books variables (sbc = summonBooksContainer)
   // backgroundEmpty_sbc, backgroundDarker_sbc,
   //backIcon_sbc, //backgroundBook_sbc,
   // bannerBoM_sbc,
@@ -340,15 +328,15 @@ let scrollBtn192x72_mc,
   // btnSummonx10GBoM_sbc,
   // textBtnSummonx10GBoM_sbc,
   // textLblGoldAboveBtnSummonx10GBoM_sbc,
-// Summon x1 (10) variables (suc = summonContainer)
+  // Summon x1 (10) variables (suc = summonContainer)
   // backgroundEmpty_suc, backgroundDarker_suc,
   //backIcon_suc,
-  summoningItem_suc//,
-  // summoningBook_suc,
-  // banner_suc, textBanner_suc,
-  // lblLeft_suc, textLblLeft_suc, //btn10More_suc, //textBtn10More_suc,
-  // lblRight_suc, textLblRight_suc, btn1More_suc//, textBtn1More_suc
-  ;
+  summoningItem_suc //,
+// summoningBook_suc,
+// banner_suc, textBanner_suc,
+// lblLeft_suc, textLblLeft_suc, //btn10More_suc, //textBtn10More_suc,
+// lblRight_suc, textLblRight_suc, btn1More_suc//, textBtn1More_suc
+;
 
 // Heroes variables
 let scrollArrow72x36;
@@ -361,13 +349,16 @@ let scrollArrow72x36;
 
 // Battle variables (bac = battleContainer)
 // let battleScrollBackground,
-  // btnArena, textBtnArena, btnGrandArena, textBtnGrandArena;
+// btnArena, textBtnArena, btnGrandArena, textBtnGrandArena;
 
 // Markets variables (mrc = marketsContainer)
 // let marketsScrollBackground,
 //   btnArenaShop, textBtnArenaShop, btnGrandArenaShop, textBtnGrandArenaShop,
 //   btnGuildShop, textBtnGuildShop, btnCrusadeShop, textBtnCrusadeShop,
 //   btnFantasyShop, textBtnFantasyShop, btnShop, textBtnShop;
+
+let aelois, amara, crystal, diuwin, leona, leryssa, nadia, nyx, sin, zalajin, zaya;
+let enemy01, enemy02, enemy03, enemy04, enemy05, enemy06;
 
 // Set the game's current state to 'play'
 let state = playing;
@@ -414,99 +405,99 @@ function init() {
 
   if (window.devicePixelRatio >= 2 && renderer instanceof PIXI.WebGLRenderer) {
     loader
-      .add([
-      ])
+      .add([])
       .on("progress", loadProgressHandler)
       .load(setup);
 
   } else {
-      // Use PIXI's built-in 'loader' module to load an image and run the 'setup' function when it's done
-      loader
-        .add([
-          loadingBackgroundPath,
-          backgroundEmptyPath, // backgroundEmptyBlurPath,
-          backgroundDarkerPath,
-          btn144x144Path, btn144x72Path, btn96x144Path, //avatarScreenBackgroundPath,
-          btnBackPath, //backgroundBookPath,
-          btnGreen248x60Path, btnGreen260x72Path,
-          avatarImageJsonPath, avatarBorderJsonPath, avatarLevelJsonPath,
-          barBackgroundPath, plusIconPath, goldIconPath, diamondIconPath, //handIconPath,
-          btnClosePath,
-          // avatarChangeNameBackgroundPath,
-          // apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path,
-          scrollBtn192x72Path, scrollArrow72x36Path, scroll192x1068Path,
-          scrollBtn192x48Path,
-          glyphsPath, glyphsNoPath,
-          // scroll312x192Path,
-          // // Avatar
-          // // avatarBorderPath,
-          // avatarImagePath, //avatarLevelBluePath, avatarFieldPath,
-          // // banner620x98Path, banner620x98GreyPath,
-          // // summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
-          // // summoningBookPath, leryssaSummonIconPath, leonaSummonIconPath,
-          // //avatarChangeNameNamefieldPath, dicePath,
-          // // Grey Glyphs
-          // // noGlyphIconPath,
-          // // abilityPowerIconPath, armorIconPath, armorPenIconPath,
-          // // attackDamageIconPath, attackForceIconPath, critStrikeIconPath,
-          // // doubleAttackIconPath, energyRegenIconPath, hardinessIconPath,
-          // // healthIconPath, healthRegenIconPath, magicForceIconPath, magicPenIconPath,
-          // // magicResistIconPath, regenerateIconPath,
-          // // // // Green Glyphs
-          // // aggressionIconPath, avariceIconPath, balanceIconPath, bloodthirstIconPath,
-          // // braveryIconPath, cardioIconPath, defenseIconPath, divinePowerIconPath,
-          // // enforcementIconPath, extraHealthIconPath, fortitudeIconPath, chivalryIconPath,
-          // // illusionIconPath, immortalityIconPath, infinityIconPath, magicShieldIconPath,
-          // // meditationIconPath, natureIconPath, osmosisIconPath, providenceIconPath,
-          // // prowessIconPath, sublimityIconPath, valorIconPath,
-          // // Blue Glyphs
-          // // Purple Glyphs
-          // // Orange Glyphs
-          // // -----------------------------------------------------------------------
-          // // Heroes
-          // // leftArrowIconPath, rightArrowIconPath,
-          // // bookmarkIconPath, // allIconPath,
-          // // fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
-          // // tankIconPath, // borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
-          // // borderBluePlus1Path, borderBluePlus2Path,
-          // //starIconPath,
-          // // pedestalPath,
-          // // starBackgroundPath,
-          // // expBackgroundPath, // pageIconPath,
-          // // heroUpperBackgroundPath, heroBottomBackgroundPath,
-          // // equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
-          // // skillsIconPath, skillsIconSelectedPath, // statsIconPath, statsIconSelectedPath,
-          // // awakenIconPath, awakenIconBackgroundPath,
-          // // nextGlyphsIconPath,
-          helpIconPath,
-          // Heroes
-          aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
-          nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
-          // Heroes Gold
-          aeloisGoldPath, amaraGoldPath, crystalGoldPath, diuwinGoldPath, leonaGoldPath,
-          leryssaGoldPath, nadiaGoldPath, nyxGoldPath, sinGoldPath, zalajinGoldPath,
-          zayaGoldPath,
-          // Heroes Stats
-          aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath,
-          leryssaStatsPath, nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath,
-          zayaStatsPath,
-          // Heroes Icons
-          aeloisIconSPath, amaraIconSPath, crystalIconSPath, diuwinIconSPath, leonaIconSPath,
-          leryssaIconSPath, nadiaIconSPath, nyxIconSPath, sinIconSPath, zalajinIconSPath,
-          zayaIconSPath,
-          // ---------------------
-          // leonaSkillIconPath,
-          // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath, statsBottomBackgroundPath,
-          // // statsGreyLabelPath, statsWhiteLabelPath,
-          mapBackgroundPath, mapPath,
-          difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
-          legendDifficultyIconPath,
-          // Enemies
-          enemy01Path, enemy02Path,
-          pauseIconPath
-        ])
-        .on("progress", loadProgressHandler)
-        .load(setup);
+    // Use PIXI's built-in 'loader' module to load an image and run the 'setup' function when it's done
+    loader
+      .add([
+        loadingBackgroundPath,
+        backgroundEmptyPath, // backgroundEmptyBlurPath,
+        backgroundDarkerPath,
+        btn144x144Path, btn144x72Path, btn96x144Path, //avatarScreenBackgroundPath,
+        btnBackPath, //backgroundBookPath,
+        btnGreen248x60Path, btnGreen260x72Path,
+        avatarImageJsonPath, avatarBorderJsonPath, avatarLevelJsonPath,
+        barBackgroundPath, plusIconPath, goldIconPath, diamondIconPath, //handIconPath,
+        btnClosePath,
+        // avatarChangeNameBackgroundPath,
+        // apprenticePath, playerPath, masterPath, bubblePath,
+        arrowDown120x48Path,
+        scrollBtn192x72Path, scrollArrow72x36Path, scroll192x1068Path,
+        scrollBtn192x48Path,
+        glyphsPath, glyphsNoPath,
+        // scroll312x192Path,
+        // // Avatar
+        // // avatarBorderPath,
+        // avatarImagePath, //avatarLevelBluePath, avatarFieldPath,
+        // // banner620x98Path, banner620x98GreyPath,
+        // // summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
+        // // summoningBookPath, leryssaSummonIconPath, leonaSummonIconPath,
+        // //avatarChangeNameNamefieldPath, dicePath,
+        // // Grey Glyphs
+        // // noGlyphIconPath,
+        // // abilityPowerIconPath, armorIconPath, armorPenIconPath,
+        // // attackDamageIconPath, attackForceIconPath, critStrikeIconPath,
+        // // doubleAttackIconPath, energyRegenIconPath, hardinessIconPath,
+        // // healthIconPath, healthRegenIconPath, magicForceIconPath, magicPenIconPath,
+        // // magicResistIconPath, regenerateIconPath,
+        // // // // Green Glyphs
+        // // aggressionIconPath, avariceIconPath, balanceIconPath, bloodthirstIconPath,
+        // // braveryIconPath, cardioIconPath, defenseIconPath, divinePowerIconPath,
+        // // enforcementIconPath, extraHealthIconPath, fortitudeIconPath, chivalryIconPath,
+        // // illusionIconPath, immortalityIconPath, infinityIconPath, magicShieldIconPath,
+        // // meditationIconPath, natureIconPath, osmosisIconPath, providenceIconPath,
+        // // prowessIconPath, sublimityIconPath, valorIconPath,
+        // // Blue Glyphs
+        // // Purple Glyphs
+        // // Orange Glyphs
+        // // -----------------------------------------------------------------------
+        // // Heroes
+        // // leftArrowIconPath, rightArrowIconPath,
+        // // bookmarkIconPath, // allIconPath,
+        // // fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
+        // // tankIconPath, // borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
+        // // borderBluePlus1Path, borderBluePlus2Path,
+        // //starIconPath,
+        // // pedestalPath,
+        // // starBackgroundPath,
+        // // expBackgroundPath, // pageIconPath,
+        // // heroUpperBackgroundPath, heroBottomBackgroundPath,
+        // // equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
+        // // skillsIconPath, skillsIconSelectedPath, // statsIconPath, statsIconSelectedPath,
+        // // awakenIconPath, awakenIconBackgroundPath,
+        // // nextGlyphsIconPath,
+        // helpIconPath,
+        // Heroes
+        aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
+        nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
+        // Heroes Gold
+        aeloisGoldPath, amaraGoldPath, crystalGoldPath, diuwinGoldPath, leonaGoldPath,
+        leryssaGoldPath, nadiaGoldPath, nyxGoldPath, sinGoldPath, zalajinGoldPath,
+        zayaGoldPath,
+        // Heroes Stats
+        aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath,
+        leryssaStatsPath, nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath,
+        zayaStatsPath,
+        // Heroes Icons
+        aeloisIconSPath, amaraIconSPath, crystalIconSPath, diuwinIconSPath, leonaIconSPath,
+        leryssaIconSPath, nadiaIconSPath, nyxIconSPath, sinIconSPath, zalajinIconSPath,
+        zayaIconSPath,
+        // ---------------------
+        // leonaSkillIconPath,
+        // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath, statsBottomBackgroundPath,
+        // // statsGreyLabelPath, statsWhiteLabelPath,
+        // mapBackgroundPath, mapPath,
+        // difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
+        // legendDifficultyIconPath,
+        // Enemies
+        enemy01Path, enemy02Path, enemy03Path, enemy04Path, enemy05Path, enemy06Path
+        // pauseIconPath
+      ])
+      .on("progress", loadProgressHandler)
+      .load(setup);
   }
 
   function loadProgressHandler(loader, resource) {
@@ -522,7 +513,7 @@ function init() {
   function resize() {
     let ratio = Math.min(window.innerWidth / GAME_WIDTH, window.innerHeight / GAME_HEIGHT);
     stage.scale.x = stage.scale.y = ratio;
-    renderer.resize(Math.ceil(GAME_WIDTH * ratio),Math.ceil(GAME_HEIGHT * ratio));
+    renderer.resize(Math.ceil(GAME_WIDTH * ratio), Math.ceil(GAME_HEIGHT * ratio));
   }
 
   // This 'setup' function will run when the image has loaded
@@ -544,7 +535,9 @@ function init() {
 
     let myFontFamily = 'Sans-serif';
 
-    if (fontsLoaded) { myFontFamily = 'Josefin Sans'; }
+    if (fontsLoaded) {
+      myFontFamily = 'Josefin Sans';
+    }
 
     // TextStyle for button with 80px height
     textStyleBtn60_44_black = new TextStyle({
@@ -722,10 +715,14 @@ function init() {
       // letterSpacing: -2
     });
 
+    spriteArrowDown = new Sprite(resources[arrowDown120x48Path].texture);
+    spriteArrowDown.position.set(1690, 952);
+    spriteArrowDown.vx = 0;
+    spriteArrowDown.vy = 0;
 
     // setLoadingContainer();
 
-  // ----- MAIN SCREEN (stage)-----
+    // ----- MAIN SCREEN (stage)-----
     // Avatar in avatarContainer ('avatarBorder', ...)
     // Bars in barContainer which is in mainScreenContainer ('stamina', 'gold', 'diamond')
     // Buttons in mainScreenContainer ('Map', 'Guild', 'Ranking', ...)
@@ -741,8 +738,8 @@ function init() {
     //   console.log(data);
     // });
     // socket.on('storyTutorialData', (data) => {
-      // console.log(data.message);
-    setStoryTutorialContainer();
+    // console.log(data.message);
+    setStoryTutorialContainer(); // !!!!!!!!!!!!!!!!!!!
     // });
 
     // ----- MAIN SCREEN -----
@@ -757,7 +754,7 @@ function init() {
 
     // setMainScreenContainer(); // !!!!!
     // ----- TUTORIAL SCREEN -----
-    // setTutorialContainer(); !!!!!!!!!!!!!!!!!!!!!!!!!
+    // setTutorialContainer(); !!!!!
 
     // ----- SUMMONBOOKS SCREEN -----
     // setSummonBooksContainer();
@@ -773,6 +770,44 @@ function init() {
     //   bubble_mc);
     //
     // stage.addChild(mainScreenContainer);
+
+    // Position heroes for animations // TODO: dodělat animace
+    aelois = new Sprite(resources[aeloisPath].texture);
+    aelois.position.set(0, 0);
+    amara = new Sprite(resources[amaraPath].texture);
+    amara.position.set(0, 0);
+    crystal = new Sprite(resources[crystalPath].texture);
+    crystal.position.set(0, 0);
+    diuwin = new Sprite(resources[diuwinPath].texture);
+    diuwin.position.set(0, 0);
+    leona = new Sprite(resources[leonaPath].texture);
+    leona.position.set(0, 0);
+    leryssa = new Sprite(resources[leryssaPath].texture);
+    leryssa.position.set(0, 0);
+    nadia = new Sprite(resources[nadiaPath].texture);
+    nadia.position.set(0, 0);
+    nyx = new Sprite(resources[nyxPath].texture);
+    nyx.position.set(0, 0);
+    sin = new Sprite(resources[sinPath].texture);
+    sin.position.set(0, 0);
+    zalajin = new Sprite(resources[zalajinPath].texture);
+    zalajin.position.set(0, 0);
+    zaya = new Sprite(resources[zayaPath].texture);
+    zaya.position.set(0, 0);
+
+    // Position enemies for animations // TODO: dodělat animace
+    enemy01 = new Sprite(resources[enemy01Path].texture);
+    enemy01.position.set(0, 0);
+    enemy02 = new Sprite(resources[enemy02Path].texture);
+    enemy02.position.set(0, 0);
+    enemy03 = new Sprite(resources[enemy03Path].texture);
+    enemy03.position.set(0, 0);
+    enemy04 = new Sprite(resources[enemy04Path].texture);
+    enemy04.position.set(0, 0);
+    enemy05 = new Sprite(resources[enemy05Path].texture);
+    enemy05.position.set(0, 0);
+    enemy06 = new Sprite(resources[enemy06Path].texture);
+    enemy06.position.set(0, 0);
 
     gameLoop();
   }
@@ -801,7 +836,7 @@ function gameLoop() {
 // Logic in 'gameScene'
 function playing() {
 
-  // goUpAndDown(spriteArrowDown, 952, 1);
+  goUpAndDown(spriteArrowDown, 952, 0.5);
 
   // handClicking();
 }
@@ -832,7 +867,7 @@ function goUpAndDown(item, pos, speed) {
   // item.vy = speed;
   item.y -= item.vy;
   // console.log(item.y, item.vy);
-  if (item.y === pos-12) {
+  if (item.y === pos - 12) {
     item.vy = -speed;
   }
   if (item.y === pos) {
@@ -843,55 +878,81 @@ function goUpAndDown(item, pos, speed) {
 // Countdown Timers (in summonBooksContainer) - 5 minutes, 46 hours
 function countdownTimer(countdownSocketOn, countdownSocketEmit, value, textLblGold, textAboveLbl, btn) {
   textLblGold.text = value;
-  textLblGold.x = btn.x+btn.width/2-textLblGold.width/2;
+  textLblGold.x = btn.x + btn.width / 2 - textLblGold.width / 2;
   textLblRight_suc.text = value;
-  textLblRight_suc.x = lblRight_suc.x+lblRight_suc.width/2-textLblRight_suc.width/2;
+  textLblRight_suc.x = lblRight_suc.x + lblRight_suc.width / 2 - textLblRight_suc.width / 2;
   socket.on(countdownSocketOn, (data) => {
-    textAboveLbl.x = btn.x+btn.width/2-textAboveLbl.width/2;
+    textAboveLbl.x = btn.x + btn.width / 2 - textAboveLbl.width / 2;
     if (data.countdown === 0) {
       if (countdownSocketOn === 'timer5minutesStarted') {
         textLblGold.text = '--Free--';
-        textLblGold.x = btn.x+btn.width/2-textLblGold.width/2;
+        textLblGold.x = btn.x + btn.width / 2 - textLblGold.width / 2;
         textLblRight_suc.text = '--Free--';
-        textLblRight_suc.x = lblRight_suc.x+lblRight_suc.width/2-textLblRight_suc.width/2;
+        textLblRight_suc.x = lblRight_suc.x + lblRight_suc.width / 2 - textLblRight_suc.width / 2;
         freeCounter--;
-        textAboveLbl.text = '--Free Times '+freeCounter+'/5--';
-        textAboveLbl.x = btn.x+btn.width/2-textAboveLbl.width/2;
+        textAboveLbl.text = '--Free Times ' + freeCounter + '/5--';
+        textAboveLbl.x = btn.x + btn.width / 2 - textAboveLbl.width / 2;
       }
       if (countdownSocketOn === 'timer46hoursStarted') {
         textLblGold.text = '--Free--';
-        textLblGold.x = btn.x+btn.width/2-textLblGold.width/2;
+        textLblGold.x = btn.x + btn.width / 2 - textLblGold.width / 2;
         textLblRight_suc.text = '--Free--';
-        textLblRight_suc.x = lblRight_suc.x+lblRight_suc.width/2-textLblRight_suc.width/2;
+        textLblRight_suc.x = lblRight_suc.x + lblRight_suc.width / 2 - textLblRight_suc.width / 2;
         textAboveLbl.text = '--Free Time--';
-        textAboveLbl.x = btn.x+btn.width/2-textAboveLbl.width/2;
+        textAboveLbl.x = btn.x + btn.width / 2 - textAboveLbl.width / 2;
       }
-      console.log('Countdown '+countdownSocketOn+' Finished!');
+      console.log('Countdown ' + countdownSocketOn + ' Finished!');
       socket.emit(countdownSocketEmit);
     } else {
-      let hours = ~~(data.countdown/3600);
+      let hours = ~~(data.countdown / 3600);
       if (hours < 10) {
-        hours = '0'+hours;
+        hours = '0' + hours;
       }
-      let minutes = ~~(data.countdown/60);
+      let minutes = ~~(data.countdown / 60);
       if (minutes < 10) {
-        minutes = '0'+minutes;
+        minutes = '0' + minutes;
       }
-      let seconds = data.countdown%60;
+      let seconds = data.countdown % 60;
       if (seconds < 10) {
-        seconds = '0'+seconds;
+        seconds = '0' + seconds;
       }
       // console.log(hours+':'+minutes+':'+seconds);
-      textAboveLbl.text = '--Free after --'+hours+':'+minutes+':'+seconds;
+      textAboveLbl.text = '--Free after --' + hours + ':' + minutes + ':' + seconds;
+    }
+  });
+}
+
+// Battle Countdown Timer - 1:30 minutes
+function battleCountdownTimer(countdownSocketOn, countdownSocketEmit,
+  counterText, backgroundSprite) {
+  socket.on(countdownSocketOn, (data) => {
+    if (data.countdown === 0) {
+      counterText.text = '00:00';
+      console.log(`Battle ${countdownSocketOn} Finished!`);
+      socket.emit(countdownSocketEmit);
+    } else {
+      let minutes = ~~(data.countdown / 60);
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+      let seconds = data.countdown % 60;
+      if (seconds < 10) {
+        seconds = '0' + seconds;
+      }
+      // console.log(minutes+':'+seconds);
+      counterText.text = minutes + ':' + seconds;
     }
   });
 }
 
 // Set child element position to middle (x and y) of parent element
 function setMiddlePos(parent, child) {
-  let x = parent.x+parent.width/2-child.width/2;
-  let y = parent.y+parent.height/2-child.height/2;
-  return {x, y};
+  let x = parent.x + parent.width / 2 - child.width / 2;
+  let y = parent.y + parent.height / 2 - child.height / 2;
+  return {
+    x,
+    y
+  };
 }
 
 // Set interactive
@@ -906,14 +967,14 @@ let loadingBackground, loadingText, textLoading;
 function addLoadingBackground(container, text) {
   loadingBackground = new Sprite(resources[loadingBackgroundPath].texture);
   loadingBackground.position.set(
-    GAME_WIDTH/2-loadingBackground.width/2,
-    GAME_HEIGHT/2-loadingBackground.height/2
+    GAME_WIDTH / 2 - loadingBackground.width / 2,
+    GAME_HEIGHT / 2 - loadingBackground.height / 2
   );
 
   textLoading = new Text(text, textStyleBtn60_44_black);
   textLoading.position.set(
     setMiddlePos(loadingBackground, textLoading).x,
-    setMiddlePos(loadingBackground, textLoading).y+2
+    setMiddlePos(loadingBackground, textLoading).y + 2
   );
 
   container.addChild(loadingBackground, textLoading);
@@ -961,48 +1022,21 @@ function addDarkerBackground(container) {
 //   });
 // }
 
-// // Add Back icon to the Container
-// function addBackIcon(container) {
-//   const backIcon = new Sprite(resources[btnBackPath].texture);
-//   backIcon.position.set(36, 36);
-//   setInteractive(backIcon, true);
+// function setBookBackground(container) {
+//   let backgroundEmpty = new Sprite(resources[backgroundEmptyPath].texture);
+//   backgroundEmpty.position.set(0, 0);
 //
-//   container.addChild(backIcon);
+//   let backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
+//   backgroundDarker.position.set(0, 0);
 //
-//   backIcon.on('click', () => {
-//     setInteractive(backIcon, false);
-//     console.log('backIcon clicked');
-//     // setTimeout(() => {
-//       // stage.removeChild(stage.children[stage.children.length-1]);
-//       stage.removeChild(container);
-//       console.log(stage.children);
-//       console.log(stage.children.length);
-//       // if (stage.children.length === 1) {
-//       //   setTimeout(() => {
-//       //     for (let item of interactiveMainScreenArray) {
-//       //       setInteractive(item, true);
-//       //     }
-//       //   }, LATENCY);
-//       // }
-//     // }, LATENCY);
-//   });
+//   let backgroundBook = new Sprite(resources[backgroundBookPath].texture);
+//   backgroundBook.position.set(
+//     GAME_WIDTH/2-backgroundBook.width/2,
+//     144
+//   );
+//
+//   container.addChild(backgroundEmpty, backgroundDarker, backgroundBook);
 // }
-
-function setBookBackground(container) {
-  let backgroundEmpty = new Sprite(resources[backgroundEmptyPath].texture);
-  backgroundEmpty.position.set(0, 0);
-
-  let backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
-  backgroundDarker.position.set(0, 0);
-
-  let backgroundBook = new Sprite(resources[backgroundBookPath].texture);
-  backgroundBook.position.set(
-    GAME_WIDTH/2-backgroundBook.width/2,
-    144
-  );
-
-  container.addChild(backgroundEmpty, backgroundDarker, backgroundBook);
-}
 
 // Setup storyTutorialContainer
 function setStoryTutorialContainer() {
@@ -1021,31 +1055,31 @@ function setStoryTutorialContainer() {
       storyTutorialContainer.addChild(backgroundEmpty, btnSkip);
       addLoadingBackground(storyTutorialContainer, loadingText);
 
-      function loadImages() {
-        if (apprenticePath in loader.resources && playerPath in loader.resources
-        && masterPath in loader.resources && bubblePath in loader.resources
-        && arrowDown120x48Path in loader.resources) {
+      function loadStoryTutorialImages() {
+        if (apprenticePath in loader.resources && playerPath in loader.resources &&
+          masterPath in loader.resources && bubblePath in loader.resources
+          // && arrowDown120x48Path in loader.resources
+        ) {
           console.log(`${apprenticePath} - already in stage`);
           console.log(`${playerPath} - already in stage`);
           console.log(`${masterPath} - already in stage`);
           console.log(`${bubblePath} - already in stage`);
-          console.log(`${arrowDown120x48Path} - already in stage`);
-          addImages(apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path);
+          // console.log(`${arrowDown120x48Path} - already in stage`);
+          addStoryTutorialImages();
         } else {
           loader
             .add([
-              apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path
+              apprenticePath, playerPath, masterPath, bubblePath //, arrowDown120x48Path
             ]);
         }
 
         loader
           .once('complete', (loader, resources) => {
-            addImages(apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path);
+            addStoryTutorialImages();
           });
       }
 
-      function addImages(apprenticePath, playerPath, masterPath, bubblePath, arrowDown120x48Path) {
-
+      function addStoryTutorialImages() {
         const spriteApprentice = new Sprite(resources[apprenticePath].texture);
         spriteApprentice.position.set(120, 494);
 
@@ -1059,11 +1093,6 @@ function setStoryTutorialContainer() {
 
         const spriteBubble = new Sprite(resources[bubblePath].texture);
         spriteBubble.position.set(60, 744);
-
-        const spriteArrowDown = new Sprite(resources[arrowDown120x48Path].texture);
-        spriteArrowDown.position.set(1690, 952);
-        spriteArrowDown.vx = 0;
-        spriteArrowDown.vy = 0;
 
         storyTutorialContainer.addChild(spriteApprentice, spritePlayer, spriteMaster,
           spriteBubble, spriteArrowDown);
@@ -1081,7 +1110,7 @@ function setStoryTutorialContainer() {
           const textBtnSkip = new Text(skipText, textStyleBtn60_44_black);
           textBtnSkip.position.set(
             setMiddlePos(btnSkip, textBtnSkip).x,
-            setMiddlePos(btnSkip, textBtnSkip).y+2
+            setMiddlePos(btnSkip, textBtnSkip).y + 2
           );
 
           setInteractive(btnSkip, true);
@@ -1129,10 +1158,10 @@ function setStoryTutorialContainer() {
                 spriteApprentice.visible = false;
               }
               // j = 1;
-            // } else if (j === 1) {
-            //   j = 0;
+              // } else if (j === 1) {
+              //   j = 0;
               i++;
-              console.log('i', i);
+              // console.log('i', i);
               // }
             }
           });
@@ -1140,7 +1169,7 @@ function setStoryTutorialContainer() {
           storyTutorialContainer.removeChild(loadingBackground, textLoading);
         });
       }
-      loadImages();
+      loadStoryTutorialImages();
       stage.addChild(storyTutorialContainer);
     } else {
       setMainScreenContainer();
@@ -1219,70 +1248,70 @@ function setMainScreenContainer() {
     const textBtnMap = new Text(mapText, textStyle144_40center_black);
     textBtnMap.position.set(
       setMiddlePos(btnMap, textBtnMap).x,
-      setMiddlePos(btnMap, textBtnMap).y+2
+      setMiddlePos(btnMap, textBtnMap).y + 2
     );
 
     setInteractive(btnMap, true);
-    interactiveMainScreenArray.push(btnMap);
+    interMainScreenArray.push(btnMap);
 
     btnMap.on('click', () => {
       console.log('btnMap clicked');
-      // if (btnMap.visible) {
-        mainScreenContainer.removeChild(scrollContainer);
-        mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-        console.log('stage.children.length', stage.children.length);
-        if (stage.children.length === 2) {
-          console.log(mapContainer.children[mapContainer.children.length-1]);
-          scrollArrow72x36_mc.scale.y = -1;
-          mapContainer.removeChild(mapContainer.children[mapContainer.children.length-1]);
-        }
-        if (stage.children.length === 1) {
-          setMapContainer();
-        }
-      // }
+      // // if (btnMap.visible) {
+      //   mainScreenContainer.removeChild(scrollContainer);
+      //   mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
+      //   console.log('stage.children.length', stage.children.length);
+      //   if (stage.children.length === 2) {
+      //     console.log(mapContainer.children[mapContainer.children.length-1]);
+      //     scrollArrow72x36_mc.scale.y = -1;
+      //     mapContainer.removeChild(mapContainer.children[mapContainer.children.length-1]);
+      //   }
+      if (stage.children.length === 1) {
+        setMapContainer();
+      }
+      // // }
     });
 
     const textBtnGuild = new Text(guildText, textStyle144_40center_black);
-      textBtnGuild.position.set(
-        setMiddlePos(btnGuild, textBtnGuild).x,
-        setMiddlePos(btnGuild, textBtnGuild).y+2
-      );
+    textBtnGuild.position.set(
+      setMiddlePos(btnGuild, textBtnGuild).x,
+      setMiddlePos(btnGuild, textBtnGuild).y + 2
+    );
 
     const textBtnRanking = new Text(rankingText, textStyle144_40center_black);
-      textBtnRanking.position.set(
-        setMiddlePos(btnRanking, textBtnRanking).x,
-        setMiddlePos(btnRanking, textBtnRanking).y+2
-      );
+    textBtnRanking.position.set(
+      setMiddlePos(btnRanking, textBtnRanking).x,
+      setMiddlePos(btnRanking, textBtnRanking).y + 2
+    );
 
     const textBtnFriends = new Text(friendsText, textStyle144_40center_black);
-      textBtnFriends.position.set(
-        setMiddlePos(btnFriends, textBtnFriends).x,
-        setMiddlePos(btnFriends, textBtnFriends).y+2
-      );
+    textBtnFriends.position.set(
+      setMiddlePos(btnFriends, textBtnFriends).x,
+      setMiddlePos(btnFriends, textBtnFriends).y + 2
+    );
 
     const textBtnCrusade = new Text(crusadeText, textStyle144_40center_black);
-      textBtnCrusade.position.set(
-        setMiddlePos(btnCrusade, textBtnCrusade).x,
-        setMiddlePos(btnCrusade, textBtnCrusade).y+2
-      );
+    textBtnCrusade.position.set(
+      setMiddlePos(btnCrusade, textBtnCrusade).x,
+      setMiddlePos(btnCrusade, textBtnCrusade).y + 2
+    );
 
     const textBtnMail = new Text(mailText, textStyle144_40center_black);
-      textBtnMail.position.set(
-        setMiddlePos(btnMail, textBtnMail).x,
-        setMiddlePos(btnMail, textBtnMail).y+2
-      );
+    textBtnMail.position.set(
+      setMiddlePos(btnMail, textBtnMail).x,
+      setMiddlePos(btnMail, textBtnMail).y + 2
+    );
 
     const textBtnTown = new Text(townText, textStyle144_40center_black);
-      textBtnTown.position.set(
-        setMiddlePos(btnTown, textBtnTown).x,
-        setMiddlePos(btnTown, textBtnTown).y+2
-      );
+    textBtnTown.position.set(
+      setMiddlePos(btnTown, textBtnTown).x,
+      setMiddlePos(btnTown, textBtnTown).y + 2
+    );
 
     const textBtnSummonBooks = new Text(summonBooksText, textStyle144_40center_black);
-      textBtnSummonBooks.position.set(
-        setMiddlePos(btnSummonBooks, textBtnSummonBooks).x,
-        setMiddlePos(btnSummonBooks, textBtnSummonBooks).y+2
-      );
+    textBtnSummonBooks.position.set(
+      setMiddlePos(btnSummonBooks, textBtnSummonBooks).x,
+      setMiddlePos(btnSummonBooks, textBtnSummonBooks).y + 2
+    );
 
     mainScreenContainer.addChild(textBtnMap, textBtnGuild, textBtnRanking,
       textBtnFriends, textBtnCrusade, textBtnMail, textBtnTown, textBtnSummonBooks);
@@ -1316,9 +1345,9 @@ function loadAvatarContainerData(socketEmit, socketOn) {
     socket.off(socketOn);
 
     function addAvatarImage(imagePath) {
-      const id = resources[avatarImageJsonPath].textures;
+      let id = resources[avatarImageJsonPath].textures;
 
-      const avatarImage = new Sprite(id[`${imagePath}${png}`]);
+      let avatarImage = new Sprite(id[`${imagePath}${png}`]);
       avatarImage.scale.set(0.67);
       avatarImage.position.set(60, 60);
 
@@ -1326,31 +1355,31 @@ function loadAvatarContainerData(socketEmit, socketOn) {
     }
 
     function addAvatarBorder(imagePath) {
-      const id = resources[avatarBorderJsonPath].textures;
+      let id = resources[avatarBorderJsonPath].textures;
 
-      const avatarBorder = new Sprite(id[`${imagePath}${png}`]);
+      let avatarBorder = new Sprite(id[`${imagePath}${png}`]);
       avatarBorder.scale.set(0.67);
       avatarBorder.position.set(36, 36);
 
-      const textAvatarNameField = new Text(nicknameText, textStyleAvatar_28center_brown);
-      textAvatarNameField.position.set(346-textAvatarNameField.width/2, 102);
+      let textAvatarNameField = new Text(nicknameText, textStyleAvatar_28center_brown);
+      textAvatarNameField.position.set(346 - textAvatarNameField.width / 2, 102);
 
-      const textAvatarExpField = new Text(currentExpText+'/'+nextLvlExpText, textStyleAvatar_28center_brown);
-      textAvatarExpField.position.set(326-textAvatarExpField.width/2, 138);
+      let textAvatarExpField = new Text(currentExpText + '/' + nextLvlExpText, textStyleAvatar_28center_brown);
+      textAvatarExpField.position.set(326 - textAvatarExpField.width / 2, 138);
 
       avatarContainer.addChild(avatarBorder, textAvatarNameField, textAvatarExpField);
     }
 
     function addAvatarLevel(imagePath) {
-      const id = resources[avatarLevelJsonPath].textures;
+      let id = resources[avatarLevelJsonPath].textures;
 
-      const avatarLevelIcon = new Sprite(id[`${imagePath}${png}`]);
+      let avatarLevelIcon = new Sprite(id[`${imagePath}${png}`]);
       avatarLevelIcon.position.set(74, 169);
 
-      const textAvatarLevelIcon = new Text(playerLvlText, textStyleLevel_40center_white);
+      let textAvatarLevelIcon = new Text(playerLvlText, textStyleLevel_40center_white);
       textAvatarLevelIcon.position.set(
-        setMiddlePos(avatarLevelIcon, textAvatarLevelIcon).x-2,
-        setMiddlePos(avatarLevelIcon, textAvatarLevelIcon).y-8
+        setMiddlePos(avatarLevelIcon, textAvatarLevelIcon).x - 2,
+        setMiddlePos(avatarLevelIcon, textAvatarLevelIcon).y - 8
       );
 
       avatarContainer.addChild(avatarLevelIcon, textAvatarLevelIcon);
@@ -1362,7 +1391,7 @@ function loadAvatarContainerData(socketEmit, socketOn) {
     mainScreenContainer.addChild(avatarContainer);
 
     setInteractive(avatarContainer, true);
-    interactiveMainScreenArray.push(avatarContainer);
+    interMainScreenArray.push(avatarContainer);
     avatarContainer.on('click', () => {
       console.log('avatarContainer clicked');
       setAvatarScreenContainer();
@@ -1372,11 +1401,11 @@ function loadAvatarContainerData(socketEmit, socketOn) {
 
 // Setup `avatarScreenContainer`
 function setAvatarScreenContainer() {
-  for (let item of interactiveMainScreenArray) {
+  for (let item of interMainScreenArray) {
     setInteractive(item, false);
   }
 
-  for (let item of interactiveScrollArray) {
+  for (let item of interScrollArray) {
     setInteractive(item, false);
   }
 
@@ -1421,8 +1450,8 @@ function setAvatarScreenContainer() {
 
     const spriteBackground = new Sprite(resources[_avatarScreenBackgroundPath].texture);
     spriteBackground.position.set(
-      GAME_WIDTH/2-spriteBackground.width/2,
-      GAME_HEIGHT/2-spriteBackground.height/2
+      GAME_WIDTH / 2 - spriteBackground.width / 2,
+      GAME_HEIGHT / 2 - spriteBackground.height / 2
     );
 
     btnBack = new Sprite(resources[btnBackPath].texture);
@@ -1431,7 +1460,7 @@ function setAvatarScreenContainer() {
     btnBack.on('click', () => {
       setTimeout(() => {
         backIconClicked(btnBack, avatarScreenContainer);
-      }, LATENCY/2);
+      }, LATENCY / 2);
     });
 
     const btnFaq = new Sprite(resources[btnGreen248x60Path].texture);
@@ -1487,18 +1516,18 @@ function setAvatarScreenContainer() {
       socket.off('avatarScreenData');
 
       function addAvatarImage(imagePath) {
-        const id = resources[avatarImageJsonPath].textures;
+        let id = resources[avatarImageJsonPath].textures;
 
-        const avatarImage = new Sprite(id[`${imagePath}${png}`]);
+        let avatarImage = new Sprite(id[`${imagePath}${png}`]);
         avatarImage.position.set(656, 134);
 
         avatarScreenContainer.addChild(avatarImage);
       }
 
       function addAvatarBorder(imagePath) {
-        const id = resources[avatarBorderJsonPath].textures;
+        let id = resources[avatarBorderJsonPath].textures;
 
-        const avatarBorder = new Sprite(id[`${imagePath}${png}`]);
+        let avatarBorder = new Sprite(id[`${imagePath}${png}`]);
         avatarBorder.position.set(setMiddlePos(spriteBackground, avatarBorder).x, 100);
 
         avatarScreenContainer.addChild(avatarBorder);
@@ -1506,8 +1535,8 @@ function setAvatarScreenContainer() {
 
       const textBtnFaq = new Text(btnFaqText, textStyle_32center_black);
       textBtnFaq.position.set(
-        setMiddlePos(btnFaq, textBtnFaq).x+24,
-        setMiddlePos(btnFaq, textBtnFaq).y+4
+        setMiddlePos(btnFaq, textBtnFaq).x + 24,
+        setMiddlePos(btnFaq, textBtnFaq).y + 4
       );
 
       const textBtnChangeAvatar = new Text(btnChangeAvatarText, textStyle_32center_black);
@@ -1546,31 +1575,31 @@ function setAvatarScreenContainer() {
         setMiddlePos(btnSystemSettings, textBtnSystemSettings).y
       );
 
-      const textNickname = new Text(nicknameText, textStyle_32left_black);
+      let textNickname = new Text(nicknameText, textStyle_32left_black);
       textNickname.position.set(
         656,
         setMiddlePos(btnChangeName, textBtnChangeName).y
       );
 
-      const textLevel = new Text(lblPlayerLvlText, textStyle_32left_black);
+      let textLevel = new Text(lblPlayerLvlText, textStyle_32left_black);
       textLevel.position.set(656, 592);
 
-      const textLevelValue = new Text(playerLvlText, textStyle_32right_black);
-      textLevelValue.position.set(1266-textLevelValue.width, 592);
+      let textLevelValue = new Text(playerLvlText, textStyle_32right_black);
+      textLevelValue.position.set(1266 - textLevelValue.width, 592);
 
-      const textPresentExp = new Text(lblPresentExpText, textStyle_32left_black);
+      let textPresentExp = new Text(lblPresentExpText, textStyle_32left_black);
       textPresentExp.position.set(656, 676);
 
-      const textExpValue = new Text(currentExpText+'/'+nextLvlExpText, textStyle_32right_black);
-      textExpValue.position.set(1266-textExpValue.width, 676);
+      let textExpValue = new Text(currentExpText + '/' + nextLvlExpText, textStyle_32right_black);
+      textExpValue.position.set(1266 - textExpValue.width, 676);
 
-      const textMaxHeroLvl = new Text(lblMaxHeroLvlText, textStyle_32left_black);
+      let textMaxHeroLvl = new Text(lblMaxHeroLvlText, textStyle_32left_black);
       textMaxHeroLvl.position.set(656, 760);
 
-      const textMaxHeroLvlValue = new Text(maxHeroLvlText, textStyle_32right_black);
-      textMaxHeroLvlValue.position.set(1266-textMaxHeroLvlValue.width, 760);
+      let textMaxHeroLvlValue = new Text(maxHeroLvlText, textStyle_32right_black);
+      textMaxHeroLvlValue.position.set(1266 - textMaxHeroLvlValue.width, 760);
 
-      const textAccountID = new Text(lblAccountIDText, textStyle_32left_black);
+      let textAccountID = new Text(lblAccountIDText, textStyle_32left_black);
       textAccountID.position.set(656, 844);
 
       avatarScreenContainer.addChild(textBtnFaq, textBtnChangeAvatar, textBtnChangeBorder,
@@ -1591,20 +1620,36 @@ function backIconClicked(btnBack, container) {
   console.log('btnBack clicked');
   stage.removeChild(container);
   mainScreenContainer.removeChild(avatarContainer);
-  interactiveMainScreenArray.splice(3, 1);
+  interMainScreenArray.splice(3, 1);
   console.log(stage.children);
   if (stage.children.length === 1) {
     // stage.removeChild(stage.children[0].children[stage.children.length-1]);
     loadAvatarContainerData('avatarContainer', 'avatarContainerData');
     setTimeout(() => {
-      for (let item of interactiveMainScreenArray) {
+      for (let item of interMainScreenArray) {
         setInteractive(item, true);
       }
-      for (let item of interactiveScrollArray) {
+      for (let item of interScrollArray) {
         setInteractive(item, true);
       }
     }, LATENCY);
   }
+}
+
+// Setup function when player clicked on `btnBack` in `avatarScreenContainer`
+function backIconInParagraphsClicked(container) {
+  console.log('btnBack in paragraph clicked');
+  mapContainer.removeChild(container);
+  // interMainScreenArray.splice(3, 1);
+  console.log(stage.children);
+  // if (stage.children.length === 1) {
+  setTimeout(() => {
+    for (let item of interParagraphsArray) {
+      setInteractive(item, true);
+    }
+    setInteractive(btnBack, true);
+  }, LATENCY);
+  // }
 }
 
 // Setup `avatarChangeNameContainer`
@@ -1619,8 +1664,8 @@ function setAvatarChangeNameContainer() {
 
   function loadAvatarChangeNameIcons() {
     if (
-      avatarChangeNameBackgroundPath in loader.resources && avatarChangeNameNamefieldPath in loader.resources
-      && dicePath in loader.resources
+      avatarChangeNameBackgroundPath in loader.resources && avatarChangeNameNamefieldPath in loader.resources &&
+      dicePath in loader.resources
     ) {
       console.log(`${avatarChangeNameBackgroundPath} - already in stage`);
       console.log(`${avatarChangeNameNamefieldPath} - already in stage`);
@@ -1645,7 +1690,7 @@ function setAvatarChangeNameContainer() {
     addDarkerBackground(avatarChangeNameContainer);
 
     const spriteBackground = new Sprite(resources[_avatarChangeNameBackgroundPath].texture);
-    spriteBackground.position.set(GAME_WIDTH/2-spriteBackground.width/2, 196);
+    spriteBackground.position.set(GAME_WIDTH / 2 - spriteBackground.width / 2, 196);
 
     const changeNamefield = new Sprite(resources[_avatarChangeNameNamefieldPath].texture);
     changeNamefield.position.set(668, 274);
@@ -1654,10 +1699,10 @@ function setAvatarChangeNameContainer() {
     changeNameDice.position.set(1180, 274);
 
     const btnCancel = new Sprite(resources[btnGreen260x72Path].texture);
-    btnCancel.position.set(GAME_WIDTH/2-btnCancel.width-12, 376);
+    btnCancel.position.set(GAME_WIDTH / 2 - btnCancel.width - 12, 376);
 
     const btnConfirm = new Sprite(resources[btnGreen260x72Path].texture);
-    btnConfirm.position.set(GAME_WIDTH/2+12, 376);
+    btnConfirm.position.set(GAME_WIDTH / 2 + 12, 376);
 
     avatarChangeNameContainer.addChild(spriteBackground, changeNamefield, changeNameDice,
       btnCancel, btnConfirm);
@@ -1675,7 +1720,7 @@ function setAvatarChangeNameContainer() {
 
       socket.off('avatarChangeNameData');
 
-      const textNickname = new Text(nicknameText, textStyle_32center_black);
+      let textNickname = new Text(nicknameText, textStyle_32center_black);
       textNickname.position.set(
         setMiddlePos(changeNamefield, textNickname).x,
         setMiddlePos(changeNamefield, textNickname).y
@@ -1689,7 +1734,7 @@ function setAvatarChangeNameContainer() {
       const textBtnCancel = new Text(btnCancelText, textStyle_32center_black);
       textBtnCancel.position.set(
         setMiddlePos(btnCancel, textBtnCancel).x,
-        setMiddlePos(btnCancel, textBtnCancel).y+4
+        setMiddlePos(btnCancel, textBtnCancel).y + 4
       );
 
       setInteractive(btnCancel, true);
@@ -1705,7 +1750,7 @@ function setAvatarChangeNameContainer() {
       const textBtnConfirm = new Text(btnConfirmText, textStyle_32center_black);
       textBtnConfirm.position.set(
         setMiddlePos(btnConfirm, textBtnConfirm).x,
-        setMiddlePos(btnConfirm, textBtnConfirm).y+4
+        setMiddlePos(btnConfirm, textBtnConfirm).y + 4
       );
 
       setInteractive(btnConfirm, true);
@@ -1742,14 +1787,14 @@ function setAvatarChangeNameContainer() {
       function addBannerIcon(_banner620x98Path) {
         const banner = new Sprite(resources[_banner620x98Path].texture);
         banner.position.set(
-          GAME_WIDTH/2-banner.width/2,
-          spriteBackground.y-banner.height/2+6
+          GAME_WIDTH / 2 - banner.width / 2,
+          spriteBackground.y - banner.height / 2 + 6
         );
 
         const textBanner = new Text(bannerChangeNameText, textStyleLevel_40center_white);
         textBanner.position.set(
           setMiddlePos(banner, textBanner).x,
-          setMiddlePos(banner, textBanner).y-6
+          setMiddlePos(banner, textBanner).y - 6
         );
 
         avatarChangeNameContainer.addChild(banner, textBanner);
@@ -1782,10 +1827,10 @@ function setBarContainer() {
   plusBarGold.width = plusBarGold.height = 56;
   plusBarGold.position.set(1060, 36);
   setInteractive(plusBarGold, true);
-  if (plusBarGold in interactiveMainScreenArray) {
-    console.log(`'plusBarGold' is in 'interactiveMainScreenArray'`);
+  if (plusBarGold in interMainScreenArray) {
+    console.log(`'plusBarGold' is in 'interMainScreenArray'`);
   } else {
-    interactiveMainScreenArray.push(plusBarGold);
+    interMainScreenArray.push(plusBarGold);
   }
   plusBarGold.on('click', () => {
     console.log('plusBarGold clicked');
@@ -1831,7 +1876,7 @@ function loadBarContainerData(socketEmit, socketOn) {
 
     socket.off(socketOn);
 
-    textBarEnergy = new Text(currentEnergyText+'/'+maxEnergyText, textStyleLevel_40center_white);
+    textBarEnergy = new Text(currentEnergyText + '/' + maxEnergyText, textStyleLevel_40center_white);
     textBarEnergy.position.set(
       setMiddlePos(barEnergyBackground, textBarEnergy).x,
       setMiddlePos(barEnergyBackground, textBarEnergy).y
@@ -1858,11 +1903,11 @@ function loadBarContainerData(socketEmit, socketOn) {
 
 // Setup `plusGoldContainer`
 function setPlusGoldContainer() {
-  for (let item of interactiveMainScreenArray) {
+  for (let item of interMainScreenArray) {
     setInteractive(item, false);
   }
 
-  for (let item of interactiveScrollArray) {
+  for (let item of interScrollArray) {
     setInteractive(item, false);
   }
 
@@ -1891,27 +1936,27 @@ function setPlusGoldContainer() {
     addDarkerBackground(plusGoldContainer);
 
     const spriteBackground = new Sprite(resources[_plusBarBackgroundPath].texture);
-    spriteBackground.position.set(GAME_WIDTH/2-spriteBackground.width/2, 296);
+    spriteBackground.position.set(GAME_WIDTH / 2 - spriteBackground.width / 2, 296);
 
     const btnClose = new Sprite(resources[btnClosePath].texture);
     btnClose.width = btnClose.height = 96;
     btnClose.position.set(
-      spriteBackground.x+spriteBackground.width-btnClose.width/2-12,
-      spriteBackground.y-btnClose.height/2+12
+      spriteBackground.x + spriteBackground.width - btnClose.width / 2 - 12,
+      spriteBackground.y - btnClose.height / 2 + 12
     );
 
     const goldIcon = new Sprite(resources[goldIconPath].texture);
     goldIcon.width = goldIcon.height = 56;
     goldIcon.position.set(
-      setMiddlePos(spriteBackground, goldIcon).x-88,
-      setMiddlePos(spriteBackground, goldIcon).y-26
+      setMiddlePos(spriteBackground, goldIcon).x - 88,
+      setMiddlePos(spriteBackground, goldIcon).y - 26
     );
 
     const diamondIcon = new Sprite(resources[diamondIconPath].texture);
     diamondIcon.width = diamondIcon.height = 56;
     diamondIcon.position.set(
-      setMiddlePos(spriteBackground, diamondIcon).x-144,
-      setMiddlePos(spriteBackground, diamondIcon).y+28
+      setMiddlePos(spriteBackground, diamondIcon).x - 144,
+      setMiddlePos(spriteBackground, diamondIcon).y + 28
     );
 
     const btnBuy = new Sprite(resources[btnGreen260x72Path].texture);
@@ -1938,10 +1983,10 @@ function setPlusGoldContainer() {
           // TODO: az bude hotova recharge stranka, tak dodelat - po kliknuti
           // na btn `OK` zobrazeni `recharge stranky`
           setTimeout(() => {
-            for (let item of interactiveMainScreenArray) {
+            for (let item of interMainScreenArray) {
               setInteractive(item, true);
             }
-            for (let item of interactiveScrollArray) {
+            for (let item of interScrollArray) {
               setInteractive(item, true);
             }
           }, LATENCY);
@@ -1972,10 +2017,10 @@ function setPlusGoldContainer() {
         );
         socket.off('barContainerDiamondData');
         setTimeout(() => {
-          for (let item of interactiveMainScreenArray) {
+          for (let item of interMainScreenArray) {
             setInteractive(item, true);
           }
-          for (let item of interactiveScrollArray) {
+          for (let item of interScrollArray) {
             setInteractive(item, true);
           }
         }, LATENCY);
@@ -1997,8 +2042,8 @@ function setPlusGoldContainer() {
 
       socket.off('goldScreenData');
 
-      const text = new Text(buyText+' '+plusGoldText+'\n'+costText+' '+priceText, textStyleText_40left_black);
-      text.position.set(636, setMiddlePos(spriteBackground, text).y+6);
+      let text = new Text(buyText + ' ' + plusGoldText + '\n' + costText + ' ' + priceText, textStyleText_40left_black);
+      text.position.set(636, setMiddlePos(spriteBackground, text).y + 6);
 
       const textBtnBuy = new Text(btnBuyText, textStyleBtn60_44_black);
       textBtnBuy.position.set(
@@ -2011,10 +2056,10 @@ function setPlusGoldContainer() {
         console.log('btnClose clicked');
         stage.removeChild(plusGoldContainer);
         setTimeout(() => {
-          for (let item of interactiveMainScreenArray) {
+          for (let item of interMainScreenArray) {
             setInteractive(item, true);
           }
-          for (let item of interactiveScrollArray) {
+          for (let item of interScrollArray) {
             setInteractive(item, true);
           }
         }, LATENCY);
@@ -2031,8 +2076,8 @@ function setPlusGoldContainer() {
 
 // Setup
 function setScrollArrow(container, heroesText, inventoryText, tasksText,
-trialsText, battleText, marketsText, arenaText, grandArenaText, arenaShopText,
-grandArenaShopText, guildShopText, crusadeShopText, fantasyShopText, shopText) {
+  trialsText, battleText, marketsText, arenaText, grandArenaText, arenaShopText,
+  grandArenaShopText, guildShopText, crusadeShopText, fantasyShopText, shopText) {
 
   scrollBtn192x72_mc = new Sprite(resources[scrollBtn192x72Path].texture);
   scrollBtn192x72_mc.position.set(1716, 12);
@@ -2045,13 +2090,13 @@ grandArenaShopText, guildShopText, crusadeShopText, fantasyShopText, shopText) {
   // Scrool interaction
   scrollArrow72x36_mc.interactive = true;
   scrollArrow72x36_mc.buttonMode = true;
-  interactiveMainScreenArray.push(scrollArrow72x36_mc);
+  interMainScreenArray.push(scrollArrow72x36_mc);
 
   scrollArrow72x36_mc.on('click', () => {
     scrollArrow72x36_mc.scale.y *= -1;
     if (scrollArrow72x36_mc.scale.y == -1) {
       console.log(stage.children);
-      interactiveScrollArray.splice(0, 3);
+      interScrollArray.splice(0, 3);
       mainScreenContainer.removeChild(scrollContainer);
     } else {
       // loadScrollData(container);
@@ -2085,9 +2130,9 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
 
   const btnHeroes = new Sprite(resources[btn144x144Path].texture);
   btnHeroes.position.set(1740, 96);
-  interactiveScrollArray.push(btnHeroes);
-  console.log(interactiveMainScreenArray);
-  console.log(interactiveScrollArray);
+  interScrollArray.push(btnHeroes);
+  console.log(interMainScreenArray);
+  console.log(interScrollArray);
   setInteractive(btnHeroes, true);
   btnHeroes.on('click', () => {
     console.log('btnHeroes clicked');
@@ -2111,7 +2156,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnHeroes = new Text(heroesText, textStyle144_40center_black);
   textBtnHeroes.position.set(
     setMiddlePos(btnHeroes, textBtnHeroes).x,
-    setMiddlePos(btnHeroes, textBtnHeroes).y+2
+    setMiddlePos(btnHeroes, textBtnHeroes).y + 2
   );
 
   const btnInventory = new Sprite(resources[btn144x144Path].texture);
@@ -2120,7 +2165,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnInventory = new Text(inventoryText, textStyle144_40center_black);
   textBtnInventory.position.set(
     setMiddlePos(btnInventory, textBtnInventory).x,
-    setMiddlePos(btnInventory, textBtnInventory).y+2
+    setMiddlePos(btnInventory, textBtnInventory).y + 2
   );
 
   const btnTasks = new Sprite(resources[btn144x144Path].texture);
@@ -2129,7 +2174,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnTasks = new Text(tasksText, textStyle144_40center_black);
   textBtnTasks.position.set(
     setMiddlePos(btnTasks, textBtnTasks).x,
-    setMiddlePos(btnTasks, textBtnTasks).y+2
+    setMiddlePos(btnTasks, textBtnTasks).y + 2
   );
 
   const btnTrials = new Sprite(resources[btn144x144Path].texture);
@@ -2138,13 +2183,13 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnTrials = new Text(trialsText, textStyle144_40center_black);
   textBtnTrials.position.set(
     setMiddlePos(btnTrials, textBtnTrials).x,
-    setMiddlePos(btnTrials, textBtnTrials).y+2
+    setMiddlePos(btnTrials, textBtnTrials).y + 2
   );
 
   const btnBattle = new Sprite(resources[btn144x144Path].texture);
   btnBattle.position.set(1740, 720);
   setInteractive(btnBattle, true);
-  interactiveScrollArray.push(btnBattle);
+  interScrollArray.push(btnBattle);
   let tb = true;
   btnBattle.on('click', () => {
     console.log('btnBattle clicked');
@@ -2160,12 +2205,12 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnBattle = new Text(battleText, textStyle144_40center_black);
   textBtnBattle.position.set(
     setMiddlePos(btnBattle, textBtnBattle).x,
-    setMiddlePos(btnBattle, textBtnBattle).y+2
+    setMiddlePos(btnBattle, textBtnBattle).y + 2
   );
 
   // --- Battle Icons (battleContainer) ---
   function setBattleContainer() {
-    function loadImages() {
+    function loadBattleImages() {
       if (scroll312x192Path in loader.resources) {
         console.log(`${scroll312x192Path} - already in stage`);
         addImages(scroll312x192Path);
@@ -2189,7 +2234,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnArena = new Text(arenaText, textStyle144_40center_black);
       textBtnArena.position.set(
         setMiddlePos(btnArena, textBtnArena).x,
-        setMiddlePos(btnArena, textBtnArena).y+2
+        setMiddlePos(btnArena, textBtnArena).y + 2
       );
 
       const btnGrandArena = new Sprite(resources[btn144x144Path].texture);
@@ -2198,7 +2243,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnGrandArena = new Text(grandArenaText, textStyle144_40center_black);
       textBtnGrandArena.position.set(
         setMiddlePos(btnGrandArena, textBtnGrandArena).x,
-        setMiddlePos(btnGrandArena, textBtnGrandArena).y+2
+        setMiddlePos(btnGrandArena, textBtnGrandArena).y + 2
       );
 
       battleContainer.addChild(battleScrollBackground, btnArena, textBtnArena,
@@ -2207,13 +2252,13 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       scrollContainer.addChild(battleContainer);
     }
 
-    loadImages();
+    loadBattleImages();
   }
 
   const btnMarkets = new Sprite(resources[btn144x144Path].texture);
   btnMarkets.position.set(1740, 876);
   setInteractive(btnMarkets, true);
-  interactiveScrollArray.push(btnMarkets);
+  interScrollArray.push(btnMarkets);
   let tm = true;
   btnMarkets.on('click', () => {
     console.log('btnMarkets clicked');
@@ -2229,12 +2274,12 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const textBtnMarkets = new Text(marketsText, textStyle144_40center_black);
   textBtnMarkets.position.set(
     setMiddlePos(btnMarkets, textBtnMarkets).x,
-    setMiddlePos(btnMarkets, textBtnMarkets).y+2
+    setMiddlePos(btnMarkets, textBtnMarkets).y + 2
   );
 
   // --- Markets Icons (marketsContainer) ---
   function setMarketsContainer() {
-    function loadImages() {
+    function loadMarketsImages() {
       if (scroll936x192Path in loader.resources) {
         console.log(`${scroll936x192Path} - already in stage`);
         addImages(scroll936x192Path);
@@ -2258,7 +2303,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnArenaShop = new Text(arenaShopText, textStyle144_40center_black);
       textBtnArenaShop.position.set(
         setMiddlePos(btnArenaShop, textBtnArenaShop).x,
-        setMiddlePos(btnArenaShop, textBtnArenaShop).y+2
+        setMiddlePos(btnArenaShop, textBtnArenaShop).y + 2
       );
 
       const btnGrandArenaShop = new Sprite(resources[btn144x144Path].texture);
@@ -2267,7 +2312,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnGrandArenaShop = new Text(grandArenaShopText, textStyle144_40center_black);
       textBtnGrandArenaShop.position.set(
         setMiddlePos(btnGrandArenaShop, textBtnGrandArenaShop).x,
-        setMiddlePos(btnGrandArenaShop, textBtnGrandArenaShop).y+2
+        setMiddlePos(btnGrandArenaShop, textBtnGrandArenaShop).y + 2
       );
 
       const btnGuildShop = new Sprite(resources[btn144x144Path].texture);
@@ -2276,7 +2321,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnGuildShop = new Text(guildShopText, textStyle144_40center_black);
       textBtnGuildShop.position.set(
         setMiddlePos(btnGuildShop, textBtnGuildShop).x,
-        setMiddlePos(btnGuildShop, textBtnGuildShop).y+2
+        setMiddlePos(btnGuildShop, textBtnGuildShop).y + 2
       );
 
       const btnCrusadeShop = new Sprite(resources[btn144x144Path].texture);
@@ -2285,7 +2330,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnCrusadeShop = new Text(crusadeShopText, textStyle144_40center_black);
       textBtnCrusadeShop.position.set(
         setMiddlePos(btnCrusadeShop, textBtnCrusadeShop).x,
-        setMiddlePos(btnCrusadeShop, textBtnCrusadeShop).y+2
+        setMiddlePos(btnCrusadeShop, textBtnCrusadeShop).y + 2
       );
 
       const btnFantasyShop = new Sprite(resources[btn144x144Path].texture);
@@ -2294,7 +2339,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnFantasyShop = new Text(fantasyShopText, textStyle144_40center_black);
       textBtnFantasyShop.position.set(
         setMiddlePos(btnFantasyShop, textBtnFantasyShop).x,
-        setMiddlePos(btnFantasyShop, textBtnFantasyShop).y+2
+        setMiddlePos(btnFantasyShop, textBtnFantasyShop).y + 2
       );
 
       const btnShop = new Sprite(resources[btn144x144Path].texture);
@@ -2303,7 +2348,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
       const textBtnShop = new Text(shopText, textStyle144_40center_black);
       textBtnShop.position.set(
         setMiddlePos(btnShop, textBtnShop).x,
-        setMiddlePos(btnShop, textBtnShop).y+2
+        setMiddlePos(btnShop, textBtnShop).y + 2
       );
 
       marketsContainer.addChild(marketsScrollBackground, btnArenaShop, textBtnArenaShop,
@@ -2313,7 +2358,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
 
       scrollContainer.addChild(marketsContainer);
     }
-    loadImages();
+    loadMarketsImages();
   }
 
   scrollContainer.addChild(
@@ -2332,13 +2377,13 @@ let heroIconClicked = 'glyphs';
 
 // Setup `loadHeroesContainerData` - after player clicked on `Heroes` button in scroll menu
 function loadHeroesContainerData() {
-  for (let item of interactiveMainScreenArray) {
+  for (let item of interMainScreenArray) {
     if (item.interactive === true) {
       setInteractive(item, false);
     }
   }
 
-  for (let item of interactiveScrollArray) {
+  for (let item of interScrollArray) {
     if (item.interactive === true) {
       setInteractive(item, false);
     }
@@ -2372,17 +2417,17 @@ function loadHeroesContainerData() {
   }
 
   function loadBackgroundBookImage() {
-      if (backgroundBookPath in loader.resources) {
-        console.log(`${backgroundBookPath} - already in stage`);
-        addBackgroundBookImage(backgroundBookPath);
-      } else {
-        loader
-          .add(backgroundBookPath);
-      }
+    if (backgroundBookPath in loader.resources) {
+      console.log(`${backgroundBookPath} - already in stage`);
+      addBackgroundBookImage(backgroundBookPath);
+    } else {
       loader
-        .once('complete', (loader, resources) => {
-          addBackgroundBookImage(backgroundBookPath);
-        });
+        .add(backgroundBookPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundBookImage(backgroundBookPath);
+      });
   }
 
   function addBackgroundBookImage(_backgroundBookPath) {
@@ -2390,7 +2435,7 @@ function loadHeroesContainerData() {
     addDarkerBackground(heroesContainer);
 
     const backgroundBook = new Sprite(resources[_backgroundBookPath].texture);
-    backgroundBook.position.set(GAME_WIDTH/2-backgroundBook.width/2, 144);
+    backgroundBook.position.set(GAME_WIDTH / 2 - backgroundBook.width / 2, 144);
 
     btnBack = new Sprite(resources[btnBackPath].texture);
     btnBack.position.set(36, 36);
@@ -2398,7 +2443,7 @@ function loadHeroesContainerData() {
     btnBack.on('click', () => {
       setTimeout(() => {
         backIconClicked(btnBack, heroesContainer);
-      }, LATENCY/2);
+      }, LATENCY / 2);
     });
 
     heroesContainer.addChild(backgroundBook, btnBack);
@@ -2424,13 +2469,13 @@ function loadHeroesContainerData() {
         if (i < portraitsPerPage) {
           bookPages[i] = 0;
           // console.log('bookPages[i]', i, ':', bookPages[i]);
-        } else if (i > portraitsPerPage-1 && i < 2*portraitsPerPage) {
+        } else if (i > portraitsPerPage - 1 && i < 2 * portraitsPerPage) {
           bookPages[i] = 1;
           sumPages = 1;
-        } else if (i > 2*portraitsPerPage-1 && i < 3*portraitsPerPage) {
+        } else if (i > 2 * portraitsPerPage - 1 && i < 3 * portraitsPerPage) {
           bookPages[i] = 2;
           sumPages = 2;
-        } else if (i > 3*portraitsPerPage-1 && i < 4*portraitsPerPage) {
+        } else if (i > 3 * portraitsPerPage - 1 && i < 4 * portraitsPerPage) {
           bookPages[i] = 3;
           sumPages = 3;
         }
@@ -2443,7 +2488,7 @@ function loadHeroesContainerData() {
       // console.log('sumPages', sumPages);
 
       function heroNotSummon(urlName, i) {
-        const heroNotSummonPath = `${heroesFolderPath}${urlName}/${urlName}_stats_grey.png`;
+        let heroNotSummonPath = `${heroesFolderPath}${urlName}/${urlName}_stats_grey.png`;
 
         if (heroNotSummonPath in loader.resources) {
           console.log(`${heroNotSummonPath} - already in stage`);
@@ -2606,19 +2651,19 @@ function loadHeroesContainerData() {
           switch (_color) {
             case 'Green':
               borderPath = `${heroesFolderPath}border_green${png}`;
-            break;
+              break;
             case 'Green +1':
               borderPath = `${heroesFolderPath}border_green+1${png}`;
-            break;
+              break;
             case 'Blue':
               borderPath = `${heroesFolderPath}border_blue${png}`;
-            break;
+              break;
             case 'Blue +1':
               borderPath = `${heroesFolderPath}border_blue+1${png}`;
-            break;
+              break;
             case 'Blue +2':
               borderPath = `${heroesFolderPath}border_blue+2${png}`;
-            break;
+              break;
             default:
               borderPath = `${heroesFolderPath}border_grey${png}`;
           }
@@ -2638,34 +2683,34 @@ function loadHeroesContainerData() {
         }
 
         function addHeroPortraitBorder(_borderPath, _heroNamePath, _classText, _levelText) {
-          const border = new Sprite(resources[_borderPath].texture);
+          let border = new Sprite(resources[_borderPath].texture);
           border.width = 278;
           border.height = 332;
 
-          switch (i%portraitsPerPage) {
+          switch (i % portraitsPerPage) {
             case 0:
-              border.position.set(1920*bPi+332, 205);
+              border.position.set(1920 * bPi + 332, 205);
               break;
             case 1:
-              border.position.set(1920*bPi+634, 205);
+              border.position.set(1920 * bPi + 634, 205);
               break;
             case 2:
-              border.position.set(1920*bPi+332, 561);
+              border.position.set(1920 * bPi + 332, 561);
               break;
             case 3:
-            border.position.set(1920*bPi+634, 561);
+              border.position.set(1920 * bPi + 634, 561);
               break;
             case 4:
-              border.position.set(1920*bPi+1008, 205);
+              border.position.set(1920 * bPi + 1008, 205);
               break;
             case 5:
-              border.position.set(1920*bPi+1310, 205);
+              border.position.set(1920 * bPi + 1310, 205);
               break;
             case 6:
-              border.position.set(1920*bPi+1008, 561);
+              border.position.set(1920 * bPi + 1008, 561);
               break;
             case 7:
-              border.position.set(1920*bPi+1310, 561);
+              border.position.set(1920 * bPi + 1310, 561);
               break;
           }
 
@@ -2679,8 +2724,8 @@ function loadHeroesContainerData() {
             }
           });
 
-          const hero = new Sprite(resources[_heroNamePath].texture);
-          const grey = new RegExp('\_grey');
+          let hero = new Sprite(resources[_heroNamePath].texture);
+          let grey = new RegExp('\_grey');
 
           if (!grey.test(heroNamePath)) {
             hero.scale.set(0.5);
@@ -2721,24 +2766,24 @@ function loadHeroesContainerData() {
             }
 
             function addBanner(_bannerPath) {
-              const banner = new Sprite(resources[_bannerPath].texture);
+              let banner = new Sprite(resources[_bannerPath].texture);
               banner.width = 256;
               banner.height = 40;
               banner.position.set(
                 setMiddlePos(border, banner).x,
-                border.y+border.height-116
+                border.y + border.height - 116
               );
 
-              const textBanner = new Text(name, textStyleHeroSelectLevel_20left_white);
+              let textBanner = new Text(name, textStyleHeroSelectLevel_20left_white);
               textBanner.position.set(
                 setMiddlePos(banner, textBanner).x,
-                setMiddlePos(banner, textBanner).y-2
+                setMiddlePos(banner, textBanner).y - 2
               );
 
-              const textLevel = new Text(_levelText, textStyleHeroesLevel_16center_white);
+              let textLevel = new Text(_levelText, textStyleHeroesLevel_16center_white);
               textLevel.position.set(
-                banner.x+34-textLevel.width/2,
-                setMiddlePos(banner, textLevel).y-2
+                banner.x + 34 - textLevel.width / 2,
+                setMiddlePos(banner, textLevel).y - 2
               );
 
               heroPortraitContainer.addChild(banner, textBanner, textLevel);
@@ -2751,19 +2796,19 @@ function loadHeroesContainerData() {
             switch (classText) {
               case 'Tank':
                 classIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`;
-              break;
+                break;
               case 'Fighter':
                 classIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`;
-              break;
+                break;
               case 'Marksman':
                 classIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`;
-              break;
+                break;
               case 'Mage':
                 classIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`;
-              break;
+                break;
               case 'Support':
                 classIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`;
-              break;
+                break;
               default:
                 classIconPath = `${iconsFolderPath}bookmarks/all_icon${png}`;
             }
@@ -2783,11 +2828,11 @@ function loadHeroesContainerData() {
           }
 
           function addClassIcon(_classIconPath) {
-            const classIcon = new Sprite(resources[_classIconPath].texture);
+            let classIcon = new Sprite(resources[_classIconPath].texture);
             classIcon.scale.set(0.25);
             classIcon.position.set(
-              setMiddlePos(border, classIcon).x+94,
-              setMiddlePos(border, classIcon).y+68
+              setMiddlePos(border, classIcon).x + 94,
+              setMiddlePos(border, classIcon).y + 68
             );
 
             heroPortraitContainer.addChild(classIcon);
@@ -2814,12 +2859,12 @@ function loadHeroesContainerData() {
           }
 
           function addStarIcon(_starIconPath, _offsetX) {
-            const star = new Sprite(resources[_starIconPath].texture);
+            let star = new Sprite(resources[_starIconPath].texture);
             star.width = 24;
             star.height = 22;
             star.position.set(
-              setMiddlePos(border, star).x+_offsetX,
-              border.y+border.height-141
+              setMiddlePos(border, star).x + _offsetX,
+              border.y + border.height - 141
             );
 
             heroPortraitContainer.addChild(star);
@@ -2830,44 +2875,44 @@ function loadHeroesContainerData() {
               case 2:
                 loadStarIcon(-13);
                 loadStarIcon(13);
-              break;
+                break;
               case 3:
                 loadStarIcon(-30);
                 loadStarIcon(0);
                 loadStarIcon(30);
-              break;
+                break;
               case 4:
                 loadStarIcon(-43);
                 loadStarIcon(-13);
                 loadStarIcon(13);
                 loadStarIcon(43);
-              break;
+                break;
               case 5:
                 loadStarIcon(-60);
                 loadStarIcon(-30);
                 loadStarIcon(0);
                 loadStarIcon(30);
                 loadStarIcon(60);
-              break;
+                break;
               default:
                 loadStarIcon(0);
             }
           }
 
           function addGlyphIcon(glyphName, offsetX, equipped) {
-            const id = resources[glyphsPath].textures;
-            const idNo = resources[glyphsNoPath].textures;
+            let id = resources[glyphsPath].textures;
+            let idNo = resources[glyphsNoPath].textures;
 
-            const glyph = new Sprite(id[`${glyphName}${png}`]);
-            const glyphNo = new Sprite(idNo[`${glyphName}_no${png}`]);
+            let glyph = new Sprite(id[`${glyphName}${png}`]);
+            let glyphNo = new Sprite(idNo[`${glyphName}_no${png}`]);
 
             if (equipped === 'no') {
               glyph.texture = glyphNo.texture;
             }
             glyph.width = glyph.height = 48;
             glyph.position.set(
-              setMiddlePos(border, glyph).x+offsetX,
-              border.y+border.height-72
+              setMiddlePos(border, glyph).x + offsetX,
+              border.y + border.height - 72
             );
 
             heroPortraitContainer.addChild(glyph);
@@ -2876,7 +2921,7 @@ function loadHeroesContainerData() {
           function loadPageCounterIcons() {
             if (pageIconPath in loader.resources && expBackgroundPath in loader.resources) {
               // console.log(`${pageIconPath}, ${expBackgroundPath} - already in stage`);
-              addPageCounter(pageIconPath, expBackgroundPath);
+              addPageCounter();
             } else {
               loader
                 .add([
@@ -2885,23 +2930,23 @@ function loadHeroesContainerData() {
             }
             loader
               .once('complete', (loader, resources) => {
-                addPageCounter(pageIconPath, expBackgroundPath);
+                addPageCounter();
               });
           }
 
-          function addPageCounter(_pageIconPath, _expBackgroundPath) {
-            const pageIcon = new Sprite(resources[_pageIconPath].texture);
+          function addPageCounter() {
+            let pageIcon = new Sprite(resources[pageIconPath].texture);
             pageIcon.scale.set(0.5);
             pageIcon.position.set(
-              setMiddlePos(border, pageIcon).x-78,
-              border.y+border.height-60
+              setMiddlePos(border, pageIcon).x - 78,
+              border.y + border.height - 60
             );
 
-            const barBackground = new Sprite(resources[_expBackgroundPath].texture);
+            let barBackground = new Sprite(resources[expBackgroundPath].texture);
             barBackground.width = 152;
             barBackground.height = 28;
             barBackground.position.set(
-              pageIcon.x+pageIcon.width,
+              pageIcon.x + pageIcon.width,
               pageIcon.y
             );
 
@@ -2909,12 +2954,12 @@ function loadHeroesContainerData() {
           }
 
           if (summoned === 'yes') {
-            for (const item of data.heroesMsg[i].glyphs_rarity) {
+            for (let item of data.heroesMsg[i].glyphs_rarity) {
               if (item.current_status === data.heroesMsg[i].color) {
                 // console.log('item', item);
-                for (const it of item.glyphs) {
+                for (let it of item.glyphs) {
                   // console.log('it', it.icon_path);
-                  const index = item.glyphs.indexOf(it);
+                  let index = item.glyphs.indexOf(it);
                   switch (index) {
                     case 0:
                       addGlyphIcon(it.icon_path, -28, it.equipped);
@@ -2940,7 +2985,7 @@ function loadHeroesContainerData() {
         loadBorderImages(color);
 
         // if (heroesPortraitContainer.children.length < numberOfHeroes) {
-          heroesPortraitContainer.addChild(heroPortraitContainer);
+        heroesPortraitContainer.addChild(heroPortraitContainer);
         // } else if (heroesPortraitContainer.children.length === numberOfHeroes) {
         //   heroesContainer.removeChild(loadingBackground, textLoading);
         // }
@@ -3045,7 +3090,7 @@ function setHeroContainer(heroName, iconClicked) {
     addDarkerBackground(heroContainer);
 
     const backgroundBook = new Sprite(resources[backgroundBookPath].texture);
-    backgroundBook.position.set(GAME_WIDTH/2-backgroundBook.width/2, 144);
+    backgroundBook.position.set(GAME_WIDTH / 2 - backgroundBook.width / 2, 144);
 
     btnBack = new Sprite(resources[btnBackPath].texture);
     btnBack.position.set(36, 36);
@@ -3056,7 +3101,7 @@ function setHeroContainer(heroName, iconClicked) {
       console.log(stage.children);
       setTimeout(() => {
         loadHeroesContainerData();
-      }, LATENCY/2);
+      }, LATENCY / 2);
     });
 
     heroContainer.addChild(backgroundBook, btnBack);
@@ -3092,13 +3137,11 @@ function setHeroContainer(heroName, iconClicked) {
       // }
       // loader
       //   .once('complete', (loader, resources) => {
-          loadHelpIcon(expBackgroundPath);
-        // });
+      loadHelpIcon(expBackgroundPath);
+      // });
     }
 
     function loadHelpIcon(_expBackgroundPath) {
-      const helpIconPath = `${iconsFolderPath}help_icon${png}`;
-
       if (helpIconPath in loader.resources) {
         console.log(`${helpIconPath} - already in stage`);
         addPowerBar(_expBackgroundPath, helpIconPath);
@@ -3113,11 +3156,11 @@ function setHeroContainer(heroName, iconClicked) {
     }
 
     function addPowerBar(_expBackgroundPath, _helpIconPath) {
-      const powerBar = new Sprite(resources[_expBackgroundPath].texture);
+      let powerBar = new Sprite(resources[_expBackgroundPath].texture);
       powerBar.position.set(1148, 701);
 
-      const btnHelp = new Sprite(resources[_helpIconPath].texture);
-      btnHelp.position.set(powerBar.x+powerBar.width, 701);
+      let btnHelp = new Sprite(resources[_helpIconPath].texture);
+      btnHelp.position.set(powerBar.x + powerBar.width, 701);
 
       heroContainer.addChild(powerBar, btnHelp);
       if (iconClicked === 'glyphs') {
@@ -3127,7 +3170,7 @@ function setHeroContainer(heroName, iconClicked) {
     }
 
     function addBackgroundsImages(heroBottomBackgroundPath) {
-      const heroBottomBackground = new Sprite(resources[heroBottomBackgroundPath].texture);
+      let heroBottomBackground = new Sprite(resources[heroBottomBackgroundPath].texture);
       heroBottomBackground.position.set(1008, 725);
 
       heroContainer.addChild(heroBottomBackground);
@@ -3171,11 +3214,11 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
   }
 
   function addInfoIcons(_infoIconsPath) {
-    const idNoSelected = resources[_infoIconsPath].textures;
-    const idSelected = resources[_infoIconsPath].textures;
+    let idNoSelected = resources[_infoIconsPath].textures;
+    let idSelected = resources[_infoIconsPath].textures;
 
-    const infoIconNoSelected = new Sprite(idNoSelected[`info_icon${png}`]);
-    const infoIconSelected = new Sprite(idSelected[`info_icon_s${png}`]);
+    let infoIconNoSelected = new Sprite(idNoSelected[`info_icon${png}`]);
+    let infoIconSelected = new Sprite(idSelected[`info_icon_s${png}`]);
 
     let statsIcon = new Sprite(idNoSelected[`info_icon${png}`]);
     statsIcon.position.set(1050, 753);
@@ -3352,7 +3395,7 @@ function addStatsContainer(container, heroName) {
   statsContainer.addChild(heroUpperBackground);
 
   function addHeroSprite(heroSpritePath) {
-    const heroSprite = new Sprite(resources[heroSpritePath].texture);
+    let heroSprite = new Sprite(resources[heroSpritePath].texture);
     heroSprite.position.set(332, 205); //344, 217
 
     statsContainer.addChild(heroSprite);
@@ -3409,13 +3452,15 @@ function addStatsContainer(container, heroName) {
         data.movementSpeedTitle, data.energyRegenTitle, data.critDamageLevelTitle,
         data.critStrikeLevelTitle, data.hitLevelTitle, data.dodgeLevelTitle, data.lifeStealLevelTitle,
         data.energyStealTitle, data.energyBoostTitle, data.armorPenetrationTitle,
-        data.magicPenetrationTitle, data.healingEffectTitle, data.shieldEffectTitle],
+        data.magicPenetrationTitle, data.healingEffectTitle, data.shieldEffectTitle
+      ],
       statsValueArray = [data.health, data.attackDamage, data.abilityPower,
         data.armor, data.magicResist, data.attackSpeed, data.healthRegen,
         data.movementSpeed, data.energyRegen, data.critDamageLevel,
         data.critStrikeLevel, data.hitLevel, data.dodgeLevel, data.lifeStealLevel,
         data.energySteal, data.energyBoost, data.armorPenetration, data.magicPenetration,
-        data.healingEffect, data.shieldEffect];
+        data.healingEffect, data.shieldEffect
+      ];
 
     socket.off('statsContainerData');
 
@@ -3423,8 +3468,8 @@ function addStatsContainer(container, heroName) {
       // Loading Image in middle of screen
       addLoadingBackground(statsContainer, loadingText);
 
-      if (statsUpperBackgroundPath in loader.resources && statsBottomBackgroundPath in loader.resources
-        && statsGreyLabelPath in loader.resources && statsWhiteLabelPath in loader.resources) {
+      if (statsUpperBackgroundPath in loader.resources && statsBottomBackgroundPath in loader.resources &&
+        statsGreyLabelPath in loader.resources && statsWhiteLabelPath in loader.resources) {
         console.log(`${statsUpperBackgroundPath} - already in stage`);
         console.log(`${statsBottomBackgroundPath} - already in stage`);
         console.log(`${statsGreyLabelPath} - already in stage`);
@@ -3447,46 +3492,46 @@ function addStatsContainer(container, heroName) {
 
     function addStatsBackgroundImages(_statsUpperBackgroundPath, _statsBottomBackgroundPath,
       _statsGreyLabelPath, _statsWhiteLabelPath) {
-      const statsUpperBackground = new Sprite(resources[_statsUpperBackgroundPath].texture);
+      let statsUpperBackground = new Sprite(resources[_statsUpperBackgroundPath].texture);
       statsUpperBackground.position.set(1032, 229);
 
-      const statsBottomBackgroundContainer = new Container();
+      let statsBottomBackgroundContainer = new Container();
       statsBottomBackgroundContainer.x = 1044;
       statsBottomBackgroundContainer.y = 412;
       statsBottomBackgroundContainer.interactive = true;
 
-      const statsBottomBackground = new Sprite(resources[_statsBottomBackgroundPath].texture);
+      let statsBottomBackground = new Sprite(resources[_statsBottomBackgroundPath].texture);
       statsBottomBackground.position.set(1032, 399); // 1032, 399
 
-      const textStatsUpperBackground = new Text(descriptionText, textStyleHeroStats_28left_black);
+      let textStatsUpperBackground = new Text(descriptionText, textStyleHeroStats_28left_black);
       textStatsUpperBackground.position.set(1050, 244);
 
-      const textBaseStat = new Text(baseStatText, textStyle_32left_black);
+      let textBaseStat = new Text(baseStatText, textStyle_32left_black);
       textBaseStat.position.set(1136, 361);
 
-      const textPlusEquip = new Text(plusEquipText, textStylePlusEquip_32left_green);
-      textPlusEquip.position.set(textBaseStat.x+textBaseStat.width, textBaseStat.y);
+      let textPlusEquip = new Text(plusEquipText, textStylePlusEquip_32left_green);
+      textPlusEquip.position.set(textBaseStat.x + textBaseStat.width, textBaseStat.y);
 
-      const textPowerBar = new Text(powerText+powerValue, textStyleLevel_40center_white);
-      textPowerBar.position.set(setMiddlePos(statsBottomBackground, textPowerBar).x-8, 703);
+      let textPowerBar = new Text(powerText + powerValue, textStyleLevel_40center_white);
+      textPowerBar.position.set(setMiddlePos(statsBottomBackground, textPowerBar).x - 8, 703);
 
       //
       function addGreyLabel(i, atribute, value) {
         let statsLabel;
-        if (i%2 === 0) {
+        if (i % 2 === 0) {
           statsLabel = new Sprite(resources[_statsGreyLabelPath].texture);
-        } else if (i%2 === 1) {
+        } else if (i % 2 === 1) {
           statsLabel = new Sprite(resources[_statsWhiteLabelPath].texture);
         }
-        statsLabel.position.set(0, i*statsLabel.height);
+        statsLabel.position.set(0, i * statsLabel.height);
 
-        const textStats = new Text(atribute, textStyleHeroStats_28left_black);
-        textStats.position.set(12, i*statsLabel.height);
+        let textStats = new Text(atribute, textStyleHeroStats_28left_black);
+        textStats.position.set(12, i * statsLabel.height);
 
-        const valueStats = new Text(value, textStyleHeroStats_28left_black);
+        let valueStats = new Text(value, textStyleHeroStats_28left_black);
         valueStats.position.set(
-          statsLabel.x+statsLabel.width-12-valueStats.width,
-          i*statsLabel.height
+          statsLabel.x + statsLabel.width - 12 - valueStats.width,
+          i * statsLabel.height
         );
 
         statsBottomBackgroundContainer.addChild(statsLabel, textStats, valueStats);
@@ -3535,7 +3580,7 @@ function addGlyphsContainer(container, heroName) {
   console.log(stage.children);
   console.log('heroName from glyphsContainer', heroName);
 
-  const heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
 
   glyphsContainer.addChild(heroUpperBackground);
@@ -3562,12 +3607,12 @@ function addGlyphsContainer(container, heroName) {
 
     socket.off('glyphsContainerData');
 
-    function loadImages() {
+    function loadGlyphImages() {
       // Loading Image in middle of screen
       addLoadingBackground(glyphsContainer, loadingText);
 
-      if (awakenIconPath in loader.resources && awakenIconBackgroundPath in loader.resources
-        && nextGlyphsIconPath in loader.resources) {
+      if (awakenIconPath in loader.resources && awakenIconBackgroundPath in loader.resources &&
+        nextGlyphsIconPath in loader.resources) {
         console.log(`${awakenIconPath} - already in stage`);
         console.log(`${awakenIconBackgroundPath} - already in stage`);
         console.log(`${nextGlyphsIconPath} - already in stage`);
@@ -3585,26 +3630,26 @@ function addGlyphsContainer(container, heroName) {
     }
 
     function addImages(_awakenIconPath, _awakenIconBackgroundPath, _nextGlyphsIconPath) {
-      const awakenIconBackground = new Sprite(resources[_awakenIconBackgroundPath].texture);
+      let awakenIconBackground = new Sprite(resources[_awakenIconBackgroundPath].texture);
       awakenIconBackground.position.set(1032, 229);
 
-      const awakenIcon = new Sprite(resources[_awakenIconPath].texture);
+      let awakenIcon = new Sprite(resources[_awakenIconPath].texture);
       awakenIcon.position.set(1048, 241);
 
-      const textAwakenIcon = new Text(awakenText, textStyle_32left_black);
-      textAwakenIcon.position.set(1192, setMiddlePos(awakenIconBackground, textAwakenIcon).y+4);
+      let textAwakenIcon = new Text(awakenText, textStyle_32left_black);
+      textAwakenIcon.position.set(1192, setMiddlePos(awakenIconBackground, textAwakenIcon).y + 4);
 
-      const nextGlyphsIcon = new Sprite(resources[_nextGlyphsIconPath].texture);
+      let nextGlyphsIcon = new Sprite(resources[_nextGlyphsIconPath].texture);
       nextGlyphsIcon.position.set(1516, 617);
 
-      const textPowerBar = new Text(powerText+powerValue, textStyleLevel_40center_white);
-      textPowerBar.position.set(setMiddlePos(awakenIconBackground, textPowerBar).x-8, 703);
+      let textPowerBar = new Text(powerText + powerValue, textStyleLevel_40center_white);
+      textPowerBar.position.set(setMiddlePos(awakenIconBackground, textPowerBar).x - 8, 703);
 
       glyphsContainer.addChild(awakenIconBackground, awakenIcon, textAwakenIcon,
         nextGlyphsIcon, textPowerBar);
     }
 
-    loadImages();
+    loadGlyphImages();
 
     function addGlyphIcon(glyphName, equipped, posX, posY) {
       let id = resources[glyphsPath].textures;
@@ -3656,15 +3701,15 @@ function addGlyphsContainer(container, heroName) {
     }
 
     function addStarBackgroundImage(_starBackgroundPath) {
-      const starBackground = new Sprite(resources[_starBackgroundPath].texture);
+      let starBackground = new Sprite(resources[_starBackgroundPath].texture);
       starBackground.position.set(394, 752);
 
       glyphsContainer.addChild(starBackground);
 
       function addStarIcon(offsetX) {
-        const star = new Sprite(resources[starIconPath].texture);
+        let star = new Sprite(resources[starIconPath].texture);
         star.position.set(
-          setMiddlePos(starBackground, star).x+offsetX,
+          setMiddlePos(starBackground, star).x + offsetX,
           setMiddlePos(starBackground, star).y
         );
 
@@ -3711,19 +3756,19 @@ function addGlyphsContainer(container, heroName) {
       switch (_color) {
         case 'Green':
           borderPath = `${heroesFolderPath}border_green${png}`;
-        break;
+          break;
         case 'Green +1':
           borderPath = `${heroesFolderPath}border_green+1${png}`;
-        break;
+          break;
         case 'Blue':
           borderPath = `${heroesFolderPath}border_blue${png}`;
-        break;
+          break;
         case 'Blue +1':
           borderPath = `${heroesFolderPath}border_blue+1${png}`;
-        break;
+          break;
         case 'Blue +2':
           borderPath = `${heroesFolderPath}border_blue+2${png}`;
-        break;
+          break;
         default:
           borderPath = `${heroesFolderPath}border_grey${png}`;
       }
@@ -3742,25 +3787,25 @@ function addGlyphsContainer(container, heroName) {
     }
 
     function addHeroPortrait(_borderPath, _pedestalPath) {
-      const border = new Sprite(resources[_borderPath].texture);
+      let border = new Sprite(resources[_borderPath].texture);
       border.position.set(374, 242);
 
-      const banner = new Sprite(resources[banner620x98Path].texture);
+      let banner = new Sprite(resources[banner620x98Path].texture);
       banner.position.set(312, 204);
 
-      const textBanner = new Text(nameText, textStyleHero_48center_white);
+      let textBanner = new Text(nameText, textStyleHero_48center_white);
       textBanner.position.set(
         setMiddlePos(banner, textBanner).x,
-        setMiddlePos(banner, textBanner).y-2
+        setMiddlePos(banner, textBanner).y - 2
       );
 
-      const textLevel = new Text(levelText, textStyleLevel_40center_white);
+      let textLevel = new Text(levelText, textStyleLevel_40center_white);
       textLevel.position.set(
-        banner.x+80-textLevel.width/2,
-        setMiddlePos(banner, textLevel).y-4
+        banner.x + 80 - textLevel.width / 2,
+        setMiddlePos(banner, textLevel).y - 4
       );
 
-      const pedestal = new Sprite(resources[pedestalPath].texture);
+      let pedestal = new Sprite(resources[pedestalPath].texture);
       pedestal.position.set(setMiddlePos(border, pedestal).x, 643);
 
       let classIconPath;
@@ -3769,30 +3814,30 @@ function addGlyphsContainer(container, heroName) {
         switch (_classText) {
           case 'Tank':
             classIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`;
-          break;
+            break;
           case 'Fighter':
             classIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`;
-          break;
+            break;
           case 'Marksman':
             classIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`;
-          break;
+            break;
           case 'Mage':
             classIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`;
-          break;
+            break;
           case 'Support':
             classIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`;
-          break;
+            break;
         }
 
         addClassIcon(classIconPath);
       }
 
       function addClassIcon(_classIconPath) {
-        const classIcon = new Sprite(resources[_classIconPath].texture);
+        let classIcon = new Sprite(resources[_classIconPath].texture);
         classIcon.scale.set(0.6);
         classIcon.position.set(
-          banner.x+banner.width-80-classIcon.width/2,
-          setMiddlePos(banner, classIcon).y-4
+          banner.x + banner.width - 80 - classIcon.width / 2,
+          setMiddlePos(banner, classIcon).y - 4
         );
 
         glyphsContainer.addChild(classIcon);
@@ -3801,8 +3846,8 @@ function addGlyphsContainer(container, heroName) {
       glyphsContainer.addChild(border, banner, textBanner, textLevel, pedestal);
 
       function addHeroSprite(heroSpritePath) {
-        const heroSprite = new Sprite(resources[heroSpritePath].texture);
-        heroSprite.position.set(setMiddlePos(border, heroSprite).x, 667-heroSprite.height);
+        let heroSprite = new Sprite(resources[heroSpritePath].texture);
+        heroSprite.position.set(setMiddlePos(border, heroSprite).x, 667 - heroSprite.height);
 
         glyphsContainer.addChild(heroSprite);
         glyphsContainer.removeChild(loadingBackground, textLoading);
@@ -3850,37 +3895,37 @@ function addGlyphsContainer(container, heroName) {
     loadBorderImages(colorText);
 
     function addBars() {
-      const expBar = new Sprite(resources[expBackgroundPath].texture);
+      let expBar = new Sprite(resources[expBackgroundPath].texture);
       expBar.position.set(341, 845);
 
-      const textHeroExpOfLevels = new Text(`${expText}${currExpValue}/${nextExpValue}`,
+      let textHeroExpOfLevels = new Text(`${expText}${currExpValue}/${nextExpValue}`,
         textStyleExpPagesBar_30center_white);
       textHeroExpOfLevels.position.set(
-        expBar.x+6,
+        expBar.x + 6,
         setMiddlePos(expBar, textHeroExpOfLevels).y
       );
 
-      const expBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+      let expBarPlusIcon = new Sprite(resources[plusIconPath].texture);
       expBarPlusIcon.width = expBarPlusIcon.height = 56;
       expBarPlusIcon.position.set(
-        expBar.x+expBar.width-expBarPlusIcon.width,
-        expBar.y-4
+        expBar.x + expBar.width - expBarPlusIcon.width,
+        expBar.y - 4
       );
 
-      const pageBar = new Sprite(resources[expBackgroundPath].texture);
+      let pageBar = new Sprite(resources[expBackgroundPath].texture);
       pageBar.position.set(643, 845);
 
-      const pageIcon = new Sprite(resources[pageIconPath].texture);
-      pageIcon.position.set(pageBar.x, pageBar.y-4);
+      let pageIcon = new Sprite(resources[pageIconPath].texture);
+      pageIcon.position.set(pageBar.x, pageBar.y - 4);
 
-      const pageBarPlusIcon = new Sprite(resources[plusIconPath].texture);
+      let pageBarPlusIcon = new Sprite(resources[plusIconPath].texture);
       pageBarPlusIcon.width = pageBarPlusIcon.height = 56;
       pageBarPlusIcon.position.set(
-        pageBar.x+pageBar.width-pageBarPlusIcon.width,
-        pageBar.y-4
+        pageBar.x + pageBar.width - pageBarPlusIcon.width,
+        pageBar.y - 4
       );
 
-      const textNumberOfPages = new Text(`${currPagesValue}/${nextPagesValue}`,
+      let textNumberOfPages = new Text(`${currPagesValue}/${nextPagesValue}`,
         textStyleExpPagesBar_30center_white);
       if (nextPagesValue === 0) {
         textNumberOfPages.text = 'MAX';
@@ -3905,7 +3950,7 @@ function addSkillsContainer(container, heroName) {
   console.log(stage.children);
   console.log('heroName from skillsContainer', heroName);
 
-  const heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
 
   skillsContainer.addChild(heroUpperBackground);
@@ -3928,7 +3973,7 @@ function addSkillsContainer(container, heroName) {
       // Loading Image in middle of screen
       addLoadingBackground(glyphsContainer, loadingText);
 
-      const videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
+      let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
 
       if (videoFilePath in loader.resources) {
         console.log(`${videoFilePath} - already loaded`);
@@ -3947,18 +3992,18 @@ function addSkillsContainer(container, heroName) {
     }
 
     function addVideo(_videoFilePath, _index) {
-      const video = new Sprite(resources[_videoFilePath].texture);
+      let video = new Sprite(resources[_videoFilePath].texture);
       video.position.set(1032, 229);
 
-      const videoBanner = new Sprite(resources[banner620x98Path].texture);
+      let videoBanner = new Sprite(resources[banner620x98Path].texture);
       videoBanner.width = 476;
       videoBanner.height = 76;
       videoBanner.position.set(1059, 172);
 
-      const textVideoBanner = new Text(skillsTextArray[_index].title, textStyleLevel_40center_white);
+      let textVideoBanner = new Text(skillsTextArray[_index].title, textStyleLevel_40center_white);
       textVideoBanner.position.set(
         setMiddlePos(videoBanner, textVideoBanner).x,
-        setMiddlePos(videoBanner, textVideoBanner).y-4
+        setMiddlePos(videoBanner, textVideoBanner).y - 4
       );
 
       skillsContainer.addChild(video, videoBanner, textVideoBanner);
@@ -3966,150 +4011,190 @@ function addSkillsContainer(container, heroName) {
 
     loadVideo(heroName, 'video_1', 0);
 
-    function loadSkill(heroName, index) {
-      if (skillBackgroundPath in loader.resources) {
+    function loadSkill(heroName) {
+      if (skillBackgroundPath in loader.resources && skillLabelPath in loader.resources) {
         console.log(`${skillBackgroundPath} - already loaded`);
-        loadSkillIcon(heroName, index);
+        console.log(`${skillLabelPath} - already loaded`);
+        loadSkillsIcons(heroName);
       } else {
         loader
-          .add(skillBackgroundPath);
+          .add([
+            skillBackgroundPath, skillLabelPath
+          ]);
       }
 
       loader
         .once('complete', (loader, resources) => {
-          loadSkillIcon(heroName, index);
+          loadSkillsIcons(heroName);
         });
     }
 
-    function loadSkillIcon(_heroName, _index) {
-      const skillIconPath = `${heroesFolderPath}${_heroName}/skills_icons.json`;
-      // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
+    loadSkill(heroName);
 
-      if (skillIconPath in loader.resources) {
-        console.log(`${skillIconPath} - already loaded`);
-        addSkillBackground(_heroName, _index, skillIconPath);
-      } else {
-        loader
-          .add(skillIconPath);
-      }
-
-      loader
-        .once('complete', (loader, resources) => {
-          addSkillBackground(_heroName, _index, skillIconPath);
-        });
-    }
-
-    function addSkillBackground(heroName, index, skillIconPath) {
-      const skillBackground = new Sprite(resources[skillBackgroundPath].texture);
-      skillBackground.position.set(332, 359+136*index);
-
-      // console.log(eval('`${heroesFolderPath}${heroName}/skills_icons.json`'), `skill_${index}${png}`,
-      // skillIconPath);
-      // const id = resources[skillIconPath].textures;
-      // const skillIcon = new Sprite(id[`skill_${index}${png}`]);
-      // // const ida = resources[avatarImageJsonPath].textures;
-      // // const avatarImage = new Sprite(ida[`${imagePath}${png}`]);
-      // skillIcon.position.set(352, 373+136*index);
-
-      skillsContainer.addChild(skillBackground);
-    }
-
-    for (let i = 0; i < skillsTextArray.length; i++) {
-      loadSkill(heroName, i);
-    }
-    // function loadSkillsIcons(heroName) {
-    //   const skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
-    //   const skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
-    //   const skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
-    //   const skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
+    // function loadSkillIcon(_heroName, _index) {
+    //   const skillIconPath = `${heroesFolderPath}${_heroName}/skills_icons.json`;
+    //   // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
     //
-    //   if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
-    //     skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
-    //     console.log('skill icons already loaded');
-    //     addSkills();
+    //   if (skillIconPath in loader.resources) {
+    //     console.log(`${skillIconPath} - already loaded`);
+    //     addSkillBackground(_heroName, _index, skillIconPath);
     //   } else {
     //     loader
-    //       .add([
-    //         skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
-    //       ]);
+    //       .add(skillIconPath);
     //   }
     //
     //   loader
     //     .once('complete', (loader, resources) => {
-    //       addSkills();
+    //       addSkillBackground(_heroName, _index, skillIconPath);
     //     });
-    //
-    //   function addSkillBackground(x, y, offsetY) {
-    //     const skillBackground = new Sprite(resources[skillBackgroundPath].texture);
-    //     skillBackground.position.set(x, y+offsetY); //136
-    //
-    //     const skillLabel = new Sprite(resources[skillLabelPath].texture);
-    //     skillLabel.position.set(x+128, y+62+offsetY);
-    //
-    //     skillsContainer.addChild(skillBackground, skillLabel,
-    //       textSkill1, textSkill2, textSkill3, textSkill4,
-    //       textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
-    //     );
-    //   }
-    //
-    //   function addSkillIcon(spritePath, x, y, offsetY, i) {
-    //     let skillIcon = new Sprite(resources[spritePath].texture);
-    //     skillIcon.position.set(x, y+offsetY);
-    //     setInteractive(skillIcon, true);
-    //
-    //     skillIcon.on('click', (event) => {
-    //       console.log(`skill ${i} clicked`);
-    //       // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
-    //     });
-    //
-    //     let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
-    //     skillPlusIcon.position.set(x+464, y+12+offsetY);
-    //     setInteractive(skillPlusIcon, true);
-    //
-    //     skillPlusIcon.on('click', (event) => {
-    //       console.log(`plus for skill ${i} was pressed`);
-    //     });
-    //
-    //     skillsContainer.addChild(skillIcon, skillPlusIcon);
-    //   }
-    //
-    //   function addSkills() {
-    //     let offsetY = 0;
-    //     for (let i = 0; i < 4; i++) {
-    //       addSkillBackground(332, 359, offsetY);
-    //       switch (i) {
-    //         case 0:
-    //           addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
-    //           break;
-    //         case 1:
-    //           addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
-    //           break;
-    //         case 2:
-    //           addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
-    //           break;
-    //         case 3:
-    //           addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
-    //           break;
-    //       }
-    //       offsetY += 136;
-    //     }
-    //   }
     // }
+    //
+    // function addSkillBackground(heroName, index, skillIconPath) {
+    //   const skillBackground = new Sprite(resources[skillBackgroundPath].texture);
+    //   skillBackground.position.set(332, 359+136*index);
+    //
+    //   // console.log(eval('`${heroesFolderPath}${heroName}/skills_icons.json`'), `skill_${index}${png}`,
+    //   // skillIconPath);
+    //   const id = resources[skillIconPath].textures;
+    //   const skillIcon = new Sprite(id[`skill_${index}${png}`]);
+    //   // const ida = resources[avatarImageJsonPath].textures;
+    //   // const avatarImage = new Sprite(ida[`${imagePath}${png}`]);
+    //   skillIcon.position.set(352, 373+136*index);
+    //
+    //   skillsContainer.addChild(skillBackground, skillIcon);
+    // }
+    //
+    // for (let i = 0; i < skillsTextArray.length; i++) {
+    //   loadSkill(heroName, i);
+    // }
+    function loadSkillsIcons(heroName) {
+      let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
+      let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
+      let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
+      let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
+
+      if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
+        skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
+        console.log('skill icons already loaded');
+        addSkills();
+      } else {
+        loader
+          .add([
+            skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
+          ]);
+      }
+
+      loader
+        .once('complete', (loader, resources) => {
+          addSkills();
+        });
+
+      function addSkillBackground(x, y, offsetY) {
+        let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
+        skillBackground.position.set(x, y + offsetY); //136
+
+        let skillLabel = new Sprite(resources[skillLabelPath].texture);
+        skillLabel.position.set(x + 128, y + 62 + offsetY);
+
+        let textSkill1 = new Text('', textStyle_32left_black);
+        let textSkill2 = new Text('', textStyle_32left_black);
+        let textSkill3 = new Text('', textStyle_32left_black);
+        let textSkill4 = new Text('', textStyle_32left_black);
+
+        let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
+        let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
+        let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
+        let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
+
+        textSkill1.text = data.skills[0].title;
+        textSkill1.position.set(460, 384);
+
+        textSkillLevel1.text = textSkillLevel1.text + data.skills[0].skill_level;
+        textSkillLevel1.position.set(734, 428);
+
+        textSkill2.text = data.skills[1].title;
+        textSkill2.position.set(460, 520);
+
+        textSkillLevel2.text = textSkillLevel2.text + data.skills[1].skill_level;
+        textSkillLevel2.position.set(734, 564);
+
+        textSkill3.text = data.skills[2].title;
+        textSkill3.position.set(460, 656);
+
+        textSkillLevel3.text = textSkillLevel3.text + data.skills[2].skill_level;
+        textSkillLevel3.position.set(734, 700);
+
+        textSkill4.text = data.skills[3].title;
+        textSkill4.position.set(460, 792);
+
+        textSkillLevel4.text = textSkillLevel4.text + data.skills[3].skill_level;
+        textSkillLevel4.position.set(734, 836);
+
+        skillsContainer.addChild(skillBackground, skillLabel,
+          textSkill1, textSkill2, textSkill3, textSkill4,
+          textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
+        );
+      }
+
+      function addSkillIcon(spritePath, x, y, offsetY, i) {
+        let skillIcon = new Sprite(resources[spritePath].texture);
+        skillIcon.position.set(x, y + offsetY);
+        setInteractive(skillIcon, true);
+
+        skillIcon.on('click', (event) => {
+          console.log(`skill ${i} clicked`);
+          // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
+        });
+
+        let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
+        skillPlusIcon.position.set(x + 464, y + 12 + offsetY);
+        setInteractive(skillPlusIcon, true);
+
+        skillPlusIcon.on('click', (event) => {
+          console.log(`plus for skill ${i} was pressed`);
+        });
+
+        skillsContainer.addChild(skillIcon, skillPlusIcon);
+      }
+
+      function addSkills() {
+        let offsetY = 0;
+        for (let i = 0; i < 4; i++) {
+          addSkillBackground(332, 359, offsetY);
+          switch (i) {
+            case 0:
+              addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
+              break;
+            case 1:
+              addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
+              break;
+            case 2:
+              addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
+              break;
+            case 3:
+              addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
+              break;
+          }
+          offsetY += 136;
+        }
+      }
+    }
+
     // loadSkillsIcons(heroName);
 
-    const skillsBanner = new Sprite(resources[banner620x98Path].texture);
+    let skillsBanner = new Sprite(resources[banner620x98Path].texture);
     skillsBanner.position.set(312, 204);
 
-    const textSkillsBanner = new Text(nameText, textStyleHero_48center_white);
+    let textSkillsBanner = new Text(nameText, textStyleHero_48center_white);
     textSkillsBanner.position.set(
       setMiddlePos(skillsBanner, textSkillsBanner).x,
-      setMiddlePos(skillsBanner, textSkillsBanner).y-2
+      setMiddlePos(skillsBanner, textSkillsBanner).y - 2
     );
 
-    const textLevel = new Text(levelText, textStyleLevel_40center_white);
+    let textLevel = new Text(levelText, textStyleLevel_40center_white);
     textLevel.position.set(
-      skillsBanner.x+80-textLevel.width/2,
-      setMiddlePos(skillsBanner, textLevel).y-4
+      skillsBanner.x + 80 - textLevel.width / 2,
+      setMiddlePos(skillsBanner, textLevel).y - 4
     );
 
     let classIconPath;
@@ -4118,29 +4203,29 @@ function addSkillsContainer(container, heroName) {
       switch (_classText) {
         case 'Tank':
           classIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`;
-        break;
+          break;
         case 'Fighter':
           classIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`;
-        break;
+          break;
         case 'Marksman':
           classIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`;
-        break;
+          break;
         case 'Mage':
           classIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`;
-        break;
+          break;
         case 'Support':
           classIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`;
-        break;
+          break;
       }
       addClassIcon(classIconPath);
     }
 
     function addClassIcon(_classIconPath) {
-      const classIcon = new Sprite(resources[_classIconPath].texture);
+      let classIcon = new Sprite(resources[_classIconPath].texture);
       classIcon.scale.set(0.6);
       classIcon.position.set(
-        skillsBanner.x+skillsBanner.width-80-classIcon.width/2,
-        setMiddlePos(skillsBanner, classIcon).y-4
+        skillsBanner.x + skillsBanner.width - 80 - classIcon.width / 2,
+        setMiddlePos(skillsBanner, classIcon).y - 4
       );
 
       skillsContainer.addChild(classIcon);
@@ -4149,8 +4234,8 @@ function addSkillsContainer(container, heroName) {
     // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
     // jednotlivych skillu pro dany level skillu
 
-    const textPowerBar = new Text(powerText+powerValue, textStyleLevel_40center_white);
-    textPowerBar.position.set(1290-textPowerBar.width/2, 703);
+    let textPowerBar = new Text(powerText + powerValue, textStyleLevel_40center_white);
+    textPowerBar.position.set(1290 - textPowerBar.width / 2, 703);
 
     skillsContainer.addChild(textPowerBar, skillsBanner, textSkillsBanner,
       textLevel);
@@ -4160,231 +4245,218 @@ function addSkillsContainer(container, heroName) {
   });
 }
 
-  // socket.emit('heroContainer', heroName);
-
-
-
-  // let textBanner = new Text('', textStyleLevel_40center_white);
-  //
-  // function addVideo(videoFilePath) {
-  //   let video = new Sprite(resources[videoFilePath].texture);
-  //   video.position.set(1032, 229);
-  //
-  //   skillsContainer.addChild(heroUpperBackground, video, banner, textBanner);
-  // }
-  //
-  // function loadVideo(heroName, filenamePath) {
-  //   // const myLoader = PIXI.loader;
-  //   let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
-  //
-  //   if (videoFilePath in loader.resources) {
-  //     console.log('video already loaded');
-  //     addVideo(videoFilePath);
-  //   } else {
-  //     loader
-  //       .add(videoFilePath);
-  //   }
-  //
-  //   loader
-  //     .once('complete', (loader, resources) => {
-  //       // TODO: video - http://pixijs.io/examples/?v=dev#/basics/video.js
-  //       // - http://www.html5gamedevs.com/topic/16450-pixi-loading-video-files/
-  //       addVideo(videoFilePath);
-  //     });
-  // }
-  //
-  // loadVideo(heroName, 'video_1');
-  //
-  // let textPowerBar = new Text('', textStyleLevel_40center_white);
-  // // textPowerBar.position.set(
-  // //   setMiddlePos(banner, textPowerBar).x,
-  // //   692
-  // // );
-  // // console.log('power.x', setMiddlePos(banner, textPowerBar).x);
-  //
-  // let textSkill1 = new Text('', textStyle_32left_black);
-  // let textSkill2 = new Text('', textStyle_32left_black);
-  // let textSkill3 = new Text('', textStyle_32left_black);
-  // let textSkill4 = new Text('', textStyle_32left_black);
-  //
-  // let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
-  // let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
-  // let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
-  // let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
-  //
-  // // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
-  // // jednotlivych skillu pro dany level skillu
-  //
-  // function loadSkillsIcons(heroName) {
-  //   let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
-  //   let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
-  //   let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
-  //   let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
-  //
-  //   function addSkillBackground(x, y, offsetY) {
-  //     let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
-  //     skillBackground.position.set(x, y+offsetY); //136
-  //
-  //     let skillLabel = new Sprite(resources[skillLabelPath].texture);
-  //     skillLabel.position.set(x+128, y+62+offsetY);
-  //
-  //     skillsContainer.addChild(skillBackground, skillLabel,
-  //       textSkill1, textSkill2, textSkill3, textSkill4,
-  //       textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
-  //     );
-  //   }
-  //
-  //   function addSkillIcon(spritePath, x, y, offsetY, i) {
-  //     let skillIcon = new Sprite(resources[spritePath].texture);
-  //     skillIcon.position.set(x, y+offsetY);
-  //     setInteractive(skillIcon, true);
-  //
-  //     skillIcon.on('click', (event) => {
-  //       console.log(`skill ${i} clicked`);
-  //       // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
-  //     });
-  //
-  //     let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
-  //     skillPlusIcon.position.set(x+464, y+12+offsetY);
-  //     setInteractive(skillPlusIcon, true);
-  //
-  //     skillPlusIcon.on('click', (event) => {
-  //       console.log(`plus for skill ${i} was pressed`);
-  //     });
-  //
-  //     skillsContainer.addChild(skillIcon, skillPlusIcon);
-  //   }
-  //
-  //   function addSkills() {
-  //     let offsetY = 0;
-  //     for (let i = 0; i < 4; i++) {
-  //       addSkillBackground(332, 359, offsetY);
-  //       switch (i) {
-  //         case 0:
-  //           addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
-  //           break;
-  //         case 1:
-  //           addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
-  //           break;
-  //         case 2:
-  //           addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
-  //           break;
-  //         case 3:
-  //           addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
-  //           break;
-  //       }
-  //       offsetY += 136;
-  //     }
-  //   }
-  //
-  //   if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
-  //     skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
-  //     console.log('skill icons already loaded');
-  //     addSkills();
-  //   } else {
-  //     loader
-  //       .add([
-  //         skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
-  //       ]);
-  //   }
-  //
-  //   loader
-  //     .once('complete', (loader, resources) => {
-  //       addSkills();
-  //     });
-  // }
-  //
-  // loadSkillsIcons(heroName);
-  //
-  // let skillsBanner = new Sprite(resources[banner620x98Path].texture);
-  // skillsBanner.position.set(312, 204);
-  //
-  // let textSkillsBanner = new Text('', textStyleBubble_52left_white);
-  //
-  // let textLevel = new Text('', textStyleLevel_40center_white);
-  // textLevel.position.set(392, 228);
-  //
-  // let classIcon = new Sprite(resources[allIconPath].texture);
-  //
-  // socket.on('heroContainerData', (data) => {
-  //   console.log('heroContainerData\n', data);
-  //
-  //   textBanner.text = data.skills[0].title;
-  //   textBanner.position.set(
-  //     setMiddlePos(banner, textBanner).x,
-  //     setMiddlePos(banner, textBanner).y-4
-  //   );
-  //
-  //   textPowerBar.text = data.textPower+data.power;
-  //   textPowerBar.position.set(
-  //     setMiddlePos(banner, textPowerBar).x,
-  //     692
-  //   );
-  //
-  //   textSkillsBanner.text = data.name;
-  //   textSkillsBanner.position.set(
-  //     setMiddlePos(skillsBanner, textSkillsBanner).x,
-  //     setMiddlePos(skillsBanner, textSkillsBanner).y-4
-  //   );
-  //
-  //   textLevel.text = data.level;
-  //   textLevel.position.set(
-  //     textLevel.x-textLevel.width/2,
-  //     228
-  //   );
-  //
-  //   selectClass(classIcon, data.class);
-  //   classIcon.scale.set(0.6);
-  //   classIcon.position.set(830, 230);
-  //
-  //   textSkill1.text = data.skills[0].title;
-  //   textSkill1.position.set(460, 384);
-  //
-  //   textSkillLevel1.text = textSkillLevel1.text+data.skills[0].skill_level;
-  //   textSkillLevel1.position.set(734, 428);
-  //
-  //   textSkill2.text = data.skills[1].title;
-  //   textSkill2.position.set(460, 520);
-  //
-  //   textSkillLevel2.text = textSkillLevel2.text+data.skills[1].skill_level;
-  //   textSkillLevel2.position.set(734, 564);
-  //
-  //   textSkill3.text = data.skills[2].title;
-  //   textSkill3.position.set(460, 656);
-  //
-  //   textSkillLevel3.text = textSkillLevel3.text+data.skills[2].skill_level;
-  //   textSkillLevel3.position.set(734, 700);
-  //
-  //   textSkill4.text = data.skills[3].title;
-  //   textSkill4.position.set(460, 792);
-  //
-  //   textSkillLevel4.text = textSkillLevel4.text+data.skills[3].skill_level;
-  //   textSkillLevel4.position.set(734, 836);
-  //
-  //   // socket.removeAllListeners();
-  //   socket.off('heroContainerData');
-  // });
-  //
-  // skillsContainer.addChild(textPowerBar, skillsBanner,
-  //   textSkillsBanner, textLevel, classIcon);
-  // container.addChild(skillsContainer);
+// let textBanner = new Text('', textStyleLevel_40center_white);
+//
+// function addVideo(videoFilePath) {
+//   let video = new Sprite(resources[videoFilePath].texture);
+//   video.position.set(1032, 229);
+//
+//   skillsContainer.addChild(heroUpperBackground, video, banner, textBanner);
 // }
-
-
-
-
-
-
+//
+// function loadVideo(heroName, filenamePath) {
+//   // const myLoader = PIXI.loader;
+//   let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
+//
+//   if (videoFilePath in loader.resources) {
+//     console.log('video already loaded');
+//     addVideo(videoFilePath);
+//   } else {
+//     loader
+//       .add(videoFilePath);
+//   }
+//
+//   loader
+//     .once('complete', (loader, resources) => {
+//       // TODO: video - http://pixijs.io/examples/?v=dev#/basics/video.js
+//       // - http://www.html5gamedevs.com/topic/16450-pixi-loading-video-files/
+//       addVideo(videoFilePath);
+//     });
+// }
+//
+// loadVideo(heroName, 'video_1');
+//
+// let textPowerBar = new Text('', textStyleLevel_40center_white);
+// // textPowerBar.position.set(
+// //   setMiddlePos(banner, textPowerBar).x,
+// //   692
+// // );
+// // console.log('power.x', setMiddlePos(banner, textPowerBar).x);
+//
+// let textSkill1 = new Text('', textStyle_32left_black);
+// let textSkill2 = new Text('', textStyle_32left_black);
+// let textSkill3 = new Text('', textStyle_32left_black);
+// let textSkill4 = new Text('', textStyle_32left_black);
+//
+// let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
+// let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
+// let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
+// let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
+//
+// // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
+// // jednotlivych skillu pro dany level skillu
+//
+// function loadSkillsIcons(heroName) {
+//   let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
+//   let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
+//   let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
+//   let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
+//
+//   function addSkillBackground(x, y, offsetY) {
+//     let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
+//     skillBackground.position.set(x, y+offsetY); //136
+//
+//     let skillLabel = new Sprite(resources[skillLabelPath].texture);
+//     skillLabel.position.set(x+128, y+62+offsetY);
+//
+//     skillsContainer.addChild(skillBackground, skillLabel,
+//       textSkill1, textSkill2, textSkill3, textSkill4,
+//       textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
+//     );
+//   }
+//
+//   function addSkillIcon(spritePath, x, y, offsetY, i) {
+//     let skillIcon = new Sprite(resources[spritePath].texture);
+//     skillIcon.position.set(x, y+offsetY);
+//     setInteractive(skillIcon, true);
+//
+//     skillIcon.on('click', (event) => {
+//       console.log(`skill ${i} clicked`);
+//       // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
+//     });
+//
+//     let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
+//     skillPlusIcon.position.set(x+464, y+12+offsetY);
+//     setInteractive(skillPlusIcon, true);
+//
+//     skillPlusIcon.on('click', (event) => {
+//       console.log(`plus for skill ${i} was pressed`);
+//     });
+//
+//     skillsContainer.addChild(skillIcon, skillPlusIcon);
+//   }
+//
+//   function addSkills() {
+//     let offsetY = 0;
+//     for (let i = 0; i < 4; i++) {
+//       addSkillBackground(332, 359, offsetY);
+//       switch (i) {
+//         case 0:
+//           addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
+//           break;
+//         case 1:
+//           addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
+//           break;
+//         case 2:
+//           addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
+//           break;
+//         case 3:
+//           addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
+//           break;
+//       }
+//       offsetY += 136;
+//     }
+//   }
+//
+//   if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
+//     skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
+//     console.log('skill icons already loaded');
+//     addSkills();
+//   } else {
+//     loader
+//       .add([
+//         skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
+//       ]);
+//   }
+//
+//   loader
+//     .once('complete', (loader, resources) => {
+//       addSkills();
+//     });
+// }
+//
+// loadSkillsIcons(heroName);
+//
+// let skillsBanner = new Sprite(resources[banner620x98Path].texture);
+// skillsBanner.position.set(312, 204);
+//
+// let textSkillsBanner = new Text('', textStyleBubble_52left_white);
+//
+// let textLevel = new Text('', textStyleLevel_40center_white);
+// textLevel.position.set(392, 228);
+//
+// let classIcon = new Sprite(resources[allIconPath].texture);
+//
+// socket.on('heroContainerData', (data) => {
+//   console.log('heroContainerData\n', data);
+//
+//   textBanner.text = data.skills[0].title;
+//   textBanner.position.set(
+//     setMiddlePos(banner, textBanner).x,
+//     setMiddlePos(banner, textBanner).y-4
+//   );
+//
+//   textPowerBar.text = data.textPower+data.power;
+//   textPowerBar.position.set(
+//     setMiddlePos(banner, textPowerBar).x,
+//     692
+//   );
+//
+//   textSkillsBanner.text = data.name;
+//   textSkillsBanner.position.set(
+//     setMiddlePos(skillsBanner, textSkillsBanner).x,
+//     setMiddlePos(skillsBanner, textSkillsBanner).y-4
+//   );
+//
+//   textLevel.text = data.level;
+//   textLevel.position.set(
+//     textLevel.x-textLevel.width/2,
+//     228
+//   );
+//
+//   selectClass(classIcon, data.class);
+//   classIcon.scale.set(0.6);
+//   classIcon.position.set(830, 230);
+//
+//   textSkill1.text = data.skills[0].title;
+//   textSkill1.position.set(460, 384);
+//
+//   textSkillLevel1.text = textSkillLevel1.text+data.skills[0].skill_level;
+//   textSkillLevel1.position.set(734, 428);
+//
+//   textSkill2.text = data.skills[1].title;
+//   textSkill2.position.set(460, 520);
+//
+//   textSkillLevel2.text = textSkillLevel2.text+data.skills[1].skill_level;
+//   textSkillLevel2.position.set(734, 564);
+//
+//   textSkill3.text = data.skills[2].title;
+//   textSkill3.position.set(460, 656);
+//
+//   textSkillLevel3.text = textSkillLevel3.text+data.skills[2].skill_level;
+//   textSkillLevel3.position.set(734, 700);
+//
+//   textSkill4.text = data.skills[3].title;
+//   textSkill4.position.set(460, 792);
+//
+//   textSkillLevel4.text = textSkillLevel4.text+data.skills[3].skill_level;
+//   textSkillLevel4.position.set(734, 836);
+//
+//   // socket.removeAllListeners();
+//   socket.off('heroContainerData');
+// });
+//
+// skillsContainer.addChild(textPowerBar, skillsBanner,
+//   textSkillsBanner, textLevel, classIcon);
+// container.addChild(skillsContainer);
+// }
 
 //
 function addEquipContainer(container, heroName) {
   equipContainer = new Container();
   // console.log(stage.children);
-  // console.log(glyphsContainer.children);
 
-  const heroUpperBackgroundPath = `${backgroundsFolderPath}hero_upper_background${png}`;
-
-  const heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
+  let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
 
   equipContainer.addChild(heroUpperBackground);
@@ -4406,919 +4478,356 @@ function addEquipContainer(container, heroName) {
   // Loading Image in middle of screen
   addLoadingBackground(equipContainer, 'Coming soon.');
 
-
   container.addChild(equipContainer);
 }
 
-
-
-
-
-
-// function setHeroesContainer() {
-//   heroesContainer = new Container();
-//
-//   socket.emit('heroesContainer', 'setHeroesContainer');
-//
-//   // setBookBackground(heroesContainer);
-//   // setBarContainer(heroesContainer);
-//   // setScrollArrowHeroes(heroesContainer);
-//
-//   // setInteractive(avatarContainer, false);
-//   // setInteractive(btnSummonBooks, false);
-//   // setInteractive(btnHeroes, false);
-//   // setInteractive(battleContainer, false);
-//   // setInteractive(btnMap, false);
-//
-//   // addBookmark(heroesContainer, 456, 944, allIconPath);
-//   // addBookmark(heroesContainer, 576, 944, tankIconPath);
-//   // addBookmark(heroesContainer, 696, 944, fighterIconPath);
-//   // addBookmark(heroesContainer, 1140, 944, marksmanIconPath);
-//   // addBookmark(heroesContainer, 1260, 944, mageIconPath);
-//   // addBookmark(heroesContainer, 1380, 944, supportIconPath);
-//   //
-//   // setHeroesPortraitContainer();
-//   //
-//   // addArrows(heroesContainer);
-//   //
-//   // addBackIconHeroes(heroesContainer);
-//
-//   // stage.addChild(heroesContainer);
-//   // console.log('heroes:\n', stage.children);
-// }
-
-
-
-// // Setup
-// function setScrollArrowHeroes(container) {
-//
-//   let scrollBtn192x72 = new Sprite(resources[scrollBtn192x72Path].texture);
-//   scrollBtn192x72.position.set(1716, 12);
-//
-//   scrollArrow72x36 = new Sprite(resources[scrollArrow72x36Path].texture);
-//   scrollArrow72x36.position.set(1812, 48);
-//   scrollArrow72x36.anchor.set(0.5);
-//   scrollArrow72x36.scale.y = -1;
-//
-//   // Scrool interaction
-//   scrollArrow72x36.interactive = true;
-//   scrollArrow72x36.buttonMode = true;
-//   scrollArrow72x36.on('click', (event) => {
-//     scrollArrow72x36.scale.y *= -1;
-//     if (scrollArrow72x36.scale.y == -1) {
-//       // console.log(stage.children[0].children[stage.children[0].children.length-1]);
-//       let i = stage.children.length-1;
-//       console.log(i);
-//       container.removeChild(stage.children[i].children[stage.children[i].children.length-1]);
-//       // console.log(stage.children);
-//     } else {
-//       // if (stage)
-//       // console.log(stage.children.length);
-//       // loadScrollData(container);
-//       // setScrollContainer(container);
-//       // console.log('children:\n', stage.children[1].children);
-//       // console.log('children.children:\n', stage.children[0].children);
-//     }
-//   });
-//   container.addChild(scrollBtn192x72, scrollArrow72x36);
-// }
-//
-// //
-// function addBackIconHeroes(container) {
-//   let backIcon = new Sprite(resources[btnBackPath].texture);
-//   backIcon.position.set(36, 36);
-//
-//   setInteractive(backIcon, true);
-//
-//   container.addChild(backIcon);
-//
-//   backIcon.on('click', (event) => {
-//     setInteractive(backIcon, false);
-//     console.log('backIconHeroes clicked');
-//     // console.log('before remove', container.children);
-//     stage.removeChild(container);
-//     scrollArrow72x36_mc.scale.y = -1;
-//     mainScreenContainer.addChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-//     // console.log(stage.children);
-//     // console.log(stage.children.length);
-//     // if (stage.children.length === 1) {
-//     //   setTimeout(() => {
-//     //     setInteractive(avatarContainer, true);
-//     //     // setInteractive(btnSummonBooks, true);
-//     //     // setInteractive(btnMap, true);
-//     //   }, LATENCY);
-//     // }
-//   });
-// }
-
-
-// // Setup tutorialContainer
-// function setTutorialContainer() {
-//
-//   tutorialContainer = new Container();
-//
-//   let backgroundDarker_tc = new Sprite(resources[backgroundDarkerPath].texture);
-//   backgroundDarker_tc.position.set(0, 0);
-//
-//   handIcon_tc = new Sprite(resources[handIconPath].texture);
-//   handIcon_tc.position.set(
-//     btnSummonBooks.x+btnSummonBooks.width/4*3,
-//     btnSummonBooks.y+btnSummonBooks.height/4*3
-//   );
-//   handIcon_tc.scale.set(2);
-//
-//   bubble_tc = new Sprite(resources[bubblePath].texture);
-//   bubble_tc.position.set(60, 744);
-//
-//   textBubble_tc = new Text("Text", textStyleBubble_52left_white);
-//   textBubble_tc.position.set(
-//     176,
-//     setMiddlePos(bubble_tc, textBubble_tc).y
-//   );
-//
-//   tutorialContainer.addChild(backgroundDarker_tc); // !!!!!! this uncomment after change name screen implemented
-// }
-
-// // Setup summonBooksContainer (screen that will show after player click on 'Summon Books' icon)
-// function setSummonBooksContainer() {
-//   summonBooksContainer = new Container();
-//
-//   // setInteractive(avatarContainer, false);
-//   // setInteractive(btnSummonBooks, false);
-//   // setInteractive(scrollArrow72x36_mc, false);
-//   // setInteractive(btnMap, false);
-//
-//   // let backgroundEmpty_sbc = new Sprite(resources[backgroundEmptyPath].texture);
-//   // backgroundEmpty_sbc.position.set(0, 0);
-//   //
-//   // let backgroundDarker_sbc = new Sprite(resources[backgroundDarkerPath].texture);
-//   // backgroundDarker_sbc.position.set(0, 0);
-//   //
-//   // let backgroundBook_sbc = new Sprite(resources[backgroundBookPath].texture);
-//   // backgroundBook_sbc.position.set(
-//   //   GAME_WIDTH/2-backgroundBook_sbc.width/2,
-//   //   144
-//   // );
-//   setBookBackground(summonBooksContainer);
-//
-//   let bannerBoM_sbc = new Sprite(resources[banner620x98Path].texture);
-//   bannerBoM_sbc.position.set(304, 180);
-//
-//   let textBannerBoM_sbc = new Text('', textStyleLevel_40center_white);
-//
-//   let bannerGBoM_sbc = new Sprite(resources[banner620x98Path].texture);
-//   bannerGBoM_sbc.position.set(986, 180);
-//
-//   let textBannerGBoM_sbc = new Text('', textStyleLevel_40center_white);
-//
-//   let backgroundBoM_sbc = new Sprite(resources[summonBooksBackgroundPath].texture);
-//   backgroundBoM_sbc.position.set(329, 290);
-//
-//   let boM_sbc = new Sprite(resources[bookOfMagicPath].texture);
-//   boM_sbc.position.set(
-//     setMiddlePos(backgroundBoM_sbc, boM_sbc).x,
-//     setMiddlePos(backgroundBoM_sbc, boM_sbc).y
-//   );
-//
-//   let backgroundGBoM_sbc = new Sprite(resources[summonBooksBackgroundPath].texture);
-//   backgroundGBoM_sbc.position.set(1005, 290);
-//
-//   let gBoM_sbc = new Sprite(resources[grandBookOfMagicPath].texture);
-//   gBoM_sbc.position.set(
-//     setMiddlePos(backgroundGBoM_sbc, gBoM_sbc).x,
-//     setMiddlePos(backgroundGBoM_sbc, gBoM_sbc).y
-//   );
-//
-//   // Book of Magic Summon x1
-//   btnSummonx1BoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btnSummonx1BoM_sbc.position.set(341, 814);
-//
-//   let textBtnSummonx1BoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let lblGoldAboveBtnSummonx1BoM_sbc = new Sprite(resources[lblSummonPath].texture);
-//   lblGoldAboveBtnSummonx1BoM_sbc.position.set(353, 761);
-//
-//   let leftGoldIcon = new Sprite(resources[goldIconPath].texture);
-//   leftGoldIcon.position.set(341, 758);
-//   leftGoldIcon.width = 48;
-//   leftGoldIcon.height = 48;
-//
-//   let textLblGoldAboveBtnSummonx1BoM_sbc = new Text('', textStyle_32center_black); // Free or 10000
-//
-//   let textAboveLblGoldAboveBtnSummonx1BoM_sbc = new Text('', textStyle_32center_black);
-//
-//   // Book of Magic Summon x10
-//   let btnSummonx10BoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btnSummonx10BoM_sbc.position.set(637, 814);
-//
-//   let textBtnSummonx10BoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let lblGoldAboveBtnSummonx10BoM_sbc = new Sprite(resources[lblSummonPath].texture);
-//   lblGoldAboveBtnSummonx10BoM_sbc.position.set(649, 761);
-//
-//   let rightGoldIcon = new Sprite(resources[goldIconPath].texture);
-//   rightGoldIcon.position.set(637, 758);
-//   rightGoldIcon.width = 48;
-//   rightGoldIcon.height = 48;
-//
-//   let textLblGoldAboveBtnSummonx10BoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let textLblGold10pOffBoM_sbc = new Text('', textStyle10pOff_20right_red);
-//
-//   // Grand Book of magic Summon x1
-//   btnSummonx1GBoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btnSummonx1GBoM_sbc.position.set(1017, 814);
-//
-//   let textBtnSummonx1GBoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let lblGoldAboveBtnSummonx1GBoM_sbc = new Sprite(resources[lblSummonPath].texture);
-//   lblGoldAboveBtnSummonx1GBoM_sbc.position.set(1029, 761);
-//
-//   let leftDiamondIcon = new Sprite(resources[diamondIconPath].texture);
-//   leftDiamondIcon.position.set(1017, 758);
-//   leftDiamondIcon.width = 48;
-//   leftDiamondIcon.height = 48;
-//
-//   let textLblGoldAboveBtnSummonx1GBoM_sbc = new Text('', textStyle_32center_black); // Free or 288
-//
-//   let textAboveLblGoldAboveBtnSummonx1GBoM_sbc = new Text('', textStyle_32center_black);
-//
-//   // Grand Book of magic Summon x10
-//   let btnSummonx10GBoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btnSummonx10GBoM_sbc.position.set(1313, 814);
-//
-//   let textBtnSummonx10GBoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let lblGoldAboveBtnSummonx10GBoM_sbc = new Sprite(resources[lblSummonPath].texture);
-//   lblGoldAboveBtnSummonx10GBoM_sbc.position.set(1325, 761);
-//
-//   let rightDiamondIcon = new Sprite(resources[diamondIconPath].texture);
-//   rightDiamondIcon.position.set(1313, 758);
-//   rightDiamondIcon.width = 48;
-//   rightDiamondIcon.height = 48;
-//
-//   let textLblGoldAboveBtnSummonx10GBoM_sbc = new Text('', textStyle_32center_black);
-//
-//   let textLblGold10pOffGBoM_sbc = new Text('', textStyle10pOff_20right_red);
-//
-//   summonBooksContainer.addChild(
-//     // backgroundEmpty_sbc, backgroundDarker_sbc, backgroundBook_sbc,
-//     bannerBoM_sbc, textBannerBoM_sbc, backgroundBoM_sbc, boM_sbc,
-//     btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc,
-//     lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc,
-//     leftGoldIcon,
-//     textAboveLblGoldAboveBtnSummonx1BoM_sbc,
-//     btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc,
-//     lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc,
-//     rightGoldIcon, textLblGold10pOffBoM_sbc,
-//     bannerGBoM_sbc, textBannerGBoM_sbc, backgroundGBoM_sbc, gBoM_sbc,
-//     btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc,
-//     lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc,
-//     leftDiamondIcon,
-//     textAboveLblGoldAboveBtnSummonx1GBoM_sbc,
-//     btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc,
-//     lblGoldAboveBtnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc,
-//     rightDiamondIcon, textLblGold10pOffGBoM_sbc
-//   );
-//   // setBarContainer(summonBooksContainer);
-//   // addBackIcon(summonBooksContainer);
-//
-//   socket.on('summonBooksData', (data) => {
-//
-//     textBannerBoM_sbc.text = data.bookOfMagic;
-//     textBannerBoM_sbc.position.set(
-//       setMiddlePos(bannerBoM_sbc, textBannerBoM_sbc).x,
-//       setMiddlePos(bannerBoM_sbc, textBannerBoM_sbc).y-8//200
-//     );
-//
-//     textBannerGBoM_sbc.text = data.grandBookOfMagic;
-//     textBannerGBoM_sbc.position.set(
-//       setMiddlePos(bannerGBoM_sbc, textBannerGBoM_sbc).x,
-//       setMiddlePos(bannerGBoM_sbc, textBannerGBoM_sbc).y-8//200
-//     );
-//
-//     textBtnSummonx1BoM_sbc.text = data.summonx1;
-//     textBtnSummonx1BoM_sbc.position.set(
-//       setMiddlePos(btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc).x,
-//       setMiddlePos(btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc).y
-//     );
-//
-//     textLblGoldAboveBtnSummonx1BoM_sbc.text = data.free; // Free or 10000
-//     textLblGoldAboveBtnSummonx1BoM_sbc.position.set(
-//       setMiddlePos(lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc).x,
-//       setMiddlePos(lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc).y+2
-//     );
-//
-//     textAboveLblGoldAboveBtnSummonx1BoM_sbc.text = data.freeTimes+freeCounter+data.maxFreeSummon;
-//     textAboveLblGoldAboveBtnSummonx1BoM_sbc.position.set(
-//       setMiddlePos(btnSummonx1BoM_sbc, textAboveLblGoldAboveBtnSummonx1BoM_sbc).x,
-//       720,
-//     );
-//
-//     textBtnSummonx10BoM_sbc.text = data.summonx10;
-//     textBtnSummonx10BoM_sbc.position.set(
-//       setMiddlePos(btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc).x,
-//       setMiddlePos(btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc).y
-//     );
-//
-//     textLblGoldAboveBtnSummonx10BoM_sbc.text = data.gold10more;
-//     textLblGoldAboveBtnSummonx10BoM_sbc.position.set(
-//       setMiddlePos(lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc).x,
-//       setMiddlePos(lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc).y+2
-//     );
-//
-//     textLblGold10pOffBoM_sbc.text = data.discount10off;
-//     textLblGold10pOffBoM_sbc.position.set(
-//       lblGoldAboveBtnSummonx10BoM_sbc.x+lblGoldAboveBtnSummonx10BoM_sbc.width-textLblGold10pOffBoM_sbc.width-4,
-//       setMiddlePos(textLblGoldAboveBtnSummonx10BoM_sbc, textLblGold10pOffBoM_sbc).y
-//     );
-//
-//     textBtnSummonx1GBoM_sbc.text = data.summonx1;
-//     textBtnSummonx1GBoM_sbc.position.set(
-//       setMiddlePos(btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc).x,
-//       setMiddlePos(btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc).y
-//     );
-//
-//     textLblGoldAboveBtnSummonx1GBoM_sbc.text = data.free; // Free or 288
-//     textLblGoldAboveBtnSummonx1GBoM_sbc.position.set(
-//       setMiddlePos(lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc).x,
-//       setMiddlePos(lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc).y+2
-//     );
-//
-//     textAboveLblGoldAboveBtnSummonx1GBoM_sbc.text = data.freeTime;
-//     textAboveLblGoldAboveBtnSummonx1GBoM_sbc.position.set(
-//       setMiddlePos(btnSummonx1GBoM_sbc, textAboveLblGoldAboveBtnSummonx1GBoM_sbc).x,
-//       720,
-//     );
-//
-//     textBtnSummonx10GBoM_sbc.text = data.summonx10;
-//     textBtnSummonx10GBoM_sbc.position.set(
-//       setMiddlePos(btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc).x,
-//       setMiddlePos(btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc).y
-//     );
-//
-//     textLblGoldAboveBtnSummonx10GBoM_sbc.text = data.diamond10more;
-//     textLblGoldAboveBtnSummonx10GBoM_sbc.position.set(
-//       setMiddlePos(btnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc).x,
-//       setMiddlePos(lblGoldAboveBtnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc).y+2
-//     );
-//
-//     textLblGold10pOffGBoM_sbc.text = data.discount10off;
-//     textLblGold10pOffGBoM_sbc.position.set(
-//       lblGoldAboveBtnSummonx10GBoM_sbc.x+lblGoldAboveBtnSummonx10GBoM_sbc.width-textLblGold10pOffGBoM_sbc.width-4,
-//       setMiddlePos(textLblGoldAboveBtnSummonx10GBoM_sbc, textLblGold10pOffGBoM_sbc).y
-//     );
-//   });
-//
-//   stage.addChild(summonBooksContainer);
-//
-//   setInteractive(btnSummonx1BoM_sbc, true);
-//   if (btnSummonx1BoM_sbc.interactive) {
-//     btnSummonx1BoM_sbc.on('click', (event) => {
-//       console.log('btnSummonx1BoM_sbc clicked');
-//       socket.emit('summonx1BoM', 'summonx1BoMClicked');
-//       setSummonContainer();
-//     });
-//   }
-//
-//   setInteractive(btnSummonx1GBoM_sbc, true);
-//   if (btnSummonx1GBoM_sbc.interactive) {
-//     btnSummonx1GBoM_sbc.on('click', (event) => {
-//       console.log('btnSummonx1GBoM_sbc clicked');
-//       socket.emit('summonx1GBoM', 'summonx1GBoMClicked');
-//       setSummonContainer();
-//     });
-//   }
-// }
-
-// // Setup summonContainer (when player click on 'Summon ×1 (×10)' button this screen is shown)
-// function setSummonContainer() {
-//   summonContainer = new Container();
-//
-//   setInteractive(btnSummonx1BoM_sbc, false);
-//   setInteractive(btnSummonx1GBoM_sbc, false);
-//
-//   let backgroundEmpty_suc = new Sprite(resources[backgroundEmptyPath].texture);
-//   backgroundEmpty_suc.position.set(0, 0);
-//
-//   let backgroundDarker_suc = new Sprite(resources[backgroundDarkerPath].texture);
-//   backgroundDarker_suc.position.set(0, 0);
-//
-//   let summoningBook_suc = new Sprite(resources[summoningBookPath].texture);
-//   summoningBook_suc.position.set(GAME_WIDTH/2-summoningBook_suc.width/2, -56);
-//
-//   let banner_suc = new Sprite(resources[banner620x98Path].texture);
-//   banner_suc.position.set(GAME_WIDTH/2-banner_suc.width/2, 48);
-//
-//   let textBanner_suc = new Text('', textStyleLevel_40center_white);
-//
-//   let btn10More_suc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btn10More_suc.position.set(620, 960);
-//
-//   let textBtn10More_suc = new Text('', textStyle_32center_black);
-//   textBtn10More_suc.position.set(
-//     setMiddlePos(btn10More_suc, textBtn10More_suc).x,
-//     setMiddlePos(btn10More_suc, textBtn10More_suc).y
-//   );
-//
-//   let lblLeft_suc = new Sprite(resources[lblSummonPath].texture);
-//   lblLeft_suc.position.set(
-//     284,
-//     setMiddlePos(btn10More_suc, lblLeft_suc).y
-//   );
-//
-//   let goldIcon10More = new Sprite(resources[goldIconPath].texture);
-//   goldIcon10More.position.set(272, lblLeft_suc.y-13);
-//
-//   let diamondIcon10More = new Sprite(resources[diamondIconPath].texture);
-//
-//   let textLblLeft_suc = new Text('', textStyle_32center_black);
-//
-//   let btn1More_suc = new Sprite(resources[btnGreen260x72Path].texture);
-//   btn1More_suc.position.set(1376, 960);
-//
-//   let textBtn1More_suc = new Text('', textStyle_32center_black);
-//
-//   let lblRight_suc = new Sprite(resources[lblSummonPath].texture);
-//   lblRight_suc.position.set(
-//     1040,
-//     setMiddlePos(btn1More_suc, lblRight_suc).y
-//   );
-//
-//   let goldIcon1More = new Sprite(resources[goldIconPath].texture);
-//   goldIcon1More.position.set(1028, lblRight_suc.y-13);
-//
-//   let diamondIcon1More = new Sprite(resources[diamondIconPath].texture);
-//
-//   let textLblRight_suc = new Text('', textStyle_32center_black);
-//
-//   summoningItem_suc = new Sprite(resources[leryssaSummonIconPath].texture);
-//   summoningItem_suc.position.set(
-//     GAME_WIDTH/2-summoningItem_suc.width/2,
-//     GAME_HEIGHT/2-summoningItem_suc.height/2-48
-//   );
-//
-//   summonContainer.addChild(
-//     backgroundEmpty_suc, backgroundDarker_suc,
-//     summoningBook_suc, banner_suc, textBanner_suc,
-//     lblLeft_suc, textLblLeft_suc, goldIcon10More,
-//     btn10More_suc, textBtn10More_suc,
-//     lblRight_suc, textLblRight_suc, goldIcon1More,
-//     btn1More_suc, textBtn1More_suc
-//   );
-//   // addBackIcon(summonContainer);
-//
-//   socket.on('summonx1BoMData', (data) => {
-//     console.log('summonx1BoMData', data);
-//
-//     textBanner_suc.text = data.bookOfMagic;
-//     textBanner_suc.position.set(
-//       setMiddlePos(banner_suc, textBanner_suc).x,
-//       setMiddlePos(banner_suc, textBanner_suc).y-8
-//     );
-//
-//     textBtn1More_suc.text = data.more1;
-//     textBtn1More_suc.position.set(
-//       setMiddlePos(btn1More_suc, textBtn1More_suc).x,
-//       setMiddlePos(btn1More_suc, textBtn1More_suc).y
-//     );
-//
-//     textBtn10More_suc.text = data.more10;
-//     textBtn10More_suc.position.set(
-//       setMiddlePos(btn10More_suc, textBtn10More_suc).x,
-//       setMiddlePos(btn10More_suc, textBtn10More_suc).y
-//     );
-//
-//     textLblLeft_suc.text = data.gold10more;
-//     textLblLeft_suc.position.set(
-//       setMiddlePos(lblLeft_suc, textLblLeft_suc).x,
-//       setMiddlePos(lblLeft_suc, textLblLeft_suc).y
-//     );
-//
-//     textLblRight_suc.text = data.gold1more;
-//     textLblRight_suc.position.set(
-//       setMiddlePos(lblRight_suc, textLblRight_suc).x,
-//       setMiddlePos(lblRight_suc, textLblRight_suc).y
-//     );
-//   });
-//
-//   socket.on('summonx1GBoMData', (data) => {
-//     console.log('summonx1GBoMData', data);
-//
-//     goldIcon10More.texture = diamondIcon10More.texture;
-//     goldIcon1More.texture = diamondIcon1More.texture;
-//
-//     textBanner_suc.text = data.grandBookOfMagic;
-//     textBanner_suc.position.set(
-//       setMiddlePos(banner_suc, textBanner_suc).x,
-//       setMiddlePos(banner_suc, textBanner_suc).y-8
-//     );
-//
-//     textBtn1More_suc.text = data.more1;
-//     textBtn1More_suc.position.set(
-//       setMiddlePos(btn1More_suc, textBtn1More_suc).x,
-//       setMiddlePos(btn1More_suc, textBtn1More_suc).y
-//     );
-//
-//     textBtn10More_suc.text = data.more10;
-//     textBtn10More_suc.position.set(
-//       setMiddlePos(btn10More_suc, textBtn10More_suc).x,
-//       setMiddlePos(btn10More_suc, textBtn10More_suc).y
-//     );
-//
-//     textLblLeft_suc.text = data.diamond10more;
-//     textLblLeft_suc.position.set(
-//       setMiddlePos(lblLeft_suc, textLblLeft_suc).x,
-//       setMiddlePos(lblLeft_suc, textLblLeft_suc).y
-//     );
-//
-//     textLblRight_suc.text = data.diamond1more;
-//     textLblRight_suc.position.set(
-//       setMiddlePos(lblRight_suc, textLblRight_suc).x,
-//       setMiddlePos(lblRight_suc, textLblRight_suc).y
-//     );
-//   });
-//
-//   stage.addChild(summonContainer);
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Setup the hero screen (after player clicked on specific hero)
-// function setHeroContainer(heroName, iconClicked) {
-//   let heroContainer = new Container();
-//
-//   // socket.emit('heroContainer', heroName);
-//
-//   setBookBackground(heroContainer);
-//   // setBarContainer(heroContainer);
-//   // setScrollArrowHeroes(heroesContainer);
-//
-//   setInteractive(stage.children[1].children[20], false); // rightArrow interactive -> false
-//   setInteractive(stage.children[1].children[21], false); // back button interactive -> false
-//   setInteractive(scrollArrow72x36, false);
-//   // console.log(stage.children[1].children[18].children.length);
-//   disableHeroPortraitsInteraction();
-//   // for (let i = 0; i < stage.children[1].children[18].children.length; i++) {
-//   //   let borderIndex = stage.children[1].children[18].children[i].children.length;
-//   //   // console.log('borderIndex', borderIndex);
-//   //   setInteractive(stage.children[1].children[18].children[i].children[borderIndex-2], false);
-//   // }
-//
-//   addHeroBtnClose(heroContainer);
-//
-//   // TODO: pridat sipky vpravo, vlevo
-//
-//   // let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
-//   // heroUpperBackground.position.set(1008, 205);
-//
-//   let heroBottomBackground = new Sprite(resources[heroBottomBackgroundPath].texture);
-//   heroBottomBackground.position.set(1008, 713);
-//
-//   let powerBar = new Sprite(resources[expBackgroundPath].texture);
-//   powerBar.position.set(1168, 689);
-//
-//   let helpIcon = new Sprite(resources[helpIconPath].texture);
-//   helpIcon.position.set(powerBar.x+powerBar.width, 689);
-//
-//   heroContainer.addChild(heroBottomBackground, powerBar,
-//     helpIcon);
-//   addHeroInfoIcons(heroContainer, iconClicked, heroName);
-//
-//   if (iconClicked === 'glyphs') {
-//     addGlyphsContainer(heroContainer, heroName);
-//   }
-//
-//   // console.log('heroes:\n', stage.children);
-//   if (stage.children.length === 2) {
-//     stage.addChild(heroContainer);
-//   }
-//   console.log('heroes2:\n', stage.children);
-// }
-
-
-
-// // Add bookmark to 'heroes' screen
-// function addBookmark(container, posX, posY, bookmarkIcon, ...scale) {
-//   let bookmark = new Sprite(resources[bookmarkIconPath].texture);
-//   let icon = new Sprite(resources[bookmarkIcon].texture);
-//
-//   if (scale > 0) {
-//     // console.log(scale);
-//     bookmark.scale.set(scale);
-//     icon.scale.set(scale);
-//   }
-//
-//   bookmark.position.set(posX, posY);
-//   icon.position.set(
-//     setMiddlePos(bookmark, icon).x,
-//     setMiddlePos(bookmark, icon).y
-//   );
-//
-//   container.addChild(bookmark, icon);
-// }
-
-
-
+let selectedDifficulty;
 
 // Setup 'MAP' = 'mapContainer' for main PvE screen
 function setMapContainer() {
+  for (let item of interMainScreenArray) {
+    setInteractive(item, false);
+  }
+
+  for (let item of interScrollArray) {
+    setInteractive(item, false);
+  }
+
   mapContainer = new Container();
 
+  // Loading Image in middle of screen
+  addLoadingBackground(mapContainer, loadingText);
+
   // socket.emit('mapContainer', 'setMapContainer'); potreba pro level 1-1, ..
-  socket.emit('progress');
-  socket.emit('paragraphs');
+  function loadStarIcon() {
+    if (starIconPath in loader.resources) {
+      console.log(`${starIconPath} - already loaded`);
+      loadBackgroundImages();
+    } else {
+      loader
+        .add(starIconPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        loadBackgroundImages();
+      });
+  }
 
-  // setInteractive(avatarContainer, false);
-  // setInteractive(btnSummonBooks, false);
-  // setInteractive(btnMap, false);
-  // setInteractive(scrollArrow72x36_mc, false);
+  function loadBackgroundImages() {
+    if (mapBackgroundPath in loader.resources && mapPath in loader.resources &&
+      difficultyIconBackgroundPath in loader.resources &&
+      difficultySelectedPath in loader.resources &&
+      normalDifficultyIconPath in loader.resources &&
+      eliteDifficultyIconPath in loader.resources &&
+      legendDifficultyIconPath in loader.resources) {
+      console.log(`${mapBackgroundPath} - already loaded`);
+      console.log(`${mapPath} - already loaded`);
+      console.log(`${difficultyIconBackgroundPath} - already loaded`);
+      console.log(`${difficultySelectedPath} - already loaded`);
+      console.log(`${normalDifficultyIconPath} - already loaded`);
+      console.log(`${eliteDifficultyIconPath} - already loaded`);
+      console.log(`${legendDifficultyIconPath} - already loaded`);
+      addBackground();
+    } else {
+      loader
+        .add([
+          mapBackgroundPath, mapPath, difficultyIconBackgroundPath,
+          difficultySelectedPath, normalDifficultyIconPath,
+          eliteDifficultyIconPath, legendDifficultyIconPath
+        ]);
+    }
 
-  let spriteBackground = new Sprite(resources[mapBackgroundPath].texture);
-  spriteBackground.position.set(0, 0);
+    loader
+      .once('complete', (loader, resources) => {
+        addBackground();
+      });
+  }
 
-  let mapImageContainer = new Container();
-  mapImageContainer.interactive = true;
+  function addBackground() {
+    let spriteBackground = new Sprite(resources[mapBackgroundPath].texture);
+    spriteBackground.position.set(0, 0);
 
-  let map = new Sprite(resources[mapPath].texture);
-  map.position.set(48, GAME_HEIGHT/2-map.height/2+12);
-  // map.interactive = true;
+    btnBack = new Sprite(resources[btnBackPath].texture);
+    btnBack.position.set(36, 36);
+    setInteractive(btnBack, true);
+    btnBack.on('click', () => {
+      setTimeout(() => {
+        backIconClicked(btnBack, mapContainer);
+      }, LATENCY / 2);
+    });
 
-  mapImageContainer.addChild(map);
-  mapContainer.addChild(spriteBackground, mapImageContainer);
+    let mapImageContainer = new Container();
+    mapImageContainer.interactive = true;
+    interParagraphsArray.push(mapImageContainer);
 
-  // Methods for dragging 'statsBottomBackgroundContainer'
-  mapImageContainer
-    .on('pointerdown', dragMapStart)
-    .on('pointerup', dragMapEnd)
-    .on('pointermove', dragMapMove);
+    let map = new Sprite(resources[mapPath].texture);
+    map.position.set(48, GAME_HEIGHT / 2 - map.height / 2 + 12);
+
+    mapImageContainer.addChild(map);
+    mapContainer.addChild(spriteBackground, mapImageContainer, btnBack);
+    mapContainer.removeChild(loadingBackground, textLoading);
+
+    // Methods for dragging 'statsBottomBackgroundContainer'
+    mapImageContainer
+      .on('pointerdown', dragMapStart)
+      .on('pointerup', dragMapEnd)
+      .on('pointermove', dragMapMove);
     // .on('pointerupoutside', onDragOutside);
 
-  let difficultyIconsContainer = new Container();
+    let difficultyIconsContainer = new Container();
 
-  function addDifficultyIcon(spritePath, spritePosX, difficultyIconPath,
-    difficulty, opened, text, chapter) {
-    let sprite = new Sprite(resources[spritePath].texture);
-    sprite.position.set(spritePosX, GAME_HEIGHT-12-sprite.height);
+    function addDifficultyIcon(spritePosX, difficultyIconPath,
+      difficulty, opened, text, chapter, selected) {
+      let sprite = new Sprite(resources[difficultyIconBackgroundPath].texture);
+      sprite.position.set(spritePosX, GAME_HEIGHT - 24 - sprite.height);
 
-    let difficultyIcon = new Sprite(resources[difficultyIconPath].texture);
-    difficultyIcon.position.set(sprite.x+6, sprite.y+6);
+      let difficultyIcon = new Sprite(resources[difficultyIconPath].texture);
+      difficultyIcon.position.set(sprite.x + 6, sprite.y + 6);
 
-    let textColor;
+      if (selected) {
+        selectedDifficulty = difficulty;
+        let spriteFrame = new Sprite(resources[difficultySelectedPath].texture);
+        spriteFrame.position.set(sprite.x - 12, sprite.y - 12);
 
-    switch (difficulty) {
-      case 'Elite':
-        textColor = textStyleDifficultyElite_32left_orange;
-        break;
-      case 'Legend':
-        textColor = textStyleDifficultyLegend_32left_purple;
-        break;
-      default:
-        textColor = textStyleDifficultyNormal_32left_green;
-    }
-
-    let textDifficulty = new Text(difficulty, textColor);
-    textDifficulty.position.set(
-      difficultyIcon.x+difficultyIcon.width+8,
-      difficultyIcon.y-6
-    );
-
-    let textProgress = new Text(text+': '+chapter, textStyleHeroStats_28left_black);
-    textProgress.position.set(
-      difficultyIcon.x+difficultyIcon.width+8,
-      difficultyIcon.y+difficultyIcon.height-textProgress.height+2,
-    );
-
-    difficultyIconsContainer.addChild(sprite, difficultyIcon, textDifficulty, textProgress);
-    mapContainer.addChild(difficultyIconsContainer);
-
-    function addLockIcon(spritePath) {
-      let lockIcon = new Sprite(resources[spritePath].texture);
-      lockIcon.position.set(
-        sprite.x+sprite.width-lockIcon.width-6,
-        sprite.y+sprite.height-lockIcon.height-6
-      );
-
-      difficultyIconsContainer.addChild(lockIcon);
-    }
-
-    function chapterLocked() {
-      // const myLoader = PIXI.loader;
-      const lockIconPath = `${iconsFolderPath}lock_icon${png}`;
-
-      if (lockIconPath in loader.resources) {
-        console.log('already in stage');
-        addLockIcon(lockIconPath);
-      } else {
-        loader
-          .add(lockIconPath);
+        difficultyIconsContainer.addChild(spriteFrame);
       }
 
-      loader
-        .once('complete', (loader, resources) => {
+      let textColor;
+
+      switch (difficulty) {
+        case 'Elite':
+          textColor = textStyleDifficultyElite_32left_orange;
+          break;
+        case 'Legend':
+          textColor = textStyleDifficultyLegend_32left_purple;
+          break;
+        default:
+          textColor = textStyleDifficultyNormal_32left_green;
+      }
+
+      let textDifficulty = new Text(difficulty, textColor);
+      textDifficulty.position.set(
+        difficultyIcon.x + difficultyIcon.width + 8,
+        difficultyIcon.y - 6
+      );
+
+      let textProgress = new Text(text + ': ' + chapter, textStyleHeroStats_28left_black);
+      textProgress.position.set(
+        difficultyIcon.x + difficultyIcon.width + 8,
+        difficultyIcon.y + difficultyIcon.height - textProgress.height + 2,
+      );
+
+      difficultyIconsContainer.addChild(sprite, difficultyIcon, textDifficulty, textProgress);
+      mapContainer.addChild(difficultyIconsContainer);
+
+      function addLockIcon(spritePath) {
+        let lockIcon = new Sprite(resources[spritePath].texture);
+        lockIcon.position.set(
+          sprite.x + sprite.width - lockIcon.width - 6,
+          sprite.y + sprite.height - lockIcon.height - 6
+        );
+
+        difficultyIconsContainer.addChild(lockIcon);
+      }
+
+      function chapterLocked() {
+        if (lockIconPath in loader.resources) {
+          console.log(`${lockIconPath} - already loaded`);
           addLockIcon(lockIconPath);
-        });
-      // console.log('resources', loader.resources);
-    }
-
-    if (opened === 'no') {
-      chapterLocked();
-    }
-  }
-
-  socket.on('progressData', (data) => {
-    console.log('progressData\n', data);
-
-    addDifficultyIcon(difficultyIconBackgroundPath, 516, normalDifficultyIconPath,
-      data.progress[0].difficulty, data.progress[0].opened, data.progress[0].text,
-      data.progress[0].chapter);
-    addDifficultyIcon(difficultyIconBackgroundPath, 820, eliteDifficultyIconPath,
-      data.progress[1].difficulty, data.progress[1].opened, data.progress[1].text,
-      data.progress[1].chapter);
-    addDifficultyIcon(difficultyIconBackgroundPath, 1124, legendDifficultyIconPath,
-      data.progress[2].difficulty, data.progress[2].opened, data.progress[2].text,
-      data.progress[2].chapter);
-
-    socket.off('progressData');
-  });
-
-  function addParagraphsIcons(posX, posY, chapter, bannerTitle, description,
-    maxNumberOfStars, numberOfStars, staminaConsume, reward, consume, enemies,
-    enemiesPower, possibleRewards, sweep, sweepx10, start) {
-
-    function addParagraphIcon(spritePath, spriteNumberPath) {
-      let sprite = new Sprite(resources[spritePath].texture);
-      sprite.position.set(posX, posY);
-      setInteractive(sprite, true);
-
-      sprite.on('click', () => {
-        console.log('chapter clicked');
-        console.log('stage', stage.children);
-        mapContainer.removeChild(mapImageContainer, difficultyIconsContainer);
-        loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
-          numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
-          possibleRewards, sweep, sweepx10, start);
-        // setChapterParagraphContainer(chapter, bannerTitle, description, maxNumberOfStars,
-        //   numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
-        //   possibleRewards, sweep, sweepx10, start);
-      })
-
-      let spriteNumber = new Sprite(resources[spriteNumberPath].texture);
-      spriteNumber.position.set(
-        setMiddlePos(sprite, spriteNumber).x,
-        sprite.y-6-spriteNumber.height
-      );
-
-      let textChapter = new Text(chapter, textStyleHeroStatsLevel_32left_white);
-      textChapter.position.set(
-        setMiddlePos(spriteNumber, textChapter).x,
-        setMiddlePos(spriteNumber, textChapter).y
-      );
-
-      mapImageContainer.addChild(sprite, spriteNumber, textChapter);
-    }
-
-    function loadChapterParagraphIcons() {
-      const stageIconPath = `${iconsFolderPath}stage_icon${png}`;
-      const stageNumberIconPath = `${iconsFolderPath}stage_number${png}`;
-
-      if (
-        stageIconPath in loader.resources && stageNumberIconPath in loader.resources) {
-        console.log('stageIcon already in stage');
-        addParagraphIcon(stageIconPath, stageNumberIconPath);
-      } else {
+        } else {
+          loader
+            .add(lockIconPath);
+        }
         loader
-          .add([
-            stageIconPath, stageNumberIconPath
-          ]);
+          .once('complete', (loader, resources) => {
+            addLockIcon(lockIconPath);
+          });
       }
 
-      loader
-        .once('complete', (loader, resources) => {
-          addParagraphIcon(stageIconPath, stageNumberIconPath);
-        });
+      if (opened === 'no') {
+        chapterLocked();
+      }
     }
 
-    loadChapterParagraphIcons();
-  }
+    socket.emit('progress');
+    socket.on('progressData', (data) => {
+      console.log('progressData\n', data);
 
-  socket.on('paragraphsData', (data) => {
-    console.log('paragraphsData\n', data);
+      addDifficultyIcon(504, normalDifficultyIconPath,
+        data.progress[0].difficulty, data.progress[0].opened, data.progress[0].text,
+        data.progress[0].chapter, data.progress[0].selected);
+      addDifficultyIcon(820, eliteDifficultyIconPath,
+        data.progress[1].difficulty, data.progress[1].opened, data.progress[1].text,
+        data.progress[1].chapter, data.progress[1].selected);
+      addDifficultyIcon(1136, legendDifficultyIconPath,
+        data.progress[2].difficulty, data.progress[2].opened, data.progress[2].text,
+        data.progress[2].chapter, data.progress[2].selected);
 
-    for (let index in data.paragraphs) {
+      socket.off('progressData');
+    });
 
-      let p_opened = data.paragraphs[index].p_opened,
-        p_chapter = data.paragraphs[index].p_chapter,
-        p_bannerTitle = data.paragraphs[index].p_bannerTitle,
-        p_description = data.paragraphs[index].p_description,
-        p_maxNumberOfStars = data.paragraphs[index].p_maxNumberOfStars,
-        p_numberOfStars = data.paragraphs[index].p_numberOfStars,
-        p_staminaConsume = data.paragraphs[index].p_staminaConsume,
-        p_reward = data.paragraphs[index].p_reward,
-        p_consume = data.consume,
-        p_enemies = data.enemies,
-        p_enemiesPower = data.enemiesPower,
-        p_possibleRewards = data.possibleRewards,
-        p_sweep = data.sweep,
-        p_sweepx10 = data.sweepx10,
-        p_start = data.start;
+    function addParagraphsIcons(posX, posY, chapter, bannerTitle, description,
+      maxNumberOfStars, numberOfStars, staminaConsume, reward, consume, enemies,
+      enemiesPower, possibleRewards, sweep, sweepx10, start) {
 
-      console.log('chapter', p_chapter, 'open -', p_opened);
+      function loadChapterParagraphIcons() {
+        if (stageIconPath in loader.resources && stageNumberIconPath in loader.resources) {
+          // console.log(`${stageIconPath} - already loaded`);
+          // console.log(`${stageNumberIconPath} - already loaded`);
+          addParagraphIcon(stageIconPath, stageNumberIconPath);
+        } else {
+          loader
+            .add([
+              stageIconPath, stageNumberIconPath
+            ]);
+        }
+        loader
+          .once('complete', (loader, resources) => {
+            addParagraphIcon(stageIconPath, stageNumberIconPath);
+          });
+      }
 
-      if (p_opened === 'yes') {
-        switch (p_chapter) {
-          case '1-1':
-            addParagraphsIcons(708, 320, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //660, 300
-            break;
-          case '1-2':
-            addParagraphsIcons(892, 396, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //844, 376
-            break;
-          case '1-3':
-            addParagraphsIcons(754, 604, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //706, 584
-            break;
-          case '1-4':
-            addParagraphsIcons(1050, 534, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //1002, 514
-            break;
-          case '1-5':
-            addParagraphsIcons(1338, 412, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //1290, 392
-            break;
-          case '1-6':
-            addParagraphsIcons(1678, 326, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //1630, 306
-            break;
-          case '2-1':
-            addParagraphsIcons(2088, 402, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //2040, 382
-            break;
-          case '2-2':
-            addParagraphsIcons(2348, 566, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //2300, 546
-            break;
-          case '2-3':
-            addParagraphsIcons(2658, 522, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //2610, 502
-            break;
-          case '2-4':
-            addParagraphsIcons(2616, 284, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //2568, 264
-            break;
-          case '2-5':
-            addParagraphsIcons(2942, 520, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //2894, 500
-            break;
-          case '2-6':
-            addParagraphsIcons(3276, 340, p_chapter, p_bannerTitle, p_description,
-              p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
-              p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
-              p_sweepx10, p_start); //3228, 320
-            break;
+      function addParagraphIcon(spritePath, spriteNumberPath) {
+        let sprite = new Sprite(resources[spritePath].texture);
+        sprite.position.set(posX, posY);
+        setInteractive(sprite, true);
+        interParagraphsArray.push(sprite);
+
+        sprite.on('click', () => {
+          console.log('chapter clicked');
+          // mapContainer.removeChild(mapImageContainer);
+          loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
+            numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
+            possibleRewards, sweep, sweepx10, start);
+          // setChapterParagraphContainer(chapter, bannerTitle, description, maxNumberOfStars,
+          //   numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
+          //   possibleRewards, sweep, sweepx10, start);
+        })
+
+        let spriteNumber = new Sprite(resources[spriteNumberPath].texture);
+        spriteNumber.position.set(
+          setMiddlePos(sprite, spriteNumber).x,
+          sprite.y - 6 - spriteNumber.height
+        );
+
+        let textChapter = new Text(chapter, textStyleHeroStatsLevel_32left_white);
+        textChapter.position.set(
+          setMiddlePos(spriteNumber, textChapter).x,
+          setMiddlePos(spriteNumber, textChapter).y
+        );
+
+        mapImageContainer.addChild(sprite, spriteNumber, textChapter);
+      }
+
+      loadChapterParagraphIcons();
+    }
+
+    socket.emit('paragraphs');
+    socket.on('paragraphsData', (data) => {
+      console.log('paragraphsData\n', data);
+
+      for (let index in data.paragraphs) {
+        let p_opened = data.paragraphs[index].p_opened,
+          p_chapter = data.paragraphs[index].p_chapter,
+          p_bannerTitle = data.paragraphs[index].p_bannerTitle,
+          p_description = data.paragraphs[index].p_description,
+          p_maxNumberOfStars = data.paragraphs[index].p_maxNumberOfStars,
+          p_numberOfStars = data.paragraphs[index].p_numberOfStars,
+          p_staminaConsume = data.paragraphs[index].p_staminaConsume,
+          p_reward = data.paragraphs[index].p_reward,
+          p_consume = data.consume,
+          p_enemies = data.enemies,
+          p_enemiesPower = data.enemiesPower,
+          p_possibleRewards = data.possibleRewards,
+          p_sweep = data.sweep,
+          p_sweepx10 = data.sweepx10,
+          p_start = data.start;
+
+        console.log('chapter', p_chapter, 'open -', p_opened);
+
+        if (p_opened === 'yes') {
+          switch (p_chapter) {
+            case '1-1':
+              addParagraphsIcons(708, 320, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //660, 300
+              break;
+            case '1-2':
+              addParagraphsIcons(892, 396, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //844, 376
+              break;
+            case '1-3':
+              addParagraphsIcons(754, 604, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //706, 584
+              break;
+            case '1-4':
+              addParagraphsIcons(1050, 534, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //1002, 514
+              break;
+            case '1-5':
+              addParagraphsIcons(1338, 412, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //1290, 392
+              break;
+            case '1-6':
+              addParagraphsIcons(1678, 326, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //1630, 306
+              break;
+            case '2-1':
+              addParagraphsIcons(2088, 402, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //2040, 382
+              break;
+            case '2-2':
+              addParagraphsIcons(2348, 566, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //2300, 546
+              break;
+            case '2-3':
+              addParagraphsIcons(2658, 522, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //2610, 502
+              break;
+            case '2-4':
+              addParagraphsIcons(2616, 284, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //2568, 264
+              break;
+            case '2-5':
+              addParagraphsIcons(2942, 520, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //2894, 500
+              break;
+            case '2-6':
+              addParagraphsIcons(3276, 340, p_chapter, p_bannerTitle, p_description,
+                p_maxNumberOfStars, p_numberOfStars, p_staminaConsume, p_reward,
+                p_consume, p_enemies, p_enemiesPower, p_possibleRewards, p_sweep,
+                p_sweepx10, p_start); //3228, 320
+              break;
+          }
         }
       }
-    }
 
-    socket.off('paragraphsData');
-  });
+      socket.off('paragraphsData');
+    });
+  }
 
-  // setScrollArrow(mapContainer);
-  // setBarContainer(mapContainer);
-  // addBackIconHeroes(mapContainer);
+  loadStarIcon();
 
   stage.addChild(mapContainer);
   console.log('mapContainer:\n', stage.children);
@@ -5329,15 +4838,16 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
   numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
   possibleRewards, sweep, sweepx10, start) {
 
-  let difficulty = 'Normal'; // TODO: toto pak zjistiti podle vyberu v obtoznosti (Normal ci Elite ci Legend)
-
-  socket.emit('icons', difficulty, chapter);
+  let difficulty = selectedDifficulty;
+  console.log(`difficulty: ${difficulty}`);
 
   let enemiesPath = [];
   let possibleRewardsPath = [];
   let enemiesSumPower = 0;
 
-  socket.on('eprData', (data) => {
+  socket.emit('selectedParagraph', difficulty, chapter);
+  socket.on('selectedParagraphData', (data) => {
+    console.log('selectedParagraphData\n', data);
 
     for (let enemy of data.enemiesData) {
       // console.log(enemy.icon_path);
@@ -5345,17 +4855,16 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
       enemiesPath.push(enemyPath);
       enemiesSumPower += enemy.power;
     }
+    console.log('enemiesPath', enemiesPath);
 
-    // for (let i = 0; i < data.possibleRewardsData.length; i++) {
-      // let path = data.possibleRewardsData[i].icon_path;
     for (let pr of data.possibleRewardsData) {
       let prPath = pr.icon_path;
       possibleRewardsPath.push(prPath);
     }
+    console.log('possibleRewardsPath', possibleRewardsPath);
 
-    // console.log('possibleRewardsPath', possibleRewardsPath);
-    socket.off('eprData');
-    setChapterParagraphContainer(chapter, bannerTitle, description, maxNumberOfStars,
+    socket.off('selectedParagraphData');
+    setChapterParagraphContainer(difficulty, chapter, bannerTitle, description, maxNumberOfStars,
       numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
       possibleRewards, sweep, sweepx10, start, enemiesPath, possibleRewardsPath,
       enemiesSumPower)
@@ -5363,30 +4872,70 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
 }
 
 // Setup chapterParagraphContainer() for individual paragraph of chapter
-function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumberOfStars,
+function setChapterParagraphContainer(difficulty, chapter, bannerTitle, description, maxNumberOfStars,
   numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
   possibleRewards, sweep, sweepx10, start, enemiesPath, possibleRewardsPath,
   enemiesSumPower) {
 
+  for (let item of interParagraphsArray) {
+    setInteractive(item, false);
+  }
+
+  setInteractive(btnBack, false);
+
   let chapterParagraphContainer = new Container();
 
-  // console.log('chapter', chapter);
+  let backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
+  backgroundDarker.position.set(0, 0);
 
-  // console.log('ff', enemiesPath);
-  // console.log('gg', possibleRewardsPath);
+  let btnBackInParagraph = new Sprite(resources[btnBackPath].texture);
+  btnBackInParagraph.position.set(36, 36);
+  setInteractive(btnBackInParagraph, true);
+  interBtnBackStartArray.push(btnBackInParagraph);
+  btnBackInParagraph.on('click', () => {
+    setTimeout(() => {
+      backIconInParagraphsClicked(chapterParagraphContainer);
+    }, LATENCY / 2);
+  });
+
+  chapterParagraphContainer.addChild(backgroundDarker, btnBackInParagraph);
 
   function addParagraphScreen(posX, posY) {
+    function loadBannerImage() {
+      if (banner620x98Path in loader.resources) {
+        console.log(`${banner620x98Path} - already loaded`);
+        loadHelpIcon();
+      } else {
+        loader
+          .add(banner620x98Path);
+      }
+      loader
+        .once('complete', (loader, resources) => {
+          loadHelpIcon();
+        });
+    }
 
-    function loadImages() {
-      const
-        paragraphBackgroundPath = `${backgroundsFolderPath}paragraph_background${png}`,
-        btnSweepPath = `${buttonsFolderPath}btn_sweep${png}`,
-        btnSweepNoPath = `${buttonsFolderPath}btn_sweep_no${png}`,
-        btnStartPath = `${buttonsFolderPath}btn_start${png}`;
+    function loadHelpIcon() {
+      if (helpIconPath in loader.resources) {
+        console.log(`${helpIconPath} - already loaded`);
+        loadParagraphImages();
+      } else {
+        loader
+          .add(helpIconPath);
+      }
+      loader
+        .once('complete', (loader, resources) => {
+          loadParagraphImages();
+        });
+    }
 
-      if (paragraphBackgroundPath in loader.resources && btnSweepPath in loader.resources
-        && btnSweepNoPath in loader.resources && btnStartPath in loader.resources) {
-        console.log('paragraphBackgroundPath, btnSweepPath, btnSweepNoPath, btnStartPath - already in stage');
+    function loadParagraphImages() {
+      if (paragraphBackgroundPath in loader.resources && btnSweepPath in loader.resources &&
+        btnSweepNoPath in loader.resources && btnStartPath in loader.resources) {
+        console.log(`${paragraphBackgroundPath} - already loaded`);
+        console.log(`${btnSweepPath} - already loaded`);
+        console.log(`${btnSweepNoPath} - already loaded`);
+        console.log(`${btnStartPath} - already loaded`);
         addParagraphImages(paragraphBackgroundPath, btnSweepPath, btnSweepNoPath,
           btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower);
       } else {
@@ -5413,40 +4962,40 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
       banner.scale.set(1.2);
       banner.position.set(
         setMiddlePos(spriteBackground, banner).x,
-        spriteBackground.y-banner.height/2+6
+        spriteBackground.y - banner.height / 2 + 6
       );
 
       let textBannerTitle = new Text(bannerTitle, textStyleBubble_52left_white);
       textBannerTitle.position.set(
         setMiddlePos(banner, textBannerTitle).x,
-        setMiddlePos(banner, textBannerTitle).y-6
+        setMiddlePos(banner, textBannerTitle).y - 6
       );
 
-      let textDescription = new Text(description, textStyleDescription_48left_black);
-      textDescription.position.set(posX+88, posY+92);
+      let textDescription = new Text(description, textStyleText_40left_black);
+      textDescription.position.set(posX + 88, posY + 92);
 
-      chapterParagraphContainer.addChild(spriteBackground, banner, textBannerTitle,
-        textDescription);
+      chapterParagraphContainer.addChild(spriteBackground, banner,
+        textBannerTitle, textDescription);
 
       for (let i = 0; i < maxNumberOfStars; i++) {
         let star = new Sprite(resources[starIconPath].texture);
         star.scale.set(2.5);
-        star.position.set(posX+1064+132*i, posY+90); //132
+        star.position.set(posX + 1064 + 132 * i, posY + 90); //132
         // console.log(star.x, star.y);
         chapterParagraphContainer.addChild(star);
       }
 
-      let textConsume = new Text(consume+' '+staminaConsume, textStyleDescription_48left_black);
-      textConsume.position.set(posX+124, posY+320); //280, 500
+      let textConsume = new Text(consume + ' ' + staminaConsume, textStyleDescription_48left_black);
+      textConsume.position.set(posX + 124, posY + 320); //280, 500
 
       let textEnemies = new Text(enemies, textStyleDescription_48left_black);
-      textEnemies.position.set(textConsume.x, posY+416); //+96
+      textEnemies.position.set(textConsume.x, posY + 416); //+96
 
       let textPossibleRewards = new Text(possibleRewards, textStyle_32left_black);
-      textPossibleRewards.position.set(posX+368, posY+636); //532, 806
+      textPossibleRewards.position.set(posX + 368, posY + 636); //532, 806
 
       let btnSweepNo = new Sprite(resources[btnSweepNoPath].texture);
-      btnSweepNo.position.set(posX+958, posY+696); //1114, 856
+      btnSweepNo.position.set(posX + 958, posY + 696); //1114, 856
 
       let textBtnSweepNo = new Text(sweep, textStyle_32center_black);
       textBtnSweepNo.position.set(
@@ -5455,7 +5004,7 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
       );
 
       let btnSweepNoX10 = new Sprite(resources[btnSweepNoPath].texture);
-      btnSweepNoX10.position.set(posX+1134, btnSweepNo.y);
+      btnSweepNoX10.position.set(posX + 1134, btnSweepNo.y);
 
       let textBtnSweepNoX10 = new Text(sweepx10, textStyle_32center_black);
       textBtnSweepNoX10.position.set(
@@ -5464,13 +5013,14 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
       );
 
       let btnStart = new Sprite(resources[btnStartPath].texture);
-      btnStart.position.set(posX+1310, posY+688); //848
+      btnStart.position.set(posX + 1310, posY + 688); //848
       setInteractive(btnStart, true);
-      btnStart.on('click', (event) => {
+      interBtnBackStartArray.push(btnStart);
+      btnStart.on('click', () => {
         console.log('btnStart clicked');
-        stage.removeChild(stage.children[stage.children.length-1]);
-        console.log(stage.children);
-        loadSelectedHeroes(chapter);
+        // stage.removeChild(mapContainer);
+        // console.log(stage.children);
+        loadSelectedHeroes(difficulty, chapter);
       });
 
       let textBtnStart = new Text(start, textStyleBtn60_44_black);
@@ -5480,12 +5030,12 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
       );
 
       let helpIcon = new Sprite(resources[helpIconPath].texture);
-      helpIcon.position.set(posX+1364, posY+322); //1520, 482
+      helpIcon.position.set(posX + 1364, posY + 322); //1520, 482
 
-      let textEnemiesPower = new Text('Enemies Power: '+enemiesSumPower, textStyleDescription_48left_black);
+      let textEnemiesPower = new Text('Enemies Power: ' + enemiesSumPower, textStyleDescription_48left_black);
       textEnemiesPower.position.set(
-        helpIcon.x-textEnemiesPower.width-12,
-        posY+320
+        helpIcon.x - textEnemiesPower.width - 12,
+        posY + 320
       );
       // console.log('enemies power:', enemiesSumPower);
 
@@ -5494,24 +5044,47 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
         btnStart, textBtnStart, helpIcon
       );
 
-      // console.log('fff', possibleRewardsPath);
-
       for (let i in enemiesPath) {
-        // console.log(enemiesPath[i], i);
-        let sprite = new Sprite(resources[enemiesPath[i]].texture);
-        sprite.position.set(posX+436+168*i, posY+412); //592, 572
+        // console.log(enemiesPath[i], i); enemiesFolderPath = '/images/game/enemies/',
+        let enemyPath = eval('`${enemiesFolderPath}${enemiesPath[i]}${png}`');
+        console.log(`enemyPath: ${enemyPath}`);
 
-        chapterParagraphContainer.addChild(sprite);
+        function loadEnemyImages() {
+          if (enemyPath in loader.resources) {
+            console.log(`${enemyPath} - already loaded`);
+            addEnemyImages(enemyPath);
+          } else {
+            loader
+              .add(enemyPath);
+          }
+          loader
+            .once('complete', (loader, resources) => {
+              addEnemyImages(enemyPath);
+            });
+        }
+
+        function addEnemyImages(enemyPath) {
+          let sprite = new Sprite(resources[enemyPath].texture);
+          sprite.position.set(posX + 436 + 168 * i, posY + 412); //592, 572
+
+          chapterParagraphContainer.addChild(sprite);
+        }
+
+        loadEnemyImages();
       }
 
-      // for (let i in possibleRewardsPath) {
-      //   let sprite = new Sprite(resources[possibleRewardsPath[i]].texture);
-      //   sprite.position.set(posX+86+168*i, posY+696);
-      //
-      //   chapterParagraphContainer.addChild(sprite);
-      // }
+      for (let i in possibleRewardsPath) {
+        // let possibleRewardPath = eval('`${enemiesFolderPath}${possibleRewardsPath[i]}${png}`');
+        // console.log(`possibleRewardPath: ${possibleRewardPath}, ${possibleRewardsPath[i]}`);
+        let id = resources[glyphsPath].textures;
+        let reward = new Sprite(id[`${possibleRewardsPath[i]}${png}`]);
+        reward.position.set(posX + 86 + 156 * i, posY + 704);
+
+        chapterParagraphContainer.addChild(reward);
+      }
     }
-    loadImages();
+
+    loadBannerImage();
   }
 
   addParagraphScreen(156, 170);
@@ -5519,9 +5092,8 @@ function setChapterParagraphContainer(chapter, bannerTitle, description, maxNumb
 }
 
 // Load information about player's summoned heroes from DB, that can be used in battle
-function loadSelectedHeroes(chapter) {
-
-  console.log('chapter 2:', chapter);
+function loadSelectedHeroes(difficulty, chapter) {
+  console.log('chapterrr:::', chapter, difficulty);
 
   socket.emit('selectedHeroes');
 
@@ -5559,64 +5131,97 @@ function loadSelectedHeroes(chapter) {
       heroesPowerList.push(heroPower);
     }
 
-    let attack = data.attack;
-    let selectHeroes = data.selectHeroes;
+    let attackText = data.attack;
+    let selectHeroesText = data.selectHeroes;
     let textPower = data.textPower;
 
     socket.off('selectedHeroesData');
-    setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, selectHeroes,
-      textPower, heroesPositionNumberList, heroesNameList, heroesLevelList, heroesClassList,
-      heroesStarsList, heroesColorList, heroesPowerList);
+    setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathList, attackText,
+      selectHeroesText, textPower, heroesPositionNumberList, heroesNameList,
+      heroesLevelList, heroesClassList, heroesStarsList, heroesColorList,
+      heroesPowerList);
   });
 }
 
 const summonedHeroesPerPage = 5;
 
 //
-function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, selectHeroes,
-  textPower, heroesPositionNumberList, heroesNameList, heroesLevelList, heroesClassList,
-  heroesStarsList, heroesColorList, heroesPowerList) {
+function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathList, attack,
+  selectHeroes, textPower, heroesPositionNumberList, heroesNameList, heroesLevelList,
+  heroesClassList, heroesStarsList, heroesColorList, heroesPowerList) {
+
+  for (let item of interBtnBackStartArray) {
+    setInteractive(item, false);
+  }
 
   let paragraphSelectHeroesContainer = new Container();
 
-  const spriteBackground = new Sprite(resources[backgroundEmptyBlurPath].texture);
+  // Load `backgroundEmptyBlurPath` string path
+  function loadBackEmptyBlurImage() {
+    if (backgroundEmptyBlurPath in loader.resources) {
+      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      addBackEmptyBlurImage();
+    } else {
+      loader
+        .add(backgroundEmptyBlurPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        addBackEmptyBlurImage();
+      });
+  }
 
-  paragraphSelectHeroesContainer.addChild(spriteBackground);
+  function addBackEmptyBlurImage() {
+    let backgroundEmptyBlur = new Sprite(resources[backgroundEmptyBlurPath].texture);
+    backgroundEmptyBlur.position.set(0, 0);
 
-  function loadImages() {
-    const selectUpperBackgroundPath = `${backgroundsFolderPath}select_upper_background${png}`,
-      selectBottomBackgroundPath = `${backgroundsFolderPath}select_bottom_background${png}`,
-      btnAttackPath = `${buttonsFolderPath}btn_attack${png}`,
-      selectNameLabelPath = `${labelsFolderPath}select_name_label${png}`,
-      selectLevelLabelPath = `${labelsFolderPath}select_level_label${png}`,
-      selectIconLockedPath = `${iconsFolderPath}select_icon_locked${png}`,
-      selectHeroIconPath = `${iconsFolderPath}select_hero_icon${png}`,
-      yesIconPath = `${iconsFolderPath}yes_icon${png}`,
-      itemUseBackgroundPath = `${backgroundsFolderPath}item_use_background${png}`;
+    let btnBackInSelectHeroes = new Sprite(resources[btnBackPath].texture);
+    btnBackInSelectHeroes.position.set(36, 36);
+    setInteractive(btnBackInSelectHeroes, true);
+    interSelectHeroesArray.push(btnBackInSelectHeroes);
+    btnBackInSelectHeroes.on('click', () => {
+      setTimeout(() => {
+        stage.removeChild(paragraphSelectHeroesContainer);
+        for (let item of interBtnBackStartArray) {
+          setInteractive(item, true);
+        }
+      }, LATENCY);
+    });
 
-    if (selectUpperBackgroundPath in loader.resources && selectBottomBackgroundPath in loader.resources
-      && btnAttackPath in loader.resources && selectNameLabelPath in loader.resources
-      && selectLevelLabelPath in loader.resources && selectIconLockedPath in loader.resources
-      && selectHeroIconPath in loader.resources && yesIconPath in loader.resources
-      && itemUseBackgroundPath in loader.resources) {
-      console.log('images already in stage');
-      addImages(selectUpperBackgroundPath, selectBottomBackgroundPath, btnAttackPath,
-        selectNameLabelPath, selectLevelLabelPath, selectIconLockedPath, selectHeroIconPath,
-        yesIconPath, itemUseBackgroundPath);
+    paragraphSelectHeroesContainer.addChild(backgroundEmptyBlur, btnBackInSelectHeroes);
+  }
+
+  loadBackEmptyBlurImage();
+
+  function loadSelectHeroesImages() {
+    if (selectUpperBackgroundPath in loader.resources && selectBottomBackgroundPath in loader.resources &&
+      btnAttackPath in loader.resources && selectNameLabelPath in loader.resources &&
+      selectLevelLabelPath in loader.resources && selectIconLockedPath in loader.resources &&
+      selectHeroIconPath in loader.resources && yesIconPath in loader.resources
+      // && itemUseBackgroundPath in loader.resources
+    ) {
+      console.log(`${selectUpperBackgroundPath} - already in stage`);
+      console.log(`${selectBottomBackgroundPath} - already in stage`);
+      console.log(`${btnAttackPath} - already in stage`);
+      console.log(`${selectNameLabelPath} - already in stage`);
+      console.log(`${selectLevelLabelPath} - already in stage`);
+      console.log(`${selectIconLockedPath} - already in stage`);
+      console.log(`${selectHeroIconPath} - already in stage`);
+      console.log(`${yesIconPath} - already in stage`);
+      // console.log(`${itemUseBackgroundPath} - already in stage`);
+      addSelectHeroesImages();
     } else {
       loader
         .add([
           selectUpperBackgroundPath, selectBottomBackgroundPath, btnAttackPath,
           selectNameLabelPath, selectLevelLabelPath, selectIconLockedPath,
-          selectHeroIconPath, yesIconPath, itemUseBackgroundPath
+          selectHeroIconPath, yesIconPath //, itemUseBackgroundPath
         ]);
     }
 
     loader
       .once('complete', (loader, resources) => {
-        addImages(selectUpperBackgroundPath, selectBottomBackgroundPath, btnAttackPath,
-          selectNameLabelPath, selectLevelLabelPath, selectIconLockedPath, selectHeroIconPath,
-          yesIconPath, itemUseBackgroundPath);
+        addSelectHeroesImages();
       });
   }
 
@@ -5624,16 +5229,13 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     let star = new Sprite(resources[starIconPath].texture);
     star.scale.set(0.7);
     star.position.set(
-      setMiddlePos(sprite, star).x+offsetX,
-      sprite.y+6
+      setMiddlePos(sprite, star).x + offsetX,
+      sprite.y + 6
     );
     container.addChild(star);
   }
 
-  function addImages(selectUpperBackgroundPath, selectBottomBackgroundPath,
-    btnAttackPath, selectNameLabelPath, selectLevelLabelPath, selectIconLockedPath,
-    selectHeroIconPath, yesIconPath, itemUseBackgroundPath) {
-
+  function addSelectHeroesImages() {
     let selectedHeroPositionList = [];
     let selectedHeroList = [];
     let selectedHeroContainerList = [];
@@ -5648,24 +5250,24 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     let bottomBackground = new Sprite(resources[selectBottomBackgroundPath].texture);
     bottomBackground.position.set(
       upperBackground.x,
-      upperBackground.y+upperBackground.height+24
+      upperBackground.y + upperBackground.height + 24
     );
 
     let banner = new Sprite(resources[banner620x98Path].texture);
     banner.scale.set(1.2);
     banner.position.set(
       setMiddlePos(upperBackground, banner).x,
-      upperBackground.y-banner.height/2+6
+      upperBackground.y - banner.height / 2 + 6
     );
 
     let textBannerTitle = new Text(selectHeroes, textStyleBubble_52left_white);
     textBannerTitle.position.set(
       setMiddlePos(banner, textBannerTitle).x,
-      setMiddlePos(banner, textBannerTitle).y-6
+      setMiddlePos(banner, textBannerTitle).y - 6
     );
 
     let btnAttack = new Sprite(resources[btnAttackPath].texture);
-    btnAttack.position.set(1722, bottomBackground.y+72);
+    btnAttack.position.set(1722, bottomBackground.y + 72);
 
     let textBtnAttack = new Text(attack, textStyleBtn60_44_black);
     textBtnAttack.position.set(
@@ -5674,32 +5276,27 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     );
 
     setInteractive(btnAttack, true);
-    btnAttack.on('click', (event) => {
+    interSelectHeroesArray.push(btnAttack);
+    btnAttack.on('click', () => {
       console.log('btnAttack clicked');
       console.log('numberOfSelecedHeroes', numberOfSelecedHeroes);
       if (numberOfSelecedHeroes !== selectedHeroList.length) {
-        let itemUseBackground = new Sprite(resources[itemUseBackgroundPath].texture);
+        for (let item of interSelectHeroesArray) {
+          setInteractive(item, false);
+        }
+        let itemUseBackground = new Sprite(resources[loadingBackgroundPath].texture);
         itemUseBackground.position.set(
-          GAME_WIDTH/2-itemUseBackground.width/2,
-          GAME_HEIGHT/2-itemUseBackground.height/2,
+          GAME_WIDTH / 2 - itemUseBackground.width / 2,
+          GAME_HEIGHT / 2 - itemUseBackground.height / 2,
         );
         // TODO: dodělat text uprostřed 'itemUseBackground', kde bude napsáno, že není splněn maximální počet hrdinů,
         // které lze vybrat a začít poté souboj - text zanést do databáze
         // console.log('bb', stage.children[stage.children.length-1]);
-        let itemList = [];
-        for (let item of stage.children[stage.children.length-1].children) {
-          if (item.buttonMode === true) {
-            itemList.push(item);
-            setInteractive(item, false);
-          }
-        }
-        // addDarkerBackground(paragraphSelectHeroesContainer);
         let spriteBackground = new Sprite(resources[backgroundDarkerPath].texture);
         spriteBackground.position.set(0, 0);
         setInteractive(spriteBackground, true);
-        spriteBackground.on('click', (event) => {
-          for (let item of itemList) {
-            // console.log('item', item);
+        spriteBackground.on('click', () => {
+          for (let item of interSelectHeroesArray) {
             setInteractive(item, true);
           }
           paragraphSelectHeroesContainer.removeChild(spriteBackground, itemUseBackground);
@@ -5707,9 +5304,9 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
 
         paragraphSelectHeroesContainer.addChild(spriteBackground, itemUseBackground);
       } else {
-        stage.removeChild(stage.children[stage.children.length-1]);
+        stage.removeChild(paragraphSelectHeroesContainer, mapContainer);
         console.log(stage.children);
-        setAttackScreenContainer(selectedHeroList, selectedHeroContainerList);
+        setAttackScreenContainer(selectedHeroList, difficulty, chapter);
       }
     });
 
@@ -5717,7 +5314,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     powerBanner.scale.set(0.8);
     powerBanner.position.set(
       setMiddlePos(bottomBackground, powerBanner).x,
-      bottomBackground.y-powerBanner.height/2+6
+      bottomBackground.y - powerBanner.height / 2 + 6
     );
 
     let textPowerBanner = new Text('', textStyleLevel_40center_white);
@@ -5725,7 +5322,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     paragraphSelectHeroesContainer.addChild(upperBackground, bottomBackground, banner,
       textBannerTitle, btnAttack, textBtnAttack);
 
-    const bookmarkX = upperBackground.x+upperBackground.width;
+    const bookmarkX = upperBackground.x + upperBackground.width;
     const SCALE = 0.87;
 
     // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 96, allIconPath, SCALE); //+12
@@ -5736,19 +5333,20 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
     // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 626, supportIconPath, SCALE);
 
     const progress = chapter;
+    const diff = difficulty;
     //const diff = 'Normal'; // TODO: pokud pri zmene na 'Elite' obtiznost nefunguje kod nize,
-                          // dopsat diff dle hodnoty, ktera bude predavana spolu s hodnotou 'chapter'
+    // dopsat diff dle hodnoty, ktera bude predavana spolu s hodnotou 'chapter'
 
     for (let i = 0; i < summonedHeroesPerPage; i++) {
       let sprite = new Sprite(resources[selectIconLockedPath].texture);
-      sprite.position.set(278+280*i, bottomBackground.y+36);
+      sprite.position.set(278 + 280 * i, bottomBackground.y + 36);
       // console.log(sprite.x, sprite.y);
 
       paragraphSelectHeroesContainer.addChild(sprite);
     }
 
-    if (progress === '1-1' || progress === '1-2' || progress === '1-3'
-    || progress === '1-4' || progress === '1-5' || progress === '1-6') {
+    if (progress === '1-1' || progress === '1-2' || progress === '1-3' ||
+      progress === '1-4' || progress === '1-5' || progress === '1-6') {
 
       numberOfSelecedHeroes = 4;
       // console.log('numberOfSelecedHeroes', numberOfSelecedHeroes);
@@ -5759,7 +5357,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
       // console.log(loader.resources);
       let lockSprite = new Sprite(resources['/images/game/icons/lock_icon.png'].texture);
       lockSprite.scale.set(2);
-      lockSprite.position.set(384-lockSprite.width/2-5, bottomBackground.y+76);
+      lockSprite.position.set(384 - lockSprite.width / 2 - 5, bottomBackground.y + 76);
 
       paragraphSelectHeroesContainer.addChild(textComplete, lockSprite);
     }
@@ -5774,40 +5372,40 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
 
       let lockSprite = new Sprite(resources['/images/game/icons/lock_icon.png'].texture);
       lockSprite.scale.set(2);
-      lockSprite.position.set(664-lockSprite.width/2-5, bottomBackground.y+76);
+      lockSprite.position.set(664 - lockSprite.width / 2 - 5, bottomBackground.y + 76);
 
       paragraphSelectHeroesContainer.addChild(textComplete, lockSprite);
     }
 
     function bubbleSort(heroesArray, heroesPositionNumberArray, heroesPowerArray,
-      heroesContainerArray, coordinateArray){
-      for (let i = 0; i < heroesArray.length-1; i++) {
-        for (let j = 0; j < heroesArray.length-i-1; j++) {
-          if (heroesPositionNumberArray[j] > heroesPositionNumberArray[j+1]) {
+      heroesContainerArray, coordinateArray) {
+      for (let i = 0; i < heroesArray.length - 1; i++) {
+        for (let j = 0; j < heroesArray.length - i - 1; j++) {
+          if (heroesPositionNumberArray[j] > heroesPositionNumberArray[j + 1]) {
             let tempHeroes = heroesArray[j];
             // console.log(tempHeroes);
-            heroesArray[j] = heroesArray[j+1];
+            heroesArray[j] = heroesArray[j + 1];
             // console.log(heroesArray[j]);
-            heroesArray[j+1] = tempHeroes;
+            heroesArray[j + 1] = tempHeroes;
             let tempPos = heroesPositionNumberArray[j];
-            heroesPositionNumberArray[j] = heroesPositionNumberArray[j+1];
-            heroesPositionNumberArray[j+1] = tempPos;
+            heroesPositionNumberArray[j] = heroesPositionNumberArray[j + 1];
+            heroesPositionNumberArray[j + 1] = tempPos;
             let tempPower = heroesPowerArray[j];
-            heroesPowerArray[j] = heroesPowerArray[j+1];
-            heroesPowerArray[j+1] = tempPower;
+            heroesPowerArray[j] = heroesPowerArray[j + 1];
+            heroesPowerArray[j + 1] = tempPower;
             let tempContainer = heroesContainerArray[j];
-            heroesContainerArray[j] = heroesContainerArray[j+1];
-            heroesContainerArray[j+1] = tempContainer;
+            heroesContainerArray[j] = heroesContainerArray[j + 1];
+            heroesContainerArray[j + 1] = tempContainer;
             let tempCoordinate = coordinateArray[j];
-            coordinateArray[j] = coordinateArray[j+1];
-            coordinateArray[j+1] = tempCoordinate;
+            coordinateArray[j] = coordinateArray[j + 1];
+            coordinateArray[j + 1] = tempCoordinate;
           }
         }
       }
     }
 
     for (let index in heroesIconPathList) {
-      console.log('index', index);
+      // console.log('index', index);
       console.log('heroesIconPathList[index]', heroesIconPathList[index]);
       let heroIconContainer = new Container();
       let heroIconContainerCopy = new Container();
@@ -5817,13 +5415,13 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
       let selectHeroIcon = new Sprite(resources[selectHeroIconPath].texture);
       let yesIcon = new Sprite(resources[yesIconPath].texture);
 
-      let positionX = index%summonedHeroesPerPage;
-      let positionY = ~~(index/summonedHeroesPerPage);
+      let positionX = index % summonedHeroesPerPage;
+      let positionY = ~~(index / summonedHeroesPerPage);
       // console.log(positionX, '-', positionY);
 
       switch (positionX) {
         case 0:
-          heroIconContainer.position.set(278+280*positionX, 148+264*positionY); //+8
+          heroIconContainer.position.set(278 + 280 * positionX, 148 + 264 * positionY); //+8
           heroIconContainerCopy.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.visible = false;
@@ -5834,7 +5432,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
           yesIcon.visible = false;
           break;
         case 1:
-          heroIconContainer.position.set(278+280*positionX, 148+264*positionY);
+          heroIconContainer.position.set(278 + 280 * positionX, 148 + 264 * positionY);
           heroIconContainerCopy.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.visible = false;
@@ -5845,7 +5443,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
           yesIcon.visible = false;
           break;
         case 2:
-          heroIconContainer.position.set(278+280*positionX, 148+264*positionY);
+          heroIconContainer.position.set(278 + 280 * positionX, 148 + 264 * positionY);
           heroIconContainerCopy.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.visible = false;
@@ -5856,7 +5454,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
           yesIcon.visible = false;
           break;
         case 3:
-          heroIconContainer.position.set(278+280*positionX, 148+264*positionY);
+          heroIconContainer.position.set(278 + 280 * positionX, 148 + 264 * positionY);
           heroIconContainerCopy.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.visible = false;
@@ -5867,7 +5465,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
           yesIcon.visible = false;
           break;
         case 4:
-          heroIconContainer.position.set(278+280*positionX, 148+264*positionY);
+          heroIconContainer.position.set(278 + 280 * positionX, 148 + 264 * positionY);
           heroIconContainerCopy.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.position.set(heroIconContainer.x, heroIconContainer.y);
           selectHeroIcon.visible = false;
@@ -5880,7 +5478,7 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
       }
 
       let nameSprite = new Sprite(resources[selectNameLabelPath].texture);
-      nameSprite.position.set(sprite.x, sprite.y+sprite.height-16); //312
+      nameSprite.position.set(sprite.x, sprite.y + sprite.height - 16); //312
       let nameSpriteCopy = new Sprite(resources[selectNameLabelPath].texture);
       nameSpriteCopy.position.set(nameSprite.x, nameSprite.y); //312
 
@@ -5893,13 +5491,13 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
       textNameSpriteCopy.position.set(textNameSprite.x, textNameSprite.y);
 
       let levelSprite = new Sprite(resources[selectLevelLabelPath].texture);
-      levelSprite.position.set(sprite.x, sprite.y+sprite.height-28-levelSprite.height); //264
+      levelSprite.position.set(sprite.x, sprite.y + sprite.height - 28 - levelSprite.height); //264
       let levelSpriteCopy = new Sprite(resources[selectLevelLabelPath].texture);
       levelSpriteCopy.position.set(levelSprite.x, levelSprite.y); //264
 
       let textLevelSprite = new Text(heroesLevelList[index], textStyleHeroSelectLevel_20left_white);
       textLevelSprite.position.set(
-        levelSprite.x+levelSprite.width-textLevelSprite.width-12,
+        levelSprite.x + levelSprite.width - textLevelSprite.width - 12,
         setMiddlePos(levelSprite, textLevelSprite).y
       );
       let textLevelSpriteCopy = new Text(heroesLevelList[index], textStyleHeroSelectLevel_20left_white);
@@ -5954,10 +5552,10 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
 
       paragraphSelectHeroesContainer.addChild(heroIconContainer, selectHeroIcon,
         yesIcon, heroIconContainerCopy);
-      // console.log(paragraphSelectHeroesContainer.children);
 
       setInteractive(heroIconContainerCopy, true);
-      heroIconContainerCopy.on('click', (event) => {
+      interSelectHeroesArray.push(heroIconContainerCopy);
+      heroIconContainerCopy.on('click', () => {
         // console.log('heroIconContainerCopy', heroIconContainerCopy.x, heroIconContainerCopy.y);
         if (selectedHeroList.includes(heroesNameList[index]) === true) {
           const i = selectedHeroList.indexOf(heroesNameList[index]);
@@ -5985,14 +5583,14 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
             console.log('selectedHeroListCoordinateList', selectedHeroListCoordinateList);
 
             // console.log('selectedHeroesSumPower', selectedHeroesSumPower);
-            textPowerBanner.text = textPower+selectedHeroesSumPower;
+            textPowerBanner.text = textPower + selectedHeroesSumPower;
             textPowerBanner.position.set(
               setMiddlePos(powerBanner, textPowerBanner).x,
-              setMiddlePos(powerBanner, textPowerBanner).y-4
+              setMiddlePos(powerBanner, textPowerBanner).y - 4
             );
 
-            for (let i = 0; i < selectedHeroList.length; i++) {
-              selectedHeroContainerList[i].position.set(1398-280*i, 804);
+            for (let ii = 0; ii < selectedHeroList.length; ii++) {
+              selectedHeroContainerList[ii].position.set(1398 - 280 * ii, 804);
             }
 
             if (selectHeroIcon.visible === true) {
@@ -6020,14 +5618,14 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
 
             selectedHeroesSumPower += heroesPowerList[index];
             // console.log('selectedHeroesSumPower', selectedHeroesSumPower);
-            textPowerBanner.text = textPower+selectedHeroesSumPower;
+            textPowerBanner.text = textPower + selectedHeroesSumPower;
             textPowerBanner.position.set(
               setMiddlePos(powerBanner, textPowerBanner).x,
-              setMiddlePos(powerBanner, textPowerBanner).y-4
+              setMiddlePos(powerBanner, textPowerBanner).y - 4
             );
 
-            for (let i = 0; i < selectedHeroList.length; i++) {
-              selectedHeroContainerList[i].position.set(1398-280*i, 804);
+            for (let ii = 0; ii < selectedHeroList.length; ii++) {
+              selectedHeroContainerList[ii].position.set(1398 - 280 * ii, 804);
             }
 
             if (selectHeroIcon.visible === false) {
@@ -6039,106 +5637,463 @@ function setParagraphSelectHeroesContainer(chapter, heroesIconPathList, attack, 
       });
     }
 
-    textPowerBanner.text = textPower+selectedHeroesSumPower;
+    textPowerBanner.text = textPower + selectedHeroesSumPower;
     textPowerBanner.position.set(
       setMiddlePos(powerBanner, textPowerBanner).x,
-      setMiddlePos(powerBanner, textPowerBanner).y-4
+      setMiddlePos(powerBanner, textPowerBanner).y - 4
     );
 
     paragraphSelectHeroesContainer.addChild(powerBanner, textPowerBanner);
   }
 
-  loadImages();
-
-  // addBackIconHeroes(paragraphSelectHeroesContainer);
-
+  loadSelectHeroesImages();
   stage.addChild(paragraphSelectHeroesContainer);
 }
 
-//
-// Add Back icon to the Container
-function addPauseIcon(container) {
-  let pauseIcon = new Sprite(resources[pauseIconPath].texture);
-  pauseIcon.position.set(36, 36);
-
-  setInteractive(pauseIcon, true);
-
-  container.addChild(pauseIcon);
-
-  pauseIcon.on('click', (event) => {
-    setInteractive(pauseIcon, false);
-    console.log('pauseIcon clicked');
-    // stage.removeChild(container);
-    console.log(stage.children);
-    console.log(stage.children.length);
-
-    // if (stage.children.length === 1) {
-    //   setTimeout(() => {
-    //     setInteractive(scrollArrow72x36_mc, true);
-    //     setInteractive(avatarContainer, true);
-    //     setInteractive(btnSummonBooks, true);
-    //     setInteractive(btnMap, true);
-    //   }, LATENCY);
-    // }
-  });
-}
+let battleProgress = 0;
+const battleProgressEnd = 3;
 
 //
-function setAttackScreenContainer(selectedHeroList, selectedHeroContainerList) {
+function setAttackScreenContainer(selectedHeroList, difficulty, chapter) {
   console.log('attack screen');
   console.log('selectedHeroList:', selectedHeroList);
-  console.log('selectedHeroContainerList:', selectedHeroContainerList);
 
   let attackScreenContainer = new Container();
 
-  function loadImages() {
-    const backgroundPath = `${backgroundsFolderPath}attack_screen_background${png}`,
-      timerBackgroundPath = `${backgroundsFolderPath}timer_background${png}`,
-      btnAutoPath = `${buttonsFolderPath}btn_auto${png}`,
-      btnAutoNoPath = `${buttonsFolderPath}btn_auto_no${png}`;
-
-    if (backgroundPath in loader.resources && timerBackgroundPath in loader.resources
-      && btnAutoPath in loader.resources && btnAutoNoPath in loader.resources
-      // && selectLevelLabelPath in loader.resources && selectIconLockedPath in loader.resources
-      // && selectHeroIconPath in loader.resources && yesIconPath in loader.resources
+  function loadAttackScreenImages() {
+    if (backgroundPath in loader.resources && timerBackgroundPath in loader.resources &&
+      btnAutoPath in loader.resources && btnAutoNoPath in loader.resources &&
+      pauseIconPath in loader.resources && hpBarPath in loader.resources &&
+      mpBarPath in loader.resources && timerIconPath in loader.resources
     ) {
-      console.log('backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath - already in stage');
-      addImages(backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath);
+      console.log(`${backgroundPath} - already in stage`);
+      console.log(`${timerBackgroundPath} - already in stage`);
+      console.log(`${btnAutoPath} - already in stage`);
+      console.log(`${btnAutoNoPath} - already in stage`);
+      console.log(`${pauseIconPath} - already in stage`);
+      console.log(`${hpBarPath} - already in stage`);
+      console.log(`${mpBarPath} - already in stage`);
+      console.log(`${timerIconPath} - already in stage`);
+      addAttackScreenImages();
     } else {
       loader
         .add([
-          backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath
+          backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath,
+          pauseIconPath, hpBarPath, mpBarPath, timerIconPath
         ]);
     }
 
     loader
       .once('complete', (loader, resources) => {
-        addImages(backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath);
+        addAttackScreenImages();
       });
   }
 
-  function addImages(backgroundPath, timerBackgroundPath, btnAutoPath, btnAutoNoPath) {
-
-    const spriteBackground = new Sprite(resources[backgroundPath].texture);
+  function addAttackScreenImages() {
+    let spriteBackground = new Sprite(resources[backgroundPath].texture);
     spriteBackground.position.set(0, 0);
 
-    const timerBackground = new Sprite(resources[timerBackgroundPath].texture);
-    timerBackground.position.set(180, 46);
+    let pauseIcon = new Sprite(resources[pauseIconPath].texture);
+    pauseIcon.position.set(36, 36);
+    setInteractive(pauseIcon, true);
+    pauseIcon.on('click', () => {
+      console.log('pauseIcon clicked');
+    });
+
+    let battleProgressBackground = new Sprite(resources[timerBackgroundPath].texture);
+    battleProgressBackground.position.set(
+      GAME_WIDTH / 2 - battleProgressBackground.width - 36,
+      setMiddlePos(pauseIcon, battleProgressBackground).y
+    );
+
+    battleProgress++;
+
+    let textBattleProgressBackground = new Text(`Progress: ${battleProgress}/${battleProgressEnd}`,
+      textStyle_32center_black);
+    textBattleProgressBackground.position.set(
+      setMiddlePos(battleProgressBackground, textBattleProgressBackground).x,
+      setMiddlePos(battleProgressBackground, textBattleProgressBackground).y + 2
+    );
+
+    let timerBackground = new Sprite(resources[timerBackgroundPath].texture);
+    timerBackground.position.set(
+      GAME_WIDTH / 2 + 36,
+      setMiddlePos(pauseIcon, timerBackground).y
+    );
+
+    let timerIcon = new Sprite(resources[timerIconPath].texture);
+    timerIcon.position.set(
+      timerBackground.x + timerBackground.width - timerIcon.width / 2,
+      setMiddlePos(timerBackground, timerIcon).y
+    );
+
+    let textTimerIcon = new Text(`01:30`, textStyle_32center_black);
+    textTimerIcon.position.set(
+      setMiddlePos(timerBackground, textTimerIcon).x - 8,
+      setMiddlePos(timerBackground, textTimerIcon).y + 2
+    );
 
     let btnAuto = new Sprite(resources[btnAutoNoPath].texture);
-    btnAuto.position.set(36, 840);
+    btnAuto.position.set(72, 824);
 
-    attackScreenContainer.addChild(spriteBackground, timerBackground, btnAuto);
-    addPauseIcon(attackScreenContainer);
+    let moneyBackground = new Sprite(resources[timerBackgroundPath].texture);
+    moneyBackground.position.set(1672, setMiddlePos(pauseIcon, moneyBackground).y);
+
+    let moneyIcon = new Sprite(resources[goldIconPath].texture);
+    moneyIcon.position.set(
+      moneyBackground.x + moneyBackground.width - moneyIcon.width / 2,
+      setMiddlePos(moneyBackground, moneyIcon).y
+    );
+
+    let textMoneyIcon = new Text(`0`, textStyle_32center_black);
+    textMoneyIcon.position.set(
+      setMiddlePos(moneyBackground, textMoneyIcon).x,
+      setMiddlePos(moneyBackground, textMoneyIcon).y
+    );
+
+    let chestBackground = new Sprite(resources[timerBackgroundPath].texture);
+    chestBackground.position.set(1672, moneyBackground.y + 100);
+
+    let chestIcon = new Sprite(resources[timerIconPath].texture);
+    chestIcon.position.set(
+      chestBackground.x + chestBackground.width - chestIcon.width / 2,
+      setMiddlePos(chestBackground, chestIcon).y
+    );
+
+    let textChestIcon = new Text(`0`, textStyle_32center_black);
+    textChestIcon.position.set(
+      setMiddlePos(chestBackground, textChestIcon).x,
+      setMiddlePos(chestBackground, textChestIcon).y
+    );
+
+    attackScreenContainer.addChild(spriteBackground, pauseIcon, battleProgressBackground,
+      textBattleProgressBackground, timerBackground,
+      timerIcon, textTimerIcon, btnAuto, moneyBackground, moneyIcon, textMoneyIcon,
+      chestBackground, chestIcon, textChestIcon);
+
+    socket.emit('battle');
+    socket.emit('battleHeroes', selectedHeroList, difficulty, chapter);
+    socket.emit('battleEnemies', difficulty, chapter);
+    battleCountdownTimer('battleTimerStarted', 'battleTimerEnded',
+      textTimerIcon, timerBackground);
+    socket.on('battleData', (data) => {
+      console.log('battleData', data);
+
+      const autoText = data.auto;
+
+      socket.off('battleData');
+
+      let textBtnAuto = new Text(autoText, textStyleBtn60_44_black);
+      textBtnAuto.position.set(
+        setMiddlePos(btnAuto, textBtnAuto).x,
+        setMiddlePos(btnAuto, textBtnAuto).y
+      );
+
+      attackScreenContainer.addChild(textBtnAuto);
+    });
+
+    socket.on('battleHeroesData', (data) => {
+      console.log('battleHeroesData', data);
+
+      const
+        heroesBattleCoorArray = data.heroesBattleCoordination,
+        enemiesBattleCoorArray = data.enemiesBattleCoordination,
+        enemiesArray = data.enemiesArray;
+
+      socket.off('battleData');
+
+      function addSelectedHeroIcon(heroIconPath, i) {
+        let heroIcon = new Sprite(resources[heroIconPath].texture);
+        heroIcon.position.set(1648 - 248 * i, 810);
+
+        let hpBar = new Sprite(resources[hpBarPath].texture);
+        hpBar.position.set(1648 - 248 * i, heroIcon.y + 24);
+
+        let mpBar = new Sprite(resources[mpBarPath].texture);
+        mpBar.position.set(1648 - 248 * i, heroIcon.y + 96);
+
+        attackScreenContainer.addChild(heroIcon, hpBar, mpBar);
+      }
+
+      let heroesPosition = [];
+      let heroesAmount = 0;
+      let enemiesPosition = [];
+      let enemiesAmount = 0;
+      let numberOfEnemies = 0;
+      let enemiesList = [];
+
+      let aeloisPosX, amaraPosX, crystalPosX, diuwinPosX, leonaPosX, leryssaPosX,
+        nadiaPosX, nyxPosX, sinPosX, zalajinPosX, zayaPosX;
+      let enemy1PosX, enemy2PosX, enemy3PosX, enemy4PosX, enemy5PosX, enemy6PosX;
+
+      function heroMove(hero, endPosX) {
+        // console.log(`hero: ${hero.x}, ${endPosX}`);
+        hero.x += hero.vx;
+        if (hero.x === endPosX) {
+          hero.vx = 0;
+        } else if (hero.x > endPosX) {
+          hero.vx = 0;
+          hero.x = endPosX;
+        }
+      }
+
+      function addSelectedHero(hero, i, speedX, speedY) {
+        hero.scale.set(0.9);
+        hero.vx = speedX;
+        hero.vy = speedY;
+        hero.position.set(-12 - hero.width,
+          heroesBattleCoorArray[i][1] - hero.height / 2
+        );
+        // console.log(`${hero.width}×${hero.height}`);
+        // console.log(`${hero.x}×${hero.y}`);
+        if (i % 2 === 0) {
+          heroesPosition.push(hero);
+          heroesAmount++;
+        } else if (i % 2 === 1) {
+          attackScreenContainer.addChild(hero);
+          heroesAmount++;
+        }
+
+        return hero;
+      }
+
+      for (let index in selectedHeroList) {
+        console.log('heroIndex:', index, selectedHeroList[index]);
+        switch (selectedHeroList[index]) {
+          case 'Aelois':
+            addSelectedHeroIcon(aeloisIconSPath, index);
+            aeloisPosX = heroesBattleCoorArray[index][0] - aelois.width / 2;
+            addSelectedHero(aelois, index, 2, 0);
+            break;
+          case 'Amara':
+            addSelectedHeroIcon(amaraIconSPath, index);
+            amaraPosX = heroesBattleCoorArray[index][0] - amara.width / 2;
+            addSelectedHero(amara, index, 2, 0);
+            break;
+          case 'Crystal':
+            addSelectedHeroIcon(crystalIconSPath, index);
+            crystalPosX = heroesBattleCoorArray[index][0] - crystal.width / 2;
+            addSelectedHero(crystal, index, 2, 0);
+            break;
+          case 'Diuwin':
+            addSelectedHeroIcon(diuwinIconSPath, index);
+            diuwinPosX = heroesBattleCoorArray[index][0] - diuwin.width / 2;
+            addSelectedHero(diuwin, index, 2, 0);
+            break;
+          case 'Leona':
+            addSelectedHeroIcon(leonaIconSPath, index);
+            leonaPosX = heroesBattleCoorArray[index][0] - leona.width / 2;
+            addSelectedHero(leona, index, 2, 0);
+            break;
+          case 'Leryssa':
+            addSelectedHeroIcon(leryssaIconSPath, index);
+            leryssaPosX = heroesBattleCoorArray[index][0] - leryssa.width / 2;
+            addSelectedHero(leryssa, index, 4, 0);
+            break;
+          case 'Nadia':
+            addSelectedHeroIcon(nadiaIconSPath, index);
+            nadiaPosX = heroesBattleCoorArray[index][0] - nadia.width / 2;
+            addSelectedHero(nadia, index, 2, 0);
+            break;
+          case 'Nyx':
+            addSelectedHeroIcon(nyxIconSPath, index);
+            nyxPosX = heroesBattleCoorArray[index][0] - nyx.width / 2;
+            addSelectedHero(nyx, index, 2, 0);
+            break;
+          case 'Sin':
+            addSelectedHeroIcon(sinIconSPath, index);
+            sinPosX = heroesBattleCoorArray[index][0] - sin.width / 2;
+            addSelectedHero(sin, index, 2.4, 0);
+            break;
+          case 'Zalajin':
+            addSelectedHeroIcon(zalajinIconSPath, index);
+            zalajinPosX = heroesBattleCoorArray[index][0] - zalajin.width / 2;
+            addSelectedHero(zalajin, index, 2, 0);
+            break;
+          case 'Zaya':
+            addSelectedHeroIcon(zayaIconSPath, index);
+            zayaPosX = heroesBattleCoorArray[index][0] - zaya.width / 2;
+            addSelectedHero(zaya, index, 2, 0);
+            break;
+        }
+      }
+
+      if (heroesAmount === selectedHeroList.length) {
+        for (let hero of heroesPosition) {
+          attackScreenContainer.addChild(hero);
+        }
+      }
+
+      function enemyMove(enemy, endPosX) {
+        // console.log(`enemy: ${enemy.x}, ${endPosX}`);
+        enemy.x -= enemy.vx;
+        // enemy.y -= enemy.vy;
+        if (enemy.x === endPosX) {
+          enemy.vx = 0;
+        } else if (enemy.x < endPosX) {
+          enemy.vx = 0;
+          enemy.x = endPosX;
+        }
+        // if (enemy.y === endPosY) {
+        //   enemy.vy = 0;
+        // }
+      }
+
+      function addEnemy(enemy, i, speedX, speedY) {
+        enemy.scale.set(1.8);
+        enemy.vx = speedX;
+        enemy.vy = speedY;
+        enemy.position.set(
+          GAME_WIDTH + 12,
+          enemiesBattleCoorArray[i][1] - enemy.height / 2
+        );
+
+        if (i % 2 === 0) {
+          enemiesPosition.push(enemy);
+          enemiesAmount++;
+        } else if (i % 2 === 1) {
+          attackScreenContainer.addChild(enemy);
+          enemiesAmount++;
+        }
+
+        return enemy;
+      }
+
+      function chooseEnemy(enemyName, index) {
+        switch (enemyName) {
+          case 'Enemy 1':
+            enemy1PosX = enemiesBattleCoorArray[index][0] - enemy01.width / 2;
+            addEnemy(enemy01, index, 2, 0);
+            break;
+          case 'Enemy 2':
+            enemy2PosX = enemiesBattleCoorArray[index][0] - enemy02.width / 2;
+            addEnemy(enemy02, index, 2, 0);
+            break;
+          case 'Enemy 3':
+            enemy3PosX = enemiesBattleCoorArray[index][0] - enemy03.width / 2;
+            addEnemy(enemy03, index, 4, 0);
+            break;
+          case 'Enemy 4':
+            enemy4PosX = enemiesBattleCoorArray[index][0] - enemy04.width / 2;
+            addEnemy(enemy04, index, 2, 0);
+            break;
+          case 'Enemy 5':
+            enemy5PosX = enemiesBattleCoorArray[index][0] - enemy05.width / 2;
+            addEnemy(enemy05, index, 2, 0);
+            break;
+          case 'Enemy 6':
+            enemy6PosX = enemiesBattleCoorArray[index][0] - enemy06.width / 2;
+            addEnemy(enemy06, index, 2, 0);
+            break;
+        }
+      }
+
+      for (let enemyIndex in enemiesArray) {
+        for (let progressIndex in enemiesArray[enemyIndex].map_location[0].battle_screen) {
+          if (enemiesArray[enemyIndex].map_location[0].battle_screen[progressIndex] === battleProgress) {
+            chooseEnemy(enemiesArray[enemyIndex].name, enemyIndex);
+            console.log('enemyIndex:', enemyIndex, enemiesArray[enemyIndex].name);
+            enemiesList.push(enemiesArray[enemyIndex].name);
+            numberOfEnemies++;
+          }
+        }
+      }
+
+      if (enemiesAmount === numberOfEnemies) {
+        // console.log(enemiesPosition);
+        for (let enemy of enemiesPosition) {
+          attackScreenContainer.addChild(enemy);
+        }
+      }
+
+      function battle() {
+        setTimeout(() => {
+          for (let enemyName of enemiesList) {
+            switch (enemyName) {
+              case 'Enemy 1':
+                enemyMove(enemy01, enemy1PosX);
+                break;
+              case 'Enemy 2':
+                enemyMove(enemy02, enemy2PosX);
+                break;
+              case 'Enemy 3':
+                enemyMove(enemy03, enemy3PosX);
+                break;
+              case 'Enemy 4':
+                enemyMove(enemy04, enemy4PosX);
+                break;
+              case 'Enemy 5':
+                enemyMove(enemy05, enemy5PosX);
+                break;
+              case 'Enemy 6':
+                enemyMove(enemy06, enemy6PosX);
+                break;
+            }
+          }
+
+          for (let heroName of selectedHeroList) {
+            switch (heroName) {
+              case 'Aelois':
+                heroMove(aelois, aeloisPosX);
+                break;
+              case 'Amara':
+                heroMove(amara, amaraPosX);
+                break;
+              case 'Crystal':
+                heroMove(crystal, crystalPosX);
+                break;
+              case 'Diuwin':
+                heroMove(diuwin, diuwinPosX);
+                break;
+              case 'Leona':
+                heroMove(leona, leonaPosX);
+                break;
+              case 'Leryssa':
+                heroMove(leryssa, leryssaPosX);
+                break;
+              case 'Nadia':
+                heroMove(nadia, nadiaPosX);
+                break;
+              case 'Nyx':
+                heroMove(nyx, nyxPosX);
+                break;
+              case 'Sin':
+                heroMove(sin, sinPosX);
+                break;
+              case 'Zalajin':
+                heroMove(zalajin, zalajinPosX);
+                break;
+              case 'Zaya':
+                heroMove(zaya, zayaPosX);
+                break;
+            }
+          }
+        }, 1000);
+      }
+
+      state = battle;
+    });
   }
 
-  loadImages();
-
+  loadAttackScreenImages();
   stage.addChild(attackScreenContainer);
 }
 
 
+// The `moveGhost` function
+function moveHero(heroName) {
 
+  heroName.x += heroName.vx;
+  heroName.y += heroName.vy;
+  //  console.log(ghostName.x, ghostName.y);
+
+  // if (ghostName.x === -26 && (ghostName.y === 384 || ghostName.y === 320 || ghostName.y === 512)) {
+  //   ghostName.position.set(GAME_WIDTH+10, ghostName.y);
+  // } else if (ghostName.x === GAME_WIDTH+10 && (ghostName.y === 384 || ghostName.y === 320 || ghostName.y === 512)) {
+  //   ghostName.position.set(-26, ghostName.y)
+  // }
+
+}
 
 
 
@@ -6152,64 +6107,34 @@ let maxDrag = 0;
 // Dragging functions
 function onDragStart(event) {
   this.data = event.data;
-  // this.alpha = 0.5;
   this.dragging = true;
   mouseYPos = event.data.getLocalPosition(stage).y;
-  delta = mouseYPos-this.y;
+  delta = mouseYPos - this.y;
   minDrag = this.y;
   maxDrag = this.parent.height;
-  // console.log('mouseYPos', mouseYPos);
-  // console.log(minDrag, maxDrag);
-  // console.log(this.y, '+', this.height, '=', this.y+this.height);
-  // console.log(stage.children[2].children[10]); //12, 14
-  // setInteractive(stage.children[2].children[10], false);
-  // setInteractive(stage.children[2].children[12], false);
-  // setInteractive(stage.children[2].children[14], false);
 }
 
 function onDragEnd() {
-  // this.alpha = 1;
   this.dragging = false;
   // set the interaction data to null
   this.data = null;
-  // setInteractive(stage.children[2].children[10], true);
-  // setInteractive(stage.children[2].children[12], true);
-  // setInteractive(stage.children[2].children[14], true);
 }
 
 function onDragMoveY() {
   if (this.dragging) {
-    this.y = this.data.getLocalPosition(this.parent).y-delta;
-    // console.log(this.y+delta, this.height);
-    // if (this.y+delta <= 412) {
-    //   this.dragging = false;
-    //   this.y = maxDrag-this.height-12;
-    //   this.data = null;
-    //   // setInteractive(stage.children[2].children[10], true);
-    //   // setInteractive(stage.children[2].children[12], true);
-    //   // setInteractive(stage.children[2].children[14], true);
-    // }
-    // if (this.y+delta >= 676) { //876
-    //   this.dragging = false;
-    //   this.y = 412;
-    //   this.data = null;
-    //   // setInteractive(stage.children[2].children[10], true);
-    //   // setInteractive(stage.children[2].children[12], true);
-    //   // setInteractive(stage.children[2].children[14], true);
-    // }
+    this.y = this.data.getLocalPosition(this.parent).y - delta;
   }
 }
 
 function onDragOutside() {
   if (this.dragging) {
-    this.y = this.data.getLocalPosition(this.parent).y-delta;
-    // console.log(this.y+delta, this.height);
-    if (this.y+delta <= 412) {
+    this.y = this.data.getLocalPosition(this.parent).y - delta;
+    if (this.y + delta <= 412) {
       this.dragging = false;
-      this.y = maxDrag-this.height-36;
+      this.y = maxDrag - this.height - 36;
       this.data = null;
     }
-    if (this.y+delta >= 676) { //876
+    if (this.y + delta >= 676) { //876
       this.dragging = false;
       this.y = 412;
       this.data = null;
@@ -6221,13 +6146,7 @@ function dragMapStart(event) {
   this.data = event.data;
   this.dragging = true;
   mouseYPos = event.data.getLocalPosition(stage).x;
-  delta = mouseYPos-this.x;
-  // minDrag = this.x;
-  // maxDrag = this.width;
-  // console.log('delta', delta);
-  // console.log('mouseYPos', mouseYPos);
-  // console.log(minDrag, maxDrag);
-  // console.log(this.y, '+', this.height, '=', this.y+this.height);
+  delta = mouseYPos - this.x;
 }
 
 function dragMapEnd() {
@@ -6237,14 +6156,13 @@ function dragMapEnd() {
 
 function dragMapMove() {
   if (this.dragging) {
-    this.x = this.data.getLocalPosition(stage).x-delta;
-    // console.log(this.x);
-    if (this.x+this.width <= GAME_WIDTH/8) {
+    this.x = this.data.getLocalPosition(stage).x - delta;
+    if (this.x + this.width <= GAME_WIDTH / 8) {
       this.dragging = false;
-      this.x = 0-this.width+GAME_WIDTH-96; //((GAME_WIDTH-48)-this.width-48);
+      this.x = 0 - this.width + GAME_WIDTH - 96; //((GAME_WIDTH-48)-this.width-48);
       this.data = null;
     }
-    if (this.x >= 7*GAME_WIDTH/8) {
+    if (this.x >= 7 * GAME_WIDTH / 8) {
       this.dragging = false;
       this.x = 0;
       this.data = null;

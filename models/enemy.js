@@ -25,7 +25,8 @@ const Schema = mongoose.Schema;
 // Map Location Schema
 const MapLocationSchema = new Schema({
   type_location: { type: String, required: true },
-  chapter: { type: String, required: true }
+  chapter: { type: String, required: true },
+  battle_screen: [ Number ]
 });
 
 // EnemySchema Schema
@@ -34,7 +35,7 @@ const EnemySchema = new Schema({
   // summoned: { type: String, default: 'no' },
   icon_path: { type: String, required: true },
   // web_image_path: { type: String, required: true },
-  // image_path: { type: String, required: true },
+  image_path: { type: String, required: true },
   // curr_pages: { type: Number, required: true },
   // next_pages: { type: Number, required: true },
   // urlName: { type: String, required: true },
@@ -80,6 +81,7 @@ const EnemySchema = new Schema({
   // healing_effect: { type: Number, required: true },
   // shield_effect: { type: Number, required: true },
   // skills: [ SkillSchema ],
+  money_reward: { type: Number, required: true },
   map_location: [ MapLocationSchema ]
 },
   {versionKey: '_documentVersion'}

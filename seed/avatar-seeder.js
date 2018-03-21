@@ -92,6 +92,7 @@ let avatars = [
         opened: 'yes',
         text: 'Progress',
         chapter: '1-1',
+        selected: true,
         // paragraphNumber: 1
       },
       {
@@ -99,6 +100,7 @@ let avatars = [
         opened: 'no',
         text: 'Normal',
         chapter: '2-6',
+        selected: false,
         // paragraphNumber: 6
       },
       {
@@ -106,6 +108,7 @@ let avatars = [
         opened: 'no',
         text: 'Normal',
         chapter: '3-8',
+        selected: false,
         // paragraphNumber: 8
       }
     ],
@@ -116,8 +119,8 @@ let avatars = [
         // p_paragraphNumber: 1,
         p_paragraphIcon: 'stageIcon',
         p_bannerTitle: 'Beginning',
-        p_description: 'Our story just start. Defeat all enemies\n'+
-          'and you maybe figure out who stole\nall magic books.',
+        p_description: 'Our story just start. Defeat all enemies '+
+          'and you maybe\nfigure out who stole all magic books.',
         p_staminaConsume: 6,
         // p_enemies: [ String ],
         // p_possibleRewards: [ String ]
