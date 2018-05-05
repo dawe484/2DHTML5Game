@@ -5,7 +5,9 @@ const router = express.Router();
 
 // Heroes Collection
 router.get('/', (req, res) =>
-  res.render('screenshots', { title: 'Magical Heroes'})
+  res.render('screenshots', {
+    title: 'Magical Heroes'
+  })
 );
 
 module.exports = router;

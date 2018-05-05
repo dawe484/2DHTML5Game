@@ -3,7 +3,7 @@
 const Enemy = require('../models/enemy');
 const mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 let enemies = [
   // Enemy 1
@@ -98,17 +98,31 @@ let enemies = [
     //   }
     // ],
     money_reward: 121,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-3',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-4',
-        battle_screen: [2, 3] },
-      { type_location: 'Normal', chapter: '1-6',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-3',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-4',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-6',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [2, 3]
+      }
     ]
   }),
   new Enemy({
@@ -129,19 +143,36 @@ let enemies = [
     magic_resist: 4,
     movement_speed: 345,
     money_reward: 139,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-3',
-        battle_screen: [2, 3] },
-      { type_location: 'Normal', chapter: '1-2',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-5',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [2, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-5',
-        battle_screen: [1, 2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-3',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-2',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      }
     ]
   }),
   new Enemy({
@@ -162,17 +193,31 @@ let enemies = [
     magic_resist: 4,
     movement_speed: 345,
     money_reward: 139,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-4',
-        battle_screen: [2, 3] },
-      { type_location: 'Normal', chapter: '1-6',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-4',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-6',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [2, 3]
+      }
     ]
   }),
   new Enemy({
@@ -193,19 +238,36 @@ let enemies = [
     magic_resist: 4,
     movement_speed: 345,
     money_reward: 139,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-2',
-        battle_screen: [2] },
-      { type_location: 'Normal', chapter: '1-5',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-5',
-        battle_screen: [1, 2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-2',
+        battle_screen: [2]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      }
     ]
   }),
   new Enemy({
@@ -226,17 +288,31 @@ let enemies = [
     magic_resist: 4,
     movement_speed: 345,
     money_reward: 139,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-4',
-        battle_screen: [2, 3] },
-      { type_location: 'Normal', chapter: '1-6',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-4',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-6',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [2, 3]
+      }
     ]
   }),
   new Enemy({
@@ -257,38 +333,57 @@ let enemies = [
     magic_resist: 4,
     movement_speed: 345,
     money_reward: 139,
-    map_location: [
-      { type_location: 'Normal', chapter: '1-1',
-        battle_screen: [2, 3] },
-      { type_location: 'Normal', chapter: '1-2',
-        battle_screen: [1, 3] },
-      { type_location: 'Normal', chapter: '1-5',
-        battle_screen: [1, 2, 3] },
-      { type_location: 'Elite', chapter: '1-1',
-        battle_screen: [2, 3] },
-      { type_location: 'Elite', chapter: '1-3',
-        battle_screen: [1, 3] },
-      { type_location: 'Elite', chapter: '1-5',
-        battle_screen: [1, 2, 3] }
+    map_location: [{
+        type_location: 'Normal',
+        chapter: '1-1',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-2',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Normal',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-1',
+        battle_screen: [2, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-3',
+        battle_screen: [1, 3]
+      },
+      {
+        type_location: 'Elite',
+        chapter: '1-5',
+        battle_screen: [1, 2, 3]
+      }
     ]
   })
 ];
 
 Enemy.remove({}, function(err) {
-    if (err) {
-      console.err(err)
-    } else {
-      console.log('Remove all enemies!');
-    }
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.err(err);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Remove all enemies!');
   }
-);
+});
 
 let done = 0;
 
 for (let i = 0; i < enemies.length; i++) {
-  enemies[i].save( (err, result) => {
+  enemies[i].save(() => {
     done++;
     if (done === enemies.length) {
+      // eslint-disable-next-line no-console
       console.log('All enemies saved in DB.');
       exit();
     }

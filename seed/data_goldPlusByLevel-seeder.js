@@ -3,7 +3,7 @@
 const GoldPlusByLevel = require('../models/data_goldPlusByLevel');
 const mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 let data_goldPlusByLevel = [
   new GoldPlusByLevel({
@@ -329,20 +329,22 @@ let data_goldPlusByLevel = [
 ];
 
 GoldPlusByLevel.remove({}, function(err) {
-    if (err) {
-      console.err(err)
-    } else {
-      console.log('Remove all!');
-    }
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.err(err);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Remove all!');
   }
-);
+});
 
 let done = 0;
 
 for (let i = 0; i < data_goldPlusByLevel.length; i++) {
-  data_goldPlusByLevel[i].save( (err, result) => {
+  data_goldPlusByLevel[i].save(() => {
     done++;
     if (done === data_goldPlusByLevel.length) {
+      // eslint-disable-next-line no-console
       console.log('All data saved in DB.');
       exit();
     }

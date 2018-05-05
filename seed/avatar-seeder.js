@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // const Language = require('../models/language');
 // const Glyph = require('../models/glyph');
 
-mongoose.connect('localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 // let oneOne = Glyph.find(
 //   { 'map_location.chapter': '1-1' },
@@ -63,31 +63,38 @@ let avatars = [
     diamond: 500,
     // language: 'english',
     mainScreenIconsTitle: ['Map', 'Guild', 'Ranking', 'Friends', 'Crusade',
-      'Mail', 'Town', 'Summon\nBooks'],
+      'Mail', 'Town', 'Summon\nBooks'
+    ],
     scrollIconsTitle: ['Heroes', 'Inventory', 'Tasks', 'Trials', 'Battle',
       'Markets', 'Arena', 'Grand\nArena', 'Arena\nShop', 'Grand\nArena\nShop',
-      'Guild\nShop', 'Crusade\nShop', 'Fantasy\nShop', 'Shop'],
+      'Guild\nShop', 'Crusade\nShop', 'Fantasy\nShop', 'Shop'
+    ],
     bannersTitle: ['Change Name', 'Book of Magic', 'Grand Book of Magic',
-      'Select Heroes', 'Victory', 'Defeat', 'Statistics'],
+      'Select Heroes', 'Victory', 'Defeat', 'Statistics'
+    ],
     buttonsTitle: ['Skip', 'FAQ', 'Change Avatar', 'Change Border', 'Change Name',
       'Achievement', 'System Settings', 'Cancel', 'Confirm', 'Summon ×1',
       'Summon ×10', '1 More', '10 More', 'Sweep', 'Sweep x10', 'Start', 'Attack',
       'Auto', 'Exit', 'On', 'Off', 'Continue', 'Damage Dealt', 'Healing Done',
-      'Damage Received', 'Healing Received', 'Buy', 'OK'],
+      'Damage Received', 'Healing Received', 'Buy', 'OK'
+    ],
     labelsTitle: ['Level', 'Present Exp', 'Max Hero Level', 'Account ID', 'Free',
       'Free Times ', 'Free Time', 'Free after ', '/5', '10000', '90000', '288',
       '2592', '10% OFF', 'Consume:', 'Enemies Power:', 'Enemies:', 'Possible Rewards',
-      'Sound: ', 'Music: ', 'Lv: ', 'Exp: ', 'Buy:', 'Cost:', 'Power: '],
-    heroInfoIconsTitle: ['Stats', 'Glyphs', 'Skills', 'Equip', "This hero's mysterious\n"+
-      "power has not been\nawakened. Stay tuned!", 'Base Stat', ' +Equipment'],
+      'Sound: ', 'Music: ', 'Lv: ', 'Exp: ', 'Buy:', 'Cost:', 'Power: ',
+      'Not enought heroes\nselected.\nPlease select more heroes.'
+    ],
+    heroInfoIconsTitle: ['Stats', 'Glyphs', 'Skills', 'Equip', 'This hero\'s mysterious\n' +
+      'power has not been\nawakened. Stay tuned!', 'Base Stat', ' +Equipment'
+    ],
     heroStatsTitle: ['Health', 'Attack Damage', 'Ability Power', 'Armor', 'Magic Resist',
       'Attack Speed', 'Health Regeneration', 'Movement Speed', 'Energy Regeneration',
       'Critical Damage', 'Critikal Strike', 'Hit', 'Dodge', 'Life Steal', 'Energy Steal',
       'Energy Boost', 'Armor Penetration', 'Magic Penetration', 'Healing Effect',
-      'Shield Effect'],
+      'Shield Effect'
+    ],
     backgroundTitle: ['Loading...', 'A small amount of diamonds.\nDo you want to recharge?'],
-    progress: [
-      {
+    progress: [{
         difficulty: 'Normal',
         opened: 'yes',
         text: 'Progress',
@@ -112,14 +119,14 @@ let avatars = [
         // paragraphNumber: 8
       }
     ],
-    paragraphs: [
-      {
+    paragraphs: [{
         p_difficulty: 'Normal',
+        p_opened: 'yes',
         p_chapter: '1-1',
         // p_paragraphNumber: 1,
         p_paragraphIcon: 'stageIcon',
         p_bannerTitle: 'Beginning',
-        p_description: 'Our story just start. Defeat all enemies '+
+        p_description: 'Our story just start. Defeat all enemies ' +
           'and you maybe\nfigure out who stole all magic books.',
         p_staminaConsume: 6,
         // p_enemies: [ String ],
@@ -153,8 +160,14 @@ let avatars = [
           //   }
           // }
           // ),
-          { reward_type: 'glyph', reward_title: 'Health' },
-          { reward_type: 'glyph', reward_title: 'Health Regen' }
+          {
+            reward_type: 'glyph',
+            reward_title: 'Health'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Health Regen'
+          }
         ]
       },
       {
@@ -168,9 +181,14 @@ let avatars = [
         p_reward_heroExp: 15, //8, //15
         p_reward_money: 553, //326, //553
         p_reward_avatarExp: 6, //8 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Armor' },
-          { reward_type: 'glyph', reward_title: 'Attack Damage' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Armor'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Attack Damage'
+          }
         ]
       },
       {
@@ -184,9 +202,14 @@ let avatars = [
         p_reward_heroExp: 18, //12, //18
         p_reward_money: 543, //332, //543
         p_reward_avatarExp: 6, //12 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Ability Power' },
-          { reward_type: 'glyph', reward_title: 'Magic Resist' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Ability Power'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Magic Resist'
+          }
         ]
       },
       {
@@ -200,9 +223,14 @@ let avatars = [
         p_reward_heroExp: 20, //14, //20
         p_reward_money: 509, //337, //509
         p_reward_avatarExp: 6, //14 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Attack Force' },
-          { reward_type: 'glyph', reward_title: 'Energy Regen' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Attack Force'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Energy Regen'
+          }
         ]
       },
       {
@@ -216,9 +244,14 @@ let avatars = [
         p_reward_heroExp: 20, //20
         p_reward_money: 554, //343, //554
         p_reward_avatarExp: 6, //20 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Double Attack' },
-          { reward_type: 'glyph', reward_title: 'Regenerate' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Double Attack'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Regenerate'
+          }
         ]
       },
       {
@@ -232,9 +265,14 @@ let avatars = [
         p_reward_heroExp: 20, //26, //20
         p_reward_money: 618, //364, //618
         p_reward_avatarExp: 6, //26 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Hardiness' },
-          { reward_type: 'glyph', reward_title: 'Magic Force' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Hardiness'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Magic Force'
+          }
         ]
       },
       {
@@ -248,9 +286,14 @@ let avatars = [
         p_reward_heroExp: 20, //26, //20
         p_reward_money: 664, //374, //664
         p_reward_avatarExp: 6, //26 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Armor Penetration' },
-          { reward_type: 'glyph', reward_title: 'Extra Health' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Armor Penetration'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Extra Health'
+          }
         ]
       },
       {
@@ -264,9 +307,14 @@ let avatars = [
         p_reward_heroExp: 21, //28, //21
         p_reward_money: 599, //405, //599
         p_reward_avatarExp: 6, //28 //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Crit Strike' },
-          { reward_type: 'glyph', reward_title: 'Divine Power' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Crit Strike'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Divine Power'
+          }
         ]
       },
       {
@@ -280,9 +328,14 @@ let avatars = [
         p_reward_heroExp: 22, //28, //22
         p_reward_money: 690, //439, //690
         p_reward_avatarExp: 6, //28 //6    // v 6->7 level, dale je na obr 771 splneni daily q -> navyseni account levelu
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Magic Penetration' },
-          { reward_type: 'glyph', reward_title: 'Fortitude' }
+        p_reward: [{
+            reward_type: 'glyph',
+            reward_title: 'Magic Penetration'
+          },
+          {
+            reward_type: 'glyph',
+            reward_title: 'Fortitude'
+          }
         ]
       },
       {
@@ -296,9 +349,10 @@ let avatars = [
         p_reward_heroExp: 22, //22
         p_reward_money: 637, //637
         p_reward_avatarExp: 6, //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Aggression' }
-        ]
+        p_reward: [{
+          reward_type: 'glyph',
+          reward_title: 'Aggression'
+        }]
       },
       {
         p_difficulty: 'Normal',
@@ -311,9 +365,10 @@ let avatars = [
         p_reward_heroExp: 22, //22
         p_reward_money: 590, //590
         p_reward_avatarExp: 6, //6
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Meditation' }
-        ]
+        p_reward: [{
+          reward_type: 'glyph',
+          reward_title: 'Meditation'
+        }]
       },
       {
         p_difficulty: 'Normal',
@@ -326,9 +381,10 @@ let avatars = [
         p_reward_heroExp: 23, //30, //23
         p_reward_money: 742, //, //742
         p_reward_avatarExp: 6, //30 //6 // acc level 9, hero lvl 8
-        p_reward: [
-          { reward_type: 'glyph', reward_title: 'Bloodthirst' }
-        ]
+        p_reward: [{
+          reward_type: 'glyph',
+          reward_title: 'Bloodthirst'
+        }]
       },
       // {
       //   p_difficulty: 'Normal',
@@ -369,23 +425,25 @@ let avatars = [
       //   p_reward_avatarExp: 16 //
       // },
 
-    ]
+    ],
+    inventory: []
   }),
 ];
 
 Avatar.remove({}, function(err) {
-    if (err) {
-      console.err(err)
-    } else {
-      console.log('Remove all!');
-    }
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.err(err);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Remove all!');
   }
-);
+});
 
 let done = 0;
 
 for (let i = 0; i < avatars.length; i++) {
-  avatars[i].save( (err, result) => {
+  avatars[i].save(() => {
     done++;
     if (done === avatars.length) {
       exit();

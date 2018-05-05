@@ -3,7 +3,7 @@
 const AvatarExpByLevel = require('../models/data_avatarExpByLevel');
 const mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 let data_avatarExpByLevel = [
   new AvatarExpByLevel({
@@ -409,20 +409,22 @@ let data_avatarExpByLevel = [
 ];
 
 AvatarExpByLevel.remove({}, function(err) {
-    if (err) {
-      console.err(err)
-    } else {
-      console.log('Remove all!');
-    }
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.err(err);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Remove all!');
   }
-);
+});
 
 let done = 0;
 
 for (let i = 0; i < data_avatarExpByLevel.length; i++) {
-  data_avatarExpByLevel[i].save( (err, result) => {
+  data_avatarExpByLevel[i].save(() => {
     done++;
     if (done === data_avatarExpByLevel.length) {
+      // eslint-disable-next-line no-console
       console.log('All data saved in DB.');
       exit();
     }

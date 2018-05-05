@@ -1,12 +1,15 @@
-let myVar;
+'use strict';
 
-window.addEventListener("load", myFunction);
+// let myVar;
+
+window.addEventListener('load', myFunction);
 
 function myFunction() {
-  myVar = setTimeout(showPage(), 3000);
+  // let myVar = 
+  setTimeout(showPage(), 3000);
 }
 
 function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("myDiv").style.display = "block";
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('myDiv').style.display = 'block';
 }

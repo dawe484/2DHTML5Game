@@ -101,9 +101,11 @@ function getDirectives() {
     'ajax.googleapis.com',
     'code.jquery.com',
     'cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js',
+    'www.google.com/recaptcha/api.js',
+    'www.gstatic.com/recaptcha/'
   ];
   const images = [
-    'akela.mendelu.cz/~xkrenar/',
+    'akela.mendelu.cz/~xkrenar/game/ data:'
   ];
   return {
     defaultSrc: [self],
@@ -113,8 +115,9 @@ function getDirectives() {
     styleSrc: [self, unsafeInline, 'fonts.googleapis.com'],
     //imgSrc: ['img.com', 'data:'],
     imgSrc: [self, ...images],
-    fontSrc: [self, 'data:', 'fonts.googleapis.com'],
+    fontSrc: [self, 'data:', 'fonts.googleapis.com', 'fonts.gstatic.com'],
     childSrc: [none],
+    frameSrc: [self, 'www.google.com'],
     connectSrc: [self, 'ws://localhost:2000'],
     //sandbox: ['allow-forms', 'allow-scripts'],
     upgradeInsecureRequests: false, //true, pro https:// na live serveru
@@ -286,9 +289,9 @@ app.use((err, req, res, next) => {
 // Set Port
 app.set('port', (process.env.PORT || 2000));
 let server = app.listen(app.get('port'), () => {
-  console.log("---------------------------------------\n" +
-    colors.green("Web server is running... ") + "on port " + app.get('port') +
-    "\nPress " + colors.red("Ctrl-C") + " to terminate.");
+  console.log('---------------------------------------\n' +
+    colors.green('Web server is running... ') + 'on port ' + app.get('port') +
+    '\nPress ' + colors.red('Ctrl-C') + ' to terminate.');
   // + "\n---------------------------------------");
 });
 
@@ -382,7 +385,7 @@ io.on('connection', (socket) => {
           speaker: 1,
           text: 1
         }, (err, data) => {
-          console.log('hi');
+          // console.log('hi');
           if (err) throw err;
           socket.emit('storyTutorialData', {
             message: data,
@@ -392,14 +395,14 @@ io.on('connection', (socket) => {
       });
 
       socket.on('btnSkip', () => {
-        if (user.avatar[0].storyTutorial === 'yes') {
-          user.avatar[0].storyTutorial = 'no';
-          user.save();
-          console.log('Save "no" to storyTutorial in DB.');
-          sendMainScreenContainerData(user);
-        }
-        console.log('Story tutorial:', user.avatar[0].storyTutorial);
-        console.log('Tutorial:', user.avatar[0].tutorial);
+        // if (user.avatar[0].storyTutorial === 'yes') {
+        user.avatar[0].storyTutorial = 'no';
+        user.save();
+        console.log('Save "no" to storyTutorial in DB.');
+        // sendMainScreenContainerData(user);
+        // }
+        // console.log('Story tutorial:', user.avatar[0].storyTutorial);
+        // console.log('Tutorial:', user.avatar[0].tutorial);
       });
 
       socket.on('mainScreenContainer', () => {
@@ -1015,7 +1018,8 @@ io.on('connection', (socket) => {
             heroes: summonedHeroes,
             attack: data[0].avatar[0].buttonsTitle[16],
             textPower: data[0].avatar[0].labelsTitle[24],
-            selectHeroes: data[0].avatar[0].bannersTitle[3]
+            selectHeroes: data[0].avatar[0].bannersTitle[3],
+            lowHeroes: data[0].avatar[0].labelsTitle[25]
             // name: data[0].heroes[0].name,
             // stars: data[0].heroes[0].stars,
             // class: data[0].heroes[0].class,  //dodelat dotaz, v DB dopsat icon_selected_path
@@ -1039,20 +1043,20 @@ io.on('connection', (socket) => {
       });
 
       let battleHeroesArray = [];
-      const battleHeroesCoordinationArray = [
-        [826, 624],
-        [654, 462],
-        [482, 624],
-        [310, 462],
-        [138, 624]
-      ];
-      const battleEnemiesCoordinationArray = [
-        [1098, 624],
-        [1278, 462],
-        [1458, 624],
-        [1638, 462],
-        [1818, 624]
-      ];
+      // const battleHeroesCoordinationArray = [
+      //   [826, 624],
+      //   [654, 462],
+      //   [482, 624],
+      //   [310, 462],
+      //   [138, 624]
+      // ];
+      // const battleEnemiesCoordinationArray = [
+      //   [1098, 624],
+      //   [1278, 462],
+      //   [1458, 624],
+      //   [1638, 462],
+      //   [1818, 624]
+      // ];
 
       socket.on('battleHeroes', (selectedHeroList, difficulty, chapter) => {
         async function findHero(heroName) {
@@ -1123,8 +1127,8 @@ io.on('connection', (socket) => {
                 // console.log(battleHeroesArray);
                 socket.emit('battleHeroesData', {
                   heroArray: battleHeroesArray,
-                  heroesBattleCoordination: battleHeroesCoordinationArray,
-                  enemiesBattleCoordination: battleEnemiesCoordinationArray,
+                  // heroesBattleCoordination: battleHeroesCoordinationArray,
+                  // enemiesBattleCoordination: battleEnemiesCoordinationArray,
                   enemiesArray: dataEnemies
                 });
               });

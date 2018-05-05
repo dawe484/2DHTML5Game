@@ -14,7 +14,10 @@ let User = require('../models/user');
 
 // Get Homepage
 router.get('/', (req, res) =>
-  res.render('index', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+  res.render('index', {
+    title: 'Magical Heroes',
+    csrfToken: req.csrfToken()
+  })
 );
 
 // Serialize
@@ -31,14 +34,18 @@ passport.deserializeUser((id, done) =>
 passport.use(new LocalStrategy((username, password, done) => {
   User.getUserByUsername(username, (err, user) => {
     if (err) throw err;
-    if (!user) return done(null, false, {message: 'Unknown User'});
+    if (!user) return done(null, false, {
+      message: 'Unknown User'
+    });
 
     User.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
         return done(null, user);
       } else {
-        return done(null, false, {message: 'Invalid password'});
+        return done(null, false, {
+          message: 'Invalid password'
+        });
       }
     });
   });

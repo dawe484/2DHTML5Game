@@ -262,7 +262,7 @@ a:focus, a:hover {
 }
 
 .img-thumbnail {
-  /*width: 220px;*/
+  width: 120px;
   height: auto;
   border-radius: 0px;
 }
@@ -380,7 +380,7 @@ cite {
   /*padding-top: 20px;*/
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 58px;
 }
 
 .form-group {
@@ -829,7 +829,7 @@ p.glyph-title {
 }
 
 .grid {
-  padding-left: 20px;
+  padding-left: 12px;
 }
 
 .paddingright20 {
@@ -842,6 +842,7 @@ p.glyph-title {
 
 .caption {
   padding-bottom: 20px;
+  padding-left: 50px;
 }
 
 .td_center {
