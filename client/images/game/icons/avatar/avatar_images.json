@@ -1,0 +1,100 @@
+{"frames": {
+
+"aelois_avatar_image.png":
+{
+	"frame": {"x":0,"y":0,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"amara_avatar_image.png":
+{
+	"frame": {"x":192,"y":0,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"crystal_avatar_image.png":
+{
+	"frame": {"x":0,"y":192,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"diuwin_avatar_image.png":
+{
+	"frame": {"x":192,"y":192,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"leona_avatar_image.png":
+{
+	"frame": {"x":0,"y":384,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"leryssa_avatar_image.png":
+{
+	"frame": {"x":192,"y":384,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"nadia_avatar_image.png":
+{
+	"frame": {"x":0,"y":576,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"nyx_avatar_image.png":
+{
+	"frame": {"x":192,"y":576,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"sin_avatar_image.png":
+{
+	"frame": {"x":0,"y":768,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"zalajin_avatar_image.png":
+{
+	"frame": {"x":192,"y":768,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+},
+"zaya_avatar_image.png":
+{
+	"frame": {"x":0,"y":960,"w":192,"h":192},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":192},
+	"sourceSize": {"w":192,"h":192}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "avatar_images.png",
+	"format": "RGBA8888",
+	"size": {"w":384,"h":1152},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c3f7a5eb4f599fb35eea9319cfa06d46:dfd025d74754f6a72f84bb3d47e70a73:077a2fc3c018d9cf7d4eca75b3cac036$"
+}
+}

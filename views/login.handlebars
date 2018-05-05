@@ -37,7 +37,7 @@
               {{/if}} -->
 
               <div class="well clearfix">
-                <div class="col-md-5">
+                <!-- <div class="col-md-5">
                   <dl class="social-login">
                     <dt>Login quickly:</dt>
                     <dd>
@@ -56,7 +56,7 @@
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-1">
-                </div>
+                </div> -->
                 <div class="col-md-5">
                   <form method="post" action="/users/login">
                     <dl class="account-login">
@@ -70,7 +70,10 @@
                       <dd>
                         <div class="input-group">
       									  <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
-      										<input type="password" class="form-control" name="password" placeholder="Password">
+                          <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
+      										<span class="input-group-addon">
+      											<i class="fa fa-eye fa-fw field-icon toggle-password" toggle="#password-field"></i>
+      										</span>
       									</div>
                       </dd>
                       <dd class="handle" id="handle">

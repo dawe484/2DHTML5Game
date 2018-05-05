@@ -1,0 +1,28 @@
+{"frames": {
+
+"avatar_level_blue.png":
+{
+	"frame": {"x":0,"y":0,"w":100,"h":107},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":107},
+	"sourceSize": {"w":100,"h":107}
+},
+"avatar_level_green.png":
+{
+	"frame": {"x":100,"y":0,"w":100,"h":107},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":107},
+	"sourceSize": {"w":100,"h":107}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "avatar_levels.png",
+	"format": "RGBA8888",
+	"size": {"w":200,"h":107},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:64284aa2775af8271f7b49cd6219e0cf:d854c2fc2c8e92bec8cf985cd435289f:4035b3d7b2221646c6166bec66bf9266$"
+}
+}

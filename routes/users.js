@@ -5,6 +5,8 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const csrf = require('csurf');
+// const request = require('request');
+const Recaptcha = require('express-recaptcha');
 
 const csrfProtection = csrf();
 router.use(csrfProtection);
@@ -12,9 +14,14 @@ router.use(csrfProtection);
 const User = require('../models/user');
 const Hero = require('../models/hero');
 const Avatar = require('../models/avatar');
-const Language = require('../models/language');
+// const Language = require('../models/language');
 
 let userLoggedUsername;
+
+const siteKey = '6LfC_08UAAAAAJ4FFxGy6cVUnbeKiziF4ERgMEVE';
+const secretKey = '6LfC_08UAAAAALp4DQLLOXmdOBwr3813hnE95cfi';
+
+const recaptcha = new Recaptcha(siteKey, secretKey);
 
 router.get('/profile', isLoggedIn, (req, res) => {
   Hero.find((err, heroes) => {
@@ -23,13 +30,19 @@ router.get('/profile', isLoggedIn, (req, res) => {
     for (let i = 0; i < heroes.length; i += chunkSize) {
       heroesChunk.push(heroes.slice(i, i + chunkSize));
     }
-    res.render('profile', { title: 'Magical Heroes', csrfToken: req.csrfToken(), heroes: heroesChunk })
+    res.render('profile', {
+      title: 'Magical Heroes',
+      csrfToken: req.csrfToken(),
+      heroes: heroesChunk
+    });
   });
 });
 
 // Logout User
 router.get('/logout', isLoggedIn, (req, res) => {
-  User.findOne({username: userLoggedUsername}, (err, user) => {
+  User.findOne({
+    username: userLoggedUsername
+  }, (err, user) => {
     user.status = 'logout';
     user.save();
   });
@@ -43,12 +56,18 @@ router.get('/logout', isLoggedIn, (req, res) => {
 
 // Sign Up
 router.get('/signup', (req, res) =>
-  res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+  res.render('signup', {
+    title: 'Magical Heroes',
+    csrfToken: req.csrfToken()
+  })
 );
 
 // Log In
 router.get('/login', (req, res) =>
-  res.render('login', { title: 'Magical Heroes', csrfToken: req.csrfToken() })
+  res.render('login', {
+    title: 'Magical Heroes',
+    csrfToken: req.csrfToken()
+  })
 );
 
 // Serialize
@@ -60,87 +79,121 @@ passport.deserializeUser((id, done) =>
 );
 
 // Sign Up User
-router.post('/signup', (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  let password2 = req.body.password2;
-  let email = req.body.email;
+router.post('/signup', recaptcha.middleware.verify, (req, res) => {
+  // const captcha = req.body['g-recaptcha-response'];
 
-  // Validation
-  req.checkBody('username', 'Username is required').notEmpty();
-  req.checkBody('password', 'Password is required').notEmpty();
-  req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-  req.checkBody('email', 'Email is required').notEmpty();
-  req.checkBody('email', 'Email is not valid').isEmail();
+  // if (captcha === undefined || captcha === '' || captcha === null) {
+  //   return res.json({
+  //     "success": false,
+  //     "msg": "Please select captcha."
+  //   });
+  // }
+  //
+  if (!req.recaptcha.error) {
+    const username = req.body.username;
+    const password = req.body.password;
+    // const password2 = req.body.password2;
+    const email = req.body.email;
+    // const captcha = req.body['g-recaptcha-response'];
 
-  let errors = req.validationErrors();
+    // Validation
+    req.checkBody('username', 'Username is required').notEmpty();
+    req.checkBody('password', 'Password is required').notEmpty();
+    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email is not valid').isEmail();
 
-  if (errors) {
-    res.render('signup', { title: 'Magical Heroes', csrfToken: req.csrfToken(),
-      errors:errors
-    });
-  } else {
-    User.findOne({'username': username}, (err, user) => {
-      if (err) throw err;
-      if (user) {
-        //return done(null, false, {message: 'Username is already in use.'});
-        req.flash('error_msg', 'Username is already in use.');
-        res.redirect('/users/signup');
-      } else {
-        let now = new Date();
-        let newUser = new User({
-          urlName: username,
-          username: username,
-          password: password,
-          email: email,
-          signup_time: now,
-          offset: now.getTimezoneOffset(),
-          local_signup_time: now.toLocaleString(),
-          language: 'english',
-          status: 'logout',
-          avatar: [],
-          heroes: []
-        });
+    const errors = req.validationErrors();
 
-        User.createUser(newUser, (err, user) => {
-          if (err) throw err;
-          console.log(user);
-          //console.log(username);
-          //console.log(Hero.find());
-          User.findOne({username: username}, (err, doc) => {
-            Hero.find( (err, heroes) => {
-              for (let i = 0; i < heroes.length; i++) {
-                doc.heroes = heroes;
-                doc.save();
-              }
-            });
-            Avatar.find( (err, avatar) => {
-              console.log(avatar);
-              doc.avatar = avatar;
-              doc.save();
+    if (errors) {
+      res.render('signup', {
+        title: 'Magical Heroes',
+        csrfToken: req.csrfToken(),
+        errors: errors
+      });
+    } else {
+      User.findOne({
+        'username': username
+      }, (err, user) => {
+        if (err) throw err;
+        if (user) {
+          //return done(null, false, {message: 'Username is already in use.'});
+          req.flash('error_msg', 'Username is already in use.');
+          res.redirect('/users/signup');
+        } else {
+          const now = new Date();
+          const newUser = new User({
+            urlName: username,
+            username: username,
+            password: password,
+            email: email,
+            signup_time: now,
+            offset: now.getTimezoneOffset(),
+            local_signup_time: now.toLocaleString(),
+            language: 'english',
+            status: 'logout',
+            avatar: [],
+            heroes: []
+          });
+
+          User.createUser(newUser, (err, user) => {
+            if (err) throw err;
+            // eslint-disable-next-line no-console
+            console.log(user);
+            //console.log(username);
+            //console.log(Hero.find());
+            User.findOne({
+              username: username
+            }, (err, doc) => {
+              // Hero.find((err, heroes) => {
+              //   for (let i = 0; i < heroes.length; i++) {
+              //     doc.heroes = heroes;
+              //     doc.save();
+              //   }
+              // });
+              Avatar.find((err, avatar) => {
+                // eslint-disable-next-line no-console
+                // console.log(avatar);
+                doc.avatar = avatar;
+                // doc.save();
+                Hero.find((err, heroes) => {
+                  for (let i = 0; i < heroes.length; i++) {
+                    doc.heroes = heroes;
+                    doc.save();
+                  }
+                });
+              });
             });
           });
-        });
 
-        req.flash('success_msg', 'You are registered and can now login');
-        res.redirect('/users/login');
-      }
-    });
+          req.flash('success_msg', 'You are registered and can now login');
+          res.redirect('/users/login');
+        }
+      });
+    }
+  } else {
+    req.flash('error_msg', 'Please select captcha');
+    res.redirect('/users/signup');
   }
+
 });
 
 // Local Strategy for Login to Local Database
 passport.use(new LocalStrategy((username, password, done) => {
   User.getUserByUsername(username, (err, user) => {
     if (err) throw err;
-    if (!user) return done(null, false, {message: 'Unknown User'});
+    if (!user) return done(null, false, {
+      message: 'Unknown User'
+    });
 
     User.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
         return done(null, user);
       } else {
-        return done(null, false, {message: 'Invalid password'});
+        return done(null, false, {
+          message: 'Invalid password'
+        });
       }
     });
 
@@ -170,9 +223,9 @@ function isLoggedIn(req, res, next) {
   res.redirect('/');
 }
 
-function notLoggedIn(req, res, next) {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/');
-}
+// function notLoggedIn(req, res, next) {
+//   if (!req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/');
+// }

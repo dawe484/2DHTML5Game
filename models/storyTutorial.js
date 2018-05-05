@@ -5,11 +5,17 @@ const Schema = mongoose.Schema;
 
 // Skill Schema
 const StoryTutorialSchema = new Schema({
-  speaker: { type: String, required: true },
-  text: { type: String, required: true }
-},
-  {versionKey: '_documentVersion'}
-);
+  speaker: {
+    type: String,
+    required: true
+  },
+  text: {
+    type: String,
+    required: true
+  }
+}, {
+  versionKey: '_documentVersion'
+});
 
 let StoryTutorial = module.exports = mongoose.model('StoryTutorial', StoryTutorialSchema);
 

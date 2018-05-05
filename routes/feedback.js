@@ -5,7 +5,9 @@ const router = express.Router();
 
 // Heroes Collection
 router.get('/', (req, res) =>
-  res.render('feedback', { title: 'Magical Heroes'})
+  res.render('feedback', {
+    title: 'Magical Heroes'
+  })
 );
 
 module.exports = router;

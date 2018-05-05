@@ -1,3 +1,17 @@
+'use strict';
+
+$('.toggle-password').click(function() {
+
+  $(this).toggleClass('fa-eye fa-eye-slash');
+  let input = $($(this).attr('toggle'));
+  if (input.attr('type') == 'password') {
+    input.attr('type', 'text');
+  } else {
+    input.attr('type', 'password');
+  }
+
+});
+
 function allSameValue(array) {
   let first = array[0];
   if (first === -1) {
@@ -19,7 +33,7 @@ $(document).ready(function() {
   });
 
   $('.search').on('keyup', function() {
-    let numberOfHeroes = $('div .hero').length;
+    // let numberOfHeroes = $('div .hero').length;
     // console.log(numberOfHeroes);
     let searchHero = $(this).val().toLowerCase();
     let arrayOfHeroes = [];

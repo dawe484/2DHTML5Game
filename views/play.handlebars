@@ -64,6 +64,52 @@
       display: none;
       text-align: center;
     }
+
+    /** {
+      position: absolute;
+      margin: 0; padding: 0;
+    }*/
+
+    input[type="text"] {
+      border: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding: 6px;
+      font-size: 18px;
+      width: 200px;
+      text-transform: uppercase;
+      top: 30px;
+      left: 130px;
+      background: none;
+      color: #fff;
+    }
+
+    input[type="submit"] {
+      display: block;
+      width: 100px;
+      border: 1px solid #fff;
+      line-height: 35px;
+      border-radius: 5px;
+      height: 35px;
+      color: #fff;
+      font-size: 18px;
+      top: 30px;
+      left: 350px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    input[type="submit"]:hover {
+      background: #fff;
+      color: #28abf6;
+    }
+
+    form {
+      width: 600px;
+      height: 100px;
+      position: absolute;
+      z-index: 100;
+      margin: 0; padding: 0;
+    }
     </style>
     <script type="text/javascript" src="/js/preloader.js" charset="utf-8"></script>
   </head>
@@ -73,6 +119,7 @@
     <div style="display:none;" id="myDiv" class="animate-bottom">
       <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
       <script src="/js/stats.min.js"></script>
+      <!-- <script src="/js/CanvasInput.js"></script> funguje -->
       <script type="text/javascript" src="/js/bundle.js" charset="utf-8"></script>
       <!-- <script src="/js/pixi.min.js"></script>
       <script src="/js/stats.min.js"></script>
@@ -80,6 +127,30 @@
       <!-- <script>init();</script> -->
       <!-- <script>window.addEventListener("load", init);</script> -->
     </div>
+    <!-- funguje  -->
+    <!-- <canvas id="myCanvas" width="200" height="50" style="cursor: text;"></canvas>
+    <script type="text/javascript">
+      var input = new CanvasInput({
+        canvas: document.getElementById('myCanvas'),
+        fontSize: 18,
+        fontFamily: 'Arial',
+        fontColor: '#212121',
+        fontWeight: 'bold',
+        width: 300,
+        padding: 8,
+        borderWidth: 1,
+        borderColor: '#000',
+        borderRadius: 3,
+        boxShadow: '1px 1px 0px #fff',
+        innerShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
+        placeHolder: 'Enter message here...'
+      });
+    </script> -->
+    <!-- <canvas id="text" width="500" height="100"></canvas> -->
+    <form id="form">
+      <input type="text" id="inputText" value="HELLO" />
+      <input type="submit" value="OK" />
+    </form>
     <!-- <script>
       var myVar;
       // window.addEventListener("load", myFunction);

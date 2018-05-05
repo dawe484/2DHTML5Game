@@ -3,7 +3,7 @@
 const HeroExpByLevel = require('../models/data_heroExpByLevel');
 const mongoose = require('mongoose');
 
-mongoose.connect('localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
 
 let data_heroExpByLevel = [
   new HeroExpByLevel({
@@ -306,20 +306,22 @@ let data_heroExpByLevel = [
 ];
 
 HeroExpByLevel.remove({}, function(err) {
-    if (err) {
-      console.err(err)
-    } else {
-      console.log('Remove all!');
-    }
+  if (err) {
+    // eslint-disable-next-line no-console
+    console.err(err);
+  } else {
+    // eslint-disable-next-line no-console
+    console.log('Remove all!');
   }
-);
+});
 
 let done = 0;
 
 for (let i = 0; i < data_heroExpByLevel.length; i++) {
-  data_heroExpByLevel[i].save( (err, result) => {
+  data_heroExpByLevel[i].save(() => {
     done++;
     if (done === data_heroExpByLevel.length) {
+      // eslint-disable-next-line no-console
       console.log('All data saved in DB.');
       exit();
     }

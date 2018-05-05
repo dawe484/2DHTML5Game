@@ -5,7 +5,9 @@ const router = express.Router();
 
 // Videos
 router.get('/', (req, res) =>
-  res.render('videos', { title: 'Magical Heroes'})
+  res.render('videos', {
+    title: 'Magical Heroes'
+  })
 );
 
 module.exports = router;

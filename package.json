@@ -13,15 +13,17 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "express-messages": "^1.0.1",
+    "express-recaptcha": "^3.0.1",
     "express-session": "^1.14.2",
     "express-validator": "^3.0.0",
     "hammerjs": "^2.0.8",
     "helmet": "^3.4.0",
-    "mongoose": "^4.7.3",
+    "mongoose": "^5.0.12",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "pixi.js": "^4.4.2",
+    "request": "^2.85.0",
     "socket.io": "^2.0.3",
     "uuid": "^3.0.1",
     "webfontloader": "^1.6.28",
@@ -31,12 +33,14 @@
   "devDependencies": {
     "browserify": "^14.1.0",
     "colors": "^1.1.2",
+    "eslint": "^4.19.1",
     "morgan": "^1.7.0",
     "watchify": "^3.9.0"
   },
   "scripts": {
     "build": "browserify client/js/game.js -o client/js/bundle.js",
-    "watch": "watchify client/js/game.js -o client/js/bundle.js"
+    "watch": "watchify client/js/game.js -o client/js/bundle.js",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",

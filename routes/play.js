@@ -1,6 +1,6 @@
 'use strict';
 
-const colors = require('colors/safe');
+// const colors = require('colors/safe');
 const express = require('express');
 const router = express.Router();
 
@@ -11,11 +11,11 @@ const User = require('../models/user');
 //   res.render('play', { layout: false, title: 'Magical Heroes' });
 // });
 
-let playerName;
+// let playerName;
 
-// router.get('/:userUrlName', isLoggedIn, (req, res) => {
-router.get('/:userUrlName', (req, res) => {
-  playerName = req.params.userUrlName;
+router.get('/:userUrlName', isLoggedIn, (req, res) => {
+  // router.get('/:userUrlName', (req, res) => {
+  // playerName = req.params.userUrlName;
 
   User.getUserByUsername(req.params.userUrlName, (err, user) => {
     if (err) throw err;
@@ -23,7 +23,11 @@ router.get('/:userUrlName', (req, res) => {
       user.avatar[0].playerStatus = 'online';
       user.save();
     }
-    res.render('play', { layout: false, title: 'Magical Heroes', userUrlName: req.params.userUrlName });
+    res.render('play', {
+      layout: false,
+      title: 'Magical Heroes',
+      userUrlName: req.params.userUrlName
+    });
     // console.log(colors.cyan(user.username) + ' - ' + colors.yellow(user.avatar[0].playerStatus));
 
   });

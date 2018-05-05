@@ -37,7 +37,7 @@
               {{/if}}
 
               <div class="well clearfix">
-                <div class="col-md-5">
+                <!-- <div class="col-md-5">
                   <dl class="social-login">
                     <dt>Sign Up quickly:</dt>
                     <dd>
@@ -54,9 +54,9 @@
                   </dl>
                 </div>
                 <div class="col-md-1">
-                </div>
-                <div class="col-md-1">
-                </div>
+                </div> -->
+                <!-- <div class="col-md-1">
+                </div> -->
                 <div class="col-md-5">
                   <form method="post" action="/users/signup">
                     <dl class="account-login">
@@ -85,7 +85,12 @@
       										<input type="email" class="form-control" name="email" placeholder="Email">
       									</div>
                       </dd>
-                      <dd class="handle">
+                      <dd>
+                        <div class="input-group">
+                          <div class="g-recaptcha" data-sitekey="6LfC_08UAAAAAJ4FFxGy6cVUnbeKiziF4ERgMEVE"></div>
+                        </div>
+                      </dd>
+                      <!-- <dd class="handle">
                         <div class="squaredThree signup-squaredThree">
           								<input type="checkbox" name="optionsRadios" id="checkOther" value="other" ng-model="formData.other"
           								ng-true-value="'other'" ng-init="formData.other='other'" checked="">
@@ -94,7 +99,7 @@
                         <label class="label-checkbox-black">
           					    	Sign Up for Magical Heroes exclusive <br> news!
           					    </label>
-                      </dd>
+                      </dd> -->
                       <dd class="handle">
                         <div class="squaredThree signup-squaredThree">
           								<input type="checkbox" name="optionsRadios" id="checkTerm" value="term" ng-model="formData.term"
