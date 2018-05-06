@@ -3,7 +3,8 @@
 const GoldPlusByLevel = require('../models/data_goldPlusByLevel');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+// mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://leyzi:NYC18vol@ds019664.mlab.com:19664/mh_db');
 
 let data_goldPlusByLevel = [
   new GoldPlusByLevel({
@@ -338,18 +339,27 @@ GoldPlusByLevel.remove({}, function(err) {
   }
 });
 
-let done = 0;
+GoldPlusByLevel.collection.insert(data_goldPlusByLevel, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  } else {
+    console.log("Multiple documents inserted.");
+    exit();
+  }
+});
 
-for (let i = 0; i < data_goldPlusByLevel.length; i++) {
-  data_goldPlusByLevel[i].save(() => {
-    done++;
-    if (done === data_goldPlusByLevel.length) {
-      // eslint-disable-next-line no-console
-      console.log('All data saved in DB.');
-      exit();
-    }
-  });
-}
+// let done = 0;
+//
+// for (let i = 0; i < data_goldPlusByLevel.length; i++) {
+//   data_goldPlusByLevel[i].save(() => {
+//     done++;
+//     if (done === data_goldPlusByLevel.length) {
+//       // eslint-disable-next-line no-console
+//       console.log('All data saved in DB.');
+//       exit();
+//     }
+//   });
+// }
 
 function exit() {
   mongoose.disconnect();
