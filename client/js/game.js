@@ -39,7 +39,7 @@ const GAME_WIDTH = 1920,
   LATENCY = 500,
   png = '.png',
   // -------------------------- FOLDERS PATHS --------------------------
-  backgroundsFolderPath = '/images/game/backgrounds/',
+  backgroundsFolderPath = './images/game/backgrounds/',
   buttonsFolderPath = '/images/game/buttons/',
   heroesFolderPath = '/images/game/heroes/',
   iconsFolderPath = '/images/game/icons/',
