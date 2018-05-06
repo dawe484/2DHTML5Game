@@ -38,6 +38,7 @@
     "watchify": "^3.9.0"
   },
   "scripts": {
+    "start": "node app.js",
     "build": "browserify client/js/game.js -o client/js/bundle.js",
     "watch": "watchify client/js/game.js -o client/js/bundle.js",
     "lint": "eslint"
