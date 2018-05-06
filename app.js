@@ -1,7 +1,7 @@
 /* jshint node: true */
 'use strict';
 
-const colors = require('colors/safe');
+// const colors = require('colors/safe');
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
@@ -55,7 +55,8 @@ let databaseOption = {
   }
 };
 
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game', databaseOption)
+// mongoose.connect('mongodb://localhost:27017/2DHTML5Game', databaseOption)
+mongoose.connect('mongodb://leyzi:NYC18vol@ds019664.mlab.com:19664/mh_db', databaseOption)
   .then(() => {
     console.log('Database successfully connected.\n---------------------------------------');
   }, (err) => {
@@ -302,8 +303,8 @@ app.use((err, req, res, next) => {
 app.set('port', (process.env.PORT || 2000));
 let server = app.listen(app.get('port'), () => {
   console.log('---------------------------------------\n' +
-    colors.green('Web server is running in ') + app.get('env') + ' on port ' + app.get('port') +
-    '\nPress ' + colors.red('Ctrl-C') + ' to terminate.');
+    'Web server is running in ' + app.get('env') + ' on port ' + app.get('port') +
+    '\nPress Ctrl-C to terminate.');
   // + "\n---------------------------------------");
 });
 
@@ -327,7 +328,7 @@ io.on('connection', (socket) => {
   console.log(address); // 27
   let playerName = address.substr(27);
 
-  console.log('player:', colors.cyan(playerName), colors.green('connected'), 'on socket:', colors.magenta(socket.id), '.');
+  console.log('player:', playerName, 'connected on socket:', socket.id, '.');
 
   let storyTutorialNotDone;
 
@@ -1348,7 +1349,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', function() {
     delete SOCKET_LIST[socket.id];
-    console.log('player:', colors.cyan(playerName), colors.red('disconnected'), 'on socket:', colors.magenta(socket.id), '.');
+    console.log('player:', playerName, 'disconnected on socket:', socket.id, '.');
   });
 
 });
