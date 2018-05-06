@@ -119,7 +119,7 @@ function getDirectives() {
     fontSrc: [self, 'data:', 'fonts.googleapis.com', 'fonts.gstatic.com'],
     childSrc: [none],
     frameSrc: [self, 'www.google.com'],
-    connectSrc: [self, 'ws://localhost:2000', 'wss://magicalheroes.herokuapp.com/socket.io'],
+    connectSrc: [self, 'ws://localhost:2000', 'wss://magicalheroes.herokuapp.com'],
     //sandbox: ['allow-forms', 'allow-scripts'],
     upgradeInsecureRequests: false, //true, pro https:// na live serveru
     reportUri: '/api/csp-report'
