@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 // const Language = require('../models/language');
 // const Glyph = require('../models/glyph');
 
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+// mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://leyzi:NYC18vol@ds019664.mlab.com:19664/mh_db');
 
 // let oneOne = Glyph.find(
 //   { 'map_location.chapter': '1-1' },
@@ -440,16 +441,25 @@ Avatar.remove({}, function(err) {
   }
 });
 
-let done = 0;
+Avatar.collection.insert(avatars, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  } else {
+    console.log("Multiple documents inserted.");
+    exit();
+  }
+});
 
-for (let i = 0; i < avatars.length; i++) {
-  avatars[i].save(() => {
-    done++;
-    if (done === avatars.length) {
-      exit();
-    }
-  });
-}
+// let done = 0;
+//
+// for (let i = 0; i < avatars.length; i++) {
+//   avatars[i].save(() => {
+//     done++;
+//     if (done === avatars.length) {
+//       exit();
+//     }
+//   });
+// }
 
 // spojeni tabulky vatar s language - v DB funguje jak si predtavuju, tu ne
 // Avatar

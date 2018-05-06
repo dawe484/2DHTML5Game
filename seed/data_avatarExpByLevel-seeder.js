@@ -3,7 +3,8 @@
 const AvatarExpByLevel = require('../models/data_avatarExpByLevel');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+// mongoose.connect('mongodb://localhost:27017/2DHTML5Game');
+mongoose.connect('mongodb://leyzi:NYC18vol@ds019664.mlab.com:19664/mh_db');
 
 let data_avatarExpByLevel = [
   new AvatarExpByLevel({
@@ -418,18 +419,27 @@ AvatarExpByLevel.remove({}, function(err) {
   }
 });
 
-let done = 0;
+AvatarExpByLevel.collection.insert(data_avatarExpByLevel, (err, docs) => {
+  if (err) {
+    return console.error(err);
+  } else {
+    console.log("Multiple documents inserted.");
+    exit();
+  }
+});
 
-for (let i = 0; i < data_avatarExpByLevel.length; i++) {
-  data_avatarExpByLevel[i].save(() => {
-    done++;
-    if (done === data_avatarExpByLevel.length) {
-      // eslint-disable-next-line no-console
-      console.log('All data saved in DB.');
-      exit();
-    }
-  });
-}
+// let done = 0;
+//
+// for (let i = 0; i < data_avatarExpByLevel.length; i++) {
+//   data_avatarExpByLevel[i].save(() => {
+//     done++;
+//     if (done === data_avatarExpByLevel.length) {
+//       // eslint-disable-next-line no-console
+//       console.log('All data saved in DB.');
+//       exit();
+//     }
+//   });
+// }
 
 function exit() {
   mongoose.disconnect();
