@@ -173,7 +173,19 @@ app.use(helmet.noCache({
 }));
 
 // Morgan
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
+switch (app.get('env')) {
+  case 'development':
+    // compact, colorful dev logging
+    app.use(require('morgan')('dev'));
+    break;
+  case 'production':
+    // module 'express-logger' supports daily log rotation
+    // app.use(require('express-logger')({
+    //   path: __dirname + '/log/requests.log'
+    // }));
+    break;
+}
 
 // Set session expiryDate
 //let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
@@ -290,7 +302,7 @@ app.use((err, req, res, next) => {
 app.set('port', (process.env.PORT || 2000));
 let server = app.listen(app.get('port'), () => {
   console.log('---------------------------------------\n' +
-    colors.green('Web server is running... ') + 'on port ' + app.get('port') +
+    colors.green('Web server is running in ') + app.get('env') + ' on port ' + app.get('port') +
     '\nPress ' + colors.red('Ctrl-C') + ' to terminate.');
   // + "\n---------------------------------------");
 });
