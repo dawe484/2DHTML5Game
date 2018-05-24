@@ -34,6 +34,9 @@ const SkillSchema = new Schema({
   skill_power: {
     type: Number,
     required: true
+  },
+  skill_cd: {
+    type: Number
   }
 });
 

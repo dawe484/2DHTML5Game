@@ -119,7 +119,7 @@ function getDirectives() {
     fontSrc: [self, 'data:', 'fonts.googleapis.com', 'fonts.gstatic.com'],
     childSrc: [none],
     frameSrc: [self, 'www.google.com'],
-    connectSrc: [self, 'ws://localhost:2000'],
+    connectSrc: [self, 'ws://localhost:2000', 'wss://magicalheroes.herokuapp.com'],
     //sandbox: ['allow-forms', 'allow-scripts'],
     upgradeInsecureRequests: false, //true, pro https:// na live serveru
     reportUri: '/api/csp-report'
@@ -307,6 +307,8 @@ let server = app.listen(app.get('port'), () => {
     '\nPress Ctrl-C to terminate.');
   // + "\n---------------------------------------");
 });
+
+module.exports = app;
 
 let SOCKET_LIST = {};
 
@@ -1084,29 +1086,32 @@ io.on('connection', (socket) => {
             // console.log(data[0].heroes[0].name);
             battleHeroesArray.push({
               name: data[0].heroes[0].name,
-              basicAttackType: data[0].heroes[0].basic_atk_type,
-              attackRange: data[0].heroes[0].attack_range,
+              basic_atk_type: data[0].heroes[0].basic_atk_type,
+              level: data[0].heroes[0].level,
+              attack_range: data[0].heroes[0].attack_range,
               power: data[0].heroes[0].power,
               health: data[0].heroes[0].health,
-              attackDamage: data[0].heroes[0].attack_damage,
-              abilityPower: data[0].heroes[0].ability_power,
+              attack_damage: data[0].heroes[0].attack_damage,
+              ability_power: data[0].heroes[0].ability_power,
               armor: data[0].heroes[0].armor,
-              magicResist: data[0].heroes[0].magic_resist,
-              attackSpeed: data[0].heroes[0].attack_speed,
-              healthRegen: data[0].heroes[0].health_regen,
-              movementSpeed: data[0].heroes[0].movement_speed,
-              energyRegen: data[0].heroes[0].energy_regen,
-              critDamageLevel: data[0].heroes[0].crit_damage_lvl,
-              critStrikeLevel: data[0].heroes[0].crit_strike_lvl,
-              hitLevel: data[0].heroes[0].hit_lvl,
-              dodgeLevel: data[0].heroes[0].dodge_lvl,
-              lifeStealLevel: data[0].heroes[0].life_steal_lvl,
-              energySteal: data[0].heroes[0].energy_steal,
-              energyBoost: data[0].heroes[0].energy_boost,
-              armorPenetration: data[0].heroes[0].armor_pen,
-              magicPenetration: data[0].heroes[0].magic_pen,
-              healingEffect: data[0].heroes[0].healing_effect,
-              shieldEffect: data[0].heroes[0].shield_effect
+              magic_resist: data[0].heroes[0].magic_resist,
+              attack_speed: data[0].heroes[0].attack_speed,
+              attack_speed_inc: data[0].heroes[0].attack_speed_inc,
+              health_regen: data[0].heroes[0].health_regen,
+              movement_speed: data[0].heroes[0].movement_speed,
+              energy_regen: data[0].heroes[0].energy_regen,
+              crit_damage_lvl: data[0].heroes[0].crit_damage_lvl,
+              crit_strike_lvl: data[0].heroes[0].crit_strike_lvl,
+              hit_lvl: data[0].heroes[0].hit_lvl,
+              dodge_lvl: data[0].heroes[0].dodge_lvl,
+              life_steal_lvl: data[0].heroes[0].life_steal_lvl,
+              energy_steal: data[0].heroes[0].energy_steal,
+              energy_boost: data[0].heroes[0].energy_boost,
+              armor_pen: data[0].heroes[0].armor_pen,
+              magic_pen: data[0].heroes[0].magic_pen,
+              healing_effect: data[0].heroes[0].healing_effect,
+              shield_effect: data[0].heroes[0].shield_effect,
+              skills: data[0].heroes[0].skills
             });
             // battleHeroesArray.push(hero);
             // console.log('heroName:', heroName);
@@ -1125,6 +1130,7 @@ io.on('connection', (socket) => {
                 'class': 1,
                 'position': 1,
                 'basic_atk_type': 1,
+                'level': 1,
                 'attack_range': 1,
                 'power': 1,
                 'health': 1,
@@ -1132,7 +1138,10 @@ io.on('connection', (socket) => {
                 'ability_power': 1,
                 'armor': 1,
                 'magic_resist': 1,
-                'level': 1,
+                'attack_speed': 1,
+                'attack_speed_inc': 1,
+                'movement_speed': 1,
+                'money_reward': 1,
                 'map_location.$': 1
               }, (err, dataEnemies) => {
                 // console.log(data);
@@ -1289,41 +1298,78 @@ io.on('connection', (socket) => {
         });
       });
 
-      socket.on('summonx1BoM', () => {
+      // socket.on('summonx1BoM', () => {
+      //   User.find({
+      //     username: playerName
+      //   }, {
+      //     _id: 0,
+      //     'avatar': 1
+      //   }, (err, data) => {
+      //     if (err) throw err;
+      //     socket.emit('summonx1BoMData', {
+      //       bookOfMagic: data[0].avatar[0].bannersTitle[1],
+      //       gold1more: data[0].avatar[0].labelsTitle[9],
+      //       gold10more: data[0].avatar[0].labelsTitle[10],
+      //       more1: data[0].avatar[0].buttonsTitle[10],
+      //       more10: data[0].avatar[0].buttonsTitle[11]
+      //     });
+      //   });
+      // });
+
+      socket.on('saveItem', summonedItem => {
         User.find({
           username: playerName
         }, {
           _id: 0,
-          'avatar': 1
+          'avatar.inventory': 1
+        }, (err, data) => {
+          // console.log(summonedItem);
+          let inventory = data[0].avatar[0].inventory;
+          inventory.push(summonedItem);
+          // console.log(`Put ${summonedItem} into inventory.`);
+          user.avatar[0].inventory = inventory;
+          user.save()
+            .then(() => {
+              console.log(`Put ${summonedItem} into inventory and save it into the DB.`);
+            })
+            .catch(error => {
+              console.log(`Something goes wrong. Cannot save item.`);
+            });
+        });
+      });
+
+      socket.on('getInventory', () => {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.inventory': 1
         }, (err, data) => {
           if (err) throw err;
-          socket.emit('summonx1BoMData', {
-            bookOfMagic: data[0].avatar[0].bannersTitle[1],
-            gold1more: data[0].avatar[0].labelsTitle[9],
-            gold10more: data[0].avatar[0].labelsTitle[10],
-            more1: data[0].avatar[0].buttonsTitle[10],
-            more10: data[0].avatar[0].buttonsTitle[11]
+          console.log(data[0].avatar[0].inventory);
+          socket.emit('getInventoryData', {
+            inventory: data[0].avatar[0].inventory
           });
         });
       });
 
-      socket.on('summonx1GBoM', () => {
-        User.find({
-          username: playerName
-        }, {
-          _id: 0,
-          'avatar': 1
-        }, (err, data) => {
-          if (err) throw err;
-          socket.emit('summonx1GBoMData', {
-            grandBookOfMagic: data[0].avatar[0].bannersTitle[2],
-            diamond1more: data[0].avatar[0].labelsTitle[11],
-            diamond10more: data[0].avatar[0].labelsTitle[12],
-            more1: data[0].avatar[0].buttonsTitle[10],
-            more10: data[0].avatar[0].buttonsTitle[11]
-          });
-        });
-      });
+      // socket.on('summonx1GBoM', () => {
+      //   User.find({
+      //     username: playerName
+      //   }, {
+      //     _id: 0,
+      //     'avatar': 1
+      //   }, (err, data) => {
+      //     if (err) throw err;
+      //     socket.emit('summonx1GBoMData', {
+      //       grandBookOfMagic: data[0].avatar[0].bannersTitle[2],
+      //       diamond1more: data[0].avatar[0].labelsTitle[11],
+      //       diamond10more: data[0].avatar[0].labelsTitle[12],
+      //       more1: data[0].avatar[0].buttonsTitle[10],
+      //       more10: data[0].avatar[0].buttonsTitle[11]
+      //     });
+      //   });
+      // });
 
 
 

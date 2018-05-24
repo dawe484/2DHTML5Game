@@ -31,7 +31,7 @@ let enemies = [
     // power_inc: 15,
     health: 836,
     // health_inc: 82,
-    attack_damage: 27,
+    attack_damage: 37,
     // attack_damage_inc: 3,
     ability_power: 0,
     // ability_power_inc: 2.47,
@@ -39,8 +39,8 @@ let enemies = [
     // armor_inc: 3,
     magic_resist: 4,
     // magic_resist_inc: 1.8,
-    // attack_speed: 100,
-    // attack_speed_inc: 0.008,
+    attack_speed: 100,
+    attack_speed_inc: 0,
     // health_regen: 32,
     // health_regen_inc: 0.06,
     movement_speed: 345,
@@ -142,7 +142,9 @@ let enemies = [
     ability_power: 35,
     armor: 4,
     magic_resist: 4,
-    movement_speed: 345,
+    attack_speed: 100,
+    attack_speed_inc: 0,
+    movement_speed: 375,
     money_reward: 139,
     map_location: [{
         type_location: 'Normal',
@@ -188,11 +190,13 @@ let enemies = [
     attack_range: 160,
     power: 63,
     health: 716,
-    attack_damage: 0,
-    ability_power: 35,
+    attack_damage: 49,
+    ability_power: 0,
     armor: 4,
     magic_resist: 4,
-    movement_speed: 345,
+    attack_speed: 110,
+    attack_speed_inc: 0,
+    movement_speed: 335,
     money_reward: 139,
     map_location: [{
         type_location: 'Normal',
@@ -233,22 +237,25 @@ let enemies = [
     attack_range: 160,
     power: 63,
     health: 716,
-    attack_damage: 0,
+    attack_damage: 30,
     ability_power: 35,
     armor: 4,
     magic_resist: 4,
-    movement_speed: 345,
+    attack_speed: 100,
+    attack_speed_inc: 0,
+    movement_speed: 325,
     money_reward: 139,
-    map_location: [{
-        type_location: 'Normal',
-        chapter: '1-1',
-        battle_screen: [1, 3]
-      },
-      {
-        type_location: 'Normal',
-        chapter: '1-2',
-        battle_screen: [2]
-      },
+    map_location: [
+      // {
+      //   type_location: 'Normal',
+      //   chapter: '1-1',
+      //   battle_screen: [1, 3]
+      // },
+      // {
+      //   type_location: 'Normal',
+      //   chapter: '1-2',
+      //   battle_screen: [2]
+      // },
       {
         type_location: 'Normal',
         chapter: '1-5',
@@ -287,6 +294,8 @@ let enemies = [
     ability_power: 35,
     armor: 4,
     magic_resist: 4,
+    attack_speed: 100,
+    attack_speed_inc: 0,
     movement_speed: 345,
     money_reward: 139,
     map_location: [{
@@ -328,17 +337,20 @@ let enemies = [
     attack_range: 160,
     power: 63,
     health: 716,
-    attack_damage: 0,
-    ability_power: 35,
+    attack_damage: 44,
+    ability_power: 10,
     armor: 4,
     magic_resist: 4,
-    movement_speed: 345,
+    attack_speed: 100,
+    attack_speed_inc: 0,
+    movement_speed: 365,
     money_reward: 139,
-    map_location: [{
-        type_location: 'Normal',
-        chapter: '1-1',
-        battle_screen: [2, 3]
-      },
+    map_location: [
+      // {
+      //   type_location: 'Normal',
+      //   chapter: '1-1',
+      //   battle_screen: [2, 3]
+      // },
       {
         type_location: 'Normal',
         chapter: '1-2',

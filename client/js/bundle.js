@@ -114,11 +114,11 @@ const GAME_WIDTH = 1920,
   skillBackgroundPath = `${backgroundsFolderPath}skill_background${png}`,
   skillLabelPath = `${labelsFolderPath}skill_label${png}`,
   // handIconPath = `${iconsFolderPath}hand_icon${png}`,
-  // summonBooksBackgroundPath = `${backgroundsFolderPath}summon_books_background${png}`,
-  // lblSummonPath = `${labelsFolderPath}summon_label${png}`,
-  // bookOfMagicPath = `${iconsFolderPath}book_of_magic${png}`,
-  // grandBookOfMagicPath = `${iconsFolderPath}grand_book_of_magic${png}`,
-  // summoningBookPath = `${iconsFolderPath}summoning_book${png}`,
+  summonBooksBackgroundPath = `${backgroundsFolderPath}summon_books_background${png}`,
+  lblSummonPath = `${labelsFolderPath}summon_label${png}`,
+  bookOfMagicPath = `${iconsFolderPath}book_of_magic${png}`,
+  grandBookOfMagicPath = `${iconsFolderPath}grand_book_of_magic${png}`,
+  summoningBookPath = `${iconsFolderPath}summoning_book${png}`,
   // leryssaSummonIconPath = `${heroesFolderPath}leryssa/leryssa_summon_icon${png}`,
   // leonaSummonIconPath = `${heroesFolderPath}leona/leona_summon_icon${png}`,
   // -----------------------------------------------------------------------
@@ -192,17 +192,17 @@ const GAME_WIDTH = 1920,
   zalajinIconSPath = `${heroesFolderPath}zalajin/zalajin_icon_selected${png}`,
   zayaIconSPath = `${heroesFolderPath}zaya/zaya_icon_selected${png}`,
   // ------------------------ Heroes Ultimate Skills --------------------------------------
-  aeloisUltSkillPath = `.${heroesFolderPath}aelois/skills/skill_1${png}`,
-  amaraUltSkillPath = `.${heroesFolderPath}amara/skills/skill_1${png}`,
-  crystalUltSkillPath = `.${heroesFolderPath}crystal/skills/skill_1${png}`,
-  diuwinUltSkillPath = `.${heroesFolderPath}diuwin/skills/skill_1${png}`,
-  leonaUltSkillPath = `.${heroesFolderPath}leona/skills/skill_1${png}`,
-  leryssaUltSkillPath = `.${heroesFolderPath}leryssa/skills/skill_1${png}`,
-  nadiaUltSkillPath = `.${heroesFolderPath}nadia/skills/skill_1${png}`,
-  nyxUltSkillPath = `.${heroesFolderPath}nyx/skills/skill_1${png}`,
-  sinUltSkillPath = `.${heroesFolderPath}sin/skills/skill_1${png}`,
-  zalajinUltSkillPath = `.${heroesFolderPath}zalajin/skills/skill_1${png}`,
-  zayaUltSkillPath = `.${heroesFolderPath}zaya/skills/skill_1${png}`,
+  aeloisUltSkillPath = `${heroesFolderPath}aelois/skills/skill_1${png}`,
+  amaraUltSkillPath = `${heroesFolderPath}amara/skills/skill_1${png}`,
+  crystalUltSkillPath = `${heroesFolderPath}crystal/skills/skill_1${png}`,
+  diuwinUltSkillPath = `${heroesFolderPath}diuwin/skills/skill_1${png}`,
+  leonaUltSkillPath = `${heroesFolderPath}leona/skills/skill_1${png}`,
+  leryssaUltSkillPath = `${heroesFolderPath}leryssa/skills/skill_1${png}`,
+  nadiaUltSkillPath = `${heroesFolderPath}nadia/skills/skill_1${png}`,
+  nyxUltSkillPath = `${heroesFolderPath}nyx/skills/skill_1${png}`,
+  sinUltSkillPath = `${heroesFolderPath}sin/skills/skill_1${png}`,
+  zalajinUltSkillPath = `${heroesFolderPath}zalajin/skills/skill_1${png}`,
+  zayaUltSkillPath = `${heroesFolderPath}zaya/skills/skill_1${png}`,
   // -----------------------------------------------------------------------
   // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
   // plusGreenIconPath = `${iconsFolderPath}plus_green_icon${png}`,
@@ -471,9 +471,9 @@ function init() {
         // // Avatar
         // // avatarBorderPath,
         // avatarImagePath, //avatarLevelBluePath, avatarFieldPath,
-        // // banner620x98Path, banner620x98GreyPath,
-        // // summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
-        // // summoningBookPath, leryssaSummonIconPath, leonaSummonIconPath,
+        banner620x98Path, // banner620x98GreyPath,
+        summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
+        summoningBookPath, // leryssaSummonIconPath, leonaSummonIconPath,
         // //avatarChangeNameNamefieldPath, dicePath,
         // // Grey Glyphs
         // // noGlyphIconPath,
@@ -527,7 +527,8 @@ function init() {
         // Heroes
         // ---------------------
         // leonaSkillIconPath,
-        // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath, statsBottomBackgroundPath,
+        // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath,
+        // statsBottomBackgroundPath,
         // // statsGreyLabelPath, statsWhiteLabelPath,
         // mapBackgroundPath, mapPath,
         // difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
@@ -1436,6 +1437,14 @@ function setMainScreenContainer() {
       setMiddlePos(btnSummonBooks, textBtnSummonBooks).y + 2
     );
 
+    setInteractive(btnSummonBooks, true);
+    interMainScreenArray.push(btnSummonBooks);
+
+    btnSummonBooks.on('click', () => {
+      console.log('btnSummonBooks clicked');
+      setSummonBooksContainer();
+    });
+
     mainScreenContainer.addChild(textBtnMap, textBtnGuild, textBtnRanking,
       textBtnFriends, textBtnCrusade, textBtnMail, textBtnTown, textBtnSummonBooks);
     mainScreenContainer.removeChild(loadingBackground, textLoading);
@@ -1743,7 +1752,7 @@ function backIconClicked(btnBack, container) {
   console.log('btnBack clicked');
   stage.removeChild(container);
   mainScreenContainer.removeChild(avatarContainer);
-  interMainScreenArray.splice(3, 1);
+  // interMainScreenArray.splice(3, 1);
   console.log(stage.children);
   if (stage.children.length === 1) {
     // stage.removeChild(stage.children[0].children[stage.children.length-1]);
@@ -1773,6 +1782,18 @@ function backIconInParagraphsClicked(container) {
     setInteractive(btnBack, true);
   }, LATENCY);
   // }
+}
+
+// Setup function when player clicked on `btnBack` in `avatarScreenContainer`
+function backIconInSummon(container) {
+  console.log('btnBack in summon clicked');
+  stage.removeChild(container);
+  setTimeout(() => {
+    for (let item of interSummonArray) {
+      setInteractive(item, true);
+    }
+    // setInteractive(btnBack, true);
+  }, LATENCY);
 }
 
 // Setup `avatarChangeNameContainer`
@@ -2284,6 +2305,11 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
 
   const btnInventory = new Sprite(resources[btn144x144Path].texture);
   btnInventory.position.set(1740, 252);
+  setInteractive(btnInventory, true);
+  interScrollArray.push(btnInventory);
+  btnInventory.on('click', e => {
+    setInventoryContainer();
+  });
 
   const textBtnInventory = new Text(inventoryText, textStyle144_40center_black);
   textBtnInventory.position.set(
@@ -4967,6 +4993,7 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
   let enemiesPath = [];
   let possibleRewardsPath = [];
   let enemiesSumPower = 0;
+  let selectedEnemies = [];
 
   socket.emit('selectedParagraph', difficulty, chapter);
   socket.on('selectedParagraphData', (data) => {
@@ -4976,9 +5003,11 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
       // console.log(enemy.icon_path);
       let enemyPath = enemy.icon_path;
       enemiesPath.push(enemyPath);
+      selectedEnemies.push(enemy.name);
       enemiesSumPower += enemy.power;
     }
     console.log('enemiesPath', enemiesPath);
+    console.log('selectedEnemies', selectedEnemies);
 
     for (let pr of data.possibleRewardsData) {
       let prPath = pr.icon_path;
@@ -4990,7 +5019,7 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
     setChapterParagraphContainer(difficulty, chapter, bannerTitle, description, maxNumberOfStars,
       numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
       possibleRewards, sweep, sweepx10, start, enemiesPath, possibleRewardsPath,
-      enemiesSumPower)
+      enemiesSumPower, selectedEnemies)
   });
 }
 
@@ -4998,7 +5027,7 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
 function setChapterParagraphContainer(difficulty, chapter, bannerTitle, description, maxNumberOfStars,
   numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
   possibleRewards, sweep, sweepx10, start, enemiesPath, possibleRewardsPath,
-  enemiesSumPower) {
+  enemiesSumPower, selectedEnemies) {
 
   for (let item of interParagraphsArray) {
     setInteractive(item, false);
@@ -5060,7 +5089,8 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
         console.log(`${btnSweepNoPath} - already loaded`);
         console.log(`${btnStartPath} - already loaded`);
         addParagraphImages(paragraphBackgroundPath, btnSweepPath, btnSweepNoPath,
-          btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower);
+          btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower,
+          selectedEnemies);
       } else {
         loader
           .add([
@@ -5071,12 +5101,14 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
       loader
         .once('complete', (loader, resources) => {
           addParagraphImages(paragraphBackgroundPath, btnSweepPath, btnSweepNoPath,
-            btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower);
+            btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower,
+            selectedEnemies);
         });
     }
 
     function addParagraphImages(paragraphBackgroundPath, btnSweepPath, btnSweepNoPath,
-      btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower) {
+      btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower,
+      selectedEnemies) {
 
       let spriteBackground = new Sprite(resources[paragraphBackgroundPath].texture);
       spriteBackground.position.set(posX, posY);
@@ -5143,7 +5175,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
         console.log('btnStart clicked');
         // stage.removeChild(mapContainer);
         // console.log(stage.children);
-        loadSelectedHeroes(difficulty, chapter, possibleRewardsPath);
+        loadSelectedHeroes(difficulty, chapter, possibleRewardsPath, selectedEnemies);
       });
 
       let textBtnStart = new Text(start, textStyleBtn60_44_black);
@@ -5215,7 +5247,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
 }
 
 // Load information about player's summoned heroes from DB, that can be used in battle
-function loadSelectedHeroes(difficulty, chapter, possibleRewardsPath) {
+function loadSelectedHeroes(difficulty, chapter, possibleRewardsPath, selectedEnemies) {
   console.log('chapterrr:::', chapter, difficulty);
 
   socket.emit('selectedHeroes');
@@ -5263,7 +5295,7 @@ function loadSelectedHeroes(difficulty, chapter, possibleRewardsPath) {
     setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathList, attackText,
       selectHeroesText, textPower, lowHeroesText, heroesPositionNumberList, heroesNameList,
       heroesLevelList, heroesClassList, heroesStarsList, heroesColorList,
-      heroesPowerList, possibleRewardsPath);
+      heroesPowerList, possibleRewardsPath, selectedEnemies);
   });
 }
 
@@ -5271,8 +5303,9 @@ const summonedHeroesPerPage = 5;
 
 //
 function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathList, attack,
-  selectHeroes, textPower, lowHeroesText, heroesPositionNumberList, heroesNameList, heroesLevelList,
-  heroesClassList, heroesStarsList, heroesColorList, heroesPowerList, possibleRewardsPath) {
+  selectHeroes, textPower, lowHeroesText, heroesPositionNumberList, heroesNameList,
+  heroesLevelList, heroesClassList, heroesStarsList, heroesColorList,
+  heroesPowerList, possibleRewardsPath, selectedEnemiesList) {
 
   for (let item of interBtnBackStartArray) {
     setInteractive(item, false);
@@ -5437,7 +5470,8 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
       } else {
         stage.removeChild(paragraphSelectHeroesContainer, mapContainer);
         console.log(stage.children);
-        setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath);
+        setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath,
+          selectedEnemiesList);
       }
     });
 
@@ -5783,13 +5817,17 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
 
 let battleProgress = 0;
 const battleProgressEnd = 3;
+let attackScreenContainer;
 
 //
-function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath) {
+function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath,
+  selectedEnemiesList) {
+
   console.log('attack screen');
   console.log('selectedHeroList:', selectedHeroList);
+  console.log('selectedEnemiesList:', selectedEnemiesList);
 
-  let attackScreenContainer = new Container();
+  attackScreenContainer = new Container();
 
   function loadAttackScreenImages() {
     if (backgroundPath in loader.resources && timerBackgroundPath in loader.resources &&
@@ -5856,7 +5894,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
     for (let hero of selectedHeroList) selectedHeroesList.push(hero);
     console.log(`selectedHeroesList:`, selectedHeroesList);
 
-    let selectedEnemiesList = ['Enemy 3', 'Enemy 4', 'Enemy 5', 'Enemy 6'];
+    // let selectedEnemiesList = ['Enemy 3', 'Enemy 4', 'Enemy 5', 'Enemy 6'];
 
     let numberOfEnemiesArray = [];
     for (let i in selectedEnemiesList) numberOfEnemiesArray.push(i);
@@ -5924,11 +5962,12 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
     );
 
     let money = 0;
+    let chests = 0;
 
-    let textMoneyIcon = new Text(`${money}`, textStyle_32center_black);
-    textMoneyIcon.position.set(
-      setMiddlePos(moneyBackground, textMoneyIcon).x,
-      setMiddlePos(moneyBackground, textMoneyIcon).y
+    let textMoneyBackground = new Text(`${money}`, textStyle_32center_black);
+    textMoneyBackground.position.set(
+      setMiddlePos(moneyBackground, textMoneyBackground).x,
+      setMiddlePos(moneyBackground, textMoneyBackground).y
     );
 
     let chestBackground = new Sprite(resources[timerBackgroundPath].texture);
@@ -5940,22 +5979,20 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       setMiddlePos(chestBackground, chestIcon).y
     );
 
-    let chests = 0;
-
-    let textChestIcon = new Text(`${chests}`, textStyle_32center_black);
-    textChestIcon.position.set(
-      setMiddlePos(chestBackground, textChestIcon).x,
-      setMiddlePos(chestBackground, textChestIcon).y
+    let textChestBackground = new Text(`${chests}`, textStyle_32center_black);
+    textChestBackground.position.set(
+      setMiddlePos(chestBackground, textChestBackground).x,
+      setMiddlePos(chestBackground, textChestBackground).y
     );
 
     attackScreenContainer.addChild(spriteBackground, //pauseIcon, battleProgressBackground,
       // textBattleProgressBackground,
       timerBackground, timerIcon, textTimerIcon, btnAuto, moneyBackground,
-      moneyIcon, textMoneyIcon, chestBackground, chestIcon, textChestIcon);
+      moneyIcon, textMoneyBackground, chestBackground, chestIcon, textChestBackground);
 
     socket.emit('battle');
     socket.emit('battleHeroes', selectedHeroList, difficulty, chapter);
-    socket.emit('battleEnemies', difficulty, chapter);
+    // socket.emit('battleEnemies', difficulty, chapter);
     // battleCountdownTimer('battleTimerStarted', 'battleTimerEnded',
     //   textTimerIcon, timerBackground);
 
@@ -5978,10 +6015,11 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
     socket.on('battleHeroesData', (data) => {
       console.log('battleHeroesData', data);
 
-      const
+      let
+        heroObject = data.heroArray,
         heroesBattleCoorArray = data.heroesBattleCoordination,
         enemiesBattleCoorArray = data.enemiesBattleCoordination,
-        enemiesArray = data.enemiesArray;
+        enemyObject = data.enemiesArray;
 
       socket.off('battleData');
 
@@ -6139,8 +6177,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
               if (enemyObj.basic_atk_type === 'physical') {
                 calcAttack = Math.round(calcArmor * enemyObj.attack_damage);
-              } else if (heroObj.basic_atk_type === 'magic') {
+                // console.log(calcAttack, enemyObj.name);
+              } else if (enemyObj.basic_atk_type === 'magic') {
                 calcAttack = Math.round(calcMagicResist * enemyObj.ability_power);
+                // console.log(calcAttack, enemyObj.name);
               }
 
               if (countdown != 0) {
@@ -6412,6 +6452,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                       }
 
                       money += enemyObject[temp].money_reward;
+                      // console.log('money', money);
                       textMoneyBackground.text = `${money}`;
                       textMoneyBackground.position.set(
                         setMiddlePos(moneyBackground, textMoneyBackground).x,
@@ -6419,8 +6460,8 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                       );
 
                       if (selectedEnemiesList.length === 0) {
-                        // clearInterval(heroTimerAA);
-                        // clearInterval(myTimer);
+                        clearInterval(heroTimerAA);
+                        clearInterval(myTimer);
                         console.log('All enemies died! You won!');
                         setInteractive(pauseIcon, false);
                         for (let index in battleListOfHeroesIcons)
@@ -6503,7 +6544,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
             addSelectedHero(crystalContainer, crystal, index, heroObject[index].movement_speed, 0, crystalUltSkillPath);
             battleListOfHeroes.push(crystalContainer);
             break;
-          case 'Diuwin':
+          case 'Diu Win':
             addSelectedHeroIcon(diuwinIconSPath, index);
             addSelectedHero(diuwinContainer, diuwin, index, heroObject[index].movement_speed, 0, diuwinUltSkillPath);
             battleListOfHeroes.push(diuwinContainer);
@@ -6552,41 +6593,46 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         }
       }
 
-      let countdown = 60;
+      let countdown = 80;
+      let myTimer = null;
+      console.log(countdown);
 
-      let myTimer = setInterval(() => {
-        countdown--;
-        if (countdown === 0) {
-          textTimerIcon.text = '00:00';
-          // console.log(selectedEnemiesList.length);
-          if (selectedEnemiesList.length > 0) {
-            console.log('You did not killed all enemies. You lost!');
-            // setDefeatScreenContainer();
+      function startTimer() {
+        let myTimer = setInterval(() => {
+          countdown--;
+          if (countdown === 0) {
+            textTimerIcon.text = '00:00';
+            // console.log(selectedEnemiesList.length);
+            if (selectedEnemiesList.length > 0) {
+              console.log('You did not killed all enemies. You lost!');
+              // setDefeatScreenContainer();
+            }
+            console.log(`Battle Finished!`);
+            setInteractive(pauseIcon, false);
+            for (let index in battleListOfHeroesIcons) {
+              setInteractive(battleListOfHeroesIcons[index].children[0], false);
+            }
+            // console.log(`${battleListOfHeroesIcons}`);
+            clearInterval(myTimer);
+            setTimeout(() => {
+              setDefeatScreenContainer();
+            }, 2000);
+          } else {
+            let minutes = ~~(countdown / 60);
+            if (minutes < 10) {
+              minutes = '0' + minutes;
+            }
+            let seconds = countdown % 60;
+            if (seconds < 10) {
+              seconds = '0' + seconds;
+            }
+            // console.log(minutes+':'+seconds);
+            textTimerIcon.text = minutes + ':' + seconds;
+            // console.log(`selectedEnemiesList.length: ${selectedEnemiesList.length}`);
           }
-          console.log(`Battle Finished!`);
-          setInteractive(pauseIcon, false);
-          for (let index in battleListOfHeroesIcons) {
-            setInteractive(battleListOfHeroesIcons[index].children[0], false);
-          }
-          // console.log(`${battleListOfHeroesIcons}`);
-          clearInterval(myTimer);
-          setTimeout(() => {
-            setDefeatScreenContainer();
-          }, 2000);
-        } else {
-          let minutes = ~~(countdown / 60);
-          if (minutes < 10) {
-            minutes = '0' + minutes;
-          }
-          let seconds = countdown % 60;
-          if (seconds < 10) {
-            seconds = '0' + seconds;
-          }
-          // console.log(minutes+':'+seconds);
-          textTimerIcon.text = minutes + ':' + seconds;
-          // console.log(`selectedEnemiesList.length: ${selectedEnemiesList.length}`);
-        }
-      }, 1000);
+        }, 1000);
+      }
+      startTimer();
 
       function chooseHeroUltSkill(index) {
         // console.log(`${heroObject[i].name}`);
@@ -6596,11 +6642,13 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
           case 'Amara':
             break;
           case 'Crystal':
+            castLeryssaUltSkill(heroObject[0]);
             break;
-          case 'Diuwin':
+          case 'Diu Win':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Leona':
-
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Leryssa':
             castLeryssaUltSkill(heroObject[index]);
@@ -6610,6 +6658,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
           case 'Nyx':
             break;
           case 'Sin':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Zalajin':
             break;
@@ -6685,6 +6734,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                       }
 
                       money += enemyObject[index].money_reward;
+                      // console.log('money E', money);
                       textMoneyBackground.text = `${money}`;
                       textMoneyBackground.position.set(
                         setMiddlePos(moneyBackground, textMoneyBackground).x,
@@ -6692,8 +6742,8 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                       );
 
                       if (selectedEnemiesList.length === 0) {
-                        // clearInterval(heroTimerAA);
-                        // clearInterval(myTimer);
+                        clearInterval(heroTimerAA);
+                        clearInterval(myTimer);
                         console.log('All enemies died! You won!');
                         setInteractive(pauseIcon, false);
                         for (let ind in battleListOfHeroesIcons)
@@ -6757,10 +6807,13 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         })();
       }
 
-      let heroHitArr = ['Leryssa', 'Leona'];
-      for (let hero of selectedHeroList) heroHitArr.push(hero.name);
+      let heroHitArr = [];
+      for (let hero of selectedHeroList) heroHitArr.push(hero);
+      console.log('heroHitArr', heroHitArr);
 
-      let enemyHitArr = ['Enemy 3', 'Enemy 4'];
+      let enemyHitArr = [];
+      for (let enemy of selectedEnemiesList) enemyHitArr.push(enemy);
+      console.log('enemyHitArr', enemyHitArr);
 
       function heroAttackStarted(heroContainer, hero, index) {
         let heroHit = false;
@@ -6773,7 +6826,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
           heroHit = true;
           // heroContainer.x -= 2;
           if (heroHitArr[index] === heroObject[index].name) {
-            // console.log(heroObject[index].name,': Hit!!');
+            // console.log(heroObject[index].name, ': Hit!!');
             let filteredHeroes = heroHitArr.filter(f => f !== heroObject[index].name);
             // console.log(filteredHeroes);
             heroHitArr = filteredHeroes;
@@ -6812,8 +6865,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
           for (let index in selectedEnemiesList) {
             switch (selectedEnemiesList[index]) {
               case 'Enemy 1':
+                enemyAttackStarted(enemy01Container, enemy01, index);
                 break;
               case 'Enemy 2':
+                enemyAttackStarted(enemy02Container, enemy02, index);
                 break;
               case 'Enemy 3':
                 enemyAttackStarted(enemy03Container, enemy03, index);
@@ -6823,8 +6878,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                 enemyAttackStarted(enemy04Container, enemy04, index);
                 break;
               case 'Enemy 5':
+                enemyAttackStarted(enemy05Container, enemy05, index);
                 break;
               case 'Enemy 6':
+                enemyAttackStarted(enemy06Container, enemy06, index);
                 break;
             }
           }
@@ -6836,8 +6893,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
               case 'Amara':
                 break;
               case 'Crystal':
+                heroAttackStarted(crystalContainer, crystal, index);
                 break;
-              case 'Diuwin':
+              case 'Diu Win':
+                heroAttackStarted(diuwinContainer, diuwin, index);
                 break;
               case 'Leona':
                 heroAttackStarted(leonaContainer, leona, index);
@@ -6850,6 +6909,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
               case 'Nyx':
                 break;
               case 'Sin':
+                heroAttackStarted(sinContainer, sin, index);
                 break;
               case 'Zalajin':
                 break;
@@ -6872,7 +6932,8 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
               case 'Crystal':
                 heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
                 break;
-              case 'Diuwin':
+              case 'Diu Win':
+                heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
                 break;
               case 'Leona':
                 heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
@@ -6885,6 +6946,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
               case 'Nyx':
                 break;
               case 'Sin':
+                heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
                 break;
               case 'Zalajin':
                 break;
@@ -6896,8 +6958,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
           for (let index in selectedEnemiesList) {
             switch (selectedEnemiesList[index]) {
               case 'Enemy 1':
+                enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
                 break;
               case 'Enemy 2':
+                enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
                 break;
               case 'Enemy 3':
                 enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
@@ -6906,8 +6970,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                 enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
                 break;
               case 'Enemy 5':
+                enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
                 break;
               case 'Enemy 6':
+                enemyAutoAttackTimer(enemyObject[index], selectedEnemiesList[index]);
                 break;
             }
           }
@@ -6974,7 +7040,7 @@ function enemyKilled(posX, posY, whichHero, t, textChestBackground, chests) {
     // console.log(`rewards: ${rewards}`);
     let id = resources[glyphsPath].textures;
     let glyph = new Sprite(id[`${rewards[i]}${png}`]);
-    console.log(`glyph: ${glyph}`);
+    // console.log(`glyph: ${glyph}`);
     glyph.scale.set(0.7);
     glyph.position.set(posX, posY);
     setInteractive(glyph, true);
@@ -7050,8 +7116,8 @@ function setVictoryScreenContainer(gold, rr) {
   setInteractive(btnNext, true);
   btnNext.on('click', () => {
     console.log(`btnNext clicked`);
-    // stage.removeChild(victoryScreenContainer);
-    // stage.addChild(attackScreenContainer);
+    stage.removeChild(victoryScreenContainer);
+    setMapContainer();
   });
 
   const back = new Container();
@@ -7085,24 +7151,24 @@ function setVictoryScreenContainer(gold, rr) {
   const textVictory = new Text(`VICTORY`, textStyleBattleEnd_80center_yellow);
   textVictory.position.set(GAME_WIDTH / 2 - textVictory.width / 2, 144);
 
-  // pridat ikony ze select screen ( ty co maji hvezdicky, lvl, ...)
+  // TODO: pridat ikony ze select screen ( ty co maji hvezdicky, lvl, ...)
 
   victoryScreenContainer.addChild(backgroundBattleOver, //btnStatistics,
     btnNext, back, textVictory);
 
-  function displayReward(index) {
-    let reward = new Sprite(resources[rr[index]].texture);
-    reward.position.set(348 + 168 * index, 864);
-
-    victoryScreenContainer.addChild(reward);
-  }
-
-  for (let i in rr) {
-    displayReward(i);
-  }
+  // function displayReward(index) {
+  //   let reward = new Sprite(resources[rr[index]].texture);
+  //   reward.position.set(348 + 168 * index, 864);
+  //
+  //   victoryScreenContainer.addChild(reward);
+  // }
+  //
+  // for (let i in rr) {
+  //   displayReward(i);
+  // }
 
   stage.addChild(victoryScreenContainer);
-  setLevelUpScreenContainer();
+  // setLevelUpScreenContainer();
 }
 
 function setDefeatScreenContainer() {
@@ -7120,8 +7186,8 @@ function setDefeatScreenContainer() {
   setInteractive(btnNext, true);
   btnNext.on('click', () => {
     console.log(`btnNext clicked`);
-    // stage.removeChild(victoryScreenContainer);
-    // stage.addChild(attackScreenContainer);
+    stage.removeChild(defeatScreenContainer);
+    setMapContainer();
   });
 
   const back = new Container();
@@ -7284,6 +7350,572 @@ function setLevelUpScreenContainer() {
   }
 
   loadImages();
+}
+
+function setSummonBooksContainer() {
+  for (let item of interMainScreenArray) {
+    setInteractive(item, false);
+  }
+
+  for (let item of interScrollArray) {
+    setInteractive(item, false);
+  }
+
+  summonBooksContainer = new Container();
+
+  // Load `backgroundEmptyBlurPath` string path
+  function loadBackgroundEmptyBlurImage() {
+    if (backgroundEmptyBlurPath in loader.resources) {
+      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      addBackgroundEmptyBlurImage();
+    } else {
+      loader
+        .add(backgroundEmptyBlurPath);
+    }
+
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundEmptyBlurImage();
+      });
+  }
+
+  function addBackgroundEmptyBlurImage() {
+    const backgroundEmptyBlur = new Sprite(resources[backgroundEmptyBlurPath].texture);
+    backgroundEmptyBlur.position.set(0, 0);
+
+    summonBooksContainer.addChild(backgroundEmptyBlur);
+  }
+
+  function loadBackgroundBookImage() {
+    if (backgroundBookPath in loader.resources) {
+      console.log(`${backgroundBookPath} - already in stage`);
+      addBackgroundBookImage();
+    } else {
+      loader
+        .add(backgroundBookPath);
+    }
+
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundBookImage();
+      });
+  }
+
+  function addBackgroundBookImage() {
+    const backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
+    backgroundDarker.position.set(0, 0);
+
+    const backgroundBook = new Sprite(resources[backgroundBookPath].texture);
+    backgroundBook.position.set(GAME_WIDTH / 2 - backgroundBook.width / 2, 144);
+
+    btnBack = new Sprite(resources[btnBackPath].texture);
+    btnBack.position.set(36, 36);
+    setInteractive(btnBack, true);
+    interSummonArray.push(btnBack);
+    btnBack.on('click', () => {
+      setTimeout(() => {
+        backIconClicked(btnBack, summonBooksContainer);
+      }, LATENCY / 2);
+    });
+
+    summonBooksContainer.addChild(backgroundDarker, backgroundBook, btnBack);
+
+    let bannerArena = new Sprite(resources[banner620x98Path].texture);
+    bannerArena.position.set(304, 180);
+
+    let textBannerArena = new Text('Book of Magic', textStyleLevel_40center_white);
+    textBannerArena.position.set(
+      setMiddlePos(bannerArena, textBannerArena).x,
+      setMiddlePos(bannerArena, textBannerArena).y - 8 //200
+    );
+
+    let bannerGBoM_sbc = new Sprite(resources[banner620x98Path].texture);
+    bannerGBoM_sbc.position.set(986, 180);
+
+    let textBannerGBoM_sbc = new Text('Grand Book of Magic', textStyleLevel_40center_white);
+    textBannerGBoM_sbc.position.set(
+      setMiddlePos(bannerGBoM_sbc, textBannerGBoM_sbc).x,
+      setMiddlePos(bannerGBoM_sbc, textBannerGBoM_sbc).y - 8 //200
+    );
+
+    let backgroundBoM_sbc = new Sprite(resources[summonBooksBackgroundPath].texture);
+    backgroundBoM_sbc.position.set(329, 290);
+
+    let boM_sbc = new Sprite(resources[bookOfMagicPath].texture);
+    boM_sbc.position.set(
+      setMiddlePos(backgroundBoM_sbc, boM_sbc).x,
+      setMiddlePos(backgroundBoM_sbc, boM_sbc).y
+    );
+
+    let backgroundGBoM_sbc = new Sprite(resources[summonBooksBackgroundPath].texture);
+    backgroundGBoM_sbc.position.set(1005, 290);
+
+    let gBoM_sbc = new Sprite(resources[grandBookOfMagicPath].texture);
+    gBoM_sbc.position.set(
+      setMiddlePos(backgroundGBoM_sbc, gBoM_sbc).x,
+      setMiddlePos(backgroundGBoM_sbc, gBoM_sbc).y
+    );
+
+    // Book of Magic Summon x1
+    btnSummonx1BoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
+    btnSummonx1BoM_sbc.position.set(341, 814);
+
+    let textBtnSummonx1BoM_sbc = new Text('Summon x1', textStyle_32center_black);
+    textBtnSummonx1BoM_sbc.position.set(
+      setMiddlePos(btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc).x,
+      setMiddlePos(btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc).y
+    );
+
+    let lblGoldAboveBtnSummonx1BoM_sbc = new Sprite(resources[lblSummonPath].texture);
+    lblGoldAboveBtnSummonx1BoM_sbc.position.set(353, 761);
+
+    let leftGoldIcon = new Sprite(resources[goldIconPath].texture);
+    leftGoldIcon.position.set(341, 758);
+    leftGoldIcon.width = 48;
+    leftGoldIcon.height = 48;
+
+    let textLblGoldAboveBtnSummonx1BoM_sbc = new Text('Free', textStyle_32center_black); // Free or 10000
+    textLblGoldAboveBtnSummonx1BoM_sbc.position.set(
+      setMiddlePos(lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc).x,
+      setMiddlePos(lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc).y + 2
+    );
+
+    let textAboveLblGoldAboveBtnSummonx1BoM_sbc = new Text('', textStyle_32center_black);
+    textAboveLblGoldAboveBtnSummonx1BoM_sbc.position.set(
+      setMiddlePos(btnSummonx1BoM_sbc, textAboveLblGoldAboveBtnSummonx1BoM_sbc).x,
+      720,
+    );
+
+    // Book of Magic Summon x10
+    let btnSummonx10BoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
+    btnSummonx10BoM_sbc.position.set(637, 814);
+
+    let textBtnSummonx10BoM_sbc = new Text('Summon x10', textStyle_32center_black);
+    textBtnSummonx10BoM_sbc.position.set(
+      setMiddlePos(btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc).x,
+      setMiddlePos(btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc).y
+    );
+
+    let lblGoldAboveBtnSummonx10BoM_sbc = new Sprite(resources[lblSummonPath].texture);
+    lblGoldAboveBtnSummonx10BoM_sbc.position.set(649, 761);
+
+    let rightGoldIcon = new Sprite(resources[goldIconPath].texture);
+    rightGoldIcon.position.set(637, 758);
+    rightGoldIcon.width = 48;
+    rightGoldIcon.height = 48;
+
+    let textLblGoldAboveBtnSummonx10BoM_sbc = new Text('90000', textStyle_32center_black);
+    textLblGoldAboveBtnSummonx10BoM_sbc.position.set(
+      setMiddlePos(lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc).x,
+      setMiddlePos(lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc).y + 2
+    );
+
+    let textLblGold10pOffBoM_sbc = new Text('10% OFF', textStyle10pOff_20right_red);
+    textLblGold10pOffBoM_sbc.position.set(
+      lblGoldAboveBtnSummonx10BoM_sbc.x + lblGoldAboveBtnSummonx10BoM_sbc.width - textLblGold10pOffBoM_sbc.width - 4,
+      setMiddlePos(textLblGoldAboveBtnSummonx10BoM_sbc, textLblGold10pOffBoM_sbc).y
+    );
+
+    // Grand Book of magic Summon x1
+    btnSummonx1GBoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
+    btnSummonx1GBoM_sbc.position.set(1017, 814);
+
+    let textBtnSummonx1GBoM_sbc = new Text('Summon x1', textStyle_32center_black);
+    textBtnSummonx1GBoM_sbc.position.set(
+      setMiddlePos(btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc).x,
+      setMiddlePos(btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc).y
+    );
+
+    let lblGoldAboveBtnSummonx1GBoM_sbc = new Sprite(resources[lblSummonPath].texture);
+    lblGoldAboveBtnSummonx1GBoM_sbc.position.set(1029, 761);
+
+    let leftDiamondIcon = new Sprite(resources[diamondIconPath].texture);
+    leftDiamondIcon.position.set(1017, 758);
+    leftDiamondIcon.width = 48;
+    leftDiamondIcon.height = 48;
+
+    let textLblGoldAboveBtnSummonx1GBoM_sbc = new Text('Free', textStyle_32center_black); // Free or 288
+    textLblGoldAboveBtnSummonx1GBoM_sbc.position.set(
+      setMiddlePos(lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc).x,
+      setMiddlePos(lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc).y + 2
+    );
+
+    let textAboveLblGoldAboveBtnSummonx1GBoM_sbc = new Text('', textStyle_32center_black);
+    textAboveLblGoldAboveBtnSummonx1GBoM_sbc.position.set(
+      setMiddlePos(btnSummonx1GBoM_sbc, textAboveLblGoldAboveBtnSummonx1GBoM_sbc).x,
+      720,
+    );
+
+    // Grand Book of magic Summon x10
+    let btnSummonx10GBoM_sbc = new Sprite(resources[btnGreen260x72Path].texture);
+    btnSummonx10GBoM_sbc.position.set(1313, 814);
+
+    let textBtnSummonx10GBoM_sbc = new Text('Summon x10', textStyle_32center_black);
+    textBtnSummonx10GBoM_sbc.position.set(
+      setMiddlePos(btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc).x,
+      setMiddlePos(btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc).y
+    );
+
+    let lblGoldAboveBtnSummonx10GBoM_sbc = new Sprite(resources[lblSummonPath].texture);
+    lblGoldAboveBtnSummonx10GBoM_sbc.position.set(1325, 761);
+
+    let rightDiamondIcon = new Sprite(resources[diamondIconPath].texture);
+    rightDiamondIcon.position.set(1313, 758);
+    rightDiamondIcon.width = 48;
+    rightDiamondIcon.height = 48;
+
+    let textLblGoldAboveBtnSummonx10GBoM_sbc = new Text('2590', textStyle_32center_black);
+    textLblGoldAboveBtnSummonx10GBoM_sbc.position.set(
+      setMiddlePos(btnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc).x,
+      setMiddlePos(lblGoldAboveBtnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc).y + 2
+    );
+
+    let textLblGold10pOffGBoM_sbc = new Text('10% OFF', textStyle10pOff_20right_red);
+    textLblGold10pOffGBoM_sbc.position.set(
+      lblGoldAboveBtnSummonx10GBoM_sbc.x + lblGoldAboveBtnSummonx10GBoM_sbc.width - textLblGold10pOffGBoM_sbc.width - 4,
+      setMiddlePos(textLblGoldAboveBtnSummonx10GBoM_sbc, textLblGold10pOffGBoM_sbc).y
+    );
+
+    summonBooksContainer.addChild(
+      // backgroundEmpty_sbc, backgroundDarker_sbc, backgroundBook_sbc,
+      bannerArena, textBannerArena, backgroundBoM_sbc, boM_sbc,
+      btnSummonx1BoM_sbc, textBtnSummonx1BoM_sbc,
+      lblGoldAboveBtnSummonx1BoM_sbc, textLblGoldAboveBtnSummonx1BoM_sbc,
+      leftGoldIcon,
+      textAboveLblGoldAboveBtnSummonx1BoM_sbc,
+      btnSummonx10BoM_sbc, textBtnSummonx10BoM_sbc,
+      lblGoldAboveBtnSummonx10BoM_sbc, textLblGoldAboveBtnSummonx10BoM_sbc,
+      rightGoldIcon, textLblGold10pOffBoM_sbc,
+      bannerGBoM_sbc, textBannerGBoM_sbc, backgroundGBoM_sbc, gBoM_sbc,
+      btnSummonx1GBoM_sbc, textBtnSummonx1GBoM_sbc,
+      lblGoldAboveBtnSummonx1GBoM_sbc, textLblGoldAboveBtnSummonx1GBoM_sbc,
+      leftDiamondIcon,
+      textAboveLblGoldAboveBtnSummonx1GBoM_sbc,
+      btnSummonx10GBoM_sbc, textBtnSummonx10GBoM_sbc,
+      lblGoldAboveBtnSummonx10GBoM_sbc, textLblGoldAboveBtnSummonx10GBoM_sbc,
+      rightDiamondIcon, textLblGold10pOffGBoM_sbc
+    );
+
+    setInteractive(btnSummonx1BoM_sbc, true);
+    interSummonArray.push(btnSummonx1BoM_sbc);
+    btnSummonx1BoM_sbc.on('pointerup', () => {
+      console.log('btnSummonx1BoM_sbc clicked');
+      //      socket.emit('summonx1BoM', 'summonx1BoMClicked');
+      setSummonContainer(1);
+    });
+
+    setInteractive(btnSummonx1GBoM_sbc, true);
+    interSummonArray.push(btnSummonx1GBoM_sbc);
+    btnSummonx1GBoM_sbc.on('pointerup', () => {
+      console.log('btnSummonx1GBoM_sbc clicked');
+      //      socket.emit('summonx1GBoM', 'summonx1GBoMClicked');
+      setSummonContainer(2);
+    });
+  }
+
+  loadBackgroundEmptyBlurImage();
+  loadBackgroundBookImage();
+
+  stage.addChild(summonBooksContainer);
+}
+
+const b_rewards = ['ability_power_icon', 'armor_icon', 'armor_pen_icon', 'attack_damage_icon',
+  'attack_force_icon', 'crit_strike_icon', 'double_attack_icon', 'energy_regen_icon',
+  'hardiness_icon', 'health_icon', 'health_regen_icon', 'magic_force_icon',
+  'magic_pen_icon', 'magic_resist_icon', 'regenerate_icon'
+];
+
+const gb_rewards = ['aggression_icon', 'avarice_icon', 'balance_icon', 'bloodthirst_icon', 'bravery_icon',
+  'cardio_icon', 'defense_icon', 'divine_power_icon', 'enforcement_icon', 'extra_health_icon',
+  'fortitude_icon', 'chivalry_icon', 'illusion_icon', 'immortality_icon', 'infinity_icon',
+  'magic_shield_icon', 'meditation_icon', 'nature_icon', 'osmosis_icon', 'providence_icon',
+  'prowess_icon', 'sublimity_icon', 'valor_icon'
+];
+
+let interSummonArray = [];
+
+//
+function setSummonContainer(num) {
+  //    console.log(`${b_rewards[getRandomInt(0, b_rewards.length-1)]}.png`);
+  let summonReward;
+
+  if (num === 1) {
+    summonReward = b_rewards[getRandomInt(0, b_rewards.length - 1)];
+    setTimeout(() => {
+      socket.emit('saveItem', summonReward);
+      // console.log(summonReward);
+    }, 100);
+  } else if (num === 2) {
+    summonReward = gb_rewards[getRandomInt(0, gb_rewards.length - 1)];
+    setTimeout(() => {
+      socket.emit('saveItem', summonReward);
+      // console.log(summonReward);
+    }, 100);
+  }
+
+  function addGlyphIcon(reward) {
+    let id = resources[glyphsPath].textures;
+    let glyph = new Sprite(id[`${reward}${png}`]);
+
+    //        glyph.width = glyph.height = 48;
+    glyph.position.set(
+      GAME_WIDTH / 2 - glyph.width / 2,
+      GAME_HEIGHT / 2 - glyph.height / 2 - 48
+    );
+
+    setTimeout(() => {
+      summonContainer.addChild(glyph);
+    }, 1000);
+  }
+
+  const summonContainer = new Container();
+
+  for (let item of interSummonArray) {
+    setInteractive(item, false);
+  }
+
+  // setInteractive(btnSummonx1BoM_sbc, false);
+  // setInteractive(btnSummonx1GBoM_sbc, false);
+  // setInteractive(btnBack, false);
+
+  let backgroundEmpty_suc = new Sprite(resources[backgroundEmptyPath].texture);
+  backgroundEmpty_suc.position.set(0, 0);
+
+  let backgroundDarker_suc = new Sprite(resources[backgroundDarkerPath].texture);
+  backgroundDarker_suc.position.set(0, 0);
+
+  let summoningBook_suc = new Sprite(resources[summoningBookPath].texture);
+  summoningBook_suc.position.set(GAME_WIDTH / 2 - summoningBook_suc.width / 2, -56);
+
+  let banner_suc = new Sprite(resources[banner620x98Path].texture);
+  banner_suc.position.set(GAME_WIDTH / 2 - banner_suc.width / 2, 48);
+
+  let textBanner_suc = new Text('Summoning Book', textStyleLevel_40center_white);
+  textBanner_suc.position.set(
+    setMiddlePos(banner_suc, textBanner_suc).x,
+    setMiddlePos(banner_suc, textBanner_suc).y - 8
+  );
+
+  let btn10More_suc = new Sprite(resources[btnGreen260x72Path].texture);
+  btn10More_suc.position.set(620, 960);
+
+  let textBtn10More_suc = new Text('10 more', textStyle_32center_black);
+  textBtn10More_suc.position.set(
+    setMiddlePos(btn10More_suc, textBtn10More_suc).x,
+    setMiddlePos(btn10More_suc, textBtn10More_suc).y
+  );
+
+  let lblLeft_suc = new Sprite(resources[lblSummonPath].texture);
+  lblLeft_suc.position.set(
+    284,
+    setMiddlePos(btn10More_suc, lblLeft_suc).y
+  );
+
+  let goldIcon10More = new Sprite(resources[goldIconPath].texture);
+  goldIcon10More.position.set(272, lblLeft_suc.y - 13);
+
+  let diamondIcon10More = new Sprite(resources[diamondIconPath].texture);
+
+  let textLblLeft_suc = new Text('90000 / 2590', textStyle_32center_black);
+  textLblLeft_suc.position.set(
+    setMiddlePos(lblLeft_suc, textLblLeft_suc).x,
+    setMiddlePos(lblLeft_suc, textLblLeft_suc).y
+  );
+
+  let btn1More_suc = new Sprite(resources[btnGreen260x72Path].texture);
+  btn1More_suc.position.set(1376, 960);
+  setInteractive(btn1More_suc, true);
+  btn1More_suc.on('pointerup', () => {
+    //      console.log('btnSummonx1BoM_sbc clicked');
+    stage.removeChild(summonContainer);
+    setSummonContainer(num);
+  });
+
+  let textBtn1More_suc = new Text('1 more', textStyle_32center_black);
+  textBtn1More_suc.position.set(
+    setMiddlePos(btn1More_suc, textBtn1More_suc).x,
+    setMiddlePos(btn1More_suc, textBtn1More_suc).y
+  );
+
+  let lblRight_suc = new Sprite(resources[lblSummonPath].texture);
+  lblRight_suc.position.set(
+    1040,
+    setMiddlePos(btn1More_suc, lblRight_suc).y
+  );
+
+  let goldIcon1More = new Sprite(resources[goldIconPath].texture);
+  goldIcon1More.position.set(1028, lblRight_suc.y - 13);
+
+  let diamondIcon1More = new Sprite(resources[diamondIconPath].texture);
+
+  let textLblRight_suc = new Text('1000 / 288', textStyle_32center_black);
+  textLblRight_suc.position.set(
+    setMiddlePos(lblRight_suc, textLblRight_suc).x,
+    setMiddlePos(lblRight_suc, textLblRight_suc).y
+  );
+
+  let btnBackInSummon = new Sprite(resources[btnBackPath].texture);
+  btnBackInSummon.position.set(36, 36);
+  setInteractive(btnBackInSummon, true);
+  // interBtnBackStartArray.push(btnBackInSummon);
+  btnBackInSummon.on('click', () => {
+    setTimeout(() => {
+      backIconInSummon(summonContainer);
+    }, LATENCY / 2);
+  });
+
+  summonContainer.addChild(
+    backgroundEmpty_suc, backgroundDarker_suc, btnBackInSummon,
+    summoningBook_suc, banner_suc, textBanner_suc,
+    lblLeft_suc, textLblLeft_suc, goldIcon10More,
+    btn10More_suc, textBtn10More_suc,
+    lblRight_suc, textLblRight_suc, goldIcon1More,
+    btn1More_suc, textBtn1More_suc
+  );
+
+  addGlyphIcon(summonReward);
+
+  stage.addChild(summonContainer);
+}
+
+//
+function setInventoryContainer() {
+  const inventoryContainer = new Container();
+
+  for (let item of interMainScreenArray) {
+    setInteractive(item, false);
+  }
+
+  for (let item of interScrollArray) {
+    setInteractive(item, false);
+  }
+
+  // socket.emit('getInventory');
+  // socket.on('getInventoryData', data => {
+  //   console.log('getInventoryData', data);
+  //
+  //   let inventory = data.inventory;
+  //
+  //   // for (let item of inventory) addItem(item, inventory.indexOf(item));
+  //
+  //   socket.off('getInventoryData');
+  // });
+
+  // Load `backgroundEmptyBlurPath` string path
+  function loadBackgroundEmptyBlurImage() {
+    if (backgroundEmptyBlurPath in loader.resources) {
+      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      addBackgroundEmptyBlurImage();
+    } else {
+      loader
+        .add(backgroundEmptyBlurPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundEmptyBlurImage();
+      });
+  }
+
+  function addBackgroundEmptyBlurImage() {
+    const backgroundEmptyBlur = new Sprite(resources[backgroundEmptyBlurPath].texture);
+    backgroundEmptyBlur.position.set(0, 0);
+
+    inventoryContainer.addChild(backgroundEmptyBlur);
+
+    function loadBackgroundBookImage() {
+      if (backgroundBookPath in loader.resources) {
+        console.log(`${backgroundBookPath} - already in stage`);
+        addBackgroundBookImage();
+      } else {
+        loader
+          .add(backgroundBookPath);
+      }
+      loader
+        .once('complete', (loader, resources) => {
+          addBackgroundBookImage();
+        });
+    }
+
+    function addBackgroundBookImage() {
+
+      //        addDarkerBackground(heroesContainer);
+      const backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
+      backgroundDarker.position.set(0, 0);
+
+      const backgroundBook = new Sprite(resources[backgroundBookPath].texture);
+      backgroundBook.position.set(GAME_WIDTH / 2 - backgroundBook.width / 2, 144);
+
+      btnBack = new Sprite(resources[btnBackPath].texture);
+      btnBack.position.set(36, 36);
+      setInteractive(btnBack, true);
+      btnBack.on('click', () => {
+        console.log('btnBack clicked');
+        setTimeout(() => {
+          backIconClicked(btnBack, inventoryContainer);
+        }, LATENCY / 2);
+      });
+
+      inventoryContainer.addChild(backgroundDarker, backgroundBook, btnBack);
+
+      // let inventoryItemContainer = new Container();
+      // inventoryItemContainer.x = 1030;
+      // inventoryItemContainer.y = 200;
+      // inventoryItemContainer.interactive = true;
+
+      function addItem(item, index) {
+        let t = ~~(index / 4);
+        let z = index % 4;
+        // console.log(index, t, z);
+
+        let id = resources[glyphsPath].textures;
+        let glyph = new Sprite(id[`${item}${png}`]);
+
+        let x = 1030 + (glyph.width + 12) * z;
+        let y = 200 + (glyph.height + 12) * t;
+
+        glyph.position.set(x, y);
+
+        setTimeout(() => {
+          inventoryContainer.addChild(glyph);
+        }, 100);
+      }
+
+      socket.emit('getInventory');
+      socket.on('getInventoryData', data => {
+        console.log('getInventoryData', data);
+
+        let inventory = data.inventory;
+
+        for (let i = 0; i < inventory.length; i++) addItem(inventory[i], i);
+
+        socket.off('getInventoryData');
+      });
+
+      // inventoryContainer.addChild(inventoryItemContainer);
+      //
+      // // Create mask rectangle
+      // const myMask = new Sprite(resources[statsBottomBackgroundPath].texture);
+      // myMask.position.set(1030, 200);
+      //
+      // inventoryContainer.addChild(myMask);
+      //
+      // inventoryItemContainer.mask = myMask;
+      //
+      // // Methods for dragging 'statsBottomBackgroundContainer'
+      // inventoryItemContainer
+      //   .on('pointerdown', onDragStart)
+      //   .on('pointerup', onDragEnd)
+      //   .on('pointermove', onDragMoveY)
+      //   .on('pointerupoutside', onDragOutside);
+
+    }
+
+    loadBackgroundBookImage();
+  }
+
+  loadBackgroundEmptyBlurImage();
+
+  stage.addChild(inventoryContainer);
 }
 
 function heroMove(heroContainer) {

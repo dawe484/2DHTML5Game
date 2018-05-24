@@ -116,8 +116,14 @@ const EnemySchema = new Schema({
     required: true
   },
   // magic_resist_inc: { type: Number, required: true },
-  // attack_speed: { type: Number, required: true },
-  // attack_speed_inc: { type: Number, required: true },
+  attack_speed: {
+    type: Number,
+    required: true
+  },
+  attack_speed_inc: {
+    type: Number,
+    required: true
+  },
   // health_regen: { type: Number, required: true },
   // health_regen_inc: { type: Number, required: true },
   movement_speed: {
