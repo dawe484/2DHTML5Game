@@ -452,90 +452,90 @@ function init() {
     // Use PIXI's built-in 'loader' module to load an image and run the 'setup' function when it's done
     loader
       .add([
-        // loadingBackgroundPath,
+        loadingBackgroundPath,
         backgroundEmptyPath, // backgroundEmptyBlurPath,
-        // backgroundDarkerPath,
-        // btn144x144Path, btn144x72Path, btn96x144Path, //avatarScreenBackgroundPath,
-        // btnBackPath, //backgroundBookPath,
-        // btnGreen248x60Path, btnGreen260x72Path,
-        // avatarImageJsonPath, avatarBorderJsonPath, avatarLevelJsonPath,
-        // barBackgroundPath, plusIconPath, goldIconPath, diamondIconPath, //handIconPath,
-        // btnClosePath,
-        // // avatarChangeNameBackgroundPath,
-        // // apprenticePath, playerPath, masterPath, bubblePath,
+        backgroundDarkerPath,
+        btn144x144Path, btn144x72Path, btn96x144Path, //avatarScreenBackgroundPath,
+        btnBackPath, //backgroundBookPath,
+        btnGreen248x60Path, btnGreen260x72Path,
+        avatarImageJsonPath, avatarBorderJsonPath, avatarLevelJsonPath,
+        barBackgroundPath, plusIconPath, goldIconPath, diamondIconPath, //handIconPath,
+        btnClosePath,
+        // avatarChangeNameBackgroundPath,
+        // apprenticePath, playerPath, masterPath, bubblePath,
         arrowDown120x48Path,
-        // scrollBtn192x72Path, scrollArrow72x36Path, scroll192x1068Path,
-        // scrollBtn192x48Path,
-        // glyphsPath, glyphsNoPath,
-        // // scroll312x192Path,
-        // // // Avatar
-        // // // avatarBorderPath,
-        // // avatarImagePath, //avatarLevelBluePath, avatarFieldPath,
-        // banner620x98Path, // banner620x98GreyPath,
-        // summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
-        // summoningBookPath, // leryssaSummonIconPath, leonaSummonIconPath,
-        // // //avatarChangeNameNamefieldPath, dicePath,
-        // // // Grey Glyphs
-        // // // noGlyphIconPath,
-        // // // abilityPowerIconPath, armorIconPath, armorPenIconPath,
-        // // // attackDamageIconPath, attackForceIconPath, critStrikeIconPath,
-        // // // doubleAttackIconPath, energyRegenIconPath, hardinessIconPath,
-        // // // healthIconPath, healthRegenIconPath, magicForceIconPath, magicPenIconPath,
-        // // // magicResistIconPath, regenerateIconPath,
-        // // // // // Green Glyphs
-        // // // aggressionIconPath, avariceIconPath, balanceIconPath, bloodthirstIconPath,
-        // // // braveryIconPath, cardioIconPath, defenseIconPath, divinePowerIconPath,
-        // // // enforcementIconPath, extraHealthIconPath, fortitudeIconPath, chivalryIconPath,
-        // // // illusionIconPath, immortalityIconPath, infinityIconPath, magicShieldIconPath,
-        // // // meditationIconPath, natureIconPath, osmosisIconPath, providenceIconPath,
-        // // // prowessIconPath, sublimityIconPath, valorIconPath,
-        // // // Blue Glyphs
-        // // // Purple Glyphs
-        // // // Orange Glyphs
-        // // // -----------------------------------------------------------------------
-        // // // Heroes
-        // // // leftArrowIconPath, rightArrowIconPath,
-        // // // bookmarkIconPath, // allIconPath,
-        // // // fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
-        // // // tankIconPath, // borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
-        // // // borderBluePlus1Path, borderBluePlus2Path,
-        // // //starIconPath,
-        // // // pedestalPath,
-        // // // starBackgroundPath,
-        // // // expBackgroundPath, // pageIconPath,
-        // // // heroUpperBackgroundPath, heroBottomBackgroundPath,
-        // // // equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
-        // // // skillsIconPath, skillsIconSelectedPath, // statsIconPath, statsIconSelectedPath,
-        // // // awakenIconPath, awakenIconBackgroundPath,
-        // // // nextGlyphsIconPath,
-        // // helpIconPath,
+        scrollBtn192x72Path, scrollArrow72x36Path, scroll192x1068Path,
+        scrollBtn192x48Path,
+        glyphsPath, glyphsNoPath,
+        // scroll312x192Path,
+        // // Avatar
+        // // avatarBorderPath,
+        // avatarImagePath, //avatarLevelBluePath, avatarFieldPath,
+        banner620x98Path, // banner620x98GreyPath,
+        summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
+        summoningBookPath, // leryssaSummonIconPath, leonaSummonIconPath,
+        // //avatarChangeNameNamefieldPath, dicePath,
+        // // Grey Glyphs
+        // // noGlyphIconPath,
+        // // abilityPowerIconPath, armorIconPath, armorPenIconPath,
+        // // attackDamageIconPath, attackForceIconPath, critStrikeIconPath,
+        // // doubleAttackIconPath, energyRegenIconPath, hardinessIconPath,
+        // // healthIconPath, healthRegenIconPath, magicForceIconPath, magicPenIconPath,
+        // // magicResistIconPath, regenerateIconPath,
+        // // // // Green Glyphs
+        // // aggressionIconPath, avariceIconPath, balanceIconPath, bloodthirstIconPath,
+        // // braveryIconPath, cardioIconPath, defenseIconPath, divinePowerIconPath,
+        // // enforcementIconPath, extraHealthIconPath, fortitudeIconPath, chivalryIconPath,
+        // // illusionIconPath, immortalityIconPath, infinityIconPath, magicShieldIconPath,
+        // // meditationIconPath, natureIconPath, osmosisIconPath, providenceIconPath,
+        // // prowessIconPath, sublimityIconPath, valorIconPath,
+        // // Blue Glyphs
+        // // Purple Glyphs
+        // // Orange Glyphs
+        // // -----------------------------------------------------------------------
         // // Heroes
-        // aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
-        // nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
-        // // Heroes Gold
-        // aeloisGoldPath, amaraGoldPath, crystalGoldPath, diuwinGoldPath, leonaGoldPath,
-        // leryssaGoldPath, nadiaGoldPath, nyxGoldPath, sinGoldPath, zalajinGoldPath,
-        // zayaGoldPath,
-        // // Heroes Stats
-        // aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath,
-        // leryssaStatsPath, nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath,
-        // zayaStatsPath,
-        // // Heroes Icons
-        // aeloisIconSPath, amaraIconSPath, crystalIconSPath, diuwinIconSPath, leonaIconSPath,
-        // leryssaIconSPath, nadiaIconSPath, nyxIconSPath, sinIconSPath, zalajinIconSPath,
-        // zayaIconSPath,
-        // // Heroes
-        // // ---------------------
-        // // leonaSkillIconPath,
-        // // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath,
-        // // statsBottomBackgroundPath,
-        // // // statsGreyLabelPath, statsWhiteLabelPath,
-        // // mapBackgroundPath, mapPath,
-        // // difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
-        // // legendDifficultyIconPath,
-        // // Enemies
-        // enemy01Path, enemy02Path, enemy03Path, enemy04Path, enemy05Path, enemy06Path
-        // // pauseIconPath
+        // // leftArrowIconPath, rightArrowIconPath,
+        // // bookmarkIconPath, // allIconPath,
+        // // fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
+        // // tankIconPath, // borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
+        // // borderBluePlus1Path, borderBluePlus2Path,
+        // //starIconPath,
+        // // pedestalPath,
+        // // starBackgroundPath,
+        // // expBackgroundPath, // pageIconPath,
+        // // heroUpperBackgroundPath, heroBottomBackgroundPath,
+        // // equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
+        // // skillsIconPath, skillsIconSelectedPath, // statsIconPath, statsIconSelectedPath,
+        // // awakenIconPath, awakenIconBackgroundPath,
+        // // nextGlyphsIconPath,
+        // helpIconPath,
+        // Heroes
+        aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
+        nadiaPath, nyxPath, sinPath, zalajinPath, zayaPath,
+        // Heroes Gold
+        aeloisGoldPath, amaraGoldPath, crystalGoldPath, diuwinGoldPath, leonaGoldPath,
+        leryssaGoldPath, nadiaGoldPath, nyxGoldPath, sinGoldPath, zalajinGoldPath,
+        zayaGoldPath,
+        // Heroes Stats
+        aeloisStatsPath, amaraStatsPath, crystalStatsPath, diuwinStatsPath, leonaStatsPath,
+        leryssaStatsPath, nadiaStatsPath, nyxStatsPath, sinStatsPath, zalajinStatsPath,
+        zayaStatsPath,
+        // Heroes Icons
+        aeloisIconSPath, amaraIconSPath, crystalIconSPath, diuwinIconSPath, leonaIconSPath,
+        leryssaIconSPath, nadiaIconSPath, nyxIconSPath, sinIconSPath, zalajinIconSPath,
+        zayaIconSPath,
+        // Heroes
+        // ---------------------
+        // leonaSkillIconPath,
+        // skillBackgroundPath, skillLabelPath, // statsUpperBackgroundPath,
+        // statsBottomBackgroundPath,
+        // // statsGreyLabelPath, statsWhiteLabelPath,
+        // mapBackgroundPath, mapPath,
+        // difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
+        // legendDifficultyIconPath,
+        // Enemies
+        enemy01Path, enemy02Path, enemy03Path, enemy04Path, enemy05Path, enemy06Path
+        // pauseIconPath
       ])
       .on("progress", loadProgressHandler)
       .load(setup);
@@ -543,7 +543,7 @@ function init() {
 
   function loadProgressHandler(loader, resource) {
     // Display the file 'url' currently being loaded
-    console.log(`loading: ${resource.url}`);
+    // console.log(`loading: ${resource.url}`);
     // console.log(`Error: ${resource.error}`);
 
     // Display the precentage of files currently loaded
@@ -835,15 +835,15 @@ function init() {
     // });
     // socket.on('storyTutorialData', (data) => {
     // console.log(data.message);
-    // setStoryTutorialContainer(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    setStoryTutorialContainer(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // });
 
-    let c = new Container();
-    let b = new Sprite(resources[backgroundEmptyPath].texture);
-    b.position.set(100, 200);
-    b.width = 600;
-    c.addChild(b);
-    stage.addChild(c);
+    // let c = new Container();
+    // let b = new Sprite(resources[backgroundEmptyPath].texture);
+    // b.position.set(100, 200);
+    // b.width = 600;
+    // c.addChild(b);
+    // stage.addChild(c);
 
     // ----- MAIN SCREEN -----
     // loadMainScreenContainerData();
