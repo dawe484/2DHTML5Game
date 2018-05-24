@@ -328,7 +328,14 @@ io.on('connection', (socket) => {
   SOCKET_LIST[socket.id] = socket;
   let address = socket.handshake.headers.referer;
   console.log(address); // 27
-  let playerName = address.substr(27);
+
+  let playerName;
+
+  if (address.substr(7, 9) == 'localhost') {
+    playerName = address.substr(27); // on localhost need this !!
+  } else {
+    playerName = address.substr(41); // on heroku need this !!
+  }
 
   console.log('player:', playerName, 'connected on socket:', socket.id, '.');
 
