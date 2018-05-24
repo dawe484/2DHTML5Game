@@ -9,6 +9,7 @@ mongoose.connect('mongodb://leyzi:NYC18vol@ds019664.mlab.com:19664/mh_db');
 let heroes = [
   // Leryssa
   new Hero({
+    summoned: 'yes',
     icon_path: 'images/game/heroes/leryssa/leryssa-icon.png',
     icon_selected_path: '/images/game/heroes/leryssa/leryssa_icon_selected.png',
     web_image_path: 'images/game/heroes/leryssa/leryssa-web.png',
@@ -28,10 +29,10 @@ let heroes = [
     // hero_next_lvl_exp: 8,
     // color: 'Grey',
     // color_number: 0,
-    attack_range: 200,
+    attack_range: 60,
     power: 204,
     power_inc: 15,
-    health: 540,
+    health: 340, //540,
     health_inc: 82,
     attack_damage: 46,
     attack_damage_inc: 3,
@@ -42,10 +43,10 @@ let heroes = [
     magic_resist: 22,
     magic_resist_inc: 1.8,
     attack_speed: 100,
-    attack_speed_inc: 0.008,
+    attack_speed_inc: 0.2, //0.008,
     health_regen: 32,
     health_regen_inc: 0.06,
-    movement_speed: 345,
+    movement_speed: 355,
     energy_regen: 300,
     crit_damage_lvl: 0,
     crit_strike_lvl: 0,
@@ -64,9 +65,10 @@ let heroes = [
         description: "Leryssa signals her ship to bombard an area, slowing and damaging enemies.\nSignals Leryssa's ship to fire 4 waves of cannonballs at an area over 8 seconds. Each wave deals (power+10% Ability Power)*1,1 magic damage and slows enemies by 30% for 2 seconds.",
         skill_type: 'magic',
         skill_level: 1,
-        flat_dmg: 0,
-        flat_dmg_inc: 1.1,
-        skill_power: 0
+        flat_dmg: 40, //0,
+        flat_dmg_inc: 0, //1.1,
+        skill_power: 0,
+        skill_cd: 2
       },
       {
         icon_path: 'https://akela.mendelu.cz/~xkrenar/game/database_image_path/heroes/leryssa/skill_2-yum_yum.png',
@@ -189,6 +191,7 @@ let heroes = [
   }),
   // Diu Win
   new Hero({
+    summoned: 'yes',
     icon_path: 'images/game/heroes/diuwin/diu_win-icon.png',
     icon_selected_path: '/images/game/heroes/diuwin/diuwin_icon_selected.png',
     web_image_path: 'images/game/heroes/diuwin/diu_win-web.png',
@@ -209,7 +212,7 @@ let heroes = [
     attack_range: 200,
     power: 207,
     power_inc: 15,
-    health: 368,
+    health: 236, //368,
     health_inc: 73,
     attack_damage: 57,
     attack_damage_inc: 3.8,
@@ -219,7 +222,7 @@ let heroes = [
     armor_inc: 2,
     magic_resist: 22,
     magic_resist_inc: 1.2,
-    attack_speed: 100,
+    attack_speed: 110, //100,
     attack_speed_inc: 0.01,
     health_regen: 22,
     health_regen_inc: 0.06,
@@ -367,6 +370,7 @@ let heroes = [
   }),
   // Crystal
   new Hero({
+    summoned: 'yes',
     icon_path: 'images/game/heroes/crystal/crystal-icon.png',
     icon_selected_path: '/images/game/heroes/crystal/crystal_icon_selected.png',
     web_image_path: 'images/game/heroes/crystal/crystal-web.png',
@@ -387,7 +391,7 @@ let heroes = [
     attack_range: 650,
     power: 209,
     power_inc: 15,
-    health: 332,
+    health: 175, // 332,
     health_inc: 74,
     attack_damage: 0,
     attack_damage_inc: 0,
@@ -401,7 +405,7 @@ let heroes = [
     attack_speed_inc: 0,
     health_regen: 20,
     health_regen_inc: 0.06,
-    movement_speed: 345,
+    movement_speed: 315,
     energy_regen: 300,
     crit_damage_lvl: 0,
     crit_strike_lvl: 0,
@@ -545,6 +549,7 @@ let heroes = [
   }),
   // Sin
   new Hero({
+    summoned: 'yes',
     icon_path: 'images/game/heroes/sin/sin-icon.png',
     icon_selected_path: '/images/game/heroes/sin/sin_icon_selected.png',
     web_image_path: 'images/game/heroes/sin/sin-web.png',
@@ -723,6 +728,7 @@ let heroes = [
   }),
   // Leona
   new Hero({
+    summoned: 'yes',
     icon_path: 'images/game/heroes/leona/leona-icon.png',
     icon_selected_path: '/images/game/heroes/leona/leona_icon_selected.png',
     web_image_path: 'images/game/heroes/leona/leona-web.png',
@@ -743,7 +749,7 @@ let heroes = [
     attack_range: 700,
     power: 219,
     power_inc: 15.3,
-    health: 307,
+    health: 159, //307,
     health_inc: 52,
     attack_damage: 0,
     attack_damage_inc: 0,
@@ -757,7 +763,7 @@ let heroes = [
     attack_speed_inc: 0,
     health_regen: 18,
     health_regen_inc: 0.06,
-    movement_speed: 345,
+    movement_speed: 325,
     energy_regen: 300,
     crit_damage_lvl: 0,
     crit_strike_lvl: 0,

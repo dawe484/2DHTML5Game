@@ -6,18 +6,18 @@
   "main": "app.js",
   "dependencies": {
     "bcryptjs": "^2.3.0",
-    "body-parser": "^1.15.2",
+    "body-parser": "1.18.2",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.3.2",
     "csurf": "^1.9.0",
-    "express": "^4.14.0",
+    "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-messages": "^1.0.1",
     "express-recaptcha": "^3.0.1",
-    "express-session": "^1.14.2",
-    "express-validator": "^3.0.0",
+    "express-session": "1.15.6",
+    "express-validator": "5.0.0",
     "hammerjs": "^2.0.8",
-    "helmet": "^3.4.0",
+    "helmet": "3.8.2",
     "mongoose": "^5.0.12",
     "morgan": "^1.9.0",
     "passport": "^0.3.2",
@@ -33,13 +33,18 @@
   "devDependencies": {
     "browserify": "^14.1.0",
     "eslint": "^4.19.1",
-    "watchify": "^3.9.0"
+    "jest": "^22.4.3",
+    "superagent": "^3.8.3",
+    "supertest": "^3.0.0",
+    "watchify": "^3.9.0",
+    "snyk": "^1.80.0"
   },
   "scripts": {
     "start": "node app.js",
     "build": "browserify client/js/game.js -o client/js/bundle.js",
     "watch": "watchify client/js/game.js -o client/js/bundle.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "snyk test && jest"
   },
   "repository": {
     "type": "git",
