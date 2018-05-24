@@ -120,28 +120,6 @@ const GAME_WIDTH = 1920,
   summoningBookPath = `${iconsFolderPath}summoning_book${png}`,
   // leryssaSummonIconPath = `${heroesFolderPath}leryssa/leryssa_summon_icon${png}`,
   // leonaSummonIconPath = `${heroesFolderPath}leona/leona_summon_icon${png}`,
-  // -----------------------------------------------------------------------
-  // bookmarkIconPath = `${iconsFolderPath}bookmarks/bookmark_icon${png}`,
-  // allIconPath = `${iconsFolderPath}bookmarks/all_icon${png}`,
-  // fighterIconPath = `${iconsFolderPath}bookmarks/fighter_icon${png}`,
-  // mageIconPath = `${iconsFolderPath}bookmarks/mage_icon${png}`,
-  // marksmanIconPath = `${iconsFolderPath}bookmarks/marksman_icon${png}`,
-  // supportIconPath = `${iconsFolderPath}bookmarks/support_icon${png}`,
-  // tankIconPath = `${iconsFolderPath}bookmarks/tank_icon${png}`,
-  // borderGreyPath = `${heroesFolderPath}border_grey${png}`,
-  // borderGreenPath = `${heroesFolderPath}border_green${png}`,
-  // borderGreenPlus1Path = `${heroesFolderPath}border_green+1${png}`,
-  // borderBluePath = `${heroesFolderPath}border_blue${png}`,
-  // borderBluePlus1Path = `${heroesFolderPath}border_blue+1${png}`,
-  // borderBluePlus2Path = `${heroesFolderPath}border_blue+2${png}`,
-  // equipIconPath = `${iconsFolderPath}equip_icon${png}`,
-  // equipIconSelectedPath = `${iconsFolderPath}equip_icon_s${png}`,
-  // glyphsIconPath = `${iconsFolderPath}glyphs_icon${png}`,
-  // glyphsIconSelectedPath = `${iconsFolderPath}glyphs_icon_s${png}`,
-  // skillsIconPath = `${iconsFolderPath}skills_icon${png}`,
-  // skillsIconSelectedPath = `${iconsFolderPath}skills_icon_s${png}`,
-  // statsIconPath = `${iconsFolderPath}stats_icon${png}`,
-  // statsIconSelectedPath = `${iconsFolderPath}stats_icon_s${png}`,
   // ------------------------ Heroes ---------------------------------------
   aeloisPath = `${heroesFolderPath}aelois/aelois${png}`,
   amaraPath = `${heroesFolderPath}amara/amara${png}`,
@@ -367,22 +345,6 @@ let scrollBtn192x72_mc,
 // Heroes variables
 let scrollArrow72x36;
 
-// Inventory variables
-
-// Tasks variables
-
-// Trials variables
-
-// Battle variables (bac = battleContainer)
-// let battleScrollBackground,
-// btnArena, textBtnArena, btnGrandArena, textBtnGrandArena;
-
-// Markets variables (mrc = marketsContainer)
-// let marketsScrollBackground,
-//   btnArenaShop, textBtnArenaShop, btnGrandArenaShop, textBtnGrandArenaShop,
-//   btnGuildShop, textBtnGuildShop, btnCrusadeShop, textBtnCrusadeShop,
-//   btnFantasyShop, textBtnFantasyShop, btnShop, textBtnShop;
-
 let aeloisContainer, amaraContainer, crystalContainer, diuwinContainer, leonaContainer,
   leryssaContainer, nadiaContainer, nyxContainer, sinContainer, zalajinContainer,
   zayaContainer;
@@ -474,39 +436,6 @@ function init() {
         summonBooksBackgroundPath, lblSummonPath, bookOfMagicPath, grandBookOfMagicPath,
         summoningBookPath, // leryssaSummonIconPath, leonaSummonIconPath,
         // //avatarChangeNameNamefieldPath, dicePath,
-        // // Grey Glyphs
-        // // noGlyphIconPath,
-        // // abilityPowerIconPath, armorIconPath, armorPenIconPath,
-        // // attackDamageIconPath, attackForceIconPath, critStrikeIconPath,
-        // // doubleAttackIconPath, energyRegenIconPath, hardinessIconPath,
-        // // healthIconPath, healthRegenIconPath, magicForceIconPath, magicPenIconPath,
-        // // magicResistIconPath, regenerateIconPath,
-        // // // // Green Glyphs
-        // // aggressionIconPath, avariceIconPath, balanceIconPath, bloodthirstIconPath,
-        // // braveryIconPath, cardioIconPath, defenseIconPath, divinePowerIconPath,
-        // // enforcementIconPath, extraHealthIconPath, fortitudeIconPath, chivalryIconPath,
-        // // illusionIconPath, immortalityIconPath, infinityIconPath, magicShieldIconPath,
-        // // meditationIconPath, natureIconPath, osmosisIconPath, providenceIconPath,
-        // // prowessIconPath, sublimityIconPath, valorIconPath,
-        // // Blue Glyphs
-        // // Purple Glyphs
-        // // Orange Glyphs
-        // // -----------------------------------------------------------------------
-        // // Heroes
-        // // leftArrowIconPath, rightArrowIconPath,
-        // // bookmarkIconPath, // allIconPath,
-        // // fighterIconPath, mageIconPath, marksmanIconPath, supportIconPath,
-        // // tankIconPath, // borderGreyPath, borderGreenPath, borderGreenPlus1Path, borderBluePath,
-        // // borderBluePlus1Path, borderBluePlus2Path,
-        // //starIconPath,
-        // // pedestalPath,
-        // // starBackgroundPath,
-        // // expBackgroundPath, // pageIconPath,
-        // // heroUpperBackgroundPath, heroBottomBackgroundPath,
-        // // equipIconPath, equipIconSelectedPath, glyphsIconPath, glyphsIconSelectedPath,
-        // // skillsIconPath, skillsIconSelectedPath, // statsIconPath, statsIconSelectedPath,
-        // // awakenIconPath, awakenIconBackgroundPath,
-        // // nextGlyphsIconPath,
         // helpIconPath,
         // Heroes
         aeloisPath, amaraPath, crystalPath, diuwinPath, leonaPath, leryssaPath,
@@ -563,7 +492,7 @@ function init() {
     // socket = io.connect('http://localhost:2000');
     socket = io();
     socket.on('connect', () => {
-      console.log('Socket id:', socket.id); // 'G5p5...'
+      console.log('Socket id:', socket.id);
     });
 
     // socket.on('mouse', newMsg);
@@ -873,74 +802,74 @@ function init() {
     //
     // stage.addChild(mainScreenContainer);
 
-    // aeloisContainer = new Container();
-    // amaraContainer = new Container();
-    // crystalContainer = new Container();
-    // diuwinContainer = new Container();
-    // leonaContainer = new Container();
-    // leryssaContainer = new Container();
-    // nadiaContainer = new Container();
-    // nyxContainer = new Container();
-    // sinContainer = new Container();
-    // zalajinContainer = new Container();
-    // zayaContainer = new Container();
-    //
-    // aeloisIconContainer = new Container();
-    // amaraIconContainer = new Container();
-    // crystalIconContainer = new Container();
-    // diuwinIconContainer = new Container();
-    // leonaIconContainer = new Container();
-    // leryssaIconContainer = new Container();
-    // nadiaIconContainer = new Container();
-    // nyxIconContainer = new Container();
-    // sinIconContainer = new Container();
-    // zalajinIconContainer = new Container();
-    // zayaIconContainer = new Container();
-    //
-    // // Position heroes for animations // TODO: dodělat animace
-    // aelois = new Sprite(resources[aeloisPath].texture);
-    // aelois.position.set(0, 0);
-    // amara = new Sprite(resources[amaraPath].texture);
-    // amara.position.set(0, 0);
-    // crystal = new Sprite(resources[crystalPath].texture);
-    // crystal.position.set(0, 0);
-    // diuwin = new Sprite(resources[diuwinPath].texture);
-    // diuwin.position.set(0, 0);
-    // leona = new Sprite(resources[leonaPath].texture);
-    // leona.position.set(0, 0);
-    // leryssa = new Sprite(resources[leryssaPath].texture);
-    // leryssa.position.set(0, 0);
-    // nadia = new Sprite(resources[nadiaPath].texture);
-    // nadia.position.set(0, 0);
-    // nyx = new Sprite(resources[nyxPath].texture);
-    // nyx.position.set(0, 0);
-    // sin = new Sprite(resources[sinPath].texture);
-    // sin.position.set(0, 0);
-    // zalajin = new Sprite(resources[zalajinPath].texture);
-    // zalajin.position.set(0, 0);
-    // zaya = new Sprite(resources[zayaPath].texture);
-    // zaya.position.set(0, 0);
-    //
-    // enemy01Container = new Container();
-    // enemy02Container = new Container();
-    // enemy03Container = new Container();
-    // enemy04Container = new Container();
-    // enemy05Container = new Container();
-    // enemy06Container = new Container();
-    //
-    // // Position enemies for animations // TODO: dodělat animace
-    // enemy01 = new Sprite(resources[enemy01Path].texture);
-    // enemy01.position.set(0, 0);
-    // enemy02 = new Sprite(resources[enemy02Path].texture);
-    // enemy02.position.set(0, 0);
-    // enemy03 = new Sprite(resources[enemy03Path].texture);
-    // enemy03.position.set(0, 0);
-    // enemy04 = new Sprite(resources[enemy04Path].texture);
-    // enemy04.position.set(0, 0);
-    // enemy05 = new Sprite(resources[enemy05Path].texture);
-    // enemy05.position.set(0, 0);
-    // enemy06 = new Sprite(resources[enemy06Path].texture);
-    // enemy06.position.set(0, 0);
+    aeloisContainer = new Container();
+    amaraContainer = new Container();
+    crystalContainer = new Container();
+    diuwinContainer = new Container();
+    leonaContainer = new Container();
+    leryssaContainer = new Container();
+    nadiaContainer = new Container();
+    nyxContainer = new Container();
+    sinContainer = new Container();
+    zalajinContainer = new Container();
+    zayaContainer = new Container();
+
+    aeloisIconContainer = new Container();
+    amaraIconContainer = new Container();
+    crystalIconContainer = new Container();
+    diuwinIconContainer = new Container();
+    leonaIconContainer = new Container();
+    leryssaIconContainer = new Container();
+    nadiaIconContainer = new Container();
+    nyxIconContainer = new Container();
+    sinIconContainer = new Container();
+    zalajinIconContainer = new Container();
+    zayaIconContainer = new Container();
+
+    // Position heroes for animations // TODO: dodělat animace
+    aelois = new Sprite(resources[aeloisPath].texture);
+    aelois.position.set(0, 0);
+    amara = new Sprite(resources[amaraPath].texture);
+    amara.position.set(0, 0);
+    crystal = new Sprite(resources[crystalPath].texture);
+    crystal.position.set(0, 0);
+    diuwin = new Sprite(resources[diuwinPath].texture);
+    diuwin.position.set(0, 0);
+    leona = new Sprite(resources[leonaPath].texture);
+    leona.position.set(0, 0);
+    leryssa = new Sprite(resources[leryssaPath].texture);
+    leryssa.position.set(0, 0);
+    nadia = new Sprite(resources[nadiaPath].texture);
+    nadia.position.set(0, 0);
+    nyx = new Sprite(resources[nyxPath].texture);
+    nyx.position.set(0, 0);
+    sin = new Sprite(resources[sinPath].texture);
+    sin.position.set(0, 0);
+    zalajin = new Sprite(resources[zalajinPath].texture);
+    zalajin.position.set(0, 0);
+    zaya = new Sprite(resources[zayaPath].texture);
+    zaya.position.set(0, 0);
+
+    enemy01Container = new Container();
+    enemy02Container = new Container();
+    enemy03Container = new Container();
+    enemy04Container = new Container();
+    enemy05Container = new Container();
+    enemy06Container = new Container();
+
+    // Position enemies for animations // TODO: dodělat animace
+    enemy01 = new Sprite(resources[enemy01Path].texture);
+    enemy01.position.set(0, 0);
+    enemy02 = new Sprite(resources[enemy02Path].texture);
+    enemy02.position.set(0, 0);
+    enemy03 = new Sprite(resources[enemy03Path].texture);
+    enemy03.position.set(0, 0);
+    enemy04 = new Sprite(resources[enemy04Path].texture);
+    enemy04.position.set(0, 0);
+    enemy05 = new Sprite(resources[enemy05Path].texture);
+    enemy05.position.set(0, 0);
+    enemy06 = new Sprite(resources[enemy06Path].texture);
+    enemy06.position.set(0, 0);
 
     gameLoop();
   }
@@ -1174,7 +1103,7 @@ function addDarkerBackground(container) {
 // Setup storyTutorialContainer
 function setStoryTutorialContainer() {
   socket.on('startData', (data) => {
-    console.log(data);
+    // console.log(data);
     loadingText = data.loading;
     if (data.dataStory === 'yes') {
       storyTutorialContainer = new Container();
@@ -1193,10 +1122,10 @@ function setStoryTutorialContainer() {
           masterPath in loader.resources && bubblePath in loader.resources
           // && arrowDown120x48Path in loader.resources
         ) {
-          console.log(`${apprenticePath} - already in stage`);
-          console.log(`${playerPath} - already in stage`);
-          console.log(`${masterPath} - already in stage`);
-          console.log(`${bubblePath} - already in stage`);
+          // console.log(`${apprenticePath} - already in stage`);
+          // console.log(`${playerPath} - already in stage`);
+          // console.log(`${masterPath} - already in stage`);
+          // console.log(`${bubblePath} - already in stage`);
           // console.log(`${arrowDown120x48Path} - already in stage`);
           addStoryTutorialImages();
         } else {
@@ -1232,7 +1161,7 @@ function setStoryTutorialContainer() {
 
         socket.emit('storyTutorial');
         socket.on('storyTutorialData', data => {
-          console.log('storyTutorialData', data);
+          // console.log('storyTutorialData', data);
 
           const
             skipText = data.skipText,
@@ -1248,7 +1177,7 @@ function setStoryTutorialContainer() {
 
           setInteractive(btnSkip, true);
           btnSkip.on('click', () => {
-            console.log('btnSkip clicked');
+            // console.log('btnSkip clicked');
             socket.emit('btnSkip', 'btnSkip clicked');
             stage.removeChild(storyTutorialContainer);
             setMainScreenContainer();
@@ -1265,7 +1194,7 @@ function setStoryTutorialContainer() {
           setInteractive(spriteBubble, true);
           spriteBubble.on('click', () => {
             if (i === storyText.length) {
-              console.log('end');
+              // console.log('end');
               socket.emit('btnSkip');
               stage.removeChild(storyTutorialContainer);
               setMainScreenContainer();
@@ -1350,7 +1279,7 @@ function setMainScreenContainer() {
 
   socket.emit('mainScreenContainer');
   socket.on('mainScreenContainerData', (data) => {
-    console.log('mainScreenContainerData', data);
+    // console.log('mainScreenContainerData', data);
 
     const
       mapText = data.map,
@@ -1388,20 +1317,8 @@ function setMainScreenContainer() {
     interMainScreenArray.push(btnMap);
 
     btnMap.on('click', () => {
-      console.log('btnMap clicked');
-      // // if (btnMap.visible) {
-      //   mainScreenContainer.removeChild(scrollContainer);
-      //   mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-      //   console.log('stage.children.length', stage.children.length);
-      //   if (stage.children.length === 2) {
-      //     console.log(mapContainer.children[mapContainer.children.length-1]);
-      //     scrollArrow72x36_mc.scale.y = -1;
-      //     mapContainer.removeChild(mapContainer.children[mapContainer.children.length-1]);
-      //   }
-      // if (stage.children.length === 1) {
+      // console.log('btnMap clicked');
       setMapContainer();
-      // }
-      // // }
     });
 
     const textBtnGuild = new Text(guildText, textStyle144_40center_black);
@@ -1450,7 +1367,7 @@ function setMainScreenContainer() {
     interMainScreenArray.push(btnSummonBooks);
 
     btnSummonBooks.on('click', () => {
-      console.log('btnSummonBooks clicked');
+      // console.log('btnSummonBooks clicked');
       setSummonBooksContainer();
     });
 
@@ -1472,7 +1389,7 @@ function loadAvatarContainerData(socketEmit, socketOn) {
 
   socket.emit(socketEmit);
   socket.on(socketOn, (data) => {
-    console.log(socketOn, data);
+    // console.log(socketOn, data);
 
     const
       avatarBorderTextPath = data.avatarBorder,
@@ -1534,7 +1451,7 @@ function loadAvatarContainerData(socketEmit, socketOn) {
     setInteractive(avatarContainer, true);
     interMainScreenArray.push(avatarContainer);
     avatarContainer.on('click', () => {
-      console.log('avatarContainer clicked');
+      // console.log('avatarContainer clicked');
       setAvatarScreenContainer();
     });
   });
@@ -1557,7 +1474,7 @@ function setAvatarScreenContainer() {
 
   function loadAvatarScreenIcon() {
     if (avatarScreenBackgroundPath in loader.resources) {
-      console.log(`${avatarScreenBackgroundPath} - already in stage`);
+      // console.log(`${avatarScreenBackgroundPath} - already in stage`);
       loadHelpIcon(avatarScreenBackgroundPath);
     } else {
       loader
@@ -1572,7 +1489,7 @@ function setAvatarScreenContainer() {
 
   function loadHelpIcon(_avatarScreenBackgroundPath) {
     if (helpIconPath in loader.resources) {
-      console.log(`${helpIconPath} - already in stage`);
+      // console.log(`${helpIconPath} - already in stage`);
       addIcons(_avatarScreenBackgroundPath, helpIconPath);
     } else {
       loader
@@ -1632,7 +1549,7 @@ function setAvatarScreenContainer() {
 
     socket.emit('avatarScreen');
     socket.on('avatarScreenData', (data) => {
-      console.log('avatarScreenData', data);
+      // console.log('avatarScreenData', data);
 
       const
         avatarBorderTextPath = data.avatarBorder,
@@ -1700,7 +1617,7 @@ function setAvatarScreenContainer() {
 
       setInteractive(btnChangeName, true);
       btnChangeName.on('click', () => {
-        console.log('btnChangeName clicked');
+        // console.log('btnChangeName clicked');
         setAvatarChangeNameContainer();
       });
 
@@ -1758,11 +1675,11 @@ function setAvatarScreenContainer() {
 
 // Setup function when player clicked on `btnBack` in `avatarScreenContainer`
 function backIconClicked(btnBack, container) {
-  console.log('btnBack clicked');
+  // console.log('btnBack clicked');
   stage.removeChild(container);
   mainScreenContainer.removeChild(avatarContainer);
   // interMainScreenArray.splice(3, 1);
-  console.log(stage.children);
+  // console.log(stage.children);
   if (stage.children.length === 1) {
     // stage.removeChild(stage.children[0].children[stage.children.length-1]);
     loadAvatarContainerData('avatarContainer', 'avatarContainerData');
@@ -1779,10 +1696,10 @@ function backIconClicked(btnBack, container) {
 
 // Setup function when player clicked on `btnBack` in `avatarScreenContainer`
 function backIconInParagraphsClicked(container) {
-  console.log('btnBack in paragraph clicked');
+  // console.log('btnBack in paragraph clicked');
   mapContainer.removeChild(container);
   // interMainScreenArray.splice(3, 1);
-  console.log(stage.children);
+  // console.log(stage.children);
   // if (stage.children.length === 1) {
   setTimeout(() => {
     for (let item of interParagraphsArray) {
@@ -1795,7 +1712,7 @@ function backIconInParagraphsClicked(container) {
 
 // Setup function when player clicked on `btnBack` in `avatarScreenContainer`
 function backIconInSummon(container) {
-  console.log('btnBack in summon clicked');
+  // console.log('btnBack in summon clicked');
   stage.removeChild(container);
   setTimeout(() => {
     for (let item of interSummonArray) {
@@ -1820,9 +1737,9 @@ function setAvatarChangeNameContainer() {
       avatarChangeNameBackgroundPath in loader.resources && avatarChangeNameNamefieldPath in loader.resources &&
       dicePath in loader.resources
     ) {
-      console.log(`${avatarChangeNameBackgroundPath} - already in stage`);
-      console.log(`${avatarChangeNameNamefieldPath} - already in stage`);
-      console.log(`${dicePath} - already in stage`);
+      // console.log(`${avatarChangeNameBackgroundPath} - already in stage`);
+      // console.log(`${avatarChangeNameNamefieldPath} - already in stage`);
+      // console.log(`${dicePath} - already in stage`);
       addIcons(avatarChangeNameBackgroundPath, avatarChangeNameNamefieldPath, dicePath);
     } else {
       loader
@@ -1863,7 +1780,7 @@ function setAvatarChangeNameContainer() {
 
     socket.emit('avatarChangeName');
     socket.on('avatarChangeNameData', (data) => {
-      console.log('avatarChangeNameData', data);
+      // console.log('avatarChangeNameData', data);
 
       const
         btnCancelText = data.buttonCancel,
@@ -1881,7 +1798,7 @@ function setAvatarChangeNameContainer() {
 
       setInteractive(changeNamefield, true);
       changeNamefield.on('click', () => {
-        console.log('change name');
+        console.log('coming soon');
       });
 
       const textBtnCancel = new Text(btnCancelText, textStyle_32center_black);
@@ -1892,7 +1809,7 @@ function setAvatarChangeNameContainer() {
 
       setInteractive(btnCancel, true);
       btnCancel.on('click', () => {
-        console.log('btnCancel clicked');
+        // console.log('btnCancel clicked');
         stage.removeChild(avatarChangeNameContainer);
         setTimeout(() => {
           setInteractive(btnBack, true);
@@ -1908,9 +1825,9 @@ function setAvatarChangeNameContainer() {
 
       setInteractive(btnConfirm, true);
       btnConfirm.on('click', () => {
-        console.log('btnConfirm clicked');
+        // console.log('btnConfirm clicked');
         stage.removeChild(avatarChangeNameContainer);
-        console.log('confirm', stage.children);
+        // console.log('confirm', stage.children);
         stage.removeChild(avatarScreenContainer);
         setAvatarScreenContainer();
         // TODO: dodělat až po `changeNamefield` - změna jména -> poté je uložit do DB
@@ -1924,7 +1841,7 @@ function setAvatarChangeNameContainer() {
       function loadBannerIcon() {
         addLoadingBackground(avatarChangeNameContainer, loadingText);
         if (banner620x98Path in loader.resources) {
-          console.log(`${banner620x98Path} - already in stage`);
+          // console.log(`${banner620x98Path} - already in stage`);
           addBannerIcon(banner620x98Path);
         } else {
           loader
@@ -1981,12 +1898,12 @@ function setBarContainer() {
   plusBarGold.position.set(1060, 36);
   setInteractive(plusBarGold, true);
   if (plusBarGold in interMainScreenArray) {
-    console.log(`'plusBarGold' is in 'interMainScreenArray'`);
+    // console.log(`'plusBarGold' is in 'interMainScreenArray'`);
   } else {
     interMainScreenArray.push(plusBarGold);
   }
   plusBarGold.on('click', () => {
-    console.log('plusBarGold clicked');
+    // console.log('plusBarGold clicked');
     setPlusGoldContainer();
   });
 
@@ -2019,7 +1936,7 @@ function loadBarContainerData(socketEmit, socketOn) {
   addLoadingBackground(barContainer, loadingText);
 
   socket.on(socketOn, (data) => {
-    console.log(socketOn, data);
+    // console.log(socketOn, data);
 
     const
       currentEnergyText = data.currentEnergy,
@@ -2071,7 +1988,7 @@ function setPlusGoldContainer() {
 
   function loadPlusBarBackgroundIcons() {
     if (plusBarBackgroundPath in loader.resources) {
-      console.log(`${plusBarBackgroundPath} - already in stage`);
+      // console.log(`${plusBarBackgroundPath} - already in stage`);
       addIcons(plusBarBackgroundPath, btnGreen260x72Path);
     } else {
       loader
@@ -2116,12 +2033,12 @@ function setPlusGoldContainer() {
     btnBuy.position.set(1024, setMiddlePos(spriteBackground, btnBuy).y);
     setInteractive(btnBuy, true);
     btnBuy.on('click', () => {
-      console.log('btnBuy clicked');
+      // console.log('btnBuy clicked');
       socket.emit('sendBuyGold');
       stage.removeChild(plusGoldContainer);
 
       socket.on('lowDiamonds', (data) => {
-        console.log('lowDiamonds', data);
+        // console.log('lowDiamonds', data);
         const lowDiamondContainer = new Container();
         addDarkerBackground(lowDiamondContainer);
         const textRecharge = new Text(data.rechargeText, textStyle144_40center_black);
@@ -2131,7 +2048,7 @@ function setPlusGoldContainer() {
         btnConfirm.position.set(setMiddlePos(loadingBackground, btnConfirm).x, 572);
         setInteractive(btnConfirm, true);
         btnConfirm.on('click', () => {
-          console.log('btnConfirm clicked');
+          // console.log('btnConfirm clicked');
           stage.removeChild(lowDiamondContainer);
           // TODO: az bude hotova recharge stranka, tak dodelat - po kliknuti
           // na btn `OK` zobrazeni `recharge stranky`
@@ -2157,7 +2074,7 @@ function setPlusGoldContainer() {
       });
 
       socket.on('barContainerDiamondData', (data) => {
-        console.log('barContainerDiamondData', data);
+        // console.log('barContainerDiamondData', data);
         textBarGold.text = data.gold;
         textBarGold.position.set(
           setMiddlePos(barGoldBackground, textBarGold).x,
@@ -2184,7 +2101,7 @@ function setPlusGoldContainer() {
 
     socket.emit('goldScreen');
     socket.on('goldScreenData', (data) => {
-      console.log('goldScreenData', data);
+      // console.log('goldScreenData', data);
 
       const
         plusGoldText = data.goldPlus,
@@ -2206,7 +2123,7 @@ function setPlusGoldContainer() {
 
       setInteractive(btnClose, true);
       btnClose.on('click', () => {
-        console.log('btnClose clicked');
+        // console.log('btnClose clicked');
         stage.removeChild(plusGoldContainer);
         setTimeout(() => {
           for (let item of interMainScreenArray) {
@@ -2216,7 +2133,7 @@ function setPlusGoldContainer() {
             setInteractive(item, true);
           }
         }, LATENCY);
-        console.log(stage.children);
+        // console.log(stage.children);
       });
 
       plusGoldContainer.addChild(text, textBtnBuy);
@@ -2248,7 +2165,7 @@ function setScrollArrow(container, heroesText, inventoryText, tasksText,
   scrollArrow72x36_mc.on('click', () => {
     scrollArrow72x36_mc.scale.y *= -1;
     if (scrollArrow72x36_mc.scale.y == -1) {
-      console.log(stage.children);
+      // console.log(stage.children);
       interScrollArray.splice(0, 3);
       mainScreenContainer.removeChild(scrollContainer);
     } else {
@@ -2284,26 +2201,14 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   const btnHeroes = new Sprite(resources[btn144x144Path].texture);
   btnHeroes.position.set(1740, 96);
   interScrollArray.push(btnHeroes);
-  console.log(interMainScreenArray);
-  console.log(interScrollArray);
+  // console.log(interMainScreenArray);
+  // console.log(interScrollArray);
   setInteractive(btnHeroes, true);
   btnHeroes.on('click', () => {
-    console.log('btnHeroes clicked');
-    // if (btnHeroes.visible) {
-    // mainScreenContainer.removeChild(scrollContainer);
-    // mainScreenContainer.removeChild(scrollBtn192x72_mc, scrollArrow72x36_mc);
-    // console.log('stage.children.length', stage.children.length);
-    // if (stage.children.length === 2) {
-    //   // console.log(heroesContainer.children[heroesContainer.children.length-1]);
-    //   scrollArrow72x36.scale.y = -1;
-    //   // heroesContainer.removeChild(heroesContainer.children[heroesContainer.children.length-1]);
-    //   stage.removeChild(stage.children[stage.children.length-1]);
-    // }
+    // console.log('btnHeroes clicked');
     if (stage.children.length === 1) {
       loadHeroesContainerData();
-      // setHeroesContainer();
     }
-    // }
   });
 
   const textBtnHeroes = new Text(heroesText, textStyle144_40center_black);
@@ -2350,7 +2255,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   interScrollArray.push(btnBattle);
   let tb = true;
   btnBattle.on('click', () => {
-    console.log('btnBattle clicked');
+    // console.log('btnBattle clicked');
     if (!tb) {
       scrollContainer.removeChild(battleContainer);
       tb = true;
@@ -2370,7 +2275,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   function setBattleContainer() {
     function loadBattleImages() {
       if (scroll312x192Path in loader.resources) {
-        console.log(`${scroll312x192Path} - already in stage`);
+        // console.log(`${scroll312x192Path} - already in stage`);
         addImages(scroll312x192Path);
       } else {
         loader
@@ -2419,7 +2324,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   interScrollArray.push(btnMarkets);
   let tm = true;
   btnMarkets.on('click', () => {
-    console.log('btnMarkets clicked');
+    // console.log('btnMarkets clicked');
     if (!tm) {
       scrollContainer.removeChild(marketsContainer);
       tm = true;
@@ -2439,7 +2344,7 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
   function setMarketsContainer() {
     function loadMarketsImages() {
       if (scroll936x192Path in loader.resources) {
-        console.log(`${scroll936x192Path} - already in stage`);
+        // console.log(`${scroll936x192Path} - already in stage`);
         addImages(scroll936x192Path);
       } else {
         loader
@@ -2555,7 +2460,7 @@ function loadHeroesContainerData() {
   // Load `backgroundEmptyBlurPath` string path
   function loadBackgroundEmptyBlurImage() {
     if (backgroundEmptyBlurPath in loader.resources) {
-      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      // console.log(`${backgroundEmptyBlurPath} - already in stage`);
       addBackgroundEmptyBlurImage();
     } else {
       loader
@@ -2576,7 +2481,7 @@ function loadHeroesContainerData() {
 
   function loadBackgroundBookImage() {
     if (backgroundBookPath in loader.resources) {
-      console.log(`${backgroundBookPath} - already in stage`);
+      // console.log(`${backgroundBookPath} - already in stage`);
       addBackgroundBookImage();
     } else {
       loader
@@ -2609,7 +2514,7 @@ function loadHeroesContainerData() {
     const heroesPortraitContainer = new Container();
     socket.emit('heroesContainer');
     socket.on('heroesContainerData', (data) => {
-      console.log('heroesContainerData\n', data);
+      // console.log('heroesContainerData\n', data);
 
       heroesContainer.removeChild(loadingBackground, textLoading);
 
@@ -2641,7 +2546,7 @@ function loadHeroesContainerData() {
 
       addLoadingBackground(heroesContainer, loadingText);
 
-      console.log('heroesNames', heroesNames);
+      // console.log('heroesNames', heroesNames);
       // console.log('bookPages', bookPages);
       // console.log('sumPages', sumPages);
 
@@ -2649,7 +2554,7 @@ function loadHeroesContainerData() {
         let heroNotSummonPath = `${heroesFolderPath}${urlName}/${urlName}_stats_grey.png`;
 
         if (heroNotSummonPath in loader.resources) {
-          console.log(`${heroNotSummonPath} - already in stage`);
+          // console.log(`${heroNotSummonPath} - already in stage`);
           addHeroPortrait(heroNotSummonPath, i, bookPages[i], heroesNames[i],
             data.heroesMsg[i].urlName, data.heroesMsg[i].color,
             data.heroesMsg[i].stars, data.heroesMsg[i].summoned,
@@ -2801,7 +2706,7 @@ function loadHeroesContainerData() {
         summoned, classText, levelText) { // 332, 205 (195)
         // console.log(`hero info: ${heroNamePath}, ${i}, ${bPi}, ${name}, ${urlName},
         //   ${color}, ${starCount}, ${summoned}`);
-        console.log(`add: ${name}`);
+        // console.log(`add: ${name}`);
         const heroPortraitContainer = new Container();
         let borderPath;
 
@@ -2875,7 +2780,7 @@ function loadHeroesContainerData() {
           setInteractive(border, true);
           border.on('click', () => {
             if (summoned === 'yes') {
-              console.log('you clicked on', urlName, 'portrait');
+              // console.log('you clicked on', urlName, 'portrait');
               setHeroContainer(urlName, heroIconClicked);
             } else if (summoned === 'no') {
               console.log(urlName, 'not summoned yet.');
@@ -3153,7 +3058,7 @@ function loadHeroesContainerData() {
 
       function loadArrowsIcons() {
         if (leftArrowIconPath in loader.resources && rightArrowIconPath in loader.resources) {
-          console.log(`${leftArrowIconPath}, ${rightArrowIconPath} - already in stage`);
+          // console.log(`${leftArrowIconPath}, ${rightArrowIconPath} - already in stage`);
           addArrowsIcons(leftArrowIconPath, rightArrowIconPath);
         } else {
           loader
@@ -3180,7 +3085,7 @@ function loadHeroesContainerData() {
         setInteractive(rightArrow, true);
 
         leftArrow.on('click', () => {
-          console.log('leftArrow clicked', currentPage, pages);
+          // console.log('leftArrow clicked', currentPage, pages);
           if (currentPage > 0 && currentPage < pages) {
             heroesPortraitContainer.position.x += 1920;
             currentPage--;
@@ -3201,7 +3106,7 @@ function loadHeroesContainerData() {
         });
 
         rightArrow.on('click', () => {
-          console.log('rightArrow clicked', currentPage, pages);
+          // console.log('rightArrow clicked', currentPage, pages);
           if (currentPage < pages) {
             currentPage++;
             heroesPortraitContainer.position.x -= 1920;
@@ -3254,9 +3159,9 @@ function setHeroContainer(heroName, iconClicked) {
     btnBack.position.set(36, 36);
     setInteractive(btnBack, true);
     btnBack.on('click', () => {
-      console.log('btnBack clicked');
+      // console.log('btnBack clicked');
       stage.removeChild(heroContainer);
-      console.log(stage.children);
+      // console.log(stage.children);
       setTimeout(() => {
         loadHeroesContainerData();
       }, LATENCY / 2);
@@ -3271,7 +3176,7 @@ function setHeroContainer(heroName, iconClicked) {
       addLoadingBackground(heroContainer, loadingText);
 
       if (heroUpperBackgroundPath in loader.resources && heroBottomBackgroundPath in loader.resources) {
-        console.log(`${heroUpperBackgroundPath}, ${heroBottomBackgroundPath} - already in stage`);
+        // console.log(`${heroUpperBackgroundPath}, ${heroBottomBackgroundPath} - already in stage`);
         addBackgroundsImages(heroBottomBackgroundPath);
       } else {
         loader
@@ -3301,7 +3206,7 @@ function setHeroContainer(heroName, iconClicked) {
 
     function loadHelpIcon(_expBackgroundPath) {
       if (helpIconPath in loader.resources) {
-        console.log(`${helpIconPath} - already in stage`);
+        // console.log(`${helpIconPath} - already in stage`);
         addPowerBar(_expBackgroundPath, helpIconPath);
       } else {
         loader
@@ -3344,14 +3249,12 @@ function setHeroContainer(heroName, iconClicked) {
 
   stage.removeChild(heroesContainer);
   stage.addChild(heroContainer);
-  console.log('stage:', stage.children);
-  // setBarContainer(heroContainer);
-  // setScrollArrowHeroes(heroesContainer);
+  // console.log('stage:', stage.children);
 }
 
 //
 function addHeroInfoIcons(container, iconClicked, heroName) {
-  console.log('iconClicked', iconClicked);
+  // console.log('iconClicked', iconClicked);
 
   function loadInfoIcons() {
     // const
@@ -3359,7 +3262,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
     //   _infoIconSelectedPath = `${iconsFolderPath}info_icon_s${png}`;
 
     if (infoIconsPath in loader.resources) {
-      console.log(`${infoIconsPath} - already in stage`);
+      // console.log(`${infoIconsPath} - already in stage`);
       addInfoIcons(infoIconsPath);
     } else {
       loader
@@ -3382,7 +3285,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
     statsIcon.position.set(1050, 753);
     setInteractive(statsIcon, true);
     statsIcon.on('click', () => {
-      console.log('statsIcon clicked');
+      // console.log('statsIcon clicked');
       switch (iconClicked) {
         case 'glyphs':
           setSelectedIcon(glyphsIcon, statsIcon);
@@ -3413,7 +3316,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
     }
     glyphsIcon.position.set(1178, 753);
     glyphsIcon.on('click', () => {
-      console.log('glyphsIcon clicked');
+      // console.log('glyphsIcon clicked');
       switch (iconClicked) {
         case 'stats':
           setSelectedIcon(statsIcon, glyphsIcon);
@@ -3440,7 +3343,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
     skillsIcon.position.set(1306, 753);
     setInteractive(skillsIcon, true);
     skillsIcon.on('click', () => {
-      console.log('skillsIcon clicked');
+      // console.log('skillsIcon clicked');
       switch (iconClicked) {
         case 'stats':
           setSelectedIcon(statsIcon, skillsIcon);
@@ -3467,7 +3370,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
     equipIcon.position.set(1434, 753);
     setInteractive(equipIcon, true);
     equipIcon.on('click', () => {
-      console.log('equipIcon clicked');
+      // console.log('equipIcon clicked');
       switch (iconClicked) {
         case 'stats':
           setSelectedIcon(statsIcon, equipIcon);
@@ -3501,7 +3404,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
 
     socket.emit('heroInfoIcons');
     socket.on('heroInfoIconsData', (data) => {
-      console.log('heroInfoIconsData', data);
+      // console.log('heroInfoIconsData', data);
 
       const
         statsText = data.stats,
@@ -3545,7 +3448,7 @@ function addHeroInfoIcons(container, iconClicked, heroName) {
 // `Glyphs` part of `heroContainer`
 function addStatsContainer(container, heroName) {
   statsContainer = new Container();
-  console.log('heroName from statsContainer', heroName);
+  // console.log('heroName from statsContainer', heroName);
 
   const heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
@@ -3597,7 +3500,7 @@ function addStatsContainer(container, heroName) {
 
   socket.emit('statsContainer', heroName);
   socket.on('statsContainerData', (data) => {
-    console.log('statsContainerData', data);
+    // console.log('statsContainerData', data);
 
     const
       descriptionText = data.description,
@@ -3628,10 +3531,10 @@ function addStatsContainer(container, heroName) {
 
       if (statsUpperBackgroundPath in loader.resources && statsBottomBackgroundPath in loader.resources &&
         statsGreyLabelPath in loader.resources && statsWhiteLabelPath in loader.resources) {
-        console.log(`${statsUpperBackgroundPath} - already in stage`);
-        console.log(`${statsBottomBackgroundPath} - already in stage`);
-        console.log(`${statsGreyLabelPath} - already in stage`);
-        console.log(`${statsWhiteLabelPath} - already in stage`);
+        // console.log(`${statsUpperBackgroundPath} - already in stage`);
+        // console.log(`${statsBottomBackgroundPath} - already in stage`);
+        // console.log(`${statsGreyLabelPath} - already in stage`);
+        // console.log(`${statsWhiteLabelPath} - already in stage`);
         addStatsBackgroundImages(statsUpperBackgroundPath, statsBottomBackgroundPath,
           statsGreyLabelPath, statsWhiteLabelPath);
       } else {
@@ -3735,8 +3638,8 @@ function addStatsContainer(container, heroName) {
 // `Glyphs` part of `heroContainer`
 function addGlyphsContainer(container, heroName) {
   glyphsContainer = new Container();
-  console.log(stage.children);
-  console.log('heroName from glyphsContainer', heroName);
+  // console.log(stage.children);
+  // console.log('heroName from glyphsContainer', heroName);
 
   let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
@@ -3745,7 +3648,7 @@ function addGlyphsContainer(container, heroName) {
 
   socket.emit('glyphsContainer', heroName);
   socket.on('glyphsContainerData', (data) => {
-    console.log('glyphsContainerData', data);
+    // console.log('glyphsContainerData', data);
 
     const
       awakenText = data.awakenText,
@@ -3771,9 +3674,9 @@ function addGlyphsContainer(container, heroName) {
 
       if (awakenIconPath in loader.resources && awakenIconBackgroundPath in loader.resources &&
         nextGlyphsIconPath in loader.resources) {
-        console.log(`${awakenIconPath} - already in stage`);
-        console.log(`${awakenIconBackgroundPath} - already in stage`);
-        console.log(`${nextGlyphsIconPath} - already in stage`);
+        // console.log(`${awakenIconPath} - already in stage`);
+        // console.log(`${awakenIconBackgroundPath} - already in stage`);
+        // console.log(`${nextGlyphsIconPath} - already in stage`);
         addImages(awakenIconPath, awakenIconBackgroundPath, nextGlyphsIconPath);
       } else {
         loader
@@ -3845,7 +3748,7 @@ function addGlyphsContainer(container, heroName) {
 
     function loadStarBackgroundImage() {
       if (starBackgroundPath in loader.resources) {
-        console.log(`${starBackgroundPath} - already in stage`);
+        // console.log(`${starBackgroundPath} - already in stage`);
         addStarBackgroundImage(starBackgroundPath);
       } else {
         loader
@@ -3932,7 +3835,7 @@ function addGlyphsContainer(container, heroName) {
       }
 
       if (pedestalPath in loader.resources) {
-        console.log(`${pedestalPath} - already in stage`);
+        // console.log(`${pedestalPath} - already in stage`);
         addHeroPortrait(borderPath, pedestalPath);
       } else {
         loader
@@ -4105,8 +4008,8 @@ function addGlyphsContainer(container, heroName) {
 //
 function addSkillsContainer(container, heroName) {
   skillsContainer = new Container();
-  console.log(stage.children);
-  console.log('heroName from skillsContainer', heroName);
+  // console.log(stage.children);
+  // console.log('heroName from skillsContainer', heroName);
 
   let heroUpperBackground = new Sprite(resources[heroUpperBackgroundPath].texture);
   heroUpperBackground.position.set(1008, 205);
@@ -4115,7 +4018,7 @@ function addSkillsContainer(container, heroName) {
 
   socket.emit('skillsContainer', heroName);
   socket.on('skillsContainerData', (data) => {
-    console.log('skillsContainerData', data);
+    // console.log('skillsContainerData', data);
 
     const
       classText = data.class,
@@ -4134,7 +4037,7 @@ function addSkillsContainer(container, heroName) {
       let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
 
       if (videoFilePath in loader.resources) {
-        console.log(`${videoFilePath} - already loaded`);
+        // console.log(`${videoFilePath} - already loaded`);
         addVideo(videoFilePath, index);
       } else {
         loader
@@ -4171,8 +4074,8 @@ function addSkillsContainer(container, heroName) {
 
     function loadSkill(heroName) {
       if (skillBackgroundPath in loader.resources && skillLabelPath in loader.resources) {
-        console.log(`${skillBackgroundPath} - already loaded`);
-        console.log(`${skillLabelPath} - already loaded`);
+        // console.log(`${skillBackgroundPath} - already loaded`);
+        // console.log(`${skillLabelPath} - already loaded`);
         loadSkillsIcons(heroName);
       } else {
         loader
@@ -4189,42 +4092,6 @@ function addSkillsContainer(container, heroName) {
 
     loadSkill(heroName);
 
-    // function loadSkillIcon(_heroName, _index) {
-    //   const skillIconPath = `${heroesFolderPath}${_heroName}/skills_icons.json`;
-    //   // leonaSkillIconPath = `${heroesFolderPath}leona/skills_icons.json`,
-    //
-    //   if (skillIconPath in loader.resources) {
-    //     console.log(`${skillIconPath} - already loaded`);
-    //     addSkillBackground(_heroName, _index, skillIconPath);
-    //   } else {
-    //     loader
-    //       .add(skillIconPath);
-    //   }
-    //
-    //   loader
-    //     .once('complete', (loader, resources) => {
-    //       addSkillBackground(_heroName, _index, skillIconPath);
-    //     });
-    // }
-    //
-    // function addSkillBackground(heroName, index, skillIconPath) {
-    //   const skillBackground = new Sprite(resources[skillBackgroundPath].texture);
-    //   skillBackground.position.set(332, 359+136*index);
-    //
-    //   // console.log(eval('`${heroesFolderPath}${heroName}/skills_icons.json`'), `skill_${index}${png}`,
-    //   // skillIconPath);
-    //   const id = resources[skillIconPath].textures;
-    //   const skillIcon = new Sprite(id[`skill_${index}${png}`]);
-    //   // const ida = resources[avatarImageJsonPath].textures;
-    //   // const avatarImage = new Sprite(ida[`${imagePath}${png}`]);
-    //   skillIcon.position.set(352, 373+136*index);
-    //
-    //   skillsContainer.addChild(skillBackground, skillIcon);
-    // }
-    //
-    // for (let i = 0; i < skillsTextArray.length; i++) {
-    //   loadSkill(heroName, i);
-    // }
     function loadSkillsIcons(heroName) {
       let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
       let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
@@ -4233,7 +4100,7 @@ function addSkillsContainer(container, heroName) {
 
       if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
         skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
-        console.log('skill icons already loaded');
+        // console.log('skill icons already loaded');
         addSkills();
       } else {
         loader
@@ -4300,7 +4167,7 @@ function addSkillsContainer(container, heroName) {
         setInteractive(skillIcon, true);
 
         skillIcon.on('click', (event) => {
-          console.log(`skill ${i} clicked`);
+          // console.log(`skill ${i} clicked`);
           // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
         });
 
@@ -4309,7 +4176,7 @@ function addSkillsContainer(container, heroName) {
         setInteractive(skillPlusIcon, true);
 
         skillPlusIcon.on('click', (event) => {
-          console.log(`plus for skill ${i} was pressed`);
+          // console.log(`plus for skill ${i} was pressed`);
         });
 
         skillsContainer.addChild(skillIcon, skillPlusIcon);
@@ -4337,8 +4204,6 @@ function addSkillsContainer(container, heroName) {
         }
       }
     }
-
-    // loadSkillsIcons(heroName);
 
     let skillsBanner = new Sprite(resources[banner620x98Path].texture);
     skillsBanner.position.set(312, 204);
@@ -4403,212 +4268,6 @@ function addSkillsContainer(container, heroName) {
   });
 }
 
-// let textBanner = new Text('', textStyleLevel_40center_white);
-//
-// function addVideo(videoFilePath) {
-//   let video = new Sprite(resources[videoFilePath].texture);
-//   video.position.set(1032, 229);
-//
-//   skillsContainer.addChild(heroUpperBackground, video, banner, textBanner);
-// }
-//
-// function loadVideo(heroName, filenamePath) {
-//   // const myLoader = PIXI.loader;
-//   let videoFilePath = `${heroesFolderPath}${heroName}/video/${filenamePath}.png`; // later mkv or mp4, ...
-//
-//   if (videoFilePath in loader.resources) {
-//     console.log('video already loaded');
-//     addVideo(videoFilePath);
-//   } else {
-//     loader
-//       .add(videoFilePath);
-//   }
-//
-//   loader
-//     .once('complete', (loader, resources) => {
-//       // TODO: video - http://pixijs.io/examples/?v=dev#/basics/video.js
-//       // - http://www.html5gamedevs.com/topic/16450-pixi-loading-video-files/
-//       addVideo(videoFilePath);
-//     });
-// }
-//
-// loadVideo(heroName, 'video_1');
-//
-// let textPowerBar = new Text('', textStyleLevel_40center_white);
-// // textPowerBar.position.set(
-// //   setMiddlePos(banner, textPowerBar).x,
-// //   692
-// // );
-// // console.log('power.x', setMiddlePos(banner, textPowerBar).x);
-//
-// let textSkill1 = new Text('', textStyle_32left_black);
-// let textSkill2 = new Text('', textStyle_32left_black);
-// let textSkill3 = new Text('', textStyle_32left_black);
-// let textSkill4 = new Text('', textStyle_32left_black);
-//
-// let textSkillLevel1 = new Text('Lv. ', textStyle_32right_black);
-// let textSkillLevel2 = new Text('Lv. ', textStyle_32right_black);
-// let textSkillLevel3 = new Text('Lv. ', textStyle_32right_black);
-// let textSkillLevel4 = new Text('Lv. ', textStyle_32right_black);
-//
-// // TODO: dodelat ceny jednotlivych skillu + v DB vytvorit tabulku s cenami
-// // jednotlivych skillu pro dany level skillu
-//
-// function loadSkillsIcons(heroName) {
-//   let skill1IconPath = `${heroesFolderPath}${heroName}/skills/skill_1${png}`;
-//   let skill2IconPath = `${heroesFolderPath}${heroName}/skills/skill_2${png}`;
-//   let skill3IconPath = `${heroesFolderPath}${heroName}/skills/skill_3${png}`;
-//   let skill4IconPath = `${heroesFolderPath}${heroName}/skills/skill_4${png}`;
-//
-//   function addSkillBackground(x, y, offsetY) {
-//     let skillBackground = new Sprite(resources[skillBackgroundPath].texture);
-//     skillBackground.position.set(x, y+offsetY); //136
-//
-//     let skillLabel = new Sprite(resources[skillLabelPath].texture);
-//     skillLabel.position.set(x+128, y+62+offsetY);
-//
-//     skillsContainer.addChild(skillBackground, skillLabel,
-//       textSkill1, textSkill2, textSkill3, textSkill4,
-//       textSkillLevel1, textSkillLevel2, textSkillLevel3, textSkillLevel4
-//     );
-//   }
-//
-//   function addSkillIcon(spritePath, x, y, offsetY, i) {
-//     let skillIcon = new Sprite(resources[spritePath].texture);
-//     skillIcon.position.set(x, y+offsetY);
-//     setInteractive(skillIcon, true);
-//
-//     skillIcon.on('click', (event) => {
-//       console.log(`skill ${i} clicked`);
-//       // TODO: dodelat preklikavani mezi jednotlivymi skilly + zmena nahledu video v prave casti obrazovky
-//     });
-//
-//     let skillPlusIcon = new Sprite(resources[plusIconPath].texture);
-//     skillPlusIcon.position.set(x+464, y+12+offsetY);
-//     setInteractive(skillPlusIcon, true);
-//
-//     skillPlusIcon.on('click', (event) => {
-//       console.log(`plus for skill ${i} was pressed`);
-//     });
-//
-//     skillsContainer.addChild(skillIcon, skillPlusIcon);
-//   }
-//
-//   function addSkills() {
-//     let offsetY = 0;
-//     for (let i = 0; i < 4; i++) {
-//       addSkillBackground(332, 359, offsetY);
-//       switch (i) {
-//         case 0:
-//           addSkillIcon(skill1IconPath, 352, 373, offsetY, i);
-//           break;
-//         case 1:
-//           addSkillIcon(skill2IconPath, 352, 373, offsetY, i);
-//           break;
-//         case 2:
-//           addSkillIcon(skill3IconPath, 352, 373, offsetY, i);
-//           break;
-//         case 3:
-//           addSkillIcon(skill4IconPath, 352, 373, offsetY, i);
-//           break;
-//       }
-//       offsetY += 136;
-//     }
-//   }
-//
-//   if (skill1IconPath in loader.resources && skill2IconPath in loader.resources &&
-//     skill3IconPath in loader.resources && skill4IconPath in loader.resources) {
-//     console.log('skill icons already loaded');
-//     addSkills();
-//   } else {
-//     loader
-//       .add([
-//         skill1IconPath, skill2IconPath, skill3IconPath, skill4IconPath
-//       ]);
-//   }
-//
-//   loader
-//     .once('complete', (loader, resources) => {
-//       addSkills();
-//     });
-// }
-//
-// loadSkillsIcons(heroName);
-//
-// let skillsBanner = new Sprite(resources[banner620x98Path].texture);
-// skillsBanner.position.set(312, 204);
-//
-// let textSkillsBanner = new Text('', textStyleBubble_52left_white);
-//
-// let textLevel = new Text('', textStyleLevel_40center_white);
-// textLevel.position.set(392, 228);
-//
-// let classIcon = new Sprite(resources[allIconPath].texture);
-//
-// socket.on('heroContainerData', (data) => {
-//   console.log('heroContainerData\n', data);
-//
-//   textBanner.text = data.skills[0].title;
-//   textBanner.position.set(
-//     setMiddlePos(banner, textBanner).x,
-//     setMiddlePos(banner, textBanner).y-4
-//   );
-//
-//   textPowerBar.text = data.textPower+data.power;
-//   textPowerBar.position.set(
-//     setMiddlePos(banner, textPowerBar).x,
-//     692
-//   );
-//
-//   textSkillsBanner.text = data.name;
-//   textSkillsBanner.position.set(
-//     setMiddlePos(skillsBanner, textSkillsBanner).x,
-//     setMiddlePos(skillsBanner, textSkillsBanner).y-4
-//   );
-//
-//   textLevel.text = data.level;
-//   textLevel.position.set(
-//     textLevel.x-textLevel.width/2,
-//     228
-//   );
-//
-//   selectClass(classIcon, data.class);
-//   classIcon.scale.set(0.6);
-//   classIcon.position.set(830, 230);
-//
-//   textSkill1.text = data.skills[0].title;
-//   textSkill1.position.set(460, 384);
-//
-//   textSkillLevel1.text = textSkillLevel1.text+data.skills[0].skill_level;
-//   textSkillLevel1.position.set(734, 428);
-//
-//   textSkill2.text = data.skills[1].title;
-//   textSkill2.position.set(460, 520);
-//
-//   textSkillLevel2.text = textSkillLevel2.text+data.skills[1].skill_level;
-//   textSkillLevel2.position.set(734, 564);
-//
-//   textSkill3.text = data.skills[2].title;
-//   textSkill3.position.set(460, 656);
-//
-//   textSkillLevel3.text = textSkillLevel3.text+data.skills[2].skill_level;
-//   textSkillLevel3.position.set(734, 700);
-//
-//   textSkill4.text = data.skills[3].title;
-//   textSkill4.position.set(460, 792);
-//
-//   textSkillLevel4.text = textSkillLevel4.text+data.skills[3].skill_level;
-//   textSkillLevel4.position.set(734, 836);
-//
-//   // socket.removeAllListeners();
-//   socket.off('heroContainerData');
-// });
-//
-// skillsContainer.addChild(textPowerBar, skillsBanner,
-//   textSkillsBanner, textLevel, classIcon);
-// container.addChild(skillsContainer);
-// }
-
 //
 function addEquipContainer(container, heroName) {
   equipContainer = new Container();
@@ -4659,7 +4318,7 @@ function setMapContainer() {
   // socket.emit('mapContainer', 'setMapContainer'); potreba pro level 1-1, ..
   function loadStarIcon() {
     if (starIconPath in loader.resources) {
-      console.log(`${starIconPath} - already loaded`);
+      // console.log(`${starIconPath} - already loaded`);
       loadBackgroundImages();
     } else {
       loader
@@ -4678,13 +4337,13 @@ function setMapContainer() {
       normalDifficultyIconPath in loader.resources &&
       eliteDifficultyIconPath in loader.resources &&
       legendDifficultyIconPath in loader.resources) {
-      console.log(`${mapBackgroundPath} - already loaded`);
-      console.log(`${mapPath} - already loaded`);
-      console.log(`${difficultyIconBackgroundPath} - already loaded`);
-      console.log(`${difficultySelectedPath} - already loaded`);
-      console.log(`${normalDifficultyIconPath} - already loaded`);
-      console.log(`${eliteDifficultyIconPath} - already loaded`);
-      console.log(`${legendDifficultyIconPath} - already loaded`);
+      // console.log(`${mapBackgroundPath} - already loaded`);
+      // console.log(`${mapPath} - already loaded`);
+      // console.log(`${difficultyIconBackgroundPath} - already loaded`);
+      // console.log(`${difficultySelectedPath} - already loaded`);
+      // console.log(`${normalDifficultyIconPath} - already loaded`);
+      // console.log(`${eliteDifficultyIconPath} - already loaded`);
+      // console.log(`${legendDifficultyIconPath} - already loaded`);
       addBackground();
     } else {
       loader
@@ -4790,7 +4449,7 @@ function setMapContainer() {
 
       function chapterLocked() {
         if (lockIconPath in loader.resources) {
-          console.log(`${lockIconPath} - already loaded`);
+          // console.log(`${lockIconPath} - already loaded`);
           addLockIcon(lockIconPath);
         } else {
           loader
@@ -4809,7 +4468,7 @@ function setMapContainer() {
 
     socket.emit('progress');
     socket.on('progressData', (data) => {
-      console.log('progressData\n', data);
+      // console.log('progressData\n', data);
 
       addDifficultyIcon(504, normalDifficultyIconPath,
         data.progress[0].difficulty, data.progress[0].opened, data.progress[0].text,
@@ -4852,7 +4511,7 @@ function setMapContainer() {
         interParagraphsArray.push(sprite);
 
         sprite.on('click', () => {
-          console.log('chapter clicked');
+          // console.log('chapter clicked');
           // mapContainer.removeChild(mapImageContainer);
           loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
             numberOfStars, staminaConsume, reward, consume, enemies, enemiesPower,
@@ -4882,7 +4541,7 @@ function setMapContainer() {
 
     socket.emit('paragraphs');
     socket.on('paragraphsData', (data) => {
-      console.log('paragraphsData\n', data);
+      // console.log('paragraphsData\n', data);
 
       for (let index in data.paragraphs) {
         let p_opened = data.paragraphs[index].p_opened,
@@ -4901,7 +4560,7 @@ function setMapContainer() {
           p_sweepx10 = data.sweepx10,
           p_start = data.start;
 
-        console.log('chapter', p_chapter, 'open -', p_opened);
+        // console.log('chapter', p_chapter, 'open -', p_opened);
 
         if (p_opened === 'yes') {
           switch (p_chapter) {
@@ -4988,7 +4647,7 @@ function setMapContainer() {
   loadStarIcon();
 
   stage.addChild(mapContainer);
-  console.log('mapContainer:\n', stage.children);
+  // console.log('mapContainer:\n', stage.children);
 }
 
 //
@@ -4997,7 +4656,7 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
   possibleRewards, sweep, sweepx10, start) {
 
   let difficulty = selectedDifficulty;
-  console.log(`difficulty: ${difficulty}`);
+  // console.log(`difficulty: ${difficulty}`);
 
   let enemiesPath = [];
   let possibleRewardsPath = [];
@@ -5006,7 +4665,7 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
 
   socket.emit('selectedParagraph', difficulty, chapter);
   socket.on('selectedParagraphData', (data) => {
-    console.log('selectedParagraphData\n', data);
+    // console.log('selectedParagraphData\n', data);
 
     for (let enemy of data.enemiesData) {
       // console.log(enemy.icon_path);
@@ -5015,14 +4674,14 @@ function loadParagraphsData(chapter, bannerTitle, description, maxNumberOfStars,
       selectedEnemies.push(enemy.name);
       enemiesSumPower += enemy.power;
     }
-    console.log('enemiesPath', enemiesPath);
-    console.log('selectedEnemies', selectedEnemies);
+    // console.log('enemiesPath', enemiesPath);
+    // console.log('selectedEnemies', selectedEnemies);
 
     for (let pr of data.possibleRewardsData) {
       let prPath = pr.icon_path;
       possibleRewardsPath.push(prPath);
     }
-    console.log('possibleRewardsPath', possibleRewardsPath);
+    // console.log('possibleRewardsPath', possibleRewardsPath);
 
     socket.off('selectedParagraphData');
     setChapterParagraphContainer(difficulty, chapter, bannerTitle, description, maxNumberOfStars,
@@ -5064,7 +4723,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
   function addParagraphScreen(posX, posY) {
     function loadBannerImage() {
       if (banner620x98Path in loader.resources) {
-        console.log(`${banner620x98Path} - already loaded`);
+        // console.log(`${banner620x98Path} - already loaded`);
         loadHelpIcon();
       } else {
         loader
@@ -5078,7 +4737,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
 
     function loadHelpIcon() {
       if (helpIconPath in loader.resources) {
-        console.log(`${helpIconPath} - already loaded`);
+        // console.log(`${helpIconPath} - already loaded`);
         loadParagraphImages();
       } else {
         loader
@@ -5093,10 +4752,10 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
     function loadParagraphImages() {
       if (paragraphBackgroundPath in loader.resources && btnSweepPath in loader.resources &&
         btnSweepNoPath in loader.resources && btnStartPath in loader.resources) {
-        console.log(`${paragraphBackgroundPath} - already loaded`);
-        console.log(`${btnSweepPath} - already loaded`);
-        console.log(`${btnSweepNoPath} - already loaded`);
-        console.log(`${btnStartPath} - already loaded`);
+        // console.log(`${paragraphBackgroundPath} - already loaded`);
+        // console.log(`${btnSweepPath} - already loaded`);
+        // console.log(`${btnSweepNoPath} - already loaded`);
+        // console.log(`${btnStartPath} - already loaded`);
         addParagraphImages(paragraphBackgroundPath, btnSweepPath, btnSweepNoPath,
           btnStartPath, enemiesPath, possibleRewardsPath, enemiesSumPower,
           selectedEnemies);
@@ -5181,7 +4840,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
       setInteractive(btnStart, true);
       interBtnBackStartArray.push(btnStart);
       btnStart.on('click', () => {
-        console.log('btnStart clicked');
+        // console.log('btnStart clicked');
         // stage.removeChild(mapContainer);
         // console.log(stage.children);
         loadSelectedHeroes(difficulty, chapter, possibleRewardsPath, selectedEnemies);
@@ -5211,11 +4870,11 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
       for (let i in enemiesPath) {
         // console.log(enemiesPath[i], i); enemiesFolderPath = '/images/game/enemies/',
         let enemyPath = eval('`${enemiesFolderPath}${enemiesPath[i]}${png}`');
-        console.log(`enemyPath: ${enemyPath}`);
+        // console.log(`enemyPath: ${enemyPath}`);
 
         function loadEnemyImages() {
           if (enemyPath in loader.resources) {
-            console.log(`${enemyPath} - already loaded`);
+            // console.log(`${enemyPath} - already loaded`);
             addEnemyImages(enemyPath);
           } else {
             loader
@@ -5257,7 +4916,7 @@ function setChapterParagraphContainer(difficulty, chapter, bannerTitle, descript
 
 // Load information about player's summoned heroes from DB, that can be used in battle
 function loadSelectedHeroes(difficulty, chapter, possibleRewardsPath, selectedEnemies) {
-  console.log('chapterrr:::', chapter, difficulty);
+  // console.log('chapterrr:::', chapter, difficulty);
 
   socket.emit('selectedHeroes');
 
@@ -5272,7 +4931,7 @@ function loadSelectedHeroes(difficulty, chapter, possibleRewardsPath, selectedEn
   let heroesPowerList = [];
 
   socket.on('selectedHeroesData', (data) => {
-    console.log('selectedHeroesData', data);
+    // console.log('selectedHeroesData', data);
 
     for (let hero of data.heroes) {
       // console.log(enemy.icon_path);
@@ -5325,7 +4984,7 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
   // Load `backgroundEmptyBlurPath` string path
   function loadBackEmptyBlurImage() {
     if (backgroundEmptyBlurPath in loader.resources) {
-      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      // console.log(`${backgroundEmptyBlurPath} - already in stage`);
       addBackEmptyBlurImage();
     } else {
       loader
@@ -5366,14 +5025,14 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
       selectHeroIconPath in loader.resources && yesIconPath in loader.resources
       // && itemUseBackgroundPath in loader.resources
     ) {
-      console.log(`${selectUpperBackgroundPath} - already in stage`);
-      console.log(`${selectBottomBackgroundPath} - already in stage`);
-      console.log(`${btnAttackPath} - already in stage`);
-      console.log(`${selectNameLabelPath} - already in stage`);
-      console.log(`${selectLevelLabelPath} - already in stage`);
-      console.log(`${selectIconLockedPath} - already in stage`);
-      console.log(`${selectHeroIconPath} - already in stage`);
-      console.log(`${yesIconPath} - already in stage`);
+      // console.log(`${selectUpperBackgroundPath} - already in stage`);
+      // console.log(`${selectBottomBackgroundPath} - already in stage`);
+      // console.log(`${btnAttackPath} - already in stage`);
+      // console.log(`${selectNameLabelPath} - already in stage`);
+      // console.log(`${selectLevelLabelPath} - already in stage`);
+      // console.log(`${selectIconLockedPath} - already in stage`);
+      // console.log(`${selectHeroIconPath} - already in stage`);
+      // console.log(`${yesIconPath} - already in stage`);
       // console.log(`${itemUseBackgroundPath} - already in stage`);
       addSelectHeroesImages();
     } else {
@@ -5444,8 +5103,8 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
     setInteractive(btnAttack, true);
     interSelectHeroesArray.push(btnAttack);
     btnAttack.on('click', () => {
-      console.log('btnAttack clicked');
-      console.log('numberOfSelecedHeroes', numberOfSelecedHeroes);
+      // console.log('btnAttack clicked');
+      // console.log('numberOfSelecedHeroes', numberOfSelecedHeroes);
       if (numberOfSelecedHeroes !== selectedHeroList.length) {
         for (let item of interSelectHeroesArray) {
           setInteractive(item, false);
@@ -5478,7 +5137,7 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
           textLowHeroes);
       } else {
         stage.removeChild(paragraphSelectHeroesContainer, mapContainer);
-        console.log(stage.children);
+        // console.log(stage.children);
         setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath,
           selectedEnemiesList);
       }
@@ -5498,13 +5157,6 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
 
     const bookmarkX = upperBackground.x + upperBackground.width;
     const SCALE = 0.87;
-
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 96, allIconPath, SCALE); //+12
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 202, tankIconPath, SCALE);
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 308, fighterIconPath, SCALE);
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 414, marksmanIconPath, SCALE);
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 520, mageIconPath, SCALE);
-    // addBookmark(paragraphSelectHeroesContainer, bookmarkX, 626, supportIconPath, SCALE);
 
     const progress = chapter;
     const diff = difficulty;
@@ -5580,7 +5232,7 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
 
     for (let index in heroesIconPathList) {
       // console.log('index', index);
-      console.log('heroesIconPathList[index]', heroesIconPathList[index]);
+      // console.log('heroesIconPathList[index]', heroesIconPathList[index]);
       let heroIconContainer = new Container();
       let heroIconContainerCopy = new Container();
 
@@ -5733,12 +5385,12 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
         // console.log('heroIconContainerCopy', heroIconContainerCopy.x, heroIconContainerCopy.y);
         if (selectedHeroList.includes(heroesNameList[index]) === true) {
           const i = selectedHeroList.indexOf(heroesNameList[index]);
-          console.log('index "i":', i, heroesNameList[index]);
+          // console.log('index "i":', i, heroesNameList[index]);
           if (i > -1) {
             heroIconContainerCopy.position.set(selectedHeroListCoordinateList[i][0], selectedHeroListCoordinateList[i][1]);
 
             selectedHeroesSumPower -= powerSelectedHeroList[i];
-            console.log('selectedHeroesSumPower', selectedHeroesSumPower);
+            // console.log('selectedHeroesSumPower', selectedHeroesSumPower);
 
             if (isNaN(selectedHeroesSumPower)) {
               selectedHeroesSumPower = 0;
@@ -5750,11 +5402,11 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
             selectedHeroContainerList.splice(i, 1);
             selectedHeroListCoordinateList.splice(i, 1);
 
-            console.log('selectedHeroList', selectedHeroList);
-            console.log('selectedHeroPositionList', selectedHeroPositionList);
-            console.log('powerSelectedHeroList', powerSelectedHeroList);
-            console.log('selectedHeroContainerList', selectedHeroContainerList);
-            console.log('selectedHeroListCoordinateList', selectedHeroListCoordinateList);
+            // console.log('selectedHeroList', selectedHeroList);
+            // console.log('selectedHeroPositionList', selectedHeroPositionList);
+            // console.log('powerSelectedHeroList', powerSelectedHeroList);
+            // console.log('selectedHeroContainerList', selectedHeroContainerList);
+            // console.log('selectedHeroListCoordinateList', selectedHeroListCoordinateList);
 
             // console.log('selectedHeroesSumPower', selectedHeroesSumPower);
             textPowerBanner.text = textPower + selectedHeroesSumPower;
@@ -5784,11 +5436,11 @@ function setParagraphSelectHeroesContainer(difficulty, chapter, heroesIconPathLi
             bubbleSort(selectedHeroList, selectedHeroPositionList, powerSelectedHeroList,
               selectedHeroContainerList, selectedHeroListCoordinateList);
 
-            console.log('selectedHeroList', selectedHeroList);
-            console.log('selectedHeroPositionList', selectedHeroPositionList);
-            console.log('powerSelectedHeroList', powerSelectedHeroList);
-            console.log('selectedHeroContainerList', selectedHeroContainerList);
-            console.log('selectedHeroListCoordinateList', selectedHeroListCoordinateList);
+            // console.log('selectedHeroList', selectedHeroList);
+            // console.log('selectedHeroPositionList', selectedHeroPositionList);
+            // console.log('powerSelectedHeroList', powerSelectedHeroList);
+            // console.log('selectedHeroContainerList', selectedHeroContainerList);
+            // console.log('selectedHeroListCoordinateList', selectedHeroListCoordinateList);
 
             selectedHeroesSumPower += heroesPowerList[index];
             // console.log('selectedHeroesSumPower', selectedHeroesSumPower);
@@ -5832,9 +5484,9 @@ let attackScreenContainer;
 function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibleRewardsPath,
   selectedEnemiesList) {
 
-  console.log('attack screen');
-  console.log('selectedHeroList:', selectedHeroList);
-  console.log('selectedEnemiesList:', selectedEnemiesList);
+  // console.log('attack screen');
+  // console.log('selectedHeroList:', selectedHeroList);
+  // console.log('selectedEnemiesList:', selectedEnemiesList);
 
   attackScreenContainer = new Container();
 
@@ -5847,20 +5499,20 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       continueIconPath in loader.resources && btnStatisticsPath in loader.resources &&
       btnNextPath in loader.resources && btnStatisticsPath in loader.resources
     ) {
-      console.log(`${backgroundPath} - already in stage`);
-      console.log(`${timerBackgroundPath} - already in stage`);
-      console.log(`${btnAutoPath} - already in stage`);
-      console.log(`${btnAutoNoPath} - already in stage`);
-      console.log(`${pauseIconPath} - already in stage`);
-      console.log(`${hpBarPath} - already in stage`);
-      console.log(`${timerIconPath} - already in stage`);
-      console.log(`${exitIconPath} - already in stage`)
-      console.log(`${soundIconPath} - already in stage`);
-      console.log(`${musicIconPath} - already in stage`);
-      console.log(`${continueIconPath} - already in stage`);
-      console.log(`${btnStatisticsPath} - already in stage`);
-      console.log(`${btnNextPath} - already in stage`);
-      console.log(`${backgroundBattleOverPath} - already in stage`);
+      // console.log(`${backgroundPath} - already in stage`);
+      // console.log(`${timerBackgroundPath} - already in stage`);
+      // console.log(`${btnAutoPath} - already in stage`);
+      // console.log(`${btnAutoNoPath} - already in stage`);
+      // console.log(`${pauseIconPath} - already in stage`);
+      // console.log(`${hpBarPath} - already in stage`);
+      // console.log(`${timerIconPath} - already in stage`);
+      // console.log(`${exitIconPath} - already in stage`)
+      // console.log(`${soundIconPath} - already in stage`);
+      // console.log(`${musicIconPath} - already in stage`);
+      // console.log(`${continueIconPath} - already in stage`);
+      // console.log(`${btnStatisticsPath} - already in stage`);
+      // console.log(`${btnNextPath} - already in stage`);
+      // console.log(`${backgroundBattleOverPath} - already in stage`);
       addAttackScreenImages();
     } else {
       loader
@@ -5881,10 +5533,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
   function addAttackScreenImages() {
 
     let rand = getRandomInt(0, 99);
-    console.log(`rand: ${rand}`);
+    // console.log(`rand: ${rand}`);
     chooseReward(rand, possibleRewardsPath);
     resultRewards = rewards.slice(0);
-    console.log(rewards);
+    // console.log(rewards);
     //    console.log(resultRewards);
 
     let whichHeroDroppedItem = [];
@@ -5897,11 +5549,11 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       } else whichHeroDroppedItem.push(0, 1);
     }
 
-    console.log(`whichHeroDroppedItem: ${whichHeroDroppedItem}`);
+    // console.log(`whichHeroDroppedItem: ${whichHeroDroppedItem}`);
 
     let selectedHeroesList = [];
     for (let hero of selectedHeroList) selectedHeroesList.push(hero);
-    console.log(`selectedHeroesList:`, selectedHeroesList);
+    // console.log(`selectedHeroesList:`, selectedHeroesList);
 
     // let selectedEnemiesList = ['Enemy 3', 'Enemy 4', 'Enemy 5', 'Enemy 6'];
 
@@ -6001,12 +5653,11 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
     socket.emit('battle');
     socket.emit('battleHeroes', selectedHeroList, difficulty, chapter);
-    // socket.emit('battleEnemies', difficulty, chapter);
     // battleCountdownTimer('battleTimerStarted', 'battleTimerEnded',
     //   textTimerIcon, timerBackground);
 
     socket.on('battleData', (data) => {
-      console.log('battleData', data);
+      // console.log('battleData', data);
 
       const autoText = data.auto;
 
@@ -6022,7 +5673,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
     });
 
     socket.on('battleHeroesData', (data) => {
-      console.log('battleHeroesData', data);
+      // console.log('battleHeroesData', data);
 
       let
         heroObject = data.heroArray,
@@ -6037,9 +5688,9 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
         let heroIcon = new Sprite(resources[heroIconPath].texture);
         heroIcon.position.set(1648 - 248 * i, 810);
-        //        setInteractive(heroIcon, true);
+        // setInteractive(heroIcon, true);
         heroIcon.on('click', () => {
-          console.log(`${selectedHeroList[i].name} used ultimate skill!`);
+          // console.log(`${selectedHeroList[i].name} used ultimate skill!`);
           iconManaBar.outer.width = 0;
           fullIconManaBar.visible = false;
           setInteractive(heroIcon, false);
@@ -6103,17 +5754,6 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       let heroesAmount = 0;
       let frontEnemies = [];
       let enemiesAmount = 0;
-
-      // function heroMove(hero, endPosX) {
-      //   // console.log(`hero: ${hero.x}, ${endPosX}`);
-      //   hero.x += hero.vx;
-      //   if (hero.x === endPosX) {
-      //     hero.vx = 0;
-      //   } else if (hero.x > endPosX) {
-      //     hero.vx = 0;
-      //     hero.x = endPosX;
-      //   }
-      // }
 
       function addEnemy(container, enemy, i, speedX, speedY) {
         container.vx = speedX;
@@ -6276,7 +5916,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                 }, 600);
 
                 heroObject[temp].health -= calcAttack;
-                console.log(`${countdown}: ${enemyName} attack: ${calcAttack}, ${heroObject[temp].name} health: ${heroObject[temp].health}`);
+                // console.log(`${countdown}: ${enemyName} attack: ${calcAttack}, ${heroObject[temp].name} health: ${heroObject[temp].health}`);
               }
             } else {
               temp++;
@@ -6330,7 +5970,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       function addSelectedHero(container, hero, i, speedX, speedY, heroUltSkillPath) {
         function loadSkills() {
           if (heroUltSkillPath in loader.resources) {
-            console.log(`${heroUltSkillPath} - already in stage`);
+            // console.log(`${heroUltSkillPath} - already in stage`);
             // addAttackScreenImages();
           } else {
             loader
@@ -6521,7 +6161,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                 let h = enemyObject[temp].health;
                 h -= calcAttack;
                 enemyObject[temp].health = h;
-                console.log(`${countdown}: ${heroName} attack: ${calcAttack}, ${enemyObject[temp].name} health: ${enemyObject[temp].health}`);
+                // console.log(`${countdown}: ${heroName} attack: ${calcAttack}, ${enemyObject[temp].name} health: ${enemyObject[temp].health}`);
               }
             } else {
               temp++;
@@ -6604,7 +6244,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
       let countdown = 80;
       let myTimer = null;
-      console.log(countdown);
+      // console.log(countdown);
 
       function startTimer() {
         let myTimer = setInterval(() => {
@@ -6647,8 +6287,10 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         // console.log(`${heroObject[i].name}`);
         switch (heroObject[index].name) {
           case 'Aelois':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Amara':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Crystal':
             castLeryssaUltSkill(heroObject[0]);
@@ -6663,15 +6305,19 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
             castLeryssaUltSkill(heroObject[index]);
             break;
           case 'Nadia':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Nyx':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Sin':
             castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Zalajin':
+            castLeryssaUltSkill(heroObject[0]);
             break;
           case 'Zaya':
+            castLeryssaUltSkill(heroObject[0]);
             break;
         }
       }
@@ -6696,9 +6342,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
           // wave++;
           setTimeout(() => {
-            console.log(`wave: ${wave+1}, dmg: ${waveDmg}`);
-            // console.log(`${battleListOfEnemies.length}`);
-            // console.log(numberOfEnemiesArray);
+            // console.log(`wave: ${wave+1}, dmg: ${waveDmg}`);
             for (let index of numberOfEnemiesArray) {
               // console.log(`index: ${index}, ${enemyObject[index].name}, ${enemyObject[index].health}`);
               // console.log(battleListOfEnemies[index].children[2].outer.width);
@@ -6803,7 +6447,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                 let h = enemyObject[index].health;
                 h -= waveDmg;
                 enemyObject[index].health = h;
-                console.log(`${countdown}: ${hero.name} attack: ${waveDmg}, ${enemyObject[index].name} health: ${enemyObject[index].health}`);
+                // console.log(`${countdown}: ${hero.name} attack: ${waveDmg}, ${enemyObject[index].name} health: ${enemyObject[index].health}`);
               }
             }
             attackScreenContainer.removeChild(ultSkillContainer);
@@ -6818,11 +6462,11 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
       let heroHitArr = [];
       for (let hero of selectedHeroList) heroHitArr.push(hero);
-      console.log('heroHitArr', heroHitArr);
+      // console.log('heroHitArr', heroHitArr);
 
       let enemyHitArr = [];
       for (let enemy of selectedEnemiesList) enemyHitArr.push(enemy);
-      console.log('enemyHitArr', enemyHitArr);
+      // console.log('enemyHitArr', enemyHitArr);
 
       function heroAttackStarted(heroContainer, hero, index) {
         let heroHit = false;
@@ -6929,7 +6573,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         }, 1000);
 
         if (heroHitArr.length === 0) {
-          //            console.log('Playing');
+          // console.log('Playing');
           state = playing;
 
           for (let index in selectedHeroesList) {
@@ -7003,7 +6647,7 @@ let resultRewards = [];
 let rewardInScreen = false;
 
 function chooseReward(r, possibleRewards) {
-  r = 87;
+  // r = 87;
   // console.log(`r: ${r}`);
   // keep count how many enemies did drop item (glyph, elixir, ...)
   if (r < 90) {
@@ -7013,7 +6657,7 @@ function chooseReward(r, possibleRewards) {
     } else glyphDrops = 3;
   } else glyphDrops = 0;
 
-  console.log(`glyphDrops: ${glyphDrops}`);
+  // console.log(`glyphDrops: ${glyphDrops}`);
 
   // let rewardPaths = [];
   //
@@ -7056,7 +6700,7 @@ function enemyKilled(posX, posY, whichHero, t, textChestBackground, chests) {
     // console.log(`chests: ${chests}, ${textChestBackground.text}`);
     glyph.on('click', () => {
       // countRewards(glyph, i, textChestBackground, chests);
-      console.log(`glyph ${i} clicked`);
+      // console.log(`glyph ${i} clicked`);
       glyphArray.splice(i, 1);
       chests = textChestBackground.text;
       chests++;
@@ -7096,7 +6740,7 @@ function setPauseScreenContainer() {
   continueIcon.position.set(1320, GAME_HEIGHT / 2 - continueIcon.height / 2);
   setInteractive(continueIcon, true);
   continueIcon.on('click', () => {
-    console.log(`continue clicked`);
+    // console.log(`continue clicked`);
     setInteractive(continueIcon, false);
     setInteractive(pauseIcon, true);
     stage.removeChild(pauseScreenContainer);
@@ -7107,8 +6751,8 @@ function setPauseScreenContainer() {
 }
 
 function setVictoryScreenContainer(gold, rr) {
-  console.log('Victory screen');
-  console.log(rr);
+  // console.log('Victory screen');
+  // console.log(rr);
 
   stage.removeChild(attackScreenContainer);
 
@@ -7124,7 +6768,7 @@ function setVictoryScreenContainer(gold, rr) {
   btnNext.position.set(1704, 840);
   setInteractive(btnNext, true);
   btnNext.on('click', () => {
-    console.log(`btnNext clicked`);
+    // console.log(`btnNext clicked`);
     stage.removeChild(victoryScreenContainer);
     setMapContainer();
   });
@@ -7194,7 +6838,7 @@ function setDefeatScreenContainer() {
   btnNext.position.set(1704, 840);
   setInteractive(btnNext, true);
   btnNext.on('click', () => {
-    console.log(`btnNext clicked`);
+    // console.log(`btnNext clicked`);
     stage.removeChild(defeatScreenContainer);
     setMapContainer();
   });
@@ -7242,10 +6886,10 @@ function setLevelUpScreenContainer() {
     if (backgroundLevelUpPath in loader.resources && labelDarkGreyPath in loader.resources &&
       labelLightGreyPath in loader.resources && rigthArrowPath in loader.resources
     ) {
-      console.log(`${backgroundLevelUpPath} - already in stage`);
-      console.log(`${labelDarkGreyPath} - already in stage`);
-      console.log(`${labelLightGreyPath} - already in stage`);
-      console.log(`${rigthArrowPath} - already in stage`);
+      // console.log(`${backgroundLevelUpPath} - already in stage`);
+      // console.log(`${labelDarkGreyPath} - already in stage`);
+      // console.log(`${labelLightGreyPath} - already in stage`);
+      // console.log(`${rigthArrowPath} - already in stage`);
       addImages();
     } else {
       loader
@@ -7328,7 +6972,7 @@ function setLevelUpScreenContainer() {
     btnOK.position.set(GAME_WIDTH / 2 - btnOK.width / 2, labelMaxHeroLevel.y + 168);
     setInteractive(btnOK, true);
     btnOK.on('click', () => {
-      console.log(`btnOK clicked`);
+      // console.log(`btnOK clicked`);
       stage.removeChild(levelUpContainer);
     });
 
@@ -7375,7 +7019,7 @@ function setSummonBooksContainer() {
   // Load `backgroundEmptyBlurPath` string path
   function loadBackgroundEmptyBlurImage() {
     if (backgroundEmptyBlurPath in loader.resources) {
-      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      // console.log(`${backgroundEmptyBlurPath} - already in stage`);
       addBackgroundEmptyBlurImage();
     } else {
       loader
@@ -7397,7 +7041,7 @@ function setSummonBooksContainer() {
 
   function loadBackgroundBookImage() {
     if (backgroundBookPath in loader.resources) {
-      console.log(`${backgroundBookPath} - already in stage`);
+      // console.log(`${backgroundBookPath} - already in stage`);
       addBackgroundBookImage();
     } else {
       loader
@@ -7608,7 +7252,7 @@ function setSummonBooksContainer() {
     setInteractive(btnSummonx1BoM_sbc, true);
     interSummonArray.push(btnSummonx1BoM_sbc);
     btnSummonx1BoM_sbc.on('pointerup', () => {
-      console.log('btnSummonx1BoM_sbc clicked');
+      // console.log('btnSummonx1BoM_sbc clicked');
       //      socket.emit('summonx1BoM', 'summonx1BoMClicked');
       setSummonContainer(1);
     });
@@ -7616,7 +7260,7 @@ function setSummonBooksContainer() {
     setInteractive(btnSummonx1GBoM_sbc, true);
     interSummonArray.push(btnSummonx1GBoM_sbc);
     btnSummonx1GBoM_sbc.on('pointerup', () => {
-      console.log('btnSummonx1GBoM_sbc clicked');
+      // console.log('btnSummonx1GBoM_sbc clicked');
       //      socket.emit('summonx1GBoM', 'summonx1GBoMClicked');
       setSummonContainer(2);
     });
@@ -7799,21 +7443,10 @@ function setInventoryContainer() {
     setInteractive(item, false);
   }
 
-  // socket.emit('getInventory');
-  // socket.on('getInventoryData', data => {
-  //   console.log('getInventoryData', data);
-  //
-  //   let inventory = data.inventory;
-  //
-  //   // for (let item of inventory) addItem(item, inventory.indexOf(item));
-  //
-  //   socket.off('getInventoryData');
-  // });
-
   // Load `backgroundEmptyBlurPath` string path
   function loadBackgroundEmptyBlurImage() {
     if (backgroundEmptyBlurPath in loader.resources) {
-      console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      // console.log(`${backgroundEmptyBlurPath} - already in stage`);
       addBackgroundEmptyBlurImage();
     } else {
       loader
@@ -7833,7 +7466,7 @@ function setInventoryContainer() {
 
     function loadBackgroundBookImage() {
       if (backgroundBookPath in loader.resources) {
-        console.log(`${backgroundBookPath} - already in stage`);
+        // console.log(`${backgroundBookPath} - already in stage`);
         addBackgroundBookImage();
       } else {
         loader
@@ -7858,7 +7491,7 @@ function setInventoryContainer() {
       btnBack.position.set(36, 36);
       setInteractive(btnBack, true);
       btnBack.on('click', () => {
-        console.log('btnBack clicked');
+        // console.log('btnBack clicked');
         setTimeout(() => {
           backIconClicked(btnBack, inventoryContainer);
         }, LATENCY / 2);
