@@ -231,7 +231,11 @@ const GAME_WIDTH = 1920,
   enemy03Path = `${enemiesFolderPath}enemy_03/enemy_03${png}`,
   enemy04Path = `${enemiesFolderPath}enemy_04/enemy_04${png}`,
   enemy05Path = `${enemiesFolderPath}enemy_05/enemy_05${png}`,
-  enemy06Path = `${enemiesFolderPath}enemy_06/enemy_06${png}`;
+  enemy06Path = `${enemiesFolderPath}enemy_06/enemy_06${png}`,
+  arenaPlayerBackgroundPath = `${backgroundsFolderPath}arena_player_background${png}`,
+  arenaEnemyBackgroundPath = `${backgroundsFolderPath}arena_enemy_background${png}`,
+  btnPink172x48Path = `${buttonsFolderPath}btn_pink_172x48${png}`,
+  lblBlue348x48Path = `${labelsFolderPath}lbl_blue_348x48${png}`;
 
 // Global variables
 let renderer, stage, stats,
@@ -398,10 +402,10 @@ function init() {
   window.addEventListener("resize", resize);
 
   //// ON THE TOP OF OUR SCENE WE PUT A FPS COUNTER FROM MR.DOOB - stats.js ////
-  stats = new Stats();
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.top = '0px';
-  document.body.appendChild(stats.domElement);
+  // stats = new Stats();
+  // stats.domElement.style.position = 'absolute';
+  // stats.domElement.style.top = '0px';
+  // document.body.appendChild(stats.domElement);
 
   if (window.devicePixelRatio >= 2 && renderer instanceof PIXI.WebGLRenderer) {
     loader
@@ -462,8 +466,10 @@ function init() {
         // difficultyIconBackgroundPath, normalDifficultyIconPath, eliteDifficultyIconPath,
         // legendDifficultyIconPath,
         // Enemies
-        enemy01Path, enemy02Path, enemy03Path, enemy04Path, enemy05Path, enemy06Path
-        // pauseIconPath
+        enemy01Path, enemy02Path, enemy03Path, enemy04Path, enemy05Path, enemy06Path,
+        // pauseIconPath,
+        arenaPlayerBackgroundPath, arenaEnemyBackgroundPath, btnPink172x48Path,
+        lblBlue348x48Path
       ])
       .on("progress", loadProgressHandler)
       .load(setup);
@@ -878,7 +884,7 @@ function init() {
 // Runs the current game 'state' in a loop and render the sprites
 function gameLoop() {
 
-  stats.begin();
+  // stats.begin();
   // monitored code goes here
 
   // Update the current game state:
@@ -890,7 +896,7 @@ function gameLoop() {
   // Loop this function 60 times per second
   requestAnimationFrame(gameLoop);
 
-  stats.end();
+  // stats.end();
 }
 
 // All the game logic goes here
@@ -2144,6 +2150,367 @@ function setPlusGoldContainer() {
   stage.addChild(plusGoldContainer);
 }
 
+// ARENA CONTAINER
+function setArenaContainer() {
+  let arenaContainer = new Container();
+
+  for (let item of interMainScreenArray) {
+    setInteractive(item, false);
+  }
+
+  for (let item of interScrollArray) {
+    setInteractive(item, false);
+  }
+
+  // Load `backgroundEmptyBlurPath` string path
+  function loadBackgroundEmptyBlurImage() {
+    if (backgroundEmptyBlurPath in loader.resources) {
+      // console.log(`${backgroundEmptyBlurPath} - already in stage`);
+      addBackgroundEmptyBlurImage();
+    } else {
+      loader
+        .add(backgroundEmptyBlurPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundEmptyBlurImage();
+      });
+  }
+
+  function addBackgroundEmptyBlurImage() {
+    const backgroundEmptyBlur = new Sprite(resources[backgroundEmptyBlurPath].texture);
+    backgroundEmptyBlur.position.set(0, 0);
+
+    arenaContainer.addChild(backgroundEmptyBlur);
+  }
+
+  function loadBackgroundBookImage() {
+    if (backgroundBookPath in loader.resources) {
+      // console.log(`${backgroundBookPath} - already in stage`);
+      addBackgroundBookImage();
+    } else {
+      loader
+        .add(backgroundBookPath);
+    }
+    loader
+      .once('complete', (loader, resources) => {
+        addBackgroundBookImage();
+      });
+  }
+
+  const numberOfArenaEnemies = 3;
+  const arenaEnemies = [{
+      name: 'Krtek',
+      power: 125,
+      rank: 13
+    },
+    {
+      name: 'Bob',
+      power: 235,
+      rank: 10
+    },
+    {
+      name: 'Brouk Pytlík',
+      power: 333,
+      rank: 7
+    },
+    {
+      name: 'Brunda',
+      power: 125,
+      rank: 13
+    },
+    {
+      name: 'Bobek',
+      power: 535,
+      rank: 4
+    },
+    {
+      name: 'Maxipes Fík',
+      power: 386,
+      rank: 9
+    },
+    {
+      name: 'Křemílek',
+      power: 436,
+      rank: 6
+    },
+    {
+      name: 'Rumburak',
+      power: 896,
+      rank: 1
+    }
+  ];
+
+  function addBackgroundBookImage() {
+    const backgroundDarker = new Sprite(resources[backgroundDarkerPath].texture);
+    backgroundDarker.position.set(0, 0);
+
+    const backgroundBook = new Sprite(resources[backgroundBookPath].texture);
+    backgroundBook.position.set(GAME_WIDTH / 2 - backgroundBook.width / 2, 144);
+
+    btnBack = new Sprite(resources[btnBackPath].texture);
+    btnBack.position.set(36, 36);
+    setInteractive(btnBack, true);
+    btnBack.on('click', () => {
+      // console.log('btnBack clicked');
+      setTimeout(() => {
+        backIconClicked(btnBack, arenaContainer);
+      }, LATENCY / 2);
+    });
+
+    arenaContainer.addChild(backgroundDarker, backgroundBook, btnBack);
+
+    let bannerArena = new Sprite(resources[banner620x98Path].texture);
+    bannerArena.position.set(304, 180);
+
+    let textBannerArena = new Text('Arena', textStyleLevel_40center_white);
+    textBannerArena.position.set(
+      setMiddlePos(bannerArena, textBannerArena).x,
+      setMiddlePos(bannerArena, textBannerArena).y - 8 //200
+    );
+
+    arenaContainer.addChild(bannerArena, textBannerArena);
+
+    let arenaPlayerBackground = new Sprite(resources[arenaPlayerBackgroundPath].texture);
+    arenaPlayerBackground.position.set(332, 290);
+
+    arenaContainer.addChild(arenaPlayerBackground);
+
+    let textLblName, textEnemyPowerNumber, textRankNumber;
+
+    let arenaEnemyContainer = new Container();
+
+    for (let index = 0; index < numberOfArenaEnemies; index++) {
+
+      let arenaEnemyBackground = new Sprite(resources[arenaEnemyBackgroundPath].texture);
+      arenaEnemyBackground.position.set(1008, 180 + 228 * index);
+
+      let btnAttack = new Sprite(resources[btnPink172x48Path].texture);
+      btnAttack.position.set(1392, 320 + 228 * index);
+
+      let textBtnAttack = new Text('Attack', textStyle_32center_black);
+      textBtnAttack.position.set(
+        setMiddlePos(btnAttack, textBtnAttack).x,
+        setMiddlePos(btnAttack, textBtnAttack).y + 2
+      );
+
+      setInteractive(btnAttack, true);
+      btnAttack.on('pointerup', () => {
+        console.log('btnAttack clicked');
+      });
+
+      let lblName = new Sprite(resources[lblBlue348x48Path].texture);
+      lblName.position.set(1196, 216 + 228 * index);
+
+      textLblName = new Text(arenaEnemies[index].name, textStyle_32center_black);
+      textLblName.position.set(
+        setMiddlePos(lblName, textLblName).x,
+        setMiddlePos(lblName, textLblName).y + 2
+      );
+
+      let textEnemyPower = new Text('Power:', textStyle_32center_black);
+      textEnemyPower.position.set(
+        1196,
+        setMiddlePos(arenaEnemyBackground, textEnemyPower).y + 8
+      );
+
+      textEnemyPowerNumber = new Text(arenaEnemies[index].power, textStyle_32center_black);
+      textEnemyPowerNumber.position.set(
+        textEnemyPower.x + textEnemyPower.width + 12,
+        textEnemyPower.y
+      );
+
+      let textRank = new Text('Rank:', textStyle_32center_black);
+      textRank.position.set(
+        1196,
+        textEnemyPower.y + textEnemyPower.height + textRank.height - 20
+      );
+
+      textRankNumber = new Text(arenaEnemies[index].rank, textStyle_32center_black);
+      textRankNumber.position.set(
+        textRank.x + textRank.width + 12,
+        textRank.y
+      );
+
+      arenaEnemyContainer.addChild(arenaEnemyBackground, lblName, textLblName,
+        btnAttack, textBtnAttack,
+        textEnemyPower, textEnemyPowerNumber, textRank, textRankNumber);
+      arenaContainer.addChild(arenaEnemyContainer);
+    }
+
+    let btnRules = new Sprite(resources[btnGreen260x72Path].texture);
+    btnRules.position.set(332, 726);
+
+    let textBtnRules = new Text('Rules', textStyle_32center_black);
+    textBtnRules.position.set(
+      setMiddlePos(btnRules, textBtnRules).x,
+      setMiddlePos(btnRules, textBtnRules).y + 2
+    );
+
+    let btnRanking = new Sprite(resources[btnGreen260x72Path].texture);
+    btnRanking.position.set(652, 726);
+
+    let textBtnRanking = new Text('Ranking', textStyle_32center_black);
+    textBtnRanking.position.set(
+      setMiddlePos(btnRanking, textBtnRanking).x,
+      setMiddlePos(btnRanking, textBtnRanking).y + 2
+    );
+
+    let btnHistory = new Sprite(resources[btnGreen260x72Path].texture);
+    btnHistory.position.set(332, 822);
+
+    let textBtnHistory = new Text('History', textStyle_32center_black);
+    textBtnHistory.position.set(
+      setMiddlePos(btnHistory, textBtnHistory).x,
+      setMiddlePos(btnHistory, textBtnHistory).y + 2
+    );
+
+    let btnExchange = new Sprite(resources[btnGreen260x72Path].texture);
+    btnExchange.position.set(652, 822);
+
+    let textBtnExchange = new Text('Exchange', textStyle_32center_black);
+    textBtnExchange.position.set(
+      setMiddlePos(btnExchange, textBtnExchange).x,
+      setMiddlePos(btnExchange, textBtnExchange).y + 2
+    );
+
+    arenaContainer.addChild(btnRules, textBtnRules, btnRanking, textBtnRanking,
+      btnHistory, textBtnHistory, btnExchange, textBtnExchange);
+
+    let btnAdjust = new Sprite(resources[btnPink172x48Path].texture);
+    btnAdjust.position.set(710, 310);
+
+    let textBtnAdjust = new Text('Adjust', textStyle_32center_black);
+    textBtnAdjust.position.set(
+      setMiddlePos(btnAdjust, textBtnAdjust).x,
+      setMiddlePos(btnAdjust, textBtnAdjust).y + 2
+    );
+
+    let textMyRank = new Text('My rank:', textStyle_32center_black);
+    textMyRank.position.set(
+      384,
+      setMiddlePos(btnAdjust, textMyRank).y
+    );
+
+    let textMyRankNumber = new Text('12', textStyle_32center_black);
+    textMyRankNumber.position.set(
+      setMiddlePos(textMyRank, textMyRankNumber).x,
+      textMyRank.y + textMyRank.height + textMyRankNumber.height - 24
+    );
+
+    let textPower = new Text('Power:', textStyle_32center_black);
+    textPower.position.set(
+      setMiddlePos(textMyRank, textPower).x,
+      420
+    );
+
+    let textPowerNumber = new Text('548', textStyle_32center_black);
+    textPowerNumber.position.set(
+      setMiddlePos(textPower, textPowerNumber).x,
+      textPower.y + textPower.height + textPowerNumber.height - 24
+    );
+
+    let btnRefresh = new Sprite(resources[btnPink172x48Path].texture);
+    btnRefresh.position.set(1392, 870);
+
+    let textBtnRefresh = new Text('Refresh', textStyle_32center_black);
+    textBtnRefresh.position.set(
+      setMiddlePos(btnRefresh, textBtnRefresh).x,
+      setMiddlePos(btnRefresh, textBtnRefresh).y + 2
+    );
+
+    setInteractive(btnRefresh, true);
+    btnRefresh.on('pointerup', () => {
+      console.log('btnRefresh clicked');
+
+      arenaContainer.removeChild(arenaEnemyContainer);
+
+      for (let i = 0; i < numberOfArenaEnemies; i++) {
+        let idx = getRandomInt(0, arenaEnemies.length - 1);
+        console.log(idx, arenaEnemies[idx].name, arenaEnemies[idx].power, arenaEnemies[idx].rank);
+
+        // for (let index = 0; index < numberOfArenaEnemies; index++) {
+        let arenaEnemyBackground = new Sprite(resources[arenaEnemyBackgroundPath].texture);
+        arenaEnemyBackground.position.set(1008, 180 + 228 * i);
+
+        let btnAttack = new Sprite(resources[btnPink172x48Path].texture);
+        btnAttack.position.set(1392, 320 + 228 * i);
+
+        let textBtnAttack = new Text('Attack', textStyle_32center_black);
+        textBtnAttack.position.set(
+          setMiddlePos(btnAttack, textBtnAttack).x,
+          setMiddlePos(btnAttack, textBtnAttack).y + 2
+        );
+
+        setInteractive(btnAttack, true);
+        btnAttack.on('pointerup', () => {
+          console.log('btnAttack clicked');
+        });
+
+        let lblName = new Sprite(resources[lblBlue348x48Path].texture);
+        lblName.position.set(1196, 216 + 228 * i);
+
+        textLblName = new Text(arenaEnemies[idx].name, textStyle_32center_black);
+        textLblName.position.set(
+          setMiddlePos(lblName, textLblName).x,
+          setMiddlePos(lblName, textLblName).y + 2
+        );
+
+        let textEnemyPower = new Text('Power:', textStyle_32center_black);
+        textEnemyPower.position.set(
+          1196,
+          setMiddlePos(arenaEnemyBackground, textEnemyPower).y + 8
+        );
+
+        textEnemyPowerNumber = new Text(arenaEnemies[idx].power, textStyle_32center_black);
+        textEnemyPowerNumber.position.set(
+          textEnemyPower.x + textEnemyPower.width + 12,
+          textEnemyPower.y
+        );
+
+        let textRank = new Text('Rank:', textStyle_32center_black);
+        textRank.position.set(
+          1196,
+          textEnemyPower.y + textEnemyPower.height + textRank.height - 20
+        );
+
+        textRankNumber = new Text(arenaEnemies[idx].rank, textStyle_32center_black);
+        textRankNumber.position.set(
+          textRank.x + textRank.width + 12,
+          textRank.y
+        );
+
+        arenaEnemyContainer.addChild(arenaEnemyBackground, lblName, textLblName,
+          btnAttack, textBtnAttack,
+          textEnemyPower, textEnemyPowerNumber, textRank, textRankNumber);
+        arenaContainer.addChild(arenaEnemyContainer);
+        // }
+      }
+    });
+
+    let textCooldown = new Text('Cooldown:', textStyle_32center_black);
+    textCooldown.position.set(
+      1036,
+      textBtnRefresh.y
+    );
+
+    let textCooldownTimer = new Text('01:23', textStyle_32center_black);
+    textCooldownTimer.position.set(
+      textCooldown.x + textCooldown.width + 12,
+      textCooldown.y
+    );
+
+    arenaContainer.addChild(btnAdjust, textBtnAdjust, textMyRank, textMyRankNumber,
+      textPower, textPowerNumber, btnRefresh, textBtnRefresh,
+      textCooldown, textCooldownTimer);
+  }
+
+  loadBackgroundEmptyBlurImage();
+  loadBackgroundBookImage();
+
+  stage.addChild(arenaContainer);
+}
+
 // Setup
 function setScrollArrow(container, heroesText, inventoryText, tasksText,
   trialsText, battleText, marketsText, arenaText, grandArenaText, arenaShopText,
@@ -2293,6 +2660,11 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
 
       const btnArena = new Sprite(resources[btn144x144Path].texture);
       btnArena.position.set(1428, 720);
+      setInteractive(btnArena, true);
+      interScrollArray.push(btnArena);
+      btnArena.on('click', e => {
+        setArenaContainer();
+      });
 
       const textBtnArena = new Text(arenaText, textStyle144_40center_black);
       textBtnArena.position.set(
@@ -5759,12 +6131,12 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         container.vx = speedX;
         container.vy = speedY;
 
-        enemy.scale.set(1.6);
+        enemy.scale.set(1.4);
 
         enemy.x = 0;
         enemy.y = 0;
 
-        container.x = GAME_WIDTH - enemy.width;
+        container.x = 1200 + 92 * i; //GAME_WIDTH - enemy.width;
 
         const enemyHealthBar = new Container();
 
@@ -5801,7 +6173,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
       function enemyAutoAttackTimer(enemyObj, enemyName) {
         const enemyAA = 1000 * (Math.round10(attack_delay / (enemyObj.attack_speed + enemyObj.attack_speed_inc * (enemyObj.level - 1)), -2));
-        console.log(`${enemyName}: ${enemyAA}`);
+        console.log(`${enemyName} auto attack speed: ${enemyAA / 1000} s`);
 
         let temp = 0,
           t = 0;
@@ -5993,7 +6365,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         hero.scale.set(0.8);
         hero.x = 0;
         hero.y = 0;
-        container.x = 0;
+        container.x = 720 - hero.width - 92 * i;
 
         const heroHealthBar = new Container();
 
@@ -6032,7 +6404,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
 
       function heroAutoAttackTimer(heroObj, heroName, i) {
         const heroAA = 1000 * (Math.round10(attack_delay / (heroObj.attack_speed + heroObj.attack_speed_inc * (heroObj.level - 1)), -2));
-        console.log(`${heroName}: ${heroAA}`);
+        console.log(`${heroName} auto attack speed: ${heroAA / 1000} s`);
 
         let temp = 0;
         let calcArmor, calcMagicResist;
@@ -6124,7 +6496,7 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                               chests++;
                               textChestBackground.text = chests;
                               attackScreenContainer.removeChild(glyph);
-                            }, 1000);
+                            }, 2000);
                           }
                           setTimeout(() => {
                             setVictoryScreenContainer(money, resultRewards);
@@ -6237,51 +6609,56 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       }
 
       if (heroesAmount === selectedHeroesList.length) {
-        for (let heroContainer of frontHeroes) {
-          attackScreenContainer.addChild(heroContainer);
+        // for (let heroContainer of frontHeroes) {
+        //   attackScreenContainer.addChild(heroContainer);
+        // }
+        for (let i = frontHeroes.length - 1; i >= 0; i--) {
+          // console.log(i, frontHeroes[i]);
+          attackScreenContainer.addChild(frontHeroes[i]);
         }
       }
 
       let countdown = 80;
-      let myTimer = null;
+      // let myTimer = null;
+      let heroTimerAA = null;
       // console.log(countdown);
 
-      function startTimer() {
-        let myTimer = setInterval(() => {
-          countdown--;
-          if (countdown === 0) {
-            textTimerIcon.text = '00:00';
-            // console.log(selectedEnemiesList.length);
-            if (selectedEnemiesList.length > 0) {
-              console.log('You did not killed all enemies. You lost!');
-              // setDefeatScreenContainer();
-            }
-            console.log(`Battle Finished!`);
-            setInteractive(pauseIcon, false);
-            for (let index in battleListOfHeroesIcons) {
-              setInteractive(battleListOfHeroesIcons[index].children[0], false);
-            }
-            // console.log(`${battleListOfHeroesIcons}`);
-            clearInterval(myTimer);
-            setTimeout(() => {
-              setDefeatScreenContainer();
-            }, 2000);
-          } else {
-            let minutes = ~~(countdown / 60);
-            if (minutes < 10) {
-              minutes = '0' + minutes;
-            }
-            let seconds = countdown % 60;
-            if (seconds < 10) {
-              seconds = '0' + seconds;
-            }
-            // console.log(minutes+':'+seconds);
-            textTimerIcon.text = minutes + ':' + seconds;
-            // console.log(`selectedEnemiesList.length: ${selectedEnemiesList.length}`);
+      // function startTimer() {
+      let myTimer = setInterval(() => {
+        countdown--;
+        if (countdown === 0) {
+          textTimerIcon.text = '00:00';
+          // console.log(selectedEnemiesList.length);
+          if (selectedEnemiesList.length > 0) {
+            console.log('You did not killed all enemies. You lost!');
+            // setDefeatScreenContainer();
           }
-        }, 1000);
-      }
-      startTimer();
+          console.log(`Battle Finished!`);
+          setInteractive(pauseIcon, false);
+          for (let index in battleListOfHeroesIcons) {
+            setInteractive(battleListOfHeroesIcons[index].children[0], false);
+          }
+          // console.log(`${battleListOfHeroesIcons}`);
+          clearInterval(myTimer);
+          setTimeout(() => {
+            setDefeatScreenContainer();
+          }, 2000);
+        } else {
+          let minutes = ~~(countdown / 60);
+          if (minutes < 10) {
+            minutes = '0' + minutes;
+          }
+          let seconds = countdown % 60;
+          if (seconds < 10) {
+            seconds = '0' + seconds;
+          }
+          // console.log(minutes+':'+seconds);
+          textTimerIcon.text = minutes + ':' + seconds;
+          // console.log(`selectedEnemiesList.length: ${selectedEnemiesList.length}`);
+        }
+      }, 1000);
+      // }
+      // startTimer();
 
       function chooseHeroUltSkill(index) {
         // console.log(`${heroObject[i].name}`);
@@ -6410,14 +6787,14 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
                               chests++;
                               textChestBackground.text = chests;
                               attackScreenContainer.removeChild(glyph);
-                            }, 1000);
+                            }, 2000);
                           }
                           setTimeout(() => {
-                            // setVictoryScreenContainer(money, resultRewards);
+                            setVictoryScreenContainer(money, resultRewards);
                           }, 2000);
                         } else {
                           setTimeout(() => {
-                            // setVictoryScreenContainer(money, resultRewards);
+                            setVictoryScreenContainer(money, resultRewards);
                           }, 2000);
                         }
                       }
@@ -6461,11 +6838,11 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       }
 
       let heroHitArr = [];
-      for (let hero of selectedHeroList) heroHitArr.push(hero);
+      // for (let hero of selectedHeroList) heroHitArr.push(hero);
       // console.log('heroHitArr', heroHitArr);
 
       let enemyHitArr = [];
-      for (let enemy of selectedEnemiesList) enemyHitArr.push(enemy);
+      // for (let enemy of selectedEnemiesList) enemyHitArr.push(enemy);
       // console.log('enemyHitArr', enemyHitArr);
 
       function heroAttackStarted(heroContainer, hero, index) {
@@ -6473,21 +6850,35 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
         // Move the hero inside the battle scene
         heroMove(heroContainer);
 
-        // Check for a collision (distance) between the hero and the enemy
-        if (hitTestRectangle(heroContainer, battleListOfEnemies[0], heroObject[index])) {
-          heroContainer.vx = 0;
-          heroHit = true;
-          // heroContainer.x -= 2;
-          if (heroHitArr[index] === heroObject[index].name) {
-            // console.log(heroObject[index].name, ': Hit!!');
-            let filteredHeroes = heroHitArr.filter(f => f !== heroObject[index].name);
-            // console.log(filteredHeroes);
-            heroHitArr = filteredHeroes;
-            // heroHitArr.push(heroObject[index].name);
+        function heroMove(heroContainer) {
+          // console.log(`hero: ${hero.x}, ${endPosX}`);
+          // console.log('heroContainer:', heroContainer);
+          // hero.x += hero.vx;
+          heroContainer.x += heroContainer.vx;
+          contain(heroContainer, {
+            x: -12 - heroContainer.width,
+            y: 0,
+            width: GAME_WIDTH,
+            height: GAME_HEIGHT
+          });
+          // }
+
+          // Check for a collision (distance) between the hero and the enemy
+          if (hitTestRectangle(heroContainer, battleListOfEnemies[0], heroObject[index])) {
+            heroContainer.vx = 0;
+            heroHit = true;
+            // heroContainer.x -= 2;
+            if (heroHitArr[index] === heroObject[index].name) {
+              console.log(heroObject[index].name, ': Hit!!');
+              let filteredHeroes = heroHitArr.filter(f => f !== heroObject[index].name);
+              console.log(filteredHeroes);
+              heroHitArr = filteredHeroes;
+              // heroHitArr.push(heroObject[index].name);
+            }
+            // heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
+          } else {
+            heroHit = false;
           }
-          // heroAutoAttackTimer(heroObject[index], selectedHeroesList[index], index);
-        } else {
-          heroHit = false;
         }
       }
 
@@ -6514,63 +6905,63 @@ function setAttackScreenContainer(selectedHeroList, difficulty, chapter, possibl
       }
 
       function battle() {
-        setTimeout(() => {
-          for (let index in selectedEnemiesList) {
-            switch (selectedEnemiesList[index]) {
-              case 'Enemy 1':
-                enemyAttackStarted(enemy01Container, enemy01, index);
-                break;
-              case 'Enemy 2':
-                enemyAttackStarted(enemy02Container, enemy02, index);
-                break;
-              case 'Enemy 3':
-                enemyAttackStarted(enemy03Container, enemy03, index);
-                // battleListOfEnemies.push(enemy03);
-                break;
-              case 'Enemy 4':
-                enemyAttackStarted(enemy04Container, enemy04, index);
-                break;
-              case 'Enemy 5':
-                enemyAttackStarted(enemy05Container, enemy05, index);
-                break;
-              case 'Enemy 6':
-                enemyAttackStarted(enemy06Container, enemy06, index);
-                break;
-            }
-          }
-
-          for (let index in selectedHeroesList) {
-            switch (selectedHeroesList[index]) {
-              case 'Aelois':
-                break;
-              case 'Amara':
-                break;
-              case 'Crystal':
-                heroAttackStarted(crystalContainer, crystal, index);
-                break;
-              case 'Diu Win':
-                heroAttackStarted(diuwinContainer, diuwin, index);
-                break;
-              case 'Leona':
-                heroAttackStarted(leonaContainer, leona, index);
-                break;
-              case 'Leryssa':
-                heroAttackStarted(leryssaContainer, leryssa, index);
-                break;
-              case 'Nadia':
-                break;
-              case 'Nyx':
-                break;
-              case 'Sin':
-                heroAttackStarted(sinContainer, sin, index);
-                break;
-              case 'Zalajin':
-                break;
-              case 'Zaya':
-                break;
-            }
-          }
-        }, 1000);
+        // setTimeout(() => {
+        //     for (let index in selectedEnemiesList) {
+        //       switch (selectedEnemiesList[index]) {
+        //         case 'Enemy 1':
+        //           // enemyAttackStarted(enemy01Container, enemy01, index);
+        //           break;
+        //         case 'Enemy 2':
+        //           // enemyAttackStarted(enemy02Container, enemy02, index);
+        //           break;
+        //         case 'Enemy 3':
+        //           // enemyAttackStarted(enemy03Container, enemy03, index);
+        //           // battleListOfEnemies.push(enemy03);
+        //           break;
+        //         case 'Enemy 4':
+        //           // enemyAttackStarted(enemy04Container, enemy04, index);
+        //           break;
+        //         case 'Enemy 5':
+        //           // enemyAttackStarted(enemy05Container, enemy05, index);
+        //           break;
+        //         case 'Enemy 6':
+        //           // enemyAttackStarted(enemy06Container, enemy06, index);
+        //           break;
+        //       }
+        //     }
+        //
+        //       for (let index in selectedHeroesList) {
+        //         switch (selectedHeroesList[index]) {
+        //           case 'Aelois':
+        //             break;
+        //           case 'Amara':
+        //             break;
+        //           case 'Crystal':
+        //             heroAttackStarted(crystalContainer, crystal, index);
+        //             break;
+        //           case 'Diu Win':
+        //             heroAttackStarted(diuwinContainer, diuwin, index);
+        //             break;
+        //           case 'Leona':
+        //             heroAttackStarted(leonaContainer, leona, index);
+        //             break;
+        //           case 'Leryssa':
+        //             heroAttackStarted(leryssaContainer, leryssa, index);
+        //             break;
+        //           case 'Nadia':
+        //             break;
+        //           case 'Nyx':
+        //             break;
+        //           case 'Sin':
+        //             heroAttackStarted(sinContainer, sin, index);
+        //             break;
+        //           case 'Zalajin':
+        //             break;
+        //           case 'Zaya':
+        //             break;
+        //         }
+        //       }
+        //     }, 1000);
 
         if (heroHitArr.length === 0) {
           // console.log('Playing');
@@ -6721,6 +7112,11 @@ function enemyKilled(posX, posY, whichHero, t, textChestBackground, chests) {
   }
 }
 
+function saveBattleRewards(rewards) {
+  console.log(rewards);
+  socket.emit('saveBattleRewards', rewards);
+}
+
 function setPauseScreenContainer() {
   const pauseScreenContainer = new Container();
 
@@ -6752,7 +7148,8 @@ function setPauseScreenContainer() {
 
 function setVictoryScreenContainer(gold, rr) {
   // console.log('Victory screen');
-  // console.log(rr);
+  console.log(rr);
+  socket.emit('saveBattleRewards', rr);
 
   stage.removeChild(attackScreenContainer);
 
@@ -7004,6 +7401,7 @@ function setLevelUpScreenContainer() {
 
   loadImages();
 }
+
 
 function setSummonBooksContainer() {
   for (let item of interMainScreenArray) {
@@ -7524,7 +7922,7 @@ function setInventoryContainer() {
 
       socket.emit('getInventory');
       socket.on('getInventoryData', data => {
-        console.log('getInventoryData', data);
+        // console.log('getInventoryData', data);
 
         let inventory = data.inventory;
 
@@ -7560,29 +7958,29 @@ function setInventoryContainer() {
   stage.addChild(inventoryContainer);
 }
 
-function heroMove(heroContainer) {
-  // console.log(`hero: ${hero.x}, ${endPosX}`);
-  // console.log('heroContainer:', heroContainer);
-  // hero.x += hero.vx;
-  heroContainer.x += heroContainer.vx;
-  contain(heroContainer, {
-    x: -12 - heroContainer.width,
-    y: 0,
-    width: GAME_WIDTH,
-    height: GAME_HEIGHT
-  });
-
-  // hero.position.set(
-  // -12-hero.width,
-  // heroesBattleCoorArray[i][1]-hero.height/2
-  // );
-
-  // if (hero.x > endPosX) {
-  // hero.vx = 0;
-  // hero.x = endPosX;
-  // heroAttack(heroObject[index], index);
-  // }
-}
+// function heroMove(heroContainer) {
+//   // console.log(`hero: ${hero.x}, ${endPosX}`);
+//   // console.log('heroContainer:', heroContainer);
+//   // hero.x += hero.vx;
+//   heroContainer.x += heroContainer.vx;
+//   contain(heroContainer, {
+//     x: -12 - heroContainer.width,
+//     y: 0,
+//     width: GAME_WIDTH,
+//     height: GAME_HEIGHT
+//   });
+//
+//   // hero.position.set(
+//   // -12-hero.width,
+//   // heroesBattleCoorArray[i][1]-hero.height/2
+//   // );
+//
+//   // if (hero.x > endPosX) {
+//   // hero.vx = 0;
+//   // hero.x = endPosX;
+//   // heroAttack(heroObject[index], index);
+//   // }
+// }
 
 function enemyMove(enemyContainer) {
   // console.log(`enemy: ${enemy.x}, ${endPosX}`);

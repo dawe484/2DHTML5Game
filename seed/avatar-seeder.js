@@ -58,7 +58,7 @@ let avatars = [
     max_hero_lvl: 10,
     current_exp: 0,
     next_lvl_exp: 8,
-    current_energy: 60,
+    current_energy: 42,
     max_energy: 60,
     gold: 0,
     diamond: 500,
@@ -99,7 +99,7 @@ let avatars = [
         difficulty: 'Normal',
         opened: 'yes',
         text: 'Progress',
-        chapter: '1-1',
+        chapter: '1-6',
         selected: true,
         // paragraphNumber: 1
       },
@@ -173,6 +173,7 @@ let avatars = [
       },
       {
         p_difficulty: 'Normal',
+        p_opened: 'yes',
         p_chapter: '1-2',
         // p_paragraphNumber: 2,
         p_paragraphIcon: 'stageIcon',
@@ -195,6 +196,7 @@ let avatars = [
       {
         p_difficulty: 'Normal',
         p_chapter: '1-3',
+        p_opened: 'yes',
         // p_paragraphNumber: 3,
         p_paragraphIcon: 'stageIcon',
         p_bannerTitle: 'Paragraph 1-3',
@@ -216,6 +218,7 @@ let avatars = [
       {
         p_difficulty: 'Normal',
         p_chapter: '1-4',
+        p_opened: 'yes',
         // p_paragraphNumber: 4,
         p_paragraphIcon: 'stageIcon',
         p_bannerTitle: 'Paragraph 1-4',
@@ -236,6 +239,7 @@ let avatars = [
       },
       {
         p_difficulty: 'Normal',
+        p_opened: 'yes',
         p_chapter: '1-5',
         // p_paragraphNumber: 5,
         p_paragraphIcon: 'stageIcon',
@@ -257,6 +261,7 @@ let avatars = [
       },
       {
         p_difficulty: 'Normal',
+        p_opened: 'yes',
         p_chapter: '1-6',
         // p_paragraphNumber: 6,
         p_paragraphIcon: 'stageIcon',

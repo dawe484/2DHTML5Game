@@ -507,7 +507,7 @@ io.on('connection', (socket) => {
           'avatar': 1
         }, (err, data) => {
           if (err) throw err;
-          console.log('Loading barContainer data from DB.');
+          // console.log('Loading barContainer data from DB.');
           socket.emit('barContainerData', {
             currentEnergy: data[0].avatar[0].current_energy,
             maxEnergy: data[0].avatar[0].max_energy,
@@ -1322,6 +1322,28 @@ io.on('connection', (socket) => {
       //     });
       //   });
       // });
+
+      socket.on('saveBattleRewards', rewards => {
+        User.find({
+          username: playerName
+        }, {
+          _id: 0,
+          'avatar.inventory': 1
+        }, (err, data) => {
+          if (err) throw err;
+          let inventory = data[0].avatar[0].inventory;
+          for (let reward of rewards) inventory.push(reward);
+          // console.log(inventory);
+          user.avatar[0].inventory = inventory;
+          user.save();
+          // .then(() => {
+          //   console.log(`Put ${summonedItem} into inventory and save it into the DB.`);
+          // })
+          // .catch(error => {
+          //   console.log(`Something goes wrong. Cannot save reward.`);
+          // });
+        });
+      });
 
       socket.on('saveItem', summonedItem => {
         User.find({

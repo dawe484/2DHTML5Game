@@ -13,7 +13,7 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: "M",
-    text: "Um... What's wrong?"
+    text: "Um... What?"
   }),
   new StoryTutorial({
     speaker: "A",
@@ -65,7 +65,7 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: "M",
-    text: "The Grandmaster didn't tell you what kinds of books we are\nhiding here?"
+    text: "The Grandmaster didn't tell you what kinds of books we \nhide here?"
   }),
   new StoryTutorial({
     speaker: "P",
@@ -77,13 +77,13 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: "M",
-    text: "When the hero dies, the force he controls, or her, is sealed into\na normal book" +
-      "which then becomes magical which means that\nthe one who owns the book..."
+    text: "When the hero dies, the force that he controled, or she, is sealed\ninto a normal book" +
+      " which then becomes magical which means\nthat the one who owns the book..."
   }),
   new StoryTutorial({
     speaker: "M",
     text: "...can summon this hero through the summoning spell and it's\nonly up to" +
-      "the owner whether the hero will do good or evil."
+      " the owner whether the hero will do good or evil."
   }),
   new StoryTutorial({
     speaker: "P",
@@ -99,11 +99,12 @@ let storyTutorials = [
   }),
   new StoryTutorial({
     speaker: "P",
-    text: "OK. But what am I supposed to do when I met a summoning\nhero."
+    text: "OK. But what do I supposed to do when I meet these heroes?"
   }),
   new StoryTutorial({
-    speaker: "M",
-    text: "Come with me. One magic book stays here, I will teach you\nhow to summon a hero."
+    speaker: " ",
+    text: "..."
+    // text: "Come with me. One magic book stays here, I will teach you\nhow to summon a hero."
   }),
 ];
 

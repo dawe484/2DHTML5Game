@@ -13,8 +13,8 @@ const User = require('../models/user');
 
 // let playerName;
 
-// router.get('/:userUrlName', isLoggedIn, (req, res) => {
-router.get('/:userUrlName', (req, res) => {
+router.get('/:userUrlName', isLoggedIn, (req, res) => {
+  // router.get('/:userUrlName', (req, res) => {
   // playerName = req.params.userUrlName;
 
   User.getUserByUsername(req.params.userUrlName, (err, user) => {
