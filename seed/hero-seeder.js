@@ -1973,7 +1973,7 @@ let heroes = [
       // Purple +3 -> Orange
     ]
     // predelat number 2 na 1 vsude a ukladat priznak, zda uz ma hrdina glyph naucen
-  })
+  }),
 ];
 
 Hero.remove({}, function(err) {
@@ -1989,14 +1989,27 @@ Hero.remove({}, function(err) {
 let done = 0;
 
 for (let i = 0; i < heroes.length; i++) {
-  heroes[i].save(() => {
-    done++;
-    if (done === heroes.length) {
-      // eslint-disable-next-line no-console
-      console.log('All heroes saved in DB.');
-      exit();
-    }
-  });
+  // console.log(heroes[i].name);
+  heroes[i].save()
+    .then(() => {
+      done++;
+      if (done === heroes.length) {
+        // eslint-disable-next-line no-console
+        console.log('All heroes saved in DB.');
+        exit();
+      }
+    })
+    .catch(error => {
+      console.log(`Something goes wrong. Cannot save ${heroes[i].name}.`);
+    });
+  // heroes[i].save(() => {
+  //   done++;
+  //   if (done === heroes.length) {
+  //     // eslint-disable-next-line no-console
+  //     console.log('All heroes saved in DB.');
+  //     exit();
+  //   }
+  // });
 }
 
 function exit() {

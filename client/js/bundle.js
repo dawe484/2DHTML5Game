@@ -2661,11 +2661,11 @@ function setScrollContainer(heroesText, inventoryText, tasksText, trialsText,
 
       const btnArena = new Sprite(resources[btn144x144Path].texture);
       btnArena.position.set(1428, 720);
-      setInteractive(btnArena, true);
-      interScrollArray.push(btnArena);
-      btnArena.on('click', e => {
-        setArenaContainer();
-      });
+      // setInteractive(btnArena, true);
+      // interScrollArray.push(btnArena);
+      // btnArena.on('click', e => {
+      //   setArenaContainer();
+      // });
 
       const textBtnArena = new Text(arenaText, textStyle144_40center_black);
       textBtnArena.position.set(
