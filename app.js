@@ -334,7 +334,11 @@ io.on('connection', (socket) => {
   if (address.substr(7, 9) == 'localhost') {
     playerName = address.substr(27); // on localhost need this !!
   } else {
-    playerName = address.substr(41); // on heroku need this !!
+    if (address.substr(0, 5) == 'https') {
+      playerName = address.substr(41); // https on heroku need this !!
+    } else {
+      playerName = address.substr(40); // http
+    }
   }
 
   console.log('player:', playerName, 'connected on socket:', socket.id, '.');

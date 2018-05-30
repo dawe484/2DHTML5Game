@@ -1926,11 +1926,9 @@ function setBarContainer() {
   const diamondIcon = new Sprite(resources[diamondIconPath].texture);
   diamondIcon.position.set(1128, 30);
 
-  barContainer.addChild(
-    barEnergyBackground, plusBarEnergy,
+  barContainer.addChild(barEnergyBackground, plusBarEnergy,
     barGoldBackground, plusBarGold, goldIcon,
-    barDiamondBackground, plusBarDiamond, diamondIcon,
-  );
+    barDiamondBackground, plusBarDiamond, diamondIcon);
 
   loadBarContainerData('barContainer', 'barContainerData');
 }
